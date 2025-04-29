@@ -1,23 +1,7 @@
 import pytest
-import json
 import jsonschema
-import os
 
 SCHEMA_FILE = "card.attn.req.notecard.api.json"
-
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-# Get the absolute path to the schema file relative to the project root
-schema_file_path = os.path.join(project_root, SCHEMA_FILE)
-
-@pytest.fixture(scope='module')
-def schema():
-    """Loads the JSON schema."""
-    # Check if the file exists before opening
-    if not os.path.exists(schema_file_path):
-        pytest.fail(f"Schema file not found at: {schema_file_path}")
-    with open(schema_file_path, 'r') as f:
-        schema_data = json.load(f)
-    return schema_data
 
 def test_valid_req(schema):
     """Tests a minimal valid request."""
