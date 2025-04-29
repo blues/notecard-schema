@@ -10,7 +10,7 @@
             "type": "array",
             "items": {
                 "type": "string",
-                "pattern": "^.*\\.(q(o|i))|(db)s?$"
+                "pattern": "^.+\\.(qo|qi|db|dbs)$"
             },
             "minItems": 1
         },
