@@ -6,6 +6,7 @@ name = "pypi"
 [dev-packages]
 pytest = "*"
 jsonschema = "*"
+requests = "*"
 
 [requires]
 python_version = "3.13"
