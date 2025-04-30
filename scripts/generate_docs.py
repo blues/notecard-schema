@@ -43,7 +43,7 @@ def generate_markdown_for_schema(schema):
     if not req_name:
         req_name = title.split(' ')[0] if title else "request" # Fallback
 
-    md_parts.append(f"### `{req_name}`")
+    md_parts.append(f"### `{req_name}`\n")
     md_parts.append(f"{description}\n")
 
     if properties and isinstance(properties, dict):
@@ -154,7 +154,7 @@ def main():
 
     markdown_output.append("# Notecard API Reference")
     markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) version {schema_version} (API Version: {api_version})_\n")
-    markdown_output.append("## Requests")
+    markdown_output.append("## Requests\n")
     markdown_output.append("The Notecard accepts requests in JSON format. Each request object must contain a `req` or `cmd` field specifying the request type. E.g. `{\"req\": \"card.status\"}` or `{\"cmd\": \"card.status\"}`\n")
 
     for ref, schema in all_schemas_data:

@@ -29,3 +29,11 @@ jobs:
 
     - name: Run tests with pytest
       run: pipenv run pytest
+
+  check_json:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
