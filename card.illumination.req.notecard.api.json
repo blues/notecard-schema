@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.req.notecard.api.json",
     "title": "card.illumination Request Application Programming Interface (API) Schema",
-    "description": "Returns an illumination reading (in lux) from an OPT3001 sensor.",
+    "description": "This request returns an illumination reading (in lux) from an OPT3001 ambient light sensor connected to Notecard's I2C bus. If no OPT3001 sensor is detected, this request returns an “illumination sensor is not available” error.",
     "type": "object",
     "properties": {
         "cmd": {

@@ -6,7 +6,7 @@
     "properties": {
         "lux": {
             "type": "number",
-            "description": "The illumination reading in lux"
+            "description": "An illumination reading (in lux) from the attached OPT3001 sensor."
         }
     },
     "version": "0.1.1",
