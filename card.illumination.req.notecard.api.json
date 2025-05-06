@@ -1,0 +1,42 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.req.notecard.api.json",
+    "title": "card.illumination Request Application Programming Interface (API) Schema",
+    "description": "Returns an illumination reading (in lux) from an OPT3001 sensor.",
+    "type": "object",
+    "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.illumination"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.illumination"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.illumination"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.illumination"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "version": "0.1.1",
+    "apiVersion": "9.1.1"
+}

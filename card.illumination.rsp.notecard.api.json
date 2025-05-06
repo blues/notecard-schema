@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.rsp.notecard.api.json",
+    "title": "card.illumination Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "properties": {
+        "lux": {
+            "type": "number",
+            "description": "The illumination reading in lux"
+        }
+    },
+    "version": "0.1.1",
+    "apiVersion": "9.1.1"
+}
