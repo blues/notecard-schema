@@ -67,3 +67,24 @@ def schema(request):
         # For all other schema files, return only the schema content
         # and do not pass a registry, as they do not need it or expect it.
         return main_schema_content
+
+@pytest.fixture(scope='module')
+def schema_samples(request):
+    """Loads samples from the JSON schema specified by the test module's SCHEMA_FILE."""
+    schema_filename = getattr(request.module, "SCHEMA_FILE", None)
+    if not schema_filename:
+        pytest.fail(f"Test module {request.module.__name__} must define SCHEMA_FILE to use schema_samples")
+
+    schema_file_path = os.path.join(project_root, schema_filename)
+
+    if not os.path.exists(schema_file_path):
+        pytest.fail(f"Schema file not found at: {schema_file_path} for schema_samples")
+
+    with open(schema_file_path, 'r') as f:
+        schema_data = json.load(f)
+
+    samples = schema_data.get("samples", [])
+    if not samples:
+        pytest.skip("No samples found in the schema to validate.")
+
+    return samples
