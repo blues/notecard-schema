@@ -4,6 +4,8 @@
     "title": "card.contact Request Application Programming Interface (API) Schema",
     "description": "Used to set or retrieve information about the Notecard maintainer. Once set, this information is synched to Notehub.",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "name": {
             "description": "Set the name of the Notecard maintainer",
@@ -54,6 +56,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Set Contact Information",
+            "json": "{\"req\": \"card.contact\", \"name\": \"Tom Turkey\", \"org\": \"Blues\", \"role\": \"Head of Security\", \"email\": \"tom@blues.com\"}"
+        }
+    ],
+    "annotations":{"info":[],"warning":[]}
 }

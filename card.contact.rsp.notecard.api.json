@@ -3,6 +3,8 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.contact.rsp.notecard.api.json",
     "title": "card.contact Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "name": {
             "description": "Name of the Notecard maintainer",
@@ -18,9 +20,14 @@
         },
         "email": {
             "description": "Email address of the Notecard maintainer",
-            "type": "string"
+            "type": "string",
+            "format": "email"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Get Contact Information",
+            "json": "{\"name\": \"Tom Turkey\", \"org\": \"Blues\", \"role\": \"Head of Security\", \"email\": \"tom@blues.com\"}"
+        }
+    ]
 }
