@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.status.rsp.notecard.api.json"
 
@@ -22,7 +23,7 @@ def test_status_invalid_type(schema):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["usb", "connected", "cell", "sync"]
+    ["usb", "connected", "cell", "sync", "gps", "wifi"]
 )
 def test_valid_boolean_field(schema, field_name):
     """Tests valid boolean type for various fields."""
@@ -33,7 +34,7 @@ def test_valid_boolean_field(schema, field_name):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["usb", "connected", "cell", "sync"]
+    ["usb", "connected", "cell", "sync", "gps", "wifi"]
 )
 def test_invalid_type_for_boolean_field(schema, field_name):
     """Tests invalid type for various boolean fields."""
@@ -86,6 +87,8 @@ def test_valid_all_fields(schema):
         "time": 1700000000,
         "connected": True,
         "cell": True,
+        "gps": False,
+        "wifi": True,
         "sync": False,
         "inbound": 0,
         "outbound": 2
@@ -96,3 +99,16 @@ def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
     instance = {"status": "{normal}", "extra": "info"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)

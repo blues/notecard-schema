@@ -3,13 +3,15 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.status.rsp.notecard.api.json",
     "title": "card.status Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "status": {
             "description": "General status information",
             "type": "string"
         },
         "usb": {
-            "description": "Is the Notecard is being powered by USB",
+            "description": "`true`, if the Notecard is being powered by USB",
             "type": "boolean"
         },
         "storage": {
@@ -21,26 +23,42 @@
             "type": "integer"
         },
         "connected": {
-            "description": "Whether the Notecard is connected to the Notehub",
+            "description": "`true`, if the Notecard is connected to the Notehub",
             "type": "boolean"
         },
         "cell": {
-            "description": "Whether the Notecard has a cellular connection",
+            "description": "`true`, if the Notecard has a cellular connection",
+            "type": "boolean"
+        },
+        "gps": {
+            "description": "`true`, if Notecard's GPS module is currently powered on",
+            "type": "boolean"
+        },
+        "wifi": {
+            "description": "`true`, if the Notecard's Wi-Fi radio is currently powered on",
             "type": "boolean"
         },
         "sync": {
-            "description": "Whether the Notecard is currently syncing with the Notehub",
+            "description": "`true`, if the Notecard is currently syncing with the Notehub",
             "type": "boolean"
         },
         "inbound": {
-            "description": "Number of inbound Notes waiting to be retrieved by the host",
+            "description": "The effective inbound synchronization period being used by the device",
             "type": "integer"
         },
         "outbound": {
-            "description": "Number of outbound Notes waiting to be synced to the Notehub",
+            "description": "The effective outbound synchronization period being used by the device",
             "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Get Notecard Status Response",
+            "json": "{\"status\": \"{normal}\", \"usb\": true, \"storage\": 8, \"time\": 1599684765, \"connected\": true, \"cell\": true, \"sync\": true, \"inbound\": 60, \"outbound\": 360}"
+        }
+    ],
+    "annotations": {
+        "info": ["See [Configuring Synchronization Modes](notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work regarding the `inbound` and `outbound` fields."],
+        "warning": []
+    }
 }

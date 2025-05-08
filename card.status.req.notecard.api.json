@@ -4,6 +4,8 @@
     "title": "card.status Request Application Programming Interface (API) Schema",
     "description": "Returns general information about the Notecard's operating status.",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -37,6 +39,10 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Get Notecard Status",
+            "json": "{\"req\": \"card.status\"}"
+        }
+    ]
 }
