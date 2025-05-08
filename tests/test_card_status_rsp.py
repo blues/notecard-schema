@@ -22,7 +22,7 @@ def test_status_invalid_type(schema):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["usb", "connected", "cell", "sync"]
+    ["usb", "connected", "cell", "sync", "gps", "wifi"]
 )
 def test_valid_boolean_field(schema, field_name):
     """Tests valid boolean type for various fields."""
@@ -33,7 +33,7 @@ def test_valid_boolean_field(schema, field_name):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["usb", "connected", "cell", "sync"]
+    ["usb", "connected", "cell", "sync", "gps", "wifi"]
 )
 def test_invalid_type_for_boolean_field(schema, field_name):
     """Tests invalid type for various boolean fields."""
@@ -86,6 +86,8 @@ def test_valid_all_fields(schema):
         "time": 1700000000,
         "connected": True,
         "cell": True,
+        "gps": False,
+        "wifi": True,
         "sync": False,
         "inbound": 0,
         "outbound": 2
