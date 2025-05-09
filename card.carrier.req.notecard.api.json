@@ -4,6 +4,8 @@
     "title": "card.carrier Request Application Programming Interface (API) Schema",
     "description": "Uses the AUX_CHARGING pin on the Notecard edge connector to notify the Notecard that the pin is connected to a Notecarrier that supports charging, using open-drain.",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "The AUX_CHARGING mode. Set to 'charging' to tell the Notecard that AUX_CHARGING is connected to a Notecarrier that supports charging on AUX_CHARGING. Set to '-' or 'off' to turn off the AUX_CHARGING detection",
@@ -46,6 +48,10 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Set the AUX_CHARGING mode to charging",
+            "json": "{\"req\":\"card.carrier\",\"mode\": \"charging\"}"
+        }
+    ]
 }
