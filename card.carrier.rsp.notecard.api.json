@@ -3,6 +3,8 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.carrier.rsp.notecard.api.json",
     "title": "card.carrier Response Application Programming Interface (API) Schema",
     "type": "object",
+        "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "The current AUX_CHARGING mode, or off if not set",
@@ -13,6 +15,10 @@
             "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Get the AUX_CHARGING mode",
+            "json": "{\"mode\": \"charging\",\"charging\": true}"
+        }
+    ]
 }
