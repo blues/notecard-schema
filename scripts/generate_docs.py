@@ -1,6 +1,7 @@
 import json
 import requests
 import os
+import re
 
 def fetch_schema(url):
     """Fetches and parses JSON schema from a URL."""
@@ -15,7 +16,23 @@ def fetch_schema(url):
         print(f"Error decoding JSON from URL {url}")
         return None
 
-def generate_markdown_for_schema(schema):
+def get_base_api_name(schema_ref):
+    """Extracts the base API name from a schema reference."""
+    # Extract filename from URL
+    filename = schema_ref.split('/')[-1]
+    # Remove .notecard.api.json and .req/.rsp
+    base_name = re.sub(r'\.(req|rsp)\.notecard\.api\.json$', '', filename)
+    return base_name
+
+def get_schema_type(schema_ref):
+    """Determines if a schema is a request or response type."""
+    if '.req.' in schema_ref:
+        return 'request'
+    elif '.rsp.' in schema_ref:
+        return 'response'
+    return 'unknown'
+
+def generate_markdown_for_schema(schema, schema_type):
     """Generates Markdown documentation for a single Notecard API schema."""
     md_parts = []
 
@@ -43,7 +60,8 @@ def generate_markdown_for_schema(schema):
     if not req_name:
         req_name = title.split(' ')[0] if title else "request" # Fallback
 
-    md_parts.append(f"### `{req_name}`\n")
+    # Add schema type to the heading
+    md_parts.append(f"#### {schema_type.title()}\n")
     md_parts.append(f"{description}\n")
 
     if properties and isinstance(properties, dict):
@@ -94,6 +112,25 @@ def generate_markdown_for_schema(schema):
     else:
         md_parts.append("No specific parameters defined.\n")
 
+    # Add samples section if available
+    if 'samples' in schema and isinstance(schema['samples'], list):
+        md_parts.append("**Examples:**\n")
+        for sample in schema['samples']:
+            if isinstance(sample, dict) and 'description' in sample and 'json' in sample:
+                md_parts.append(f"_{sample['description']}_\n")
+                try:
+                    # Pretty print the JSON
+                    json_obj = json.loads(sample['json'])
+                    formatted_json = json.dumps(json_obj, indent=2)
+                    md_parts.append("```json")
+                    md_parts.append(formatted_json)
+                    md_parts.append("```\n")
+                except json.JSONDecodeError:
+                    # If JSON is invalid, show it as is
+                    md_parts.append("```json")
+                    md_parts.append(sample['json'])
+                    md_parts.append("```\n")
+
     return "\n".join(md_parts)
 
 def main():
@@ -117,21 +154,30 @@ def main():
         print("Error: 'oneOf' key missing or not a list in main schema.")
         return
 
-    schema_refs = []
+    # Get request schema references
+    req_schema_refs = []
     for item in main_schema["oneOf"]:
         if isinstance(item, dict) and "$ref" in item:
-            schema_refs.append(item["$ref"])
+            req_schema_refs.append(item["$ref"])
         else:
             print(f"Warning: Invalid item found in 'oneOf': {item}")
 
-    schema_refs.sort()
+    # Generate response schema references from request references
+    rsp_schema_refs = []
+    for req_ref in req_schema_refs:
+        # Replace .req. with .rsp. in the URL
+        rsp_ref = req_ref.replace('.req.', '.rsp.')
+        rsp_schema_refs.append(rsp_ref)
 
-    print(f"Found {len(schema_refs)} schema references. Fetching...")
+    # Combine and sort all schema references
+    all_schema_refs = sorted(req_schema_refs + rsp_schema_refs)
+
+    print(f"Found {len(all_schema_refs)} schema references. Fetching...")
     all_schemas_data = [] # Store tuples of (ref, schema_content)
     fetched_count = 0
     failed_count = 0
 
-    for ref in schema_refs:
+    for ref in all_schema_refs:
         schema_content = fetch_schema(ref)
         if schema_content:
             all_schemas_data.append((ref, schema_content))
@@ -146,22 +192,45 @@ def main():
         print("No schemas fetched, cannot generate documentation.")
         return
 
+    # Group schemas by their base API name
+    grouped_schemas = {}
+    for ref, schema in all_schemas_data:
+        base_name = get_base_api_name(ref)
+        schema_type = get_schema_type(ref)
+        if base_name not in grouped_schemas:
+            grouped_schemas[base_name] = {'request': None, 'response': None}
+        grouped_schemas[base_name][schema_type] = (ref, schema)
+
     # Generate Markdown content
-    print(f"Generating Markdown for {len(all_schemas_data)} schemas...")
+    print(f"Generating Markdown for {len(grouped_schemas)} API groups...")
     markdown_output = []
     api_version = main_schema.get("apiVersion", "Unknown")
     schema_version = main_schema.get("version", "Unknown")
 
     markdown_output.append("# Notecard API Reference")
     markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) version {schema_version} (API Version: {api_version})_\n")
-    markdown_output.append("## Requests\n")
+    markdown_output.append("## API Reference\n")
     markdown_output.append("The Notecard accepts requests in JSON format. Each request object must contain a `req` or `cmd` field specifying the request type. E.g. `{\"req\": \"card.status\"}` or `{\"cmd\": \"card.status\"}`\n")
 
-    for ref, schema in all_schemas_data:
-        try:
-            markdown_output.append(generate_markdown_for_schema(schema))
-        except Exception as e:
-            print(f"Error generating markdown for {ref}: {e}")
+    # Sort API groups alphabetically
+    for base_name in sorted(grouped_schemas.keys()):
+        markdown_output.append(f"### `{base_name}`\n")
+        
+        # Add request documentation if available
+        if grouped_schemas[base_name]['request']:
+            ref, schema = grouped_schemas[base_name]['request']
+            try:
+                markdown_output.append(generate_markdown_for_schema(schema, 'request'))
+            except Exception as e:
+                print(f"Error generating markdown for request {ref}: {e}")
+        
+        # Add response documentation if available
+        if grouped_schemas[base_name]['response']:
+            ref, schema = grouped_schemas[base_name]['response']
+            try:
+                markdown_output.append(generate_markdown_for_schema(schema, 'response'))
+            except Exception as e:
+                print(f"Error generating markdown for response {ref}: {e}")
 
     try:
         with open(output_md_path, 'w') as f:
