@@ -34,44 +34,28 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install Pipenv
+        run: python -m pip install --upgrade pip pipenv
+
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install requests
+          pipenv install --dev
 
       - name: Generate documentation
         run: |
-          python scripts/generate_docs.py
+          pipenv run python scripts/generate_docs.py
 
-      - name: Rename documentation to index.md for Jekyll
+      - name: Build site
         run: |
-          mv NOTECARD_API.md index.md
+          pipenv run mkdocs build
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
-        with:
-          static_site_generator: jekyll
-          enablement: true
-
-      - name: Create Jekyll config
-        run: |
-          cat > _config.yml << EOF
-          theme: jekyll-theme-cayman
-          title: Notecard API Reference
-          description: API documentation for the Notecard
-          show_downloads: false
-          EOF
-
-      - name: Prepare artifact directory
-        run: |
-          mkdir _artifact_for_pages
-          mv index.md _artifact_for_pages/
-          mv _config.yml _artifact_for_pages/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _artifact_for_pages
+          path: site
 
       - name: Deploy to GitHub Pages
         id: deployment

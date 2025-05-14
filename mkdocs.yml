@@ -1,0 +1,6 @@
+site_name: Notecard API Reference
+nav:
+  - Home: index.md
+theme: readthedocs
+plugins:
+  - search

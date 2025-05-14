@@ -138,7 +138,8 @@ def main():
     workspace_root = os.path.dirname(script_dir)
 
     main_schema_path = os.path.join(workspace_root, "notecard.api.json")
-    output_md_path = os.path.join(workspace_root, "NOTECARD_API.md")
+    output_dir = os.path.join(workspace_root, "docs")
+    output_md_path = os.path.join(output_dir, "index.md")
 
     try:
         with open(main_schema_path, 'r') as f:
@@ -207,7 +208,13 @@ def main():
     api_version = main_schema.get("apiVersion", "Unknown")
     schema_version = main_schema.get("version", "Unknown")
 
-    markdown_output.append("# Notecard API Reference")
+    markdown_output.append("---")
+    markdown_output.append("layout: default")
+    markdown_output.append("title: Notecard API Reference")
+    markdown_output.append("---")
+    markdown_output.append("") # Add a blank line after front matter
+
+    # markdown_output.append("# Notecard API Reference\n")
     markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) version {schema_version} (API Version: {api_version})_\n")
     markdown_output.append("## API Reference\n")
     markdown_output.append("The Notecard accepts requests in JSON format. Each request object must contain a `req` or `cmd` field specifying the request type. E.g. `{\"req\": \"card.status\"}` or `{\"cmd\": \"card.status\"}`\n")
@@ -215,7 +222,7 @@ def main():
     # Sort API groups alphabetically
     for base_name in sorted(grouped_schemas.keys()):
         markdown_output.append(f"### `{base_name}`\n")
-        
+
         # Add request documentation if available
         if grouped_schemas[base_name]['request']:
             ref, schema = grouped_schemas[base_name]['request']
@@ -223,7 +230,7 @@ def main():
                 markdown_output.append(generate_markdown_for_schema(schema, 'request'))
             except Exception as e:
                 print(f"Error generating markdown for request {ref}: {e}")
-        
+
         # Add response documentation if available
         if grouped_schemas[base_name]['response']:
             ref, schema = grouped_schemas[base_name]['response']
@@ -233,6 +240,7 @@ def main():
                 print(f"Error generating markdown for response {ref}: {e}")
 
     try:
+        os.makedirs(output_dir, exist_ok=True) # Create output directory if it doesn't exist
         with open(output_md_path, 'w') as f:
             f.write("\n".join(markdown_output))
             # Ensure newline at end of file
