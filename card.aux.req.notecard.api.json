@@ -77,7 +77,8 @@
                 460800,
                 921600
             ],
-            "default": 115200
+            "default": 115200,
+            "type": "integer"
         },
         "sync": {
             "description": "If true, for pins set as input by usage, the Notecard will autonomously report any state changes as new notes in file",
