@@ -3,9 +3,11 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.rsp.notecard.api.json",
     "title": "card.time Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "time": {
-            "description": "UNIX Epoch time",
+            "description": "The current time in UTC (UNIX timestamp). Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
             "type": "integer"
         },
         "area": {
@@ -13,26 +15,30 @@
             "type": "string"
         },
         "zone": {
-            "description": "The time zone of the Notecard, if the cell tower is recognized",
+            "description": "The time zone of the Notecard, if the cell tower is recognized.",
             "type": "string"
         },
         "minutes": {
-            "description": "Time zone offset in minutes",
+            "description": "Number of minutes East of GMT, if the cell tower is recognized.",
             "type": "integer"
         },
         "lat": {
-            "description": "Latitude coordinate",
+            "description": "Latitude of the Notecard, if the cell tower is recognized.",
             "type": "number"
         },
         "lon": {
-            "description": "Longitude coordinate",
+            "description": "Longitude of the Notecard, if the cell tower is recognized.",
             "type": "number"
         },
         "country": {
-            "description": "Country code",
+            "description": "The country where the Notecard is located, if the cell tower is recognized.",
             "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Returns the current date and time information in UTC (UNIX timestamp).",
+            "json": "{\"time\": 1599769214, \"area\": \"Beverly, MA\", \"zone\": \"CDT,America/New York\", \"minutes\": -300, \"lat\": 42.5776, \"lon\": -70.87134, \"country\": \"US\"}"
+        }
+    ]
 }
