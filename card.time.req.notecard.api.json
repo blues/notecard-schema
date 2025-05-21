@@ -4,7 +4,7 @@
     "title": "card.time Request Application Programming Interface (API) Schema",
     "description": "Retrieves current date and time information in UTC (UNIX timestamp). Upon power-up, the Notecard must complete a sync to Notehub in order to obtain time and location data. Before the time is obtained, this request will return `{\"zone\":\"UTC,Unknown\"}`.",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
     "properties": {
         "cmd": {

@@ -3,7 +3,7 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.rsp.notecard.api.json",
     "title": "card.time Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
     "properties": {
         "time": {
