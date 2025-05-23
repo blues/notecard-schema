@@ -3,12 +3,18 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.rsp.notecard.api.json",
     "title": "dfu.get Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "payload": {
-            "description": "Binary payload data encoded as base64",
+            "description": "A base64 string containing firmware data of the provided `length`.",
             "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Returns a base64 string containing firmware data of the provided `length`.",
+            "json": "{\"payload\": \"AAAAAAAAAAAAAAAAcy8ACIEvAAgAAAAAjy8ACJ0vAAg=\"}"
+        }
+    ]
 }

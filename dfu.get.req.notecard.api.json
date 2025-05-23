@@ -4,13 +4,15 @@
     "title": "dfu.get Request Application Programming Interface (API) Schema",
     "description": "Retrieves downloaded firmware data from the Notecard for use with IAP host MCU firmware updates.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "length": {
-            "description": "The number of bytes of firmware data to read and return to the host",
+            "description": "The number of bytes of firmware data to read and return to the host. Set to `0` to verify that the Notecard is in DFU mode without attempting to retrieve data.",
             "type": "integer"
         },
         "offset": {
-            "description": "The offset to use before performing a read of firmware data",
+            "description": "The offset to use before performing a read of firmware data.",
             "type": "integer"
         },
         "cmd": {
@@ -45,6 +47,14 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Retrieves 32 bytes of firmware data from the Notecard, with an offset of 32 bytes.",
+            "json": "{\"req\": \"dfu.get\", \"length\": 32, \"offset\": 32}"
+        }
+    ],
+    "annotations": {
+        "info": ["This request is functional only when the Notecard has been set to dfu mode with a `hub.set`, `mode:dfu` request."],
+        "warning": []
+    }
 }
