@@ -54,7 +54,7 @@
         }
     ],
     "annotations": {
-        "info": ["This request is functional only when the Notecard has been set to dfu mode with a `hub.set`, `mode:dfu` request."],
+        "info": ["This request is functional only when the Notecard has been set to `dfu` mode with a `hub.set`, `mode:dfu` request."],
         "warning": []
     }
 }
