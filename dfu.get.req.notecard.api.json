@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.req.notecard.api.json",
     "title": "dfu.get Request Application Programming Interface (API) Schema",
-    "description": "Retrieves downloaded firmware data from the Notecard for use with IAP host MCU firmware updates.",
+    "description": "Retrieves downloaded firmware data from the Notecard for use with [IAP host MCU firmware updates](https://dev.blues.io/notehub/host-firmware-updates/iap-firmware-update/).",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
