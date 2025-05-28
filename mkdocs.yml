@@ -10,3 +10,5 @@ plugins:
       sections:
         Usage documentation:
         - index.md
+markdown_extensions:
+  - admonition

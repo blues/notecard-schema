@@ -218,6 +218,8 @@ def main():
     markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) version {schema_version} (API Version: {api_version})_\n")
     markdown_output.append("## API Reference\n")
     markdown_output.append("The Notecard accepts requests in JSON format. Each request object must contain a `req` or `cmd` field specifying the request type. E.g. `{\"req\": \"card.status\"}` or `{\"cmd\": \"card.status\"}`\n")
+    markdown_output.append("!!! warning\n")
+    markdown_output.append("    If you are looking for the Notecard API Reference, please visit [blues.dev](https://dev.blues.io/api-reference/notecard-api/introduction/). This site intended for LLM agents and may lack complete documentation.\n")
 
     # Sort API groups alphabetically
     for base_name in sorted(grouped_schemas.keys()):
