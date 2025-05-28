@@ -1,6 +1,12 @@
 site_name: Notecard API Reference
+site_url: https://blues.github.io/notecard-schema/
 nav:
   - Home: index.md
 theme: readthedocs
 plugins:
   - search
+  - llmstxt:
+      markdown_description: Notecard API Reference
+      sections:
+        Usage documentation:
+        - index.md
