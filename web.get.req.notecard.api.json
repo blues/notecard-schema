@@ -4,14 +4,48 @@
     "title": "web.get Request Application Programming Interface (API) Schema",
     "description": "Performs a simple HTTP or HTTPS GET request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "route": {
-            "description": "URL route for the GET request",
+            "description": "Alias for a Proxy Route in Notehub.",
             "type": "string"
         },
-        "headers": {
-            "description": "HTTP headers for the request",
-            "type": "object"
+        "name": {
+            "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/getLatest?id=1`).",
+            "type": "string"
+        },
+        "content": {
+            "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
+            "type": "string"
+        },
+        "seconds": {
+            "description": "If specified, overrides the default 90 second timeout.",
+            "type": "integer"
+        },
+        "async": {
+            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
+            "type": "boolean"
+        },
+        "binary": {
+            "description": "If `true`, the Notecard will return the response stored in its binary buffer.",
+            "type": "boolean"
+        },
+        "offset": {
+            "description": "Used along with `binary:true` and `max`, sent as a URL parameter to the remote endpoint. Represents the number of bytes to offset the binary payload from 0 when retrieving binary data from the remote endpoint.",
+            "type": "integer"
+        },
+        "max": {
+            "description": "Used along with `binary:true` and `offset`, sent as a URL parameter to the remote endpoint. Represents the number of bytes to retrieve from the binary payload segment.",
+            "type": "integer"
+        },
+        "file": {
+            "description": "The name of the local-only Database Notefile (`.dbx`) to be used if the web request is issued asynchronously and you wish to store the response.",
+            "type": "string"
+        },
+        "note": {
+            "description": "The unique Note ID for the local-only Database Notefile (`.dbx`). Only used with asynchronous web requests (see `file` argument above).",
+            "type": "string"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -45,6 +79,14 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Performs a simple HTTP or HTTPS GET request and returns the response.",
+            "json": "{\"req\": \"web.get\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
+        }
+    ],
+    "annotations": {
+        "info": ["Learn more in this guide on [Sending and Receiving Large Binary Objects](guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects)."],
+        "warning": []
+    }
 }
