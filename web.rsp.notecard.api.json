@@ -3,20 +3,35 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.rsp.notecard.api.json",
     "title": "web Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
-        "status": {
-            "description": "HTTP status code",
+        "result": {
+            "description": "The HTTP Status Code",
             "type": "integer"
         },
         "body": {
-            "description": "Response body",
-            "type": "string"
-        },
-        "headers": {
-            "description": "HTTP response headers",
+            "description": "The JSON response body from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "object"
+        },
+        "payload": {
+            "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
+            "type": "string",
+            "format": "binary"
+        },
+        "length": {
+            "description": "The length of the returned binary payload (in bytes).",
+            "type": "integer"
+        },
+        "cobs": {
+            "description": "The size of the COBS-encoded data (in bytes).",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Response from a web request",
+            "json": "{\"result\": 200, \"body\": { \"temp\": 75, \"humidity\": 49 } }"
+        }
+    ]
 }
