@@ -4,6 +4,6 @@
     "title": "card.io Response Application Programming Interface (API) Schema",
     "type": "object",
     "properties": {},
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1"
 }

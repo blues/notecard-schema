@@ -4,13 +4,15 @@
     "title": "card.io Request Application Programming Interface (API) Schema",
     "description": "Can be used to override the Notecard's I2C address from its default of 0x17 and change behaviors of the onboard LED and USB port.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "i2c": {
-            "description": "The alternate address to use for I2C communication. Pass -1 to reset to the default address",
+            "description": "The alternate address to use for I2C communication. Pass `-1` to reset to the default address",
             "type": "integer"
         },
         "mode": {
-            "description": "Set to '-usb' to disable the Notecard's USB port. Re-enable the USB port with 'usb' or '+usb'. Set to '+busy' for LED on when Notecard is awake, and off when asleep. Set to '-busy' to reset to default. Set to 'i2c-master-disable' to disable Notecard acting as an I2C master",
+            "description": "Set to `-usb` to disable the Notecard's USB port. Re-enable the USB port with `usb` or `+usb`. Set to `+busy` for LED on when Notecard is awake, and off when asleep. Set to `-busy` to reset to default. Set to `i2c-master-disable` to disable Notecard acting as an I2C master",
             "type": "string",
             "enum": [
                 "-usb",
@@ -54,6 +56,18 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Set the Notecard's I2C address to `0x18`.",
+            "json": "{\"req\": \"card.io\", \"i2c\": 24}"
+        },
+        {
+            "description": "Keep LED on while Notecard is awake.",
+            "json": "{\"req\": \"card.io\", \"mode\": \"+busy\"}"
+        },
+        {
+            "description": "Disable Notecard acting as an I2C master.",
+            "json": "{\"req\": \"card.io\", \"mode\": \"i2c-master-disable\"}"
+        }
+    ]
 }
