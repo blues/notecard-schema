@@ -15,10 +15,15 @@
             "description": "The HTTP method of the request. Must be one of GET, PUT, POST, DELETE, PATCH, HEAD, OPTIONS, TRACE, or CONNECT.",
             "type": "string",
             "enum": [
+                "CONNECT",
+                "DELETE",
                 "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
                 "POST",
                 "PUT",
-                "DELETE"
+                "TRACE"
             ]
         },
         "name": {
