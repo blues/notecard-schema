@@ -52,7 +52,17 @@
                 },
                 "method": {
                     "type": "string",
-                    "enum": ["GET", "POST", "PUT", "DELETE"]
+                    "enum": [
+                        "CONNECT",
+                        "DELETE",
+                        "GET",
+                        "HEAD",
+                        "OPTIONS",
+                        "PATCH",
+                        "POST",
+                        "PUT",
+                        "TRACE"
+                    ]
                 }
             }
         },
@@ -64,7 +74,17 @@
                 },
                 "method": {
                     "type": "string",
-                    "enum": ["GET", "POST", "PUT", "DELETE"]
+                    "enum": [
+                        "CONNECT",
+                        "DELETE",
+                        "GET",
+                        "HEAD",
+                        "OPTIONS",
+                        "PATCH",
+                        "POST",
+                        "PUT",
+                        "TRACE"
+                    ]
                 }
             }
         }
