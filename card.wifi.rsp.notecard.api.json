@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.rsp.notecard.api.json",
+    "title": "card.wifi Response Application Programming Interface (API) Schema",
+    "description": "Response containing Wi-Fi connection status and configuration information from the Notecard.",
+    "type": "object",
+    "version": "0.1.0",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "secure": {
+            "description": "Indicates whether the Wi-Fi connection is secure",
+            "type": "boolean"
+        },
+        "version": {
+            "description": "Version information of the Wi-Fi subsystem or firmware",
+            "type": "string"
+        },
+        "ssid": {
+            "description": "The SSID (Service Set Identifier) of the currently connected Wi-Fi network",
+            "type": "string"
+        },
+        "security": {
+            "description": "The security protocol used by the Wi-Fi connection (e.g., wpa2-psk, wpa3, open)",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "description": "Wi-Fi connection status and configuration information",
+            "json": "{\"secure\": true, \"version\": \"3.12.3\", \"ssid\": \"MyHomeNetwork\", \"security\": \"wpa2-psk\"}"
+        }
+    ]
+}
