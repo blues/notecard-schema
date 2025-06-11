@@ -35,7 +35,7 @@
     "samples": [
         {
             "description": "Performs a simple HTTP or HTTPS POST request and returns the response.",
-            "json": "{\"status\": 200, \"body\": {\"message\": \"Reading added successfully\"}}"
+            "json": "{\"result\": 200, \"body\": {\"message\": \"Reading added successfully\"}}"
         }
     ]
 }
