@@ -45,10 +45,13 @@
     },
     "oneOf": [
         {
-            "required": ["req", "method"],
+            "required": ["req", "method","route"],
             "properties": {
                 "req": {
                     "const": "web"
+                },
+                "route": {
+                    "type": "string"
                 },
                 "method": {
                     "type": "string",
@@ -67,10 +70,13 @@
             }
         },
         {
-            "required": ["cmd", "method"],
+            "required": ["cmd", "method","route"],
             "properties": {
                 "cmd": {
                     "const": "web"
+                },
+                "route": {
+                    "type": "string"
                 },
                 "method": {
                     "type": "string",
