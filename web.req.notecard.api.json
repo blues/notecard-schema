@@ -4,33 +4,35 @@
     "title": "web Request Application Programming Interface (API) Schema",
     "description": "JSON description of the web API",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
-        "method": {
-            "description": "HTTP method",
-            "type": "string",
-            "enum": [
-                "get",
-                "post",
-                "put",
-                "delete"
-            ]
-        },
         "route": {
-            "description": "URL route for the request",
+            "description": "Alias for a Proxy Route in Notehub.",
             "type": "string"
         },
-        "body": {
-            "description": "Request body",
-            "type": "object"
-        },
-        "payload": {
-            "description": "Binary payload data",
+        "method": {
+            "description": "The HTTP method of the request. Must be one of GET, PUT, POST, DELETE, PATCH, HEAD, OPTIONS, TRACE, or CONNECT.",
             "type": "string",
-            "format": "binary"
+            "enum": [
+                "CONNECT",
+                "DELETE",
+                "GET",
+                "HEAD",
+                "OPTIONS",
+                "PATCH",
+                "POST",
+                "PUT",
+                "TRACE"
+            ]
         },
-        "headers": {
-            "description": "HTTP headers for the request",
-            "type": "object"
+        "name": {
+            "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/getLatest?id=1`).",
+            "type": "string"
+        },
+        "content": {
+            "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
+            "type": "string"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -43,27 +45,65 @@
     },
     "oneOf": [
         {
-            "required": [
-                "req"
-            ],
+            "required": ["req", "method","route"],
             "properties": {
                 "req": {
                     "const": "web"
+                },
+                "route": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string",
+                    "enum": [
+                        "CONNECT",
+                        "DELETE",
+                        "GET",
+                        "HEAD",
+                        "OPTIONS",
+                        "PATCH",
+                        "POST",
+                        "PUT",
+                        "TRACE"
+                    ]
                 }
             }
         },
         {
-            "required": [
-                "cmd"
-            ],
+            "required": ["cmd", "method","route"],
             "properties": {
                 "cmd": {
                     "const": "web"
+                },
+                "route": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string",
+                    "enum": [
+                        "CONNECT",
+                        "DELETE",
+                        "GET",
+                        "HEAD",
+                        "OPTIONS",
+                        "PATCH",
+                        "POST",
+                        "PUT",
+                        "TRACE"
+                    ]
                 }
             }
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Get the current time",
+            "json": "{\"req\": \"web\", \"method\": \"GET\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
+        }
+    ],
+    "annotations": {
+        "info": ["Please see the additional argument options available for `GET`, `POST`, `PUT`, and `DELETE` requests in the documentation provided."],
+        "warning": []
+    }
 }
