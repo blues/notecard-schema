@@ -1,0 +1,74 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json",
+    "title": "card.monitor Request Application Programming Interface (API) Schema",
+    "description": "When a Notecard is in [monitor mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode), this API is used to configure the general-purpose `AUX1`-`AUX4` pins to test and monitor Notecard activity.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL","CELL+WIFI","WIFI"],
+    "properties": {
+        "mode": {
+            "description": "Can be set to one of green, red or yellow to temporarily override the behavior of an AUX pin LED.\n\nSee [Using Monitor Mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode) for additional details.",
+            "type": "string",
+            "enum": [
+                "green",
+                "red",
+                "yellow"
+            ]
+        },
+        "count": {
+            "description": "The number of pulses to send to the overridden AUX pin LED. Set this value to 0 to return the LED to its default behavior.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "usb": {
+            "description": "Set to `true` to configure LED behavior so that it is only active when the Notecard is connected to USB power.",
+            "type": "boolean",
+            "default": false
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.monitor"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.monitor"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.monitor"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.monitor"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's M.2 connector."
+        }
+    ],
+    "samples": [
+        {
+            "description": "Example",
+            "json": "{\"req\":\"card.monitor\", \"mode\":\"green\", \"count\":5}"
+        }
+    ]
+}
