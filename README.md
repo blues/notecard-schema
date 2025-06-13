@@ -41,7 +41,7 @@ Example shown from `hub.signal`:
 
 #### `samples`
 
-An array of tuples representing each of the JSON examples provided.
+An array of objects representing each of the JSON examples provided.
 
 Example shown from `env.set`:
 
@@ -131,7 +131,7 @@ Example shown from `card.transport`:
 
 #### `sub-descriptions`
 
-An array of object providing a detailed description of enumerated or pattern
+An array of objects providing a detailed description of enumerated or pattern
 matching values.
 
 It can be difficult, or even impossible, to provide a description for enumerated

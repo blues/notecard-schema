@@ -1,0 +1,128 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.transport.req.notecard.api.json",
+    "title": "card.transport Request Application Programming Interface (API) Schema",
+    "description": "Specifies the connectivity protocol to prioritize on the Notecard Cell+WiFi, or when using NTN mode with Starnote and a compatible Notecard.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL","CELL+WIFI","WIFI"],
+    "properties": {
+        "method": {
+            "description": "The connectivity method to enable on the Notecard.",
+            "type": "string",
+            "enum": [
+                "-",
+                "cell",
+                "cell-ntn",
+                "dual-wifi-cell",
+                "ntn",
+                "wifi",
+                "wifi-cell",
+                "wifi-cell-ntn",
+                "wifi-ntn"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "-",
+                    "description": "Resets the transport mode to the device default.",
+                    "skus": ["CELL","CELL+WIFI","WIFI"]
+                },
+                {
+                    "const": "cell",
+                    "description": "Enables **cellular only** on the device.",
+                    "skus": ["CELL","CELL+WIFI"]
+                },
+                {
+                    "const": "cell-ntn",
+                    "description": "Prioritizes cellular connectivity while falling back to NTN if a cellular connection cannot be established.",
+                    "skus": ["CELL","CELL+WIFI"]
+                },
+                {
+                    "const": "dual-wifi-cell",
+                    "deprecated": true,
+                    "description": "Deprecated form of `\"wifi-cell\"`",
+                    "skus": ["CELL+WIFI"]
+                },
+                {
+                    "const": "ntn",
+                    "description": "Enables **NTN (Non-Terrestrial Network)** mode on the device for use with Starnote.",
+                    "skus": ["CELL","CELL+WIFI","WIFI"]
+                },
+                {
+                    "const": "wifi",
+                    "description": "Enables **Wi-Fi only** on the device.",
+                    "skus": ["CELL+WIFI","WIFI"]
+                },
+                {
+                    "const": "wifi-cell",
+                    "description": "Prioritizes Wi-Fi connectivity while falling back to cellular if a Wi-Fi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
+                    "skus": ["CELL+WIFI"]
+                },
+                {
+                    "const": "wifi-cell-ntn",
+                    "description": "Prioritizes Wi-Fi connectivity while falling back to cellular, and lastly to NTN.",
+                    "skus": ["CELL+WIFI"]
+                },
+                {
+                    "const": "wifi-ntn",
+                    "description": "Prioritizes Wi-Fi connectivity while falling back to NTN if a Wi-Fi connection cannot be established.",
+                    "skus": ["CELL+WIFI","WIFI"]
+                }
+            ]
+        },
+        "seconds": {
+            "description": "The amount of time a Notecard will spend on any fallback transport before retrying the first transport specified in the `method`. The default is `3600` or 60 minutes.",
+            "type": "integer",
+            "minimum": -1,
+            "default": 3600
+        },
+        "allow": {
+            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "type": "boolean",
+            "default": false
+        },
+        "umin": {
+            "description": "Set to `true` to force a longer network transport timeout when using Wideband Notecards.",
+            "type": "boolean",
+            "default": false
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.transport"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.transport"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.transport"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.transport"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Example",
+            "json": "{\"req\":\"card.transport\", \"method\":\"wifi-cell\"}"
+        }
+    ]
+}
