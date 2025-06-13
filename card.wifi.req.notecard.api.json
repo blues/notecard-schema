@@ -4,7 +4,7 @@
     "title": "card.wifi Request Application Programming Interface (API) Schema",
     "description": "Used to configure Wi-Fi settings, manage SoftAP mode, and set Wi-Fi access point credentials for the Notecard.",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
     "properties": {
         "ssid": {
