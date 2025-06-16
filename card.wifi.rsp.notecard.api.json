@@ -16,7 +16,7 @@
             "type": "string"
         },
         "ssid": {
-            "description": "The SSID (Service Set Identifier) of the currently connected Wi-Fi network",
+            "description": "The SSID of the Wi-Fi access point.",
             "type": "string"
         },
         "security": {
