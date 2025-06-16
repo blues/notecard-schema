@@ -20,7 +20,7 @@
             "type": "string"
         },
         "security": {
-            "description": "The security protocol used by the Wi-Fi connection (e.g., wpa2-psk, wpa3, open)",
+            "description": "The security protocol the Wi-Fi access point uses.",
             "type": "string"
         }
     },
