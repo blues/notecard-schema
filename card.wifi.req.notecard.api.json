@@ -64,6 +64,12 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Updates to Notecard WiFi credentials cannot occur while Notecard is in continuous mode, as a new session is required to change the credentials. If you have a Notecard WiFi in continuous mode, you must change to another mode such as periodic or off, using [a hub.set request](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) before calling card.wifi."
+        }
+    ]
     "samples": [
         {
             "description": "Set Wi-Fi SSID and password",
