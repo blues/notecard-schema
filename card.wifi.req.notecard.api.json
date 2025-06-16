@@ -29,7 +29,7 @@
             "type": "boolean"
         },
         "text": {
-            "description": "A string containing an array of access points the Notecard should attempt to use. The access points should be provided in the following format: `[\"FIRST-SSID\",\"FIRST-PASSWORD\"],[\"SECOND-SSID\",\"SECOND-PASSWORD\"]`. You may need to escape any quotes used in this argument before passing it to the Notecard. For example, the following is a valid request to pass to a Notecard through the In-Browser Terminal.\n```\n{\"req\":\"card.wifi\", \"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"]\"}\n```",
+            "description": "A string containing an array of access points the Notecard should attempt to use. The access points should be provided in the following format:\n\n`[\"FIRST-SSID\",\"FIRST-PASSWORD\"],[\"SECOND-SSID\",\"SECOND-PASSWORD\"]`.\n\nYou may need to escape any quotes used in this argument before passing it to the Notecard. For example, the following is a valid request to pass to a Notecard through the [In-Browser Terminal](https://dev.blues.io/terminal/).\n\n`{\"req\":\"card.wifi\", \"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"]\"}`",
             "type": "string"
         },
         "cmd": {
