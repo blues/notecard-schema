@@ -1,7 +1,7 @@
 import pytest
 import jsonschema
 
-SCHEMA_FILE = "card.usage.rsp.notecard.api.json"
+SCHEMA_FILE = "card.usage.get.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response (empty object)."""
