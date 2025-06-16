@@ -25,6 +25,7 @@
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.req.notecard.api.json"},
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.sync.req.notecard.api.json"},
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.track.req.notecard.api.json"},
+        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json"},
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restart.req.notecard.api.json"},
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restore.req.notecard.api.json"},
         {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.status.req.notecard.api.json"},
