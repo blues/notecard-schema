@@ -27,7 +27,7 @@
     "samples": [
         {
             "description": "Wi-Fi connection status and configuration information",
-            "json": "{\"secure\": true, \"version\": \"3.12.3\", \"ssid\": \"MyHomeNetwork\", \"security\": \"wpa2-psk\"}"
+            "json": "{\"secure\":true, \"version\":\"3.12.3\", \"ssid\":\"<ssid name>\", \"security\":\"wpa2-psk\"}"
         }
     ]
 }
