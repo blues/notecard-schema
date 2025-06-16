@@ -8,7 +8,7 @@
     "apiVersion": "9.1.1",
     "properties": {
         "secure": {
-            "description": "Indicates whether the Wi-Fi connection is secure",
+            "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",
             "type": "boolean"
         },
         "version": {
