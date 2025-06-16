@@ -240,8 +240,8 @@ def main():
         markdown_output.append(f"### `{base_name}`")
 
         # Add API SKU if available
-        if grouped_schemas[base_name]['request'] and 'sku' in grouped_schemas[base_name]['request'][1]:
-            sku = grouped_schemas[base_name]['request'][1]['sku']
+        if grouped_schemas[base_name]['request'] and 'skus' in grouped_schemas[base_name]['request'][1]:
+            sku = grouped_schemas[base_name]['request'][1]['skus']
             markdown_output.append("#### SKUs\n")
             for each_sku in sku:
                 markdown_output.append(f"`{each_sku}`")
