@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json",
     "title": "card.wifi Request Application Programming Interface (API) Schema",
-    "description": "Used to configure Wi-Fi settings, manage SoftAP mode, and set Wi-Fi access point credentials for the Notecard.",
+    "description": "Sets up a Notecard WiFi to connect to a Wi-Fi access point.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
