@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.usage.get.rsp.notecard.api.json"
 
@@ -12,10 +13,8 @@ def test_minimal_valid_rsp(schema):
 @pytest.mark.parametrize(
     "field_name",
     [
-        "seconds", "time", "bytes_sent", "bytes_received", "bytes_pending",
-        "notes_sent", "notes_received", "notes_pending", "syncs", "requested",
-        "completed", "failed", "minutes_connected", "minutes_cellular",
-        "minutes_charging", "minutes_powered", "minutes_usb", "minutes_active"
+        "seconds", "time", "bytes_sent", "bytes_received",
+        "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
 def test_valid_integer_field(schema, field_name):
@@ -30,10 +29,8 @@ def test_valid_integer_field(schema, field_name):
 @pytest.mark.parametrize(
     "field_name",
     [
-        "seconds", "time", "bytes_sent", "bytes_received", "bytes_pending",
-        "notes_sent", "notes_received", "notes_pending", "syncs", "requested",
-        "completed", "failed", "minutes_connected", "minutes_cellular",
-        "minutes_charging", "minutes_powered", "minutes_usb", "minutes_active"
+        "seconds", "time", "bytes_sent", "bytes_received",
+        "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
 def test_invalid_type_for_integer_field(schema, field_name):
@@ -46,10 +43,8 @@ def test_invalid_type_for_integer_field(schema, field_name):
 @pytest.mark.parametrize(
     "field_name",
     [
-        "seconds", "time", "bytes_sent", "bytes_received", "bytes_pending",
-        "notes_sent", "notes_received", "notes_pending", "syncs", "requested",
-        "completed", "failed", "minutes_connected", "minutes_cellular",
-        "minutes_charging", "minutes_powered", "minutes_usb", "minutes_active"
+        "seconds", "time", "bytes_sent", "bytes_received", 
+        "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
 def test_invalid_float_type_for_integer_field(schema, field_name):
@@ -59,39 +54,6 @@ def test_invalid_float_type_for_integer_field(schema, field_name):
         jsonschema.validate(instance=instance, schema=schema)
     assert "123.5 is not of type 'integer'" in str(excinfo.value)
 
-# Test number fields
-@pytest.mark.parametrize(
-    "field_name",
-    [
-        "voltage_min", "voltage_max", "voltage_begin", "voltage_end",
-        "temp_min", "temp_max", "temp_begin", "temp_end"
-    ]
-)
-def test_valid_number_field(schema, field_name):
-    """Tests valid number type (int and float) for various fields."""
-    instance = {field_name: 10.5}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {field_name: 10}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {field_name: -5.2}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {field_name: 0}
-    jsonschema.validate(instance=instance, schema=schema)
-
-@pytest.mark.parametrize(
-    "field_name",
-    [
-        "voltage_min", "voltage_max", "voltage_begin", "voltage_end",
-        "temp_min", "temp_max", "temp_begin", "temp_end"
-    ]
-)
-def test_invalid_type_for_number_field(schema, field_name):
-    """Tests invalid (string) type for various number fields."""
-    instance = {field_name: "10.5"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'10.5' is not of type 'number'" in str(excinfo.value)
-
 def test_valid_all_fields(schema):
     """Tests a valid response with all fields populated."""
     instance = {
@@ -99,28 +61,10 @@ def test_valid_all_fields(schema):
         "time": 1700000000,
         "bytes_sent": 1024,
         "bytes_received": 2048,
-        "bytes_pending": 0,
         "notes_sent": 10,
         "notes_received": 5,
-        "notes_pending": 0,
-        "syncs": 2,
-        "requested": 1,
-        "completed": 2,
-        "failed": 0,
-        "minutes_connected": 55,
-        "minutes_cellular": 50,
-        "minutes_charging": 10,
-        "minutes_powered": 60,
-        "minutes_usb": 5,
-        "minutes_active": 45,
-        "voltage_min": 3.8,
-        "voltage_max": 4.1,
-        "voltage_begin": 4.0,
-        "voltage_end": 3.9,
-        "temp_min": 15.5,
-        "temp_max": 25.0,
-        "temp_begin": 20.0,
-        "temp_end": 22.5
+        "sessions_standard": 2,
+        "sessions_secure": 1
     }
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -128,3 +72,16 @@ def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
     instance = {"seconds": 60, "source": "live"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
