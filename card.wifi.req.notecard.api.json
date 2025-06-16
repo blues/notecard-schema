@@ -17,7 +17,7 @@
             "type": "string"
         },
         "name": {
-            "description": "By default, the Notecard creates a SoftAP (software enabled access point) under the name \"Notecard\". You can use the `name` argument to change the name of the SoftAP to a custom name. If you include a `-` at the end of the name (for example `\"name\": \"acme-\"`), the Notecard will append the last four digits of the network's MAC address (for example `acme-025c`). This allows you to distinguish between multiple Notecards in SoftAP mode.",
+            "description": "By default, the Notecard creates a SoftAP (software enabled access point) under the name \"Notecard\". You can use the `name` argument to change the name of the SoftAP to a custom name.\n\nIf you include a `-` at the end of the `name` (for example `\"name\": \"acme-\"`), the Notecard will append the last four digits of the network's MAC address (for example `acme-025c`). This allows you to distinguish between multiple Notecards in SoftAP mode.",
             "type": "string"
         },
         "org": {
