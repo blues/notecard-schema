@@ -12,7 +12,7 @@
             "type": "boolean"
         },
         "version": {
-            "description": "Version information of the Wi-Fi subsystem or firmware",
+            "description": "The Silicon Labs WF200 Wi-Fi Transceiver binary version.",
             "type": "string"
         },
         "ssid": {
