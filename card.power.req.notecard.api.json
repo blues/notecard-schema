@@ -50,7 +50,7 @@
     "samples": [
         {
             "description": "Get Latest Power Consumption Reading",
-            "json": "{\"req\": \"card.power\", \"minutes\": 60}"
+            "json": "{\"req\": \"card.power\"}"
         },
         {
             "description": "Set Cadence of Readings",
