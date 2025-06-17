@@ -6,71 +6,209 @@
     "version": "0.1.1",
     "apiVersion": "9.1.1",
     "oneOf": [
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.attn.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.serial.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.put.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.carrier.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.contact.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.dfu.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.io.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.led.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.mode.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.track.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.mode.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.sync.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.track.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restart.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restore.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.status.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.temp.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.transport.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.version.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.voltage.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.status.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.default.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.modified.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.set.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.template.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.pending.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.delete.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.stats.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.log.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.set.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.signal.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.status.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.status.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.add.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.changes.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.delete.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.update.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.reset.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.status.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.delete.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.set.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.delete.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.get.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.post.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.put.req.notecard.api.json"},
-        {"$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.req.notecard.api.json"}    ]
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.attn.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.serial.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.put.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.carrier.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.contact.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.dfu.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.io.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.led.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.mode.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.track.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.mode.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.sync.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.track.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restart.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restore.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.status.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.temp.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.transport.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.version.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.voltage.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.status.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.default.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.modified.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.set.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/env.template.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.pending.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.delete.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.stats.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.log.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.set.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.signal.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.status.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.status.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.add.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.changes.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.delete.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.update.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.reset.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.status.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.delete.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.set.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.delete.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.get.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.post.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.put.req.notecard.api.json"
+        },
+        {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.req.notecard.api.json"
+        }
+    ]
 }
