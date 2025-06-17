@@ -21,7 +21,7 @@
     },
     "samples": [
         {
-            "description": "Example response",
+            "description": "Example Response",
             "json": "{\"temperature\": 26.028314208984398, \"voltage\": 4.200970458984375, \"milliamp_hours\": 3.9566722000000007}"
         }
     ]
