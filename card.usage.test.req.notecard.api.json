@@ -1,0 +1,66 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.req.notecard.api.json",
+    "title": "card.usage.test Request Application Programming Interface (API) Schema",
+    "description": "Request schema for card.usage.test API command.",
+    "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "days":{
+            "description": "Number of days to use for the test.",
+            "type": "integer"
+        },
+        "hours":{
+            "description": "If you want to analyze a period shorter than one day, the number of hours to use for the test.",
+            "type": "integer"
+        },
+        "megabytes":{
+            "description": "The Notecard lifetime data quota (in megabytes) to use for the test.",
+            "default": 1024,
+            "type": "integer"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.usage.test"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.usage.test"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.usage.test"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.usage.test"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Example",
+            "json": "{\"req\": \"card.usage.test\", \"days\": 7, \"megabytes\": 500}"
+        }
+    ]
+}

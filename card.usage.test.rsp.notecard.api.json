@@ -1,0 +1,60 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.rsp.notecard.api.json",
+    "title": "card.usage.test Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "max": {
+            "description": "The days of projected data available based on test.",
+            "type": "integer"
+        },
+        "days": {
+            "description": "The number of days used for the test.",
+            "type": "integer"
+        },
+        "bytes_per_day": {
+            "description": "Average bytes per day used during the test period.",
+            "type": "integer"
+        },
+        "seconds": {
+            "description": "Number of seconds in the analyzed period.",
+            "type": "integer"
+        },
+        "time": {
+            "description": "Time of device activation (UNIX Epoch time).",
+            "type": "integer"
+        },
+        "bytes_sent": {
+            "description": "Number of bytes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "bytes_received": {
+            "description": "Number of bytes received by the Notecard from Notehub.",
+            "type": "integer"
+        },
+        "notes_sent": {
+            "description": "Number of notes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "notes_received": {
+            "description": "Number of notes received by the Notecard from Notehub.",
+            "type": "integer"
+        },
+        "sessions_standard": {
+            "description": "Number of standard Notehub sessions.",
+            "type": "integer"
+        },
+        "sessions_secure": {
+            "description": "Number of secure Notehub sessions.",
+            "type": "integer"
+        }
+    },
+    "samples": [
+        {
+            "description": "Example Response",
+            "json": "{\"max\": 12730, \"days\": 7, \"bytes_per_day\": 41136, \"seconds\": 1291377, \"time\": 1598479763, \"bytes_sent\": 163577, \"bytes_received\": 454565, \"notes_sent\": 114, \"notes_received\": 26, \"sessions_standard\": 143, \"sessions_secure\": 31}"
+        }
+    ]
+}
