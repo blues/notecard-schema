@@ -53,7 +53,7 @@
     },
     "samples": [
         {
-            "description": "Example response",
+            "description": "Example Response",
             "json": "{\"max\": 12730, \"days\": 7, \"bytes_per_day\": 41136, \"seconds\": 1291377, \"time\": 1598479763, \"bytes_sent\": 163577, \"bytes_received\": 454565, \"notes_sent\": 114, \"notes_received\": 26, \"sessions_standard\": 143, \"sessions_secure\": 31}"
         }
     ]
