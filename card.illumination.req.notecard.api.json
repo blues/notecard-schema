@@ -41,7 +41,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Request an illumination reading (in lux) from an attached OPT3001 sensor.",
+            "description": "Example",
             "json": "{\"req\": \"card.illumination\"}"
         }
     ]
