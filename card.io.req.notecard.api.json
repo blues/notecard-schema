@@ -83,7 +83,7 @@
             "json": "{\"req\": \"card.io\", \"mode\": \"+busy\"}"
         },
         {
-            "description": "Disable Notecard acting as an I2C master.",
+            "description": "Disable Notecard Acting As I2C Master.",
             "json": "{\"req\": \"card.io\", \"mode\": \"i2c-master-disable\"}"
         }
     ]
