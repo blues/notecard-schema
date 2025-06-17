@@ -12,7 +12,24 @@
             "type": "integer"
         },
         "mode": {
-            "description": "Set to `-usb` to disable the Notecard's USB port. Re-enable the USB port with `usb` or `+usb`. Set to `+busy` for LED on when Notecard is awake, and off when asleep. Set to `-busy` to reset to default. Set to `i2c-master-disable` to disable Notecard acting as an I2C master",
+            "sub-descriptions": [
+                {
+                    "const": "-usb",
+                    "description": "Set to `\"-usb\"` to disable the Notecard's USB port. Re-enable the USB port with `\"usb\"` or `\"+usb\"`."
+                },
+                {
+                    "const": "+busy",
+                    "description": "If set to `\"+busy\"`, the Notecard's LED will be on when the Notecard is awake, and off when the Notecard goes to sleep."
+                },
+                {
+                    "const": "-busy",
+                    "description": "Resets `\"+busy\"` to its default, making the onboard LED blink only during Notecard flash memory operations."
+                },
+                {
+                    "const": "i2c-master-disable",
+                    "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`."
+                }
+            ],
             "type": "string",
             "enum": [
                 "-usb",
