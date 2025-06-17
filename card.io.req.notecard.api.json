@@ -79,7 +79,7 @@
             "json": "{\"req\": \"card.io\", \"i2c\": 24}"
         },
         {
-            "description": "Keep LED on while Notecard is awake.",
+            "description": "Keep LED On While Notecard Awake.",
             "json": "{\"req\": \"card.io\", \"mode\": \"+busy\"}"
         },
         {
