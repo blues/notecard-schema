@@ -59,7 +59,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Example request",
+            "description": "Example",
             "json": "{\"req\": \"card.usage.test\", \"days\": 7, \"megabytes\": 500}"
         }
     ]
