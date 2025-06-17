@@ -13,7 +13,7 @@
     },
     "samples": [
         {
-            "description": "Response with an illumination reading (in lux) from an attached OPT3001 sensor.",
+            "description": "Example Response",
             "json": "{\"value\": 8806.4}"
         }
     ]
