@@ -8,7 +8,7 @@
     "apiVersion": "9.1.1",
     "properties": {
         "i2c": {
-            "description": "The alternate address to use for I2C communication. Pass `-1` to reset to the default address",
+            "description": "The alternate address to use for I2C communication. Pass `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default address",
             "type": "integer"
         },
         "mode": {
