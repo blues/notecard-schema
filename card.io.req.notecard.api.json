@@ -75,7 +75,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Set the Notecard's I2C address to `0x18`.",
+            "description": "Change I2C Address",
             "json": "{\"req\": \"card.io\", \"i2c\": 24}"
         },
         {
