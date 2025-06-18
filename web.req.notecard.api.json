@@ -96,14 +96,17 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Please see the additional argument options available for `GET`, `POST`, `PUT`, and `DELETE` requests in the documentation provided."
+        }
+
+    ],
     "samples": [
         {
             "description": "Get the current time",
             "json": "{\"req\": \"web\", \"method\": \"GET\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
         }
-    ],
-    "annotations": {
-        "info": ["Please see the additional argument options available for `GET`, `POST`, `PUT`, and `DELETE` requests in the documentation provided."],
-        "warning": []
-    }
+    ]
 }

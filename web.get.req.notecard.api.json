@@ -84,14 +84,20 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Learn more in this guide on [Sending and Receiving Large Binary Objects](guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects)."
+        },
+        {
+            "title": "warning",
+            "description": "The Notecard must have an active connection to Notehub while performing any web.* request. Please [consult this guide](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/) for more information."
+        }
+    ],
     "samples": [
         {
             "description": "Performs a simple HTTP or HTTPS GET request and returns the response.",
             "json": "{\"req\": \"web.get\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
         }
-    ],
-    "annotations": {
-        "info": ["Learn more in this guide on [Sending and Receiving Large Binary Objects](guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects)."],
-        "warning": ["The Notecard must have an active connection to Notehub while performing any web.* request. Please [consult this guide](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/) for more information."]
-    }
+    ]
 }
