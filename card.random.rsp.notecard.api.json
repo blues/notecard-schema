@@ -18,7 +18,7 @@
     },
     "samples": [
         {
-            "description": "Example response",
+            "description": "Example Response",
             "json": "{\"count\": 86}"
         }
     ]
