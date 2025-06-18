@@ -9,7 +9,7 @@
     "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "route": {
-            "description": "URL route for the DELETE request",
+            "description": "Alias for a Proxy Route in Notehub.",
             "type": "string"
         },
         "name": {
