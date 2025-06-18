@@ -26,7 +26,7 @@
     },
     "samples": [
         {
-            "description": "Returns the HTTP response.",
+            "description": "Example Response",
             "json": "{\"result\": 204}"
         }
     ]
