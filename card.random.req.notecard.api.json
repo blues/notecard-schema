@@ -59,7 +59,7 @@
             "json": "{\"req\": \"card.random\", \"count\": 100}"
         },
         {
-            "description": "Get a buffer of random numbers",
+            "description": "Get a Buffer of Random Numbers",
             "json": "{\"req\": \"card.random\", \"mode\": \"payload\", \"count\": 100}"
         }
     ]
