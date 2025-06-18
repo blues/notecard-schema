@@ -60,7 +60,7 @@
             "type": "boolean"
         },
         "binary": {
-            "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.",
+            "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
             "type": "boolean"
         },
         "file": {
