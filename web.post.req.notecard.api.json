@@ -30,7 +30,6 @@
             "default": "application/json",
             "type": "string"
         },
-        "headers": {
             "description": "HTTP headers for the request.",
             "type": "object"
         },
