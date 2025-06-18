@@ -65,7 +65,7 @@
         },
         "file": {
             "description": "The name of the [local-only Database Notefile](https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-database-notefiles-for-local-only-state) (`.dbx`) to be used if the web request is issued [asynchronously](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#using-web-transactions-asynchronously) and you wish to store the response.",
-            "type": "boolean"
+            "type": "string"
         },
         "note": {
             "description": "The unique Note ID for the local-only Database Notefile (`.dbx`). Only used with asynchronous web requests (see `file` argument above).",
