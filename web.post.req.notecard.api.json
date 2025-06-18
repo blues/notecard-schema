@@ -32,6 +32,7 @@
         },
         "seconds": {
             "description": "If specified, overrides the default 90 second timeout.",
+            "default": 90,
             "type": "integer"
         },
         "total": {
