@@ -27,6 +27,7 @@
         },
         "content": {
             "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
+            "default": "application/json",
             "type": "string"
         },
         "seconds": {
