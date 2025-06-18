@@ -55,7 +55,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Get a random number.",
+            "description": "Get a Random Number.",
             "json": "{\"req\": \"card.random\", \"count\": 100}"
         },
         {
