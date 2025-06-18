@@ -1,0 +1,48 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.rsp.notecard.api.json",
+    "title": "card.usage.get Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "seconds": {
+            "description": "Number of seconds in the analyzed period.",
+            "type": "integer"
+        },
+        "time": {
+            "description": "Start time (Unix epoch seconds) of the analyzed period or, if `mode=\"total\"`, the time of activation.",
+            "type": "integer"
+        },
+        "bytes_sent": {
+            "description": "Number of bytes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "bytes_received": {
+            "description": "Number of bytes received by the Notecard from Notehub.",
+            "type": "integer"
+        },
+        "notes_sent": {
+            "description": "Approximate number of Notes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "notes_received": {
+            "description": "Approximate number of Notes received by the Notecard from Notehub.",
+            "type": "integer"
+        },
+        "sessions_standard": {
+            "description": "Number of standard Notehub sessions.",
+            "type": "integer"
+        },
+        "sessions_secure": {
+            "description": "Number of secure Notehub sessions.",
+            "type": "integer"
+        }
+    },
+    "samples": [
+        {
+            "description": "Example Response",
+            "json": "{\"seconds\":1291377, \"time\":1598479763, \"bytes_sent\":163577, \"bytes_received\":454565, \"notes_sent\":114, \"notes_received\":26, \"sessions_standard\":143, \"sessions_secure\":31}"
+        }
+    ]
+}

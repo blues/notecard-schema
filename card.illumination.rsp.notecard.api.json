@@ -3,12 +3,18 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.illumination.rsp.notecard.api.json",
     "title": "card.illumination Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
-        "lux": {
+        "value": {
             "type": "number",
             "description": "An illumination reading (in lux) from the attached OPT3001 sensor."
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Example Response",
+            "json": "{\"value\": 8806.4}"
+        }
+    ]
 }

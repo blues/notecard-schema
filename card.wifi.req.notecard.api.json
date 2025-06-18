@@ -1,0 +1,91 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json",
+    "title": "card.wifi Request Application Programming Interface (API) Schema",
+    "description": "Sets up a Notecard WiFi to connect to a Wi-Fi access point.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL+WIFI","WIFI"],
+    "properties": {
+        "ssid": {
+            "description": "The SSID of the Wi-Fi access point. Alternatively, use `-` to clear an already set SSID.",
+            "type": "string"
+        },
+        "password": {
+            "description": "The network password of the Wi-Fi access point. Alternatively, use `-` to clear an already set password or to connect to an open access point.",
+            "type": "string"
+        },
+        "name": {
+            "description": "By default, the Notecard creates a SoftAP (software enabled access point) under the name \"Notecard\". You can use the `name` argument to change the name of the SoftAP to a custom name.\n\nIf you include a `-` at the end of the `name` (for example `\"name\": \"acme-\"`), the Notecard will append the last four digits of the network's MAC address (for example `acme-025c`). This allows you to distinguish between multiple Notecards in SoftAP mode.",
+            "type": "string"
+        },
+        "org": {
+            "description": "If specified, replaces the Blues logo on the SoftAP page with the provided name.",
+            "type": "string"
+        },
+        "start": {
+            "description": "Specify `true` to activate SoftAP mode on the Notecard programmatically.",
+            "type": "boolean"
+        },
+        "text": {
+            "description": "A string containing an array of access points the Notecard should attempt to use. The access points should be provided in the following format:\n\n`[\"FIRST-SSID\",\"FIRST-PASSWORD\"],[\"SECOND-SSID\",\"SECOND-PASSWORD\"]`.\n\nYou may need to escape any quotes used in this argument before passing it to the Notecard. For example, the following is a valid request to pass to a Notecard through the [In-Browser Terminal](https://dev.blues.io/terminal/).\n\n`{\"req\":\"card.wifi\", \"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"]\"}`",
+            "type": "string"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.wifi"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.wifi"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.wifi"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.wifi"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Updates to Notecard WiFi credentials cannot occur while Notecard is in continuous mode, as a new session is required to change the credentials. If you have a Notecard WiFi in continuous mode, you must change to another mode such as periodic or off, using [a hub.set request](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) before calling card.wifi."
+        }
+    ],
+    "samples": [
+        {
+            "description": "Set Wi-Fi SSID and password",
+            "json": "{\"req\":\"card.wifi\",\"ssid\":\"MyWiFiNetwork\",\"password\":\"MyPassword123\"}"
+        },
+        {
+            "description": "Start SoftAP mode with custom name",
+            "json": "{\"req\":\"card.wifi\",\"name\":\"MyNotecard-\",\"start\":true}"
+        },
+        {
+            "description": "Configure multiple access points using text parameter",
+            "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
+        },
+        {
+            "description": "Clear existing Wi-Fi credentials",
+            "json": "{\"req\":\"card.wifi\",\"ssid\":\"-\",\"password\":\"-\"}"
+        }
+    ]
+}

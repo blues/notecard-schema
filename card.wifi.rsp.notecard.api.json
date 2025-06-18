@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.rsp.notecard.api.json",
+    "title": "card.wifi Response Application Programming Interface (API) Schema",
+    "description": "Response containing Wi-Fi connection status and configuration information from the Notecard.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "secure": {
+            "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",
+            "type": "boolean"
+        },
+        "version": {
+            "description": "The Silicon Labs WF200 Wi-Fi Transceiver binary version.",
+            "type": "string"
+        },
+        "ssid": {
+            "description": "The SSID of the Wi-Fi access point.",
+            "type": "string"
+        },
+        "security": {
+            "description": "The security protocol the Wi-Fi access point uses.",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "description": "Wi-Fi connection status and configuration information",
+            "json": "{\"secure\":true, \"version\":\"3.12.3\", \"ssid\":\"<ssid name>\", \"security\":\"wpa2-psk\"}"
+        }
+    ]
+}

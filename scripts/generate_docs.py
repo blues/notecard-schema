@@ -3,17 +3,16 @@ import requests
 import os
 import re
 
-def fetch_schema(url):
-    """Fetches and parses JSON schema from a URL."""
+def load_schema(path):
+    """Loads and parses JSON schema from a local file path."""
     try:
-        response = requests.get(url)
-        response.raise_for_status()
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching URL {url}: {e}")
+        with open(path, 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print(f"Error: Schema file not found at {path}")
         return None
     except json.JSONDecodeError:
-        print(f"Error decoding JSON from URL {url}")
+        print(f"Error decoding JSON from {path}")
         return None
 
 def get_base_api_name(schema_ref):
@@ -79,8 +78,21 @@ def generate_markdown_for_schema(schema, schema_type):
                     prop_desc = details.get('description', '-')
                     prop_default = details.get('default', '-')
 
-                    # Append enum values to description if present
-                    if 'enum' in details and isinstance(details['enum'], list):
+                    # Handle sub-descriptions if they exist
+                    if 'sub-descriptions' in details and isinstance(details['sub-descriptions'], list):
+                        sub_descs_md = []
+                        for sub_desc in details['sub-descriptions']:
+                            if 'const' in sub_desc and 'description' in sub_desc:
+                                desc_line = f" - `{sub_desc['const']}`: {sub_desc['description']}"
+                                # Add SKU information if present
+                                if 'skus' in sub_desc and isinstance(sub_desc['skus'], list):
+                                    sku_list = ", ".join([f"`{sku}`" for sku in sub_desc['skus']])
+                                    desc_line += f" ({sku_list})"
+                                sub_descs_md.append(desc_line)
+                        if sub_descs_md:
+                            prop_desc += "<br/><br/>**Allowed Values:**<br/>" + "<br/>".join(sub_descs_md)
+                    # Append enum values to description if present and no sub-descriptions
+                    elif 'enum' in details and isinstance(details['enum'], list):
                         enum_values = ", ".join([f"`{v}`" for v in details['enum']])
                         prop_desc += f". Allowed values: {enum_values}"
                     # Else, check if pattern suggests allowed values
@@ -179,7 +191,9 @@ def main():
     failed_count = 0
 
     for ref in all_schema_refs:
-        schema_content = fetch_schema(ref)
+        # Convert URL to local path
+        local_path = os.path.join(workspace_root, ref.split('/')[-1])
+        schema_content = load_schema(local_path)
         if schema_content:
             all_schemas_data.append((ref, schema_content))
             fetched_count += 1
@@ -223,7 +237,15 @@ def main():
 
     # Sort API groups alphabetically
     for base_name in sorted(grouped_schemas.keys()):
-        markdown_output.append(f"### `{base_name}`\n")
+        markdown_output.append(f"### `{base_name}`")
+
+        # Add API SKU if available
+        if grouped_schemas[base_name]['request'] and 'skus' in grouped_schemas[base_name]['request'][1]:
+            sku = grouped_schemas[base_name]['request'][1]['skus']
+            markdown_output.append("#### SKUs\n")
+            for each_sku in sku:
+                markdown_output.append(f"`{each_sku}`")
+            markdown_output.append("\n")
 
         # Add request documentation if available
         if grouped_schemas[base_name]['request']:

@@ -6,158 +6,210 @@ SCHEMA_FILE = "web.req.notecard.api.json"
 
 def test_valid_req(schema):
     """Tests a minimal valid request using 'req'."""
-    instance = {"req": "web"}
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_cmd(schema):
     """Tests a minimal valid request using 'cmd'."""
-    instance = {"cmd": "web"}
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_no_req_or_cmd(schema):
     """Tests invalid request missing req/cmd."""
-    instance = {"method": "get"}
+    instance = {"method": "GET", "route": "weatherInfo"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not valid under any of the given schemas" in str(excinfo.value)
 
 def test_invalid_both_req_and_cmd(schema):
     """Tests invalid request having both req and cmd."""
-    instance = {"req": "web", "cmd": "web"}
+    instance = {"req": "web", "cmd": "web", "method": "GET", "route": "weatherInfo"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is valid under each of" in str(excinfo.value)
 
 def test_invalid_req_value(schema):
     """Tests invalid value for req."""
-    instance = {"req": "invalid.req"}
-    with pytest.raises(jsonschema.ValidationError):
+    instance = {"req": "invalid.req", "method": "GET", "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
+    assert "'web' was expected" in str(excinfo.value)
 
 def test_invalid_cmd_value(schema):
     """Tests invalid value for cmd."""
-    instance = {"cmd": "invalid.cmd"}
-    with pytest.raises(jsonschema.ValidationError):
+    instance = {"cmd": "invalid.cmd", "method": "GET", "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'web' was expected" in str(excinfo.value)
+
+def test_missing_required_method_with_req(schema):
+    """Tests that method field is required when using req."""
+    instance = {"req": "web", "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+
+def test_missing_required_method_with_cmd(schema):
+    """Tests that method field is required when using cmd."""
+    instance = {"cmd": "web", "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+
+def test_missing_required_route_with_req(schema):
+    """Tests that route field is required when using req."""
+    instance = {"req": "web", "method": "GET"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+
+def test_missing_required_route_with_cmd(schema):
+    """Tests that route field is required when using cmd."""
+    instance = {"cmd": "web", "method": "GET"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+
+def test_valid_methods(schema):
+    """Tests all valid HTTP methods."""
+    valid_methods = [
+        "CONNECT",
+        "DELETE",
+        "GET",
+        "HEAD",
+        "OPTIONS",
+        "PATCH",
+        "POST",
+        "PUT",
+        "TRACE",
+    ]
+    for method in valid_methods:
+        instance = {"req": "web", "method": method, "route": "weatherInfo"}
+        jsonschema.validate(instance=instance, schema=schema)
+        instance = {"cmd": "web", "method": method, "route": "weatherInfo"}
         jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_with_method_get(schema):
-    """Tests valid request with GET method."""
-    instance = {"req": "web", "method": "get"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_with_method_post(schema):
-    """Tests valid request with POST method."""
-    instance = {"req": "web", "method": "post"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_with_method_put(schema):
-    """Tests valid request with PUT method."""
-    instance = {"req": "web", "method": "put"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_with_method_delete(schema):
-    """Tests valid request with DELETE method."""
-    instance = {"req": "web", "method": "delete"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_method_value(schema):
+def test_invalid_method(schema):
     """Tests invalid HTTP method."""
-    instance = {"req": "web", "method": "patch"}
+    instance = {"req": "web", "method": "INVALID", "route": "weatherInfo"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not one of" in str(excinfo.value)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+    instance = {"cmd": "web", "method": "INVALID", "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
 
-def test_invalid_method_type(schema):
+def test_method_invalid_type(schema):
     """Tests invalid type for method."""
-    instance = {"req": "web", "method": 123}
+    instance = {"req": "web", "method": 123, "route": "weatherInfo"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+    instance = {"cmd": "web", "method": 123, "route": "weatherInfo"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
 
-def test_valid_with_route(schema):
-    """Tests valid request with route."""
-    instance = {"req": "web", "route": "/api/v1/data"}
+def test_valid_route(schema):
+    """Tests valid route field."""
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo"}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_route_type(schema):
+def test_route_invalid_type(schema):
     """Tests invalid type for route."""
-    instance = {"req": "web", "route": 123}
+    instance = {"req": "web", "method": "GET", "route": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
-
-def test_valid_with_body(schema):
-    """Tests valid request with body object."""
-    instance = {"req": "web", "body": {"key": "value", "number": 42}}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_body_type(schema):
-    """Tests invalid type for body."""
-    instance = {"req": "web", "body": "not an object"}
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
+    instance = {"cmd": "web", "method": "GET", "route": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'object'" in str(excinfo.value)
+    assert "is not valid under any of the given schemas" in str(excinfo.value)
 
-def test_valid_with_payload(schema):
-    """Tests valid request with binary payload."""
-    instance = {"req": "web", "payload": "SGVsbG8gV29ybGQ="}
+def test_valid_name(schema):
+    """Tests valid name field."""
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo", "name": "/getLatest"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "name": "/getLatest"}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_payload_type(schema):
-    """Tests invalid type for payload."""
-    instance = {"req": "web", "payload": 12345}
+def test_name_invalid_type(schema):
+    """Tests invalid type for name."""
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo", "name": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
-
-def test_valid_with_headers(schema):
-    """Tests valid request with headers."""
-    instance = {"req": "web", "headers": {"Authorization": "Bearer token123", "Content-Type": "application/json"}}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_headers_type(schema):
-    """Tests invalid type for headers."""
-    instance = {"req": "web", "headers": "not an object"}
+    assert "123 is not of type 'string'" in str(excinfo.value)
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "name": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'object'" in str(excinfo.value)
+    assert "123 is not of type 'string'" in str(excinfo.value)
 
-def test_valid_empty_headers(schema):
-    """Tests valid request with empty headers object."""
-    instance = {"req": "web", "headers": {}}
+def test_valid_content(schema):
+    """Tests valid content field."""
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo", "content": "application/json"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "content": "application/json"}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_empty_body(schema):
-    """Tests valid request with empty body object."""
-    instance = {"req": "web", "body": {}}
-    jsonschema.validate(instance=instance, schema=schema)
+def test_content_invalid_type(schema):
+    """Tests invalid type for content."""
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo", "content": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "content": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
 
-def test_valid_complex_request(schema):
-    """Tests a complex valid request with multiple parameters."""
+def test_valid_all_fields(schema):
+    """Tests a valid request with all fields."""
     instance = {
         "req": "web",
-        "method": "post",
-        "route": "/api/v1/sensors",
-        "body": {"temp": 72.32, "humidity": 32.2},
-        "headers": {"Authorization": "Bearer token123", "Content-Type": "application/json"}
+        "method": "GET",
+        "route": "weatherInfo",
+        "name": "/getLatest",
+        "content": "application/json",
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {
+        "cmd": "web",
+        "method": "GET",
+        "route": "weatherInfo",
+        "name": "/getLatest",
+        "content": "application/json",
     }
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
-    instance = {"req": "web", "extra": "field"}
+    instance = {"req": "web", "method": "GET", "route": "weatherInfo", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(
+        excinfo.value
+    )
+    instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "extra": "field"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(
+        excinfo.value
+    )
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
         sample_json_str = sample.get("json")
         if not sample_json_str:
-            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+            pytest.fail(
+                f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}"
+            )
         try:
             instance = json.loads(sample_json_str)
         except json.JSONDecodeError as e:
             pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
         jsonschema.validate(instance=instance, schema=schema)

@@ -2,15 +2,34 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.io.req.notecard.api.json",
     "title": "card.io Request Application Programming Interface (API) Schema",
-    "description": "Can be used to override the Notecard's I2C address from its default of 0x17 and change behaviors of the onboard LED and USB port.",
+    "description": "Can be used to override the Notecard's I2C address from its default of `0x17` and change behaviors of the onboard LED and USB port.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "i2c": {
-            "description": "The alternate address to use for I2C communication. Pass -1 to reset to the default address",
+            "description": "The alternate address to use for I2C communication. Pass `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default address",
             "type": "integer"
         },
         "mode": {
-            "description": "Set to '-usb' to disable the Notecard's USB port. Re-enable the USB port with 'usb' or '+usb'. Set to '+busy' for LED on when Notecard is awake, and off when asleep. Set to '-busy' to reset to default. Set to 'i2c-master-disable' to disable Notecard acting as an I2C master",
+            "sub-descriptions": [
+                {
+                    "const": "-usb",
+                    "description": "Set to `\"-usb\"` to disable the Notecard's USB port. Re-enable the USB port with `\"usb\"` or `\"+usb\"`."
+                },
+                {
+                    "const": "+busy",
+                    "description": "If set to `\"+busy\"`, the Notecard's LED will be on when the Notecard is awake, and off when the Notecard goes to sleep."
+                },
+                {
+                    "const": "-busy",
+                    "description": "Resets `\"+busy\"` to its default, making the onboard LED blink only during Notecard flash memory operations."
+                },
+                {
+                    "const": "i2c-master-disable",
+                    "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`."
+                }
+            ],
             "type": "string",
             "enum": [
                 "-usb",
@@ -54,6 +73,18 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Change I2C Address",
+            "json": "{\"req\": \"card.io\", \"i2c\": 24}"
+        },
+        {
+            "description": "Keep LED On While Notecard Awake.",
+            "json": "{\"req\": \"card.io\", \"mode\": \"+busy\"}"
+        },
+        {
+            "description": "Disable Notecard Acting As I2C Master.",
+            "json": "{\"req\": \"card.io\", \"mode\": \"i2c-master-disable\"}"
+        }
+    ]
 }

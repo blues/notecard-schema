@@ -1,0 +1,66 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.power.req.notecard.api.json",
+    "title": "card.power Request Application Programming Interface (API) Schema",
+    "description": "The `card.power` API is used to configure a connected Mojo device or to manually request power consumption readings in firmware.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {
+        "minutes": {
+            "description": "How often, in minutes, Notecard should log power consumption in a `_log.qo` Note. The default value is `720` (12 hours).",
+            "default": 720,
+            "type": "integer"
+        },
+        "reset": {
+            "description": "Set to `true` to reset the power consumption counters back to 0.",
+            "type": "boolean"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.power"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.power"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.power"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.power"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Get Latest Power Consumption Reading",
+            "json": "{\"req\": \"card.power\"}"
+        },
+        {
+            "description": "Set Cadence of Readings",
+            "json": "{\"req\": \"card.power\", \"minutes\": 60}"
+        },
+        {
+            "description": "Reset Counters",
+            "json": "{\"cmd\": \"card.power\", \"reset\": true}"
+        }
+    ]
+}

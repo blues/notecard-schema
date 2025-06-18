@@ -1,0 +1,75 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.req.notecard.api.json",
+    "title": "card.usage.get Request Application Programming Interface (API) Schema",
+    "description": "Returns the card's network usage statistics.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "mode": {
+            "description": "The time period to use for statistics.",
+            "type": "string",
+            "default": "total",
+            "enum": [
+                "total",
+                "1hour",
+                "1day",
+                "30day"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "total",
+                    "description": "All stats since the Notecard was activated."
+                }
+            ]
+        },
+        "offset": {
+            "description": "The number of time periods to look backwards, based on the specified `mode`.\n\nTo accurately determine the start of the calculated time period when using `offset`, use the `time` value of the response. Likewise, to calculate the end of the time period, add the `seconds` value to the `time` value.",
+            "type": "integer"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.usage.get"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.usage.get"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.usage.get"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.usage.get"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Usage data is updated by the Notecard at the end of each network connection. If connected in `continuous` mode, usage data will not be updated until the current session ends, which you can [configure with the `hub.set` `duration` argument](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set)."
+        }
+    ],
+    "samples": [
+        {
+            "description": "Example",
+            "json": "{\"req\":\"card.usage.get\", \"mode\":\"1day\", \"offset\": 5}"
+        }
+    ]
+}

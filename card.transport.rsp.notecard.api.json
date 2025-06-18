@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.transport.rsp.notecard.api.json",
+    "title": "card.transport Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "method": {
+            "description": "The connectivity method currently enabled on the device.",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "description": "Response for `card.transport` with method set to `wifi-cell`.",
+            "json": "{\"method\": \"wifi-cell\"}"
+        }
+    ]
+}

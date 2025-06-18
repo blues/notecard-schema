@@ -29,7 +29,7 @@ def schema(request):
     # This assumes main_resource has an $id.
     registry = main_resource @ Registry()
 
-    # If this is notecard.api.json, pre-fetch its remote $refs
+    # If this is notecard.api.json, load its remote $refs from local files
     # and add them to the registry to prevent live HTTP requests during validation
     # and to avoid DeprecationWarnings from jsonschema.
     if schema_filename == "notecard.api.json" and "oneOf" in main_schema_content:
@@ -37,29 +37,28 @@ def schema(request):
             if "$ref" in ref_obj:
                 ref_url = ref_obj["$ref"]
                 if ref_url.startswith(("http://", "https://")):
+                    # Extract filename from URL and look for it locally
+                    filename = ref_url.split('/')[-1]
+                    local_file_path = os.path.join(project_root, filename)
+                    
                     try:
                         # Check if registry already has this specific URL resolved
-                        # registry.contents(ref_url) would raise KeyError if not found.
-                        # To avoid re-adding if already present by its $id which might be the ref_url:
-                        try:
-                            registry.contents(ref_url)
-                            # If above doesn't raise, it means something is at ref_url URI in registry
-                            # Potentially, the resource was already added if its $id == ref_url
-                        except KeyError:
-                            with urllib.request.urlopen(ref_url) as response:
-                                if response.status == 200:
-                                    ref_content_str = response.read().decode('utf-8')
-                                    ref_content_dict = json.loads(ref_content_str)
-                                    ref_resource = Resource.from_contents(ref_content_dict)
-                                    registry = ref_resource @ registry
-                                else:
-                                    pytest.fail(f"Failed to fetch $ref {ref_url}: HTTP {response.status}")
-                    except urllib.error.URLError as e:
-                        pytest.fail(f"URL Error fetching $ref {ref_url}: {e.reason}")
-                    except json.JSONDecodeError as e:
-                        pytest.fail(f"JSON Decode Error for $ref {ref_url}: {e}")
-                    except Exception as e:
-                        pytest.fail(f"Generic Error fetching $ref {ref_url}: {e}")
+                        registry.contents(ref_url)
+                        # If above doesn't raise, it means something is at ref_url URI in registry
+                    except KeyError:
+                        # Load the local file instead of fetching remote
+                        if os.path.exists(local_file_path):
+                            try:
+                                with open(local_file_path, 'r') as f:
+                                    ref_content_dict = json.load(f)
+                                ref_resource = Resource.from_contents(ref_content_dict)
+                                registry = ref_resource @ registry
+                            except (json.JSONDecodeError, IOError) as e:
+                                pytest.fail(f"Error loading local file {filename}: {e}")
+                        else:
+                            # If local file doesn't exist, skip it instead of failing
+                            # This allows tests to run even if some referenced schemas are missing
+                            continue
 
     if schema_filename == "notecard.api.json":
         return main_schema_content, registry

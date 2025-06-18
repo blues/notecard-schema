@@ -4,110 +4,85 @@ import json
 
 SCHEMA_FILE = "web.rsp.notecard.api.json"
 
-def test_valid_minimal(schema):
-    """Tests a minimal valid response with just status."""
-    instance = {"status": 200}
+def test_minimal_valid_rsp(schema):
+    """Tests a minimal valid response (empty object)."""
+    instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_with_body(schema):
-    """Tests a valid response with body string."""
-    instance = {"status": 200, "body": "Success response"}
+def test_valid_result(schema):
+    """Tests valid result field."""
+    instance = {"result": 200}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_with_headers(schema):
-    """Tests a valid response with headers object."""
-    instance = {"status": 200, "headers": {"Content-Type": "application/json", "Server": "nginx"}}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_complete_response(schema):
-    """Tests a complete response with all possible fields."""
-    instance = {
-        "status": 200,
-        "body": "JSON response data",
-        "headers": {
-            "Content-Type": "application/json",
-            "Content-Length": "42",
-            "Server": "nginx/1.18"
-        }
-    }
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_status_type(schema):
-    """Tests invalid type for status (should be integer)."""
-    instance = {"status": "200"}
+def test_result_invalid_type(schema):
+    """Tests invalid type for result."""
+    instance = {"result": "200"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
 
-def test_invalid_body_type(schema):
-    """Tests invalid type for body (should be string)."""
-    instance = {"status": 200, "body": {"key": "value"}}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
+def test_valid_body(schema):
+    """Tests valid body field."""
+    instance = {"body": {"foo": "bar"}}
+    jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_headers_type(schema):
-    """Tests invalid type for headers (should be object)."""
-    instance = {"status": 200, "headers": "not-an-object"}
+def test_body_invalid_type(schema):
+    """Tests invalid type for body."""
+    instance = {"body": "not-an-object"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'object'" in str(excinfo.value)
 
-def test_valid_http_status_codes(schema):
-    """Tests valid HTTP status codes."""
-    for status_code in [200, 201, 204, 301, 302, 400, 401, 403, 404, 500, 502, 503]:
-        instance = {"status": status_code}
+def test_valid_payload(schema):
+    """Tests valid payload field."""
+    instance = {"payload": "SGVsbG8sIFdvcmxkIQ=="}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_payload_invalid_type(schema):
+    """Tests invalid type for payload."""
+    instance = {"payload": 12345}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'string'" in str(excinfo.value)
 
-def test_valid_empty_body(schema):
-    """Tests valid response with empty body string."""
-    instance = {"status": 200, "body": ""}
+def test_valid_length(schema):
+    """Tests valid length field."""
+    instance = {"length": 42}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_empty_headers(schema):
-    """Tests valid response with empty headers object."""
-    instance = {"status": 200, "headers": {}}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_json_body_as_string(schema):
-    """Tests valid response with JSON content as string body."""
-    instance = {"status": 200, "body": "{\"message\": \"Success\", \"data\": [1, 2, 3]}"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_error_status_codes(schema):
-    """Tests valid error HTTP status codes."""
-    for status_code in [400, 401, 403, 404, 422, 500, 502, 503, 504]:
-        instance = {"status": status_code, "body": "Error message"}
+def test_length_invalid_type(schema):
+    """Tests invalid type for length."""
+    instance = {"length": "42"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'integer'" in str(excinfo.value)
 
-def test_valid_multiline_body(schema):
-    """Tests valid response with multiline body string."""
+def test_valid_cobs(schema):
+    """Tests valid cobs field."""
+    instance = {"cobs": 100}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_cobs_invalid_type(schema):
+    """Tests invalid type for cobs."""
+    instance = {"cobs": "100"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_all_fields(schema):
+    """Tests a valid response with all fields."""
     instance = {
-        "status": 200,
-        "body": "Line 1\nLine 2\nLine 3"
+        "result": 200,
+        "body": {"foo": "bar"},
+        "payload": "SGVsbG8sIFdvcmxkIQ==",
+        "length": 12,
+        "cobs": 12
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_common_headers(schema):
-    """Tests valid response with common HTTP headers."""
-    instance = {
-        "status": 200,
-        "headers": {
-            "Content-Type": "application/json",
-            "Content-Length": "1024",
-            "Cache-Control": "no-cache",
-            "Server": "nginx/1.18.0",
-            "Date": "Wed, 21 Oct 2015 07:28:00 GMT",
-            "Last-Modified": "Wed, 21 Oct 2015 07:28:00 GMT",
-            "ETag": "\"1234567890\"",
-            "Access-Control-Allow-Origin": "*"
-        }
-    }
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property (schema allows them)."""
-    instance = {"status": 200, "extra": "field"}
+def test_additional_property(schema):
+    """Tests response with an additional property (should be allowed)."""
+    instance = {"result": 200, "extra": 123}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):
