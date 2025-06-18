@@ -105,7 +105,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Performs a simple HTTP or HTTPS POST request and returns the response.",
+            "description": "Example",
             "json": "{\"req\": \"web.post\", \"route\": \"SensorService\", \"name\": \"/addReading\", \"body\": {\"temp\": 72.32, \"humidity\": 32.2 }}"
         }
     ]
