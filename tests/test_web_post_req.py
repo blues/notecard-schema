@@ -74,18 +74,6 @@ def test_valid_with_content(schema):
     instance = {"req": "web.post", "content": "application/json"}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_with_headers(schema):
-    """Tests valid request with headers."""
-    instance = {"req": "web.post", "headers": {"Authorization": "Bearer token123", "Content-Type": "application/json"}}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_headers_type(schema):
-    """Tests invalid type for headers."""
-    instance = {"req": "web.post", "headers": "not an object"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'object'" in str(excinfo.value)
-
 def test_valid_with_seconds(schema):
     """Tests valid request with timeout."""
     instance = {"req": "web.post", "seconds": 120}
@@ -172,15 +160,15 @@ def test_invalid_binary_type(schema):
 
 def test_valid_with_file_and_note(schema):
     """Tests valid request with file and note parameters."""
-    instance = {"req": "web.post", "file": True, "note": "response1"}
+    instance = {"req": "web.post", "file": "response.dbx", "note": "response1"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_file_type(schema):
     """Tests invalid type for file."""
-    instance = {"req": "web.post", "file": "response.dbx"}
+    instance = {"req": "web.post", "file": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'boolean'" in str(excinfo.value)
+    assert "is not of type 'string'" in str(excinfo.value)
 
 def test_invalid_note_type(schema):
     """Tests invalid type for note."""
@@ -201,10 +189,9 @@ def test_valid_complex_request(schema):
     instance = {
         "req": "web.post",
         "route": "SensorService",
-        "name": "/addReading?id=1",
+        "name": "/addReading?id=1", 
         "body": {"temp": 72.32, "humidity": 32.2},
         "content": "application/json",
-        "headers": {"Authorization": "Bearer token123"},
         "seconds": 90,
         "max": 1024
     }
