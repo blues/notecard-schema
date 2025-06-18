@@ -21,7 +21,7 @@
             "type": "object"
         },
         "payload": {
-            "description": "A base64-encoded binary payload. A `web.put` may have either a `body` or a `payload`, but may NOT have both. Be aware that Notehub will decode the payload as it is delivered to the endpoint.",
+            "description": "A base64-encoded binary payload. A `web.put` may have either a `body` or a `payload`, but may NOT have both. Be aware that Notehub will decode the payload as it is delivered to the endpoint.\n\nLearn more about [sending large binary objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#binary-uploads-with-web-apis) with the Notecard.",
             "type": "string",
             "contentEncoding": "base64"
         },
