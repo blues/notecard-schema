@@ -73,7 +73,7 @@
     "samples": [
         {
             "description": "Example",
-            "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1234\"}"
+            "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1\"}"
         }
     ]
 }
