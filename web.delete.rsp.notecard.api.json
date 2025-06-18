@@ -3,20 +3,31 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.delete.rsp.notecard.api.json",
     "title": "web.delete Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
-        "status": {
-            "description": "HTTP status code",
+        "result": {
+            "description": "The HTTP Status Code",
             "type": "integer"
         },
         "body": {
-            "description": "Response body",
-            "type": "string"
-        },
-        "headers": {
-            "description": "HTTP response headers",
+            "description": "The JSON response body from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "object"
+        },
+        "payload": {
+            "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
+            "type": "string",
+            "contentEncoding": "base64"
+        },
+        "status": {
+            "description": "If a `payload` is returned in the response, this is a 32-character hex-encoded MD5 sum of the payload or payload fragment. Useful for the host to check for any I2C/UART corruption.",
+            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Example Response",
+            "json": "{\"result\": 204}"
+        }
+    ]
 }

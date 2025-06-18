@@ -2,10 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.get.req.notecard.api.json",
     "title": "web.get Request Application Programming Interface (API) Schema",
-    "description": "Performs a simple HTTP or HTTPS GET request against an external endpoint, and returns the response to the Notecard.",
+    "description": "Performs a simple HTTP or HTTPS `GET` request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "0.3.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "route": {
             "description": "Alias for a Proxy Route in Notehub.",
@@ -14,6 +15,10 @@
         "name": {
             "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/getLatest?id=1`).",
             "type": "string"
+        },
+        "body": {
+            "description": "The JSON body to send with the request.",
+            "type": "object"
         },
         "content": {
             "description": "The MIME type of the body or payload of the response. Default is `application/json`.",

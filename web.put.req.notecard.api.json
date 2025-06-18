@@ -2,25 +2,71 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.put.req.notecard.api.json",
     "title": "web.put Request Application Programming Interface (API) Schema",
-    "description": "Performs a simple HTTP or HTTPS PUT request against an external endpoint, and returns the response to the Notecard.",
+    "description": "Performs a simple HTTP or HTTPS `PUT` request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "route": {
-            "description": "URL route for the PUT request",
+            "description": "Alias for a Proxy Route in Notehub.",
+            "type": "string"
+        },
+        "name": {
+            "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/updateReading?id=1`).",
             "type": "string"
         },
         "body": {
-            "description": "Request body",
+            "description": "The JSON body to send with the request.",
             "type": "object"
         },
         "payload": {
-            "description": "Binary payload data",
+            "description": "A base64-encoded binary payload. A `web.put` may have either a `body` or a `payload`, but may NOT have both. Be aware that Notehub will decode the payload as it is delivered to the endpoint.\n\nLearn more about [sending large binary objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#binary-uploads-with-web-apis) with the Notecard.",
             "type": "string",
-            "format": "binary"
+            "contentEncoding": "base64"
         },
-        "headers": {
-            "description": "HTTP headers for the request",
-            "type": "object"
+        "content": {
+            "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
+            "default": "application/json",
+            "type": "string"
+        },
+        "seconds": {
+            "description": "If specified, overrides the default 90 second timeout.",
+            "default": 90,
+            "type": "integer"
+        },
+        "total": {
+            "description": "When sending large payloads to Notehub in fragments across several `web.put` requests, the total size, in bytes, of the binary payload across all fragments.",
+            "type": "integer"
+        },
+        "offset": {
+            "description": "When sending payload fragments, the number of bytes of the binary payload to offset from 0 when reassembling on the Notehub once all fragments have been received.",
+            "type": "integer"
+        },
+        "status": {
+            "description": "A 32-character hex-encoded MD5 sum of the payload or payload fragment. Used by Notehub to perform verification upon receipt.",
+            "type": "string"
+        },
+        "max": {
+            "description": "The maximum size of the response from the remote server, in bytes. Useful if a memory-constrained host wants to limit the response size. Default (and maximum value) is 8192.",
+            "default": 90,
+            "type": "integer"
+        },
+        "verify": {
+            "description": "`true` to request verification from Notehub once the payload or payload fragment is received. Automatically set to `true` when `status` is supplied.",
+            "type": "boolean"
+        },
+        "async": {
+            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
+            "type": "boolean"
+        },
+        "file": {
+            "description": "The name of the [local-only Database Notefile](https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-database-notefiles-for-local-only-state) (`.dbx`) to be used if the web request is issued [asynchronously](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#using-web-transactions-asynchronously) and you wish to store the response.",
+            "type": "string"
+        },
+        "note": {
+            "description": "The unique Note ID for the local-only Database Notefile (`.dbx`). Only used with asynchronous web requests (see `file` argument above).",
+            "type": "string"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -54,6 +100,10 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Performs a simple HTTP or HTTPS PUT request and returns the response.",
+            "json": "{\"req\": \"web.put\", \"route\": \"SensorService\", \"name\": \"/updateReading\", \"body\": {\"id\": 1234, \"temp\": 72.32, \"humidity\": 32.2 }}"
+        }
+    ]
 }

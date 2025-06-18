@@ -84,6 +84,18 @@ def test_valid_with_file_and_note(schema):
     instance = {"req": "web.get", "file": "response.dbx", "note": "note1"}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_with_body(schema):
+    """Tests valid request with JSON body."""
+    instance = {"req": "web.get", "body": {"key": "value", "number": 42}}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_invalid_body_type(schema):
+    """Tests invalid type for body."""
+    instance = {"req": "web.get", "body": "not an object"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'object'" in str(excinfo.value)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "web.get", "extra": "field"}
@@ -101,5 +113,5 @@ def test_validate_samples_from_schema(schema, schema_samples):
             instance = json.loads(sample_json_str)
         except json.JSONDecodeError as e:
             pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
-
         jsonschema.validate(instance=instance, schema=schema)
+

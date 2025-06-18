@@ -2,16 +2,41 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.delete.req.notecard.api.json",
     "title": "web.delete Request Application Programming Interface (API) Schema",
-    "description": "Performs a simple HTTP or HTTPS DELETE request against an external endpoint, and returns the response to the Notecard.",
+    "description": "Performs a simple HTTP or HTTPS `DELETE` request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "route": {
-            "description": "URL route for the DELETE request",
+            "description": "Alias for a Proxy Route in Notehub.",
             "type": "string"
         },
-        "headers": {
-            "description": "HTTP headers for the request",
-            "type": "object"
+        "name": {
+            "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/deleteReading?id=1`).",
+            "type": "string"
+        },
+        "content": {
+            "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
+            "default": "application/json",
+            "type": "string"
+        },
+        "seconds": {
+            "description": "If specified, overrides the default 90 second timeout.",
+            "default": 90,
+            "type": "integer"
+        },
+        "async": {
+            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
+            "type": "boolean"
+        },
+        "file": {
+            "description": "The name of the [local-only Database Notefile](https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-database-notefiles-for-local-only-state) (`.dbx`) to be used if the web request is issued [asynchronously](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#using-web-transactions-asynchronously) and you wish to store the response.",
+            "type": "string"
+        },
+        "note": {
+            "description": "The unique Note ID for the local-only Database Notefile (`.dbx`). Only used with asynchronous web requests (see `file` argument above).",
+            "type": "string"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -45,6 +70,10 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Example",
+            "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1\"}"
+        }
+    ]
 }
