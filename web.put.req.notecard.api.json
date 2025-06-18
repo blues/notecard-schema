@@ -49,6 +49,7 @@
         },
         "max": {
             "description": "The maximum size of the response from the remote server, in bytes. Useful if a memory-constrained host wants to limit the response size. Default (and maximum value) is 8192.",
+            "default": 90,
             "type": "integer"
         },
         "verify": {
