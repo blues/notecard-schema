@@ -72,7 +72,7 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Performs a simple HTTP or HTTPS DELETE request and returns the response.",
+            "description": "Example",
             "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1234\"}"
         }
     ]
