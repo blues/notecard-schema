@@ -30,9 +30,6 @@
             "default": "application/json",
             "type": "string"
         },
-            "description": "HTTP headers for the request.",
-            "type": "object"
-        },
         "seconds": {
             "description": "If specified, overrides the default 90 second timeout.",
             "type": "integer"
