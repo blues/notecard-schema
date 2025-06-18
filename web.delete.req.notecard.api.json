@@ -16,10 +16,6 @@
             "description": "A web URL endpoint relative to the host configured in the Proxy Route. URL parameters may be added to this argument as well (e.g. `/deleteReading?id=1`).",
             "type": "string"
         },
-        "body": {
-            "description": "The JSON body to send with the request.",
-            "type": "object"
-        },
         "content": {
             "description": "The MIME type of the body or payload of the response. Default is `application/json`.",
             "type": "string"
