@@ -17,7 +17,7 @@
             "const": "payload"
         },
         "count": {
-            "description": "If the mode argument is excluded from the request, the Notecard uses this as an upper-limit parameter and returns a random unsigned 32 bit integer between zero and the value provided.\n\nIf `mode` is `\"payload\"`, this argument sets the number of random bytes of data to return in a base64-encoded buffer from the Notecard.",
+            "description": "If the mode argument is excluded from the request, the Notecard uses this as an upper-limit parameter and returns a random unsigned 32 bit integer between zero and the value provided.\n\nIf `\"mode\":\"payload\"` is used, this argument sets the number of random bytes of data to return in a base64-encoded buffer from the Notecard.",
             "type": "integer"
         },
         "cmd": {
