@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.put.req.notecard.api.json",
     "title": "web.put Request Application Programming Interface (API) Schema",
-    "description": "Performs a simple HTTP or HTTPS PUT request against an external endpoint, and returns the response to the Notecard.",
+    "description": "Performs a simple HTTP or HTTPS `PUT` request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
