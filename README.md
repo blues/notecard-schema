@@ -43,23 +43,32 @@ Example shown from `hub.signal`:
 
 An array of objects representing each of the JSON examples provided.
 
-Example shown from `env.set`:
+Example shown from `card.attn`:
 
 ```json
 "samples": [
     {
-        "description": "Set A Variable",
-        "json": "{\"req\":\"env.set\", \"name\":\"monitor-pump\", \"text\":\"on\"}"
+        "title": "Connected",
+        "description": "Configure the Notecard to perform an interrupt on a successful connection to Notehub.",
+        "json": "{\"req\":\"card.attn\",\"mode\":\"arm,connected\"}"
     },
     {
-        "description": "Clear A Variable",
-        "json": "{\"req\":\"env.set\", \"name\":\"monitor-pump\"}"
-    }
+        "title": "Files",
+        "description": "Configure the Notecard to perform an interrupt on the `data.qi` and `my-settings.db` Notefiles.",
+        "json": "{\"req\":\"card.attn\",\"mode\":\"arm,files\",\"files\":[\"data.qi\",\"my-settings.db\"]}"
+    },
+    {
+        "title": "Location",
+        "description": "Configure the Notecard to perform an interrupt when the Notecard makes a position fix.",
+        "json": "{\"req\":\"card.attn\",\"mode\":\"arm,location\"}"
+    },
+    ...
 ]
 ```
 
-The value of `json` appears as the JSON code example, and the `description`
-value appears as the tab header when multiple examples are present.
+The value of `json` appears as the JSON code example, the `title`
+value appears as the tab header when multiple examples are present, and
+`description` is provided as a caption to the example code block.
 
 #### `skus`
 

@@ -3,34 +3,62 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.attn.rsp.notecard.api.json",
     "title": "card.attn Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "set": {
-            "description": "State of the ATTN pin",
+            "description": "Reflects the state of the attention pin. The `set` field is `true` when the attention pin is `HIGH`, otherwise the `set` field will not be present when the attention pin is `LOW`.",
             "type": "boolean"
         },
         "files": {
-            "description": "An array of Notefile events triggering the ATTN pin",
+            "description": "A list of files changed since `file` attention mode was set. In addition, this field will include keywords to signify the occurrence of other attention mode triggers:",
             "type": "array",
             "items": {
                 "type": "string"
             },
+            "sub-descriptions": [
+                {
+                    "const": "connected"
+                },
+                {
+                    "const": "env"
+                },
+                {
+                    "const": "files"
+                },
+                {
+                    "const": "location"
+                },
+                {
+                    "const": "motion"
+                },
+                {
+                    "const": "timeout"
+                },
+                {
+                    "const": "watchdog"
+                }
+            ],
             "minItems": 1
         },
         "payload": {
-            "description": "Echoes the payload to provided to the Notecard during 'sleep' mode",
+            "description": "When using `sleep` mode with a `payload`, the payload provided by the host to the Notecard.",
             "type": "string",
-            "format": "binary"
+            "contentEncoding": "base64"
         },
         "time": {
-            "description": "Unix epoch timestamp of the 'payload' value",
-            "type": "integer",
-            "minimum": 0
+            "description": "When using `sleep` mode with a `payload`, the time (UNIX Epoch time) that the payload was stored by the Notecard.",
+            "type": "integer"
         },
         "off": {
-            "description": "Present when event monitoring is disabled",
+            "description": "This field is present and set to `true` if ATTN processing has been disabled with the `off` argument.",
             "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Example Response",
+            "json": "{\"files\": [\"data.qi\", \"modified\"], \"set\": true}"
+        }
+    ]
 }

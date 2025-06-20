@@ -83,13 +83,6 @@ def test_invalid_time_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "1678886400.5 is not of type 'integer'" in str(excinfo.value)
 
-def test_invalid_time_minimum(schema):
-    """Tests an invalid response with a negative time."""
-    instance = {"time": -1}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "-1 is less than the minimum of 0" in str(excinfo.value)
-
 def test_valid_off_true(schema):
     """Tests a valid response with off=true."""
     instance = {"off": True}
