@@ -106,6 +106,9 @@
             "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.voltage.req.notecard.api.json"
         },
         {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.req.notecard.api.json"
+        },
+        {
             "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.req.notecard.api.json"
         },
         {
