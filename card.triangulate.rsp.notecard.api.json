@@ -1,0 +1,35 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.rsp.notecard.api.json",
+    "title": "card.triangulate Response Application Programming Interface (API) Schema",
+    "description": "Response from triangulation request containing configuration status and related information.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "motion": {
+            "description": "Time of last detected Notecard movement",
+            "type": "integer"
+        },
+        "time": {
+            "description": "Time of last triangulation scan",
+            "type": "integer"
+        },
+        "mode": {
+            "description": "A comma-separated list indicating the active triangulation modes",
+            "type": "string"
+        },
+        "on": {
+            "description": "true if triangulation scans will be performed even if the device has not moved",
+            "type": "boolean"
+        },
+        "usb": {
+            "description": "true if triangulation scans will be performed only when the device is USB-powered",
+            "type": "boolean"
+        },
+        "length": {
+            "description": "The length of the text buffer provided in the current or a previous request",
+            "type": "integer"
+        }
+    }
+}

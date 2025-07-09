@@ -1,0 +1,92 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.req.notecard.api.json",
+    "title": "card.triangulate Request Application Programming Interface (API) Schema",
+    "description": "Gathers cell tower and/or Wi-Fi access point data that Notehub uses to perform device triangulation.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.triangulate"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.triangulate"
+        },
+        "mode": {
+            "description": "The triangulation approach to use for determining the Notecard location. The following keywords can be used separately or together in a comma-delimited list, in any order\n\n`cell` enables cell tower scanning to determine the position of the Device.\n\n`wifi` enables the use of nearby Wi-Fi access points to determine the position of the Device. To leverage this feature, the host will need to provide access point information to the Notecard via the `text` argument in subsequent requests.\n\n`-` to clear the currently-set triangulation mode.\n\nSee [Using Cell Tower & Wi-Fi Triangulation](https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#using-cell-tower-and-wi-fi-triangulation) for more information.",
+            "type": "string"
+        },
+        "on": {
+            "description": "`true` to instruct the Notecard to triangulate even if the module has not moved. Only takes effect when `set` is `true`.",
+            "type": "boolean",
+            "default": false
+        },
+        "usb": {
+            "description": "`true` to use perform triangulation only when the Notecard is connected to USB power. Only takes effect when `set` is `true`.",
+            "type": "boolean",
+            "default": false
+        },
+        "set": {
+            "description": "`true` to instruct the module to use the state of the `on` and `usb` arguments.",
+            "type": "boolean",
+            "default": false
+        },
+        "minutes": {
+            "description": "Minimum delay, in minutes, between triangulation attempts. Use `0` for no time-based suppression.",
+            "type": "integer",
+            "default": 0
+        },
+        "text": {
+            "description": "When using Wi-Fi triangulation, a newline-terminated list of Wi-Fi access points obtained by the external module. Format should follow the ESP32's [AT+CWLAP command output](https://docs.espressif.com/projects/esp-at/en/latest/AT_Command_Set/Wi-Fi_AT_Commands.html#cmd-lap).\n\nSee [Using Cell Tower & Wi-Fi Triangulation](https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#using-cell-tower-and-wi-fi-triangulation) for more information.",
+            "type": "string"
+        },
+        "time": {
+            "description": "When passed with `text`, records the time that the Wi-Fi access point scan was performed. *If not provided, Notecard time is used.*",
+            "type": "integer"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.triangulate"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.triangulate"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Single Mode",
+            "json": "{\"req\": \"card.triangulate\", \"mode\": \"cell\", \"on\": true, \"set\": true}"
+        },
+        {
+            "description": "Dual Mode",
+            "json": "{\"req\": \"card.triangulate\", \"mode\": \"wifi,cell\", \"on\": true, \"usb\": true, \"set\": true}"
+        },
+        {
+            "description": "Send Wi-Fi Triangulation Data",
+            "json": "{\"req\": \"card.triangulate\", \"text\": \"+CWLAP:(4,\\\"Blues\\\",-51,\\\"74:ac:b9:12:12:f8\\\",1)\\n+CWLAP:(3,\\\"AAAA-62DD\\\",-70,\\\"6c:55:e8:91:62:e1\\\",11)\\n+CWLAP:(4,\\\"Blues\\\",-81,\\\"74:ac:b9:11:12:23\\\",1)\\n+CWLAP:(4,\\\"Blues\\\",-82,\\\"74:ac:a9:12:19:48\\\",11)\\n+CWLAP:(4,\\\"Free Parking\\\",-83,\\\"02:18:4a:11:60:31\\\",6)\\n+CWLAP:(5,\\\"GO\\\",-84,\\\"01:13:6a:13:90:30\\\",6)\\n+CWLAP:(4,\\\"AAAA-5C62-2.4\\\",-85,\\\"d8:97:ba:7b:fd:60\\\",1)\\n+CWLAP:(3,\\\"DIRECT-a5-HP MLP50\\\",-86,\\\"fa:da:0c:1b:16:a5\\\",6)\\n+CWLAP:(3,\\\"DIRECT-c6-HP M182 LaserJet\\\",-88,\\\"da:12:65:44:31:c6\\\",6)\\n\\n\"}"
+        },
+        {
+            "description": "Disable Triangulation",
+            "json": "{\"req\": \"card.triangulate\", \"mode\": \"-\"}"
+        }
+    ]
+}
