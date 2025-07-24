@@ -1,0 +1,32 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.rsp.notecard.api.json",
+    "title": "card.wireless.penalty Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "minutes": {
+            "description": "The time since the first network registration failure.",
+            "type": "integer"
+        },
+        "count": {
+            "description": "The number of consecutive network registration failures.",
+            "type": "integer"
+        },
+        "status": {
+            "description": "If the Notecard is in a [Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), this field provides the associated [Error and Status Codes](https://dev.blues.io/notecard/notecard-walkthrough/notecard-error-and-status-codes/).",
+            "type": "string"
+        },
+        "seconds": {
+            "description": "If the Notecard is in a [Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
+            "type": "integer"
+        }
+    },
+    "samples": [
+        {
+            "description": "Penalty Box Status with Active Penalty.",
+            "json": "{\"seconds\":3324,\"minutes\":69,\"status\":\"network: can't connect (55.4 min remaining) {registration-failure}{network}{extended-network-failure}\",\"count\":6}"
+        }
+    ]
+}

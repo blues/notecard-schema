@@ -1,0 +1,95 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.req.notecard.api.json",
+    "title": "card.wireless.penalty Request Application Programming Interface (API) Schema",
+    "description": "View the current state of a [Notecard Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), manually remove the Notecard from a penalty box, or override penalty box defaults.",
+    "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "reset": {
+            "description": "Set to `true` to remove the Notecard from certain types of penalty boxes.",
+            "type": "boolean"
+        },
+        "set": {
+            "description": "Set to `true` to override the default settings of the [Network Registration Failure Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/#network-registration-failure).",
+            "type": "boolean"
+        },
+        "rate": {
+            "description": "The rate at which the penalty box time multiplier is increased over successive retries. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
+            "type": "number",
+            "default": 1.25
+        },
+        "add": {
+            "description": "The number of minutes to add to successive retries. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
+            "type": "integer",
+            "default": 15
+        },
+        "max": {
+            "description": "The maximum number of minutes that a device can be in a Network Registration Failure Penalty Box. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
+            "type": "integer",
+            "default": 4320
+        },
+        "min": {
+            "description": "The number of minutes of the first retry interval of a Network Registration Failure Penalty Box. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
+            "type": "integer",
+            "default": 15
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.wireless.penalty"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.wireless.penalty"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.wireless.penalty"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.wireless.penalty"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Check Penalty Box State.",
+            "json": "{\"req\":\"card.wireless.penalty\"}"
+        },
+        {
+            "description": "Remove from Penalty Box.",
+            "json": "{\"req\":\"card.wireless.penalty\",\"reset\":true}"
+        },
+        {
+            "description": "Override Default Penalty Box Settings.",
+            "json": "{\"req\":\"card.wireless.penalty\",\"set\":true,\"rate\":2.0,\"add\":10,\"max\":720,\"min\":5}"
+        }
+    ],
+    "annotations": [
+        {
+            "title": "warning",
+            "description": "The misuse of this feature may result in the cellular carrier preventing the Notecard from future connections because it's effectively \"spamming\" the network. The cellular carrier may blacklist devices that it thinks are attempting to connect too frequently."
+        }
+    ]
+}
