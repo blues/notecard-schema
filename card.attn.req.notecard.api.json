@@ -2,11 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.attn.req.notecard.api.json",
     "title": "card.attn Request Application Programming Interface (API) Schema",
-    "description": "Configure hardware notification from the Notecard to MCU host. Note: Requires a connection between the Notecard ATTN pin and a GPIO pin on the host MCU.",
+    "description": "Configure hardware notification from the Notecard to MCU host.\n\n_**NOTE:** Requires a connection between the Notecard ATTN pin and a GPIO pin on the host MCU._",
     "type": "object",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "files": {
-            "description": "An array of Notefile names to monitor for changes",
+            "description": "A list of [Notefiles](https://dev.blues.io/api-reference/glossary/#notefile) to watch for file-based interrupts.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -15,34 +16,117 @@
             "minItems": 1
         },
         "mode": {
-            "description": "Configures the interaction model of the ATTN pin",
+            "description": "A comma-separated list of one or more of the following keywords. Some keywords are only supported on certain types of Notecards.",
             "type": "string",
-            "pattern": "^(?:-all|-env|-files|-location|-motion|-usb|arm|auxgpio|connected|disarm|env|files|location|motion|motionchange|rearm|signal|sleep|usb|watchdog|wireless)(?:,\\s*(?:-all|-env|-files|-location|-motion|-usb|arm|auxgpio|connected|disarm|env|files|location|motion|motionchange|rearm|signal|sleep|usb|watchdog|wireless))*\\s*$"
+            "pattern": "^(?:-all|-env|-files|-location|-motion|-usb|arm|auxgpio|connected|disarm|env|files|location|motion|motionchange|rearm|signal|sleep|usb|watchdog|wireless)(?:,\\s*(?:-all|-env|-files|-location|-motion|-usb|arm|auxgpio|connected|disarm|env|files|location|motion|motionchange|rearm|signal|sleep|usb|watchdog|wireless))*\\s*$",
+            "sub-descriptions": [
+                {
+                    "const": "",
+                    "description": "Fetches currently pending events in the \"files\" collection.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "arm",
+                    "description": "Clear \"files\" events and cause the ATTN pin to go LOW. After an event occurs or \"seconds\" has elapsed, the ATTN pin will then go HIGH (a.k.a. \"fires\"). If \"seconds\" is 0, no timeout will be scheduled. If ATTN is armed, calling `arm` again will disarm (briefly pulling ATTN HIGH), then arm (non-idempotent).",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "auxgpio",
+                    "description": "When armed, causes ATTN to fire if an AUX GPIO input changes. Disable by using `-auxgpio`.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "connected",
+                    "description": "When armed, will cause ATTN to fire whenever the module connects to cellular. Disable with `-connected`.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "disarm",
+                    "description": "Causes ATTN pin to go HIGH if it had been LOW.\n\nPassing both `\"disarm\"` and `\"-all\"` clears all ATTN monitors currently set.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "env",
+                    "description": "When armed, causes ATTN to fire if an environment variable changes on the Notecard. Disable by using `-env`.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "files",
+                    "description": "When armed, will cause ATTN to fire if any of the \"files\" are modified. Disable by using `-files`.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "location",
+                    "description": "When armed, will cause ATTN to fire whenever the Notecard GPS module makes a position fix. Disable by using `-location`.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "motion",
+                    "description": "When armed, will cause ATTN to fire whenever the accelerometer detects module motion. Disable with `-motion`.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "motionchange",
+                    "description": "When armed, will cause ATTN to fire whenever the `card.motion.mode` changes from \"moving\" to \"stopped\" (or vice versa). Learn how to configure this feature [in this guide](https://dev.blues.io/guides-and-tutorials/notecard-guides/asset-tracking-with-gps/#wake-host-or-send-note-on-motion-status-change).",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "rearm",
+                    "description": "Will arm ATTN if not already armed. Otherwise, resets the values of `mode`, `files`, and `seconds` specified in the initial `arm` or `rearm` request (idempotent).",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "signal",
+                    "description": "When armed, will cause ATTN to fire whenever the Notecard receives a [signal](https://dev.blues.io/api-reference/glossary/#signal).",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "sleep",
+                    "description": "Instruct the Notecard to pull the ATTN pin low for a period of time, and optionally keep a payload in memory. Can be used by the host to sleep the host MCU.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "usb",
+                    "description": "When armed, will enable USB power events firing the ATTN pin. Disable with `-usb`.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "watchdog",
+                    "description": "Not an \"arm\" mode, rather will cause the ATTN pin to go from HIGH to LOW, then HIGH if the notecard fails to receive any JSON requests for \"seconds.\" In this mode, \"seconds\" must be >= 60.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "wireless",
+                    "description": "Instruct the Notecard to fire the ATTN pin whenever the `card.wireless` [status](https://dev.blues.io/api-reference/notecard-api/card-requests/#card-wireless) changes.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                }
+            ]
         },
         "off": {
-            "description": "Disables event monitoring, and sets ATTN pin to LOW",
+            "description": "When `true`, completely disables ATTN processing and sets the pin OFF. This setting is retained across device restarts.",
             "type": "boolean"
         },
         "on": {
-            "description": "Enables event monitoring, and sets ATTN pin to HIGH",
+            "description": "When `true`, enables ATTN processing. This setting is retained across device restarts.",
             "type": "boolean"
         },
         "payload": {
-            "description": "The payload to send to the Notecard during 'sleep' mode",
+            "description": "When using `sleep` mode, a payload of data from the host that the Notecard should hold in memory until retrieved by the host.",
             "type": "string",
-            "format": "binary"
+            "format": "binary",
+            "contentEncoding": "base64"
         },
         "seconds": {
-            "description": "Duration in seconds for the corresponding 'mode' value",
+            "description": "To set an ATTN timeout when arming, or when using `sleep`.\n\n_**NOTE:** When the Notecard is in `continuous` mode, the `seconds` timeout is serviced by a routine that wakes every 15 seconds. You can predict when the device will wake, by rounding up to the nearest 15 second interval._",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "start": {
-            "description": "Request to return stored `payload` after 'sleep' mode",
+            "description": "When using `sleep` mode and the host has reawakened, request the Notecard to return the stored `payload`.",
             "type": "boolean"
         },
         "verify": {
-            "description": "Returns the current event monitor configuration",
+            "description": "When `true`, returns the current attention mode configuration, if any.",
             "type": "boolean"
         },
         "cmd": {
@@ -115,7 +199,7 @@
                 "then": {
                     "properties": {
                         "seconds": {
-                            "minimum": 0
+                            "minimum": -1
                         }
                     },
                     "required": [
@@ -157,6 +241,53 @@
             }
         }
     ],
-    "version": "0.1.1",
+    "samples": [
+        {
+            "title": "Connected",
+            "description": "Configure the Notecard to perform an interrupt on a successful connection to Notehub.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"arm,connected\"}"
+        },
+        {
+            "title": "Files",
+            "description": "Configure the Notecard to perform an interrupt on the `data.qi` and `my-settings.db` Notefiles.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"arm,files\",\"files\":[\"data.qi\",\"my-settings.db\"]}"
+        },
+        {
+            "title": "Location",
+            "description": "Configure the Notecard to perform an interrupt when the Notecard makes a position fix.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"arm,location\"}"
+        },
+        {
+            "title": "Motion",
+            "description": "Configure the Notecard to perform an interrupt when the Notecard detects motion.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"arm,motion\"}"
+        },
+        {
+            "title": "Signal",
+            "description": "Configure the Notecard to perform an interrupt when the Notecard receives a signal.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"arm,signal\"}"
+        },
+        {
+            "title": "Watchdog",
+            "description": "Configure the Notecard to function as a watchdog timer with a 60 second timeout.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"watchdog\",\"seconds\":60}"
+        },
+        {
+            "title": "Sleep With Payload",
+            "description": "Configure the Notecard to instruct the host MCU to sleep for a period of time.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"sleep\",\"seconds\":3600,\"payload\":\"ewogICJpbnRlcnZhbHMiOiI2MCwxMiwxNCIKfQ==\"}"
+        },
+        {
+            "title": "Retrieve Payload",
+            "description": "Retrieve a payload from the Notecard after sleep.",
+            "json": "{\"req\":\"card.attn\",\"start\":true}"
+        },
+        {
+            "title": "Disarm all Modes",
+            "description": "Disarm all interrupts.",
+            "json": "{\"req\":\"card.attn\",\"mode\":\"disarm,-all\"}"
+        }
+    ],
+    "version": "0.1.2",
     "apiVersion": "9.1.1"
 }
