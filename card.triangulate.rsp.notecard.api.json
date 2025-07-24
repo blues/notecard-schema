@@ -1,0 +1,20 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.rsp.notecard.api.json",
+    "title": "card.triangulate Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "status": {
+            "description": "Status of the operation",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "description": "Basic card.triangulate response.",
+            "json": "{\"status\": \"success\"}"
+        }
+    ]
+}

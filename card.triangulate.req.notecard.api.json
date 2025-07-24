@@ -1,0 +1,60 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.req.notecard.api.json",
+    "title": "card.triangulate Request Application Programming Interface (API) Schema",
+    "description": "Request schema for card.triangulate API command.",
+    "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI",
+        "LORA"
+    ],
+    "version": "0.1.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.triangulate"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.triangulate"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.triangulate"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.triangulate"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "description": "Basic card.triangulate request.",
+            "json": "{\"req\":\"card.triangulate\"}"
+        }
+    ],
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Placeholder annotation."
+        }
+    ]
+}
