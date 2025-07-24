@@ -42,6 +42,34 @@ def test_invalid_additional_property_with_cmd(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
+def test_on_field_valid(schema):
+    """Tests valid 'on' field values."""
+    # Valid boolean values
+    instance = {"req": "card.triangulate", "on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    instance = {"req": "card.triangulate", "on": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_on_field_invalid_type(schema):
+    """Tests invalid type for 'on' field."""
+    instance = {"req": "card.triangulate", "on": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_on_field_invalid_number(schema):
+    """Tests invalid number type for 'on' field."""
+    instance = {"req": "card.triangulate", "on": 1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "1 is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_request_with_cmd_and_on(schema):
+    """Tests valid request using 'cmd' with 'on' parameter."""
+    instance = {"cmd": "card.triangulate", "on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

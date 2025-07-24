@@ -2,19 +2,67 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.rsp.notecard.api.json",
     "title": "card.triangulate Response Application Programming Interface (API) Schema",
+    "description": "Response containing triangulated location data and positioning information derived from cellular towers and Wi-Fi access points.",
     "type": "object",
     "version": "0.1.1",
     "apiVersion": "9.1.1",
     "properties": {
         "status": {
-            "description": "Status of the operation",
+            "description": "The current status of the triangulation operation",
             "type": "string"
+        },
+        "lat": {
+            "description": "The estimated latitude in degrees from triangulation",
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90
+        },
+        "lon": {
+            "description": "The estimated longitude in degrees from triangulation",
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180
+        },
+        "time": {
+            "description": "Unix epoch time in seconds when the triangulation was calculated",
+            "type": "integer",
+            "minimum": 0
+        },
+        "accuracy": {
+            "description": "Estimated accuracy of the triangulated position in meters",
+            "type": "number",
+            "minimum": 0
+        },
+        "towers": {
+            "description": "Number of cellular towers used in the triangulation calculation",
+            "type": "integer",
+            "minimum": 0
+        },
+        "wifi": {
+            "description": "Number of Wi-Fi access points used in the triangulation calculation",
+            "type": "integer",
+            "minimum": 0
+        },
+        "on": {
+            "description": "Indicates whether triangulation mode is currently enabled",
+            "type": "boolean"
         }
     },
     "samples": [
         {
-            "description": "Basic card.triangulate response.",
-            "json": "{\"status\": \"success\"}"
+            "title": "Successful Triangulation",
+            "description": "Example response from a successful triangulation with location data",
+            "json": "{\"status\":\"triangulated\",\"lat\":37.7749,\"lon\":-122.4194,\"time\":1678886400,\"accuracy\":150.5,\"towers\":3,\"wifi\":5,\"on\":true}"
+        },
+        {
+            "title": "Insufficient Data", 
+            "description": "Example response when insufficient towers or access points are available",
+            "json": "{\"status\":\"insufficient-data\",\"towers\":1,\"wifi\":0,\"on\":true}"
+        },
+        {
+            "title": "Triangulation Disabled",
+            "description": "Example response when triangulation mode is disabled",
+            "json": "{\"status\":\"disabled\",\"on\":false}"
         }
     ]
 }

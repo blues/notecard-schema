@@ -2,17 +2,20 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.req.notecard.api.json",
     "title": "card.triangulate Request Application Programming Interface (API) Schema",
-    "description": "Request schema for card.triangulate API command.",
+    "description": "Triangulate the location of the Notecard using cellular towers and Wi-Fi access points.",
     "type": "object",
     "skus": [
         "CELL",
         "CELL+WIFI",
-        "WIFI",
-        "LORA"
+        "WIFI"
     ],
     "version": "0.1.1",
     "apiVersion": "9.1.1",
     "properties": {
+        "on": {
+            "description": "When `true`, enables triangulation mode. When `false`, disables triangulation mode.",
+            "type": "boolean"
+        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "card.triangulate"
@@ -47,14 +50,25 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Basic card.triangulate request.",
+            "title": "Get Current Triangulation Location",
+            "description": "Retrieve the current triangulated location using cellular towers and Wi-Fi access points.",
             "json": "{\"req\":\"card.triangulate\"}"
+        },
+        {
+            "title": "Enable Triangulation",
+            "description": "Enable triangulation mode for location tracking when GPS is unavailable.",
+            "json": "{\"req\":\"card.triangulate\",\"on\":true}"
+        },
+        {
+            "title": "Disable Triangulation",
+            "description": "Disable triangulation mode to conserve power.",
+            "json": "{\"req\":\"card.triangulate\",\"on\":false}"
         }
     ],
     "annotations": [
         {
             "title": "note",
-            "description": "Placeholder annotation."
+            "description": "Triangulation uses cellular tower and Wi-Fi access point signal strengths to estimate location when GPS is unavailable or disabled. Accuracy is typically less precise than GPS but can provide useful location information in urban environments with multiple cell towers or Wi-Fi networks."
         }
     ]
 }
