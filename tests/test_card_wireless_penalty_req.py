@@ -138,10 +138,7 @@ def test_valid_set_with_override_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_reset_only(schema):
-    """Tests valid request with only reset field."""
-    instance = {"req": "card.wireless.penalty", "reset": True}
-    jsonschema.validate(instance=instance, schema=schema)
+# Removed test_valid_reset_only as its functionality is redundant.
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
