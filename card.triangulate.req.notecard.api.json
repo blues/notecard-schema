@@ -45,7 +45,7 @@
             "default": false
         },
         "usb": {
-            "description": "`true` to use perform triangulation only when the Notecard is connected to USB power. Only takes effect when `set` is `true`.",
+            "description": "`true` to perform triangulation only when the Notecard is connected to USB power. Only takes effect when `set` is `true`.",
             "type": "boolean",
             "default": false
         },
