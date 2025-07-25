@@ -2,20 +2,39 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.req.notecard.api.json",
     "title": "note.template Request Application Programming Interface (API) Schema",
-    "description": "By using the note.template request with any .qo/.qos Notefile, developers can provide the Notecard with a schema of sorts to apply to future Notes added to the Notefile. This template acts as a hint to the Notecard that allows it to internally store data as fixed-length binary records rather than as flexible JSON objects which require much more memory. Using templated Notes in place of regular Notes increases the storage and sync capability of the Notecard by an order of magnitude.",
+    "description": "By using the note.template request with any .qo/.qos Notefile, developers can provide the Notecard with a schema of sorts to apply to future Notes added to the Notefile. This template acts as a hint to the Notecard that allows it to internally store data as fixed-length binary records rather than as flexible JSON objects which require much more memory. Using templated Notes in place of regular Notes increases the storage and sync capability of the Notecard by an order of magnitude.\n\nRead about [Working with Note Templates](https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates) for additional information.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI", "LORA"],
     "properties": {
         "file": {
-            "description": "Name of the notefile to add the note to",
+            "description": "The name of the Notefile to which the template will be applied.",
             "type": "string"
         },
-        "template": {
-            "description": "Template for the note",
+        "body": {
+            "description": "A sample JSON body that specifies field names and values as \"hints\" for the data type. Possible data types are: boolean, integer, float, and string. See [Understanding Template Data Types](https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#understanding-template-data-types) for an explanation of type hints and explanations.",
             "type": "object"
         },
-        "body": {
-            "description": "Template for the note body",
-            "type": "object"
+        "length": {
+            "description": "The maximum length of a `payload` (in bytes) that can be sent in Notes for the template Notefile. As of v3.2.1 `length` is not required, and payloads can be added to any template-based Note without specifying the payload length.",
+            "type": "integer"
+        },
+        "verify": {
+            "description": "If `true`, returns the current template set on a given Notefile.",
+            "type": "boolean"
+        },
+        "format": {
+            "description": "By default all Note templates automatically include metadata, including a timestamp for when the Note was created, various fields about a device's location, as well as a timestamp for when the device's location was determined.\n\nBy providing a `format` of `\"compact\"` you tell the Notecard to omit this additional metadata to save on storage and bandwidth. The use of `format: \"compact\"` is required for Notecard LoRa and a Notecard paired with Starnote.\n\nWhen using `\"compact\"` templates, you may include the following keywords in your template to add in fields that would otherwise be omitted: `_lat`, `_lon`, `_ltime`, `_time`. See [Creating Compact Templates](https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#creating-compact-templates) to learn more.",
+            "type": "string"
+        },
+        "port": {
+            "description": "This argument is required on Notecard LoRa and a Notecard paired with Starnote, but ignored on all other Notecards.\n\nA port is a unique integer in the range 1-100, where each unique number represents one Notefile. This argument allows the Notecard to send a numerical reference to the Notefile over the air, rather than the full Notefile name.\n\nThe port you provide is also used in the \"frame port\" field on LoRaWAN gateways.",
+            "type": "integer"
+        },
+        "delete": {
+            "description": "Set to `true` to delete all pending Notes using the template if one of the following scenarios is also true:\n\nConnecting via non-NTN (e.g. cellular or Wi-Fi) communications, but attempting to sync NTN-compatible Notefiles.\n\nor\n\nConnecting via NTN (e.g. satellite) communications, but attempting to sync non-NTN-compatible Notefiles.\n\nRead more about this feature in [Starnote Best Practices](https://dev.blues.io/starnote/starnote-best-practices/).",
+            "type": "boolean"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -49,6 +68,28 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "description": "Provide Schema",
+            "json": "{\"req\": \"note.template\", \"file\": \"readings.qo\", \"body\": {\"new_vals\": true, \"temperature\": 14.1, \"humidity\": 11, \"pump_state\": \"4\"}}"
+        },
+        {
+            "description": "Compact Schema for LoRa",
+            "json": "{\"req\": \"note.template\", \"file\": \"readings.qo\", \"body\": {\"new_vals\": true, \"temperature\": 14.1, \"humidity\": 11, \"pump_state\": \"4\"}, \"format\": \"compact\", \"port\": 50}"
+        },
+        {
+            "description": "Compact Schema with Additional Fields",
+            "json": "{\"req\": \"note.template\", \"file\": \"readings.qo\", \"body\": {\"temperature\": 14.1, \"_lat\": 14.1, \"_lon\": 14.1, \"_ltime\": 14, \"_time\": 14}, \"format\": \"compact\", \"port\": 50}"
+        },
+        {
+            "description": "Reset Current Template",
+            "json": "{\"req\": \"note.template\", \"file\": \"readings.qo\", \"verify\": true}"
+        }
+    ],
+    "annotations": [
+        {
+            "title":"note",
+            "description":"See examples of `note.template` usage in [these accelerator projects](https://dev.blues.io/accelerators/?category=&feature=templated-notefiles)."
+        }
+    ]
 }
