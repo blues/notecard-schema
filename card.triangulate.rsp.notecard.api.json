@@ -8,12 +8,12 @@
     "apiVersion": "9.1.1",
     "properties": {
         "motion": {
-            "description": "Time of last detected Notecard movement.",
+            "description": "UNIX Epoch time of last detected Notecard movement.",
             "type": "integer",
             "minimum": 0
         },
         "time": {
-            "description": "Time of last triangulation scan.",
+            "description": "UNIX Epoch time of last triangulation scan.",
             "type": "integer",
             "minimum": 0
         },
