@@ -32,11 +32,13 @@ relevant for users who may need to reference it while working with the schema.
 - Preserve `code` formatting found in the documentation using the standard markdown backticks.
 
 When creating a new schema file, follow these steps:
-1. Run the `scripts/create-api.py` script to generate the initial schema file.
-2. Fill in the schema file with the specific details of the API request or response.
-3. Add the schema file to the `notecard.api.json` index file.
-4. Add a test suite for the schema in the `tests` directory to ensure that the schema
-   behaves as expected and validates correctly against various inputs.
+1. Run the `scripts/create-api.py` script to generate the initial request and
+   response schema files.
+2. Fill in the schema files with the verbatim details of the corresponding API
+   request or response documentation.
+3. Add only the request schema file to the `notecard.api.json` index file.
+4. Add a test suite for each schema in the `tests` directory to ensure that the
+   schema behaves as expected and validates correctly against various inputs.
 5. Commit the changes to the repository with a clear commit message that describes
    the new schema or updates made to an existing schema.
 
