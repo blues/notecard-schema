@@ -2,19 +2,45 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.req.notecard.api.json",
     "title": "card.triangulate Request Application Programming Interface (API) Schema",
-    "description": "Triangulate the location of the Notecard using cellular towers and Wi-Fi access points.",
+    "description": "Enables or disables a behavior by which the Notecard gathers information about surrounding cell towers and/or Wi-Fi access points with each new Notehub session.",
     "type": "object",
     "skus": [
         "CELL",
         "CELL+WIFI",
         "WIFI"
     ],
-    "version": "0.1.1",
+    "version": "0.1.2",
     "apiVersion": "9.1.1",
     "properties": {
+        "mode": {
+            "description": "The triangulation approach to use for determining the Notecard location. The following keywords can be used separately or together in a comma-delimited list, in any order. `cell` enables cell tower scanning to determine the position of the Device. `wifi` enables the use of nearby Wi-Fi access points to determine the position of the Device. To leverage this feature, the host will need to provide access point information to the Notecard via the `text` argument in subsequent requests. `-` to clear the currently-set triangulation mode.",
+            "type": "string"
+        },
         "on": {
-            "description": "When `true`, enables triangulation mode. When `false`, disables triangulation mode.",
+            "description": "`true` to instruct the Notecard to triangulate even if the module has not moved. Only takes effect when `set` is `true`.",
             "type": "boolean"
+        },
+        "usb": {
+            "description": "`true` to use perform triangulation only when the Notecard is connected to USB power.",
+            "type": "boolean"
+        },
+        "set": {
+            "description": "`true` to instruct the module to use the state of the `on` and `usb` arguments.",
+            "type": "boolean"
+        },
+        "minutes": {
+            "description": "Minimum delay, in minutes, between triangulation attempts. Use `0` for no time-based suppression.",
+            "type": "integer",
+            "minimum": 0
+        },
+        "text": {
+            "description": "When using Wi-Fi triangulation, a newline-terminated list of Wi-Fi access points obtained by the external module. Format should follow the ESP32's AT+CWLAP command output.",
+            "type": "string"
+        },
+        "time": {
+            "description": "When passed with `text`, records the time that the Wi-Fi access point scan was performed. If not provided, Notecard time is used.",
+            "type": "integer",
+            "minimum": 0
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -50,25 +76,25 @@
     "additionalProperties": false,
     "samples": [
         {
-            "title": "Get Current Triangulation Location",
-            "description": "Retrieve the current triangulated location using cellular towers and Wi-Fi access points.",
-            "json": "{\"req\":\"card.triangulate\"}"
+            "title": "Single Mode",
+            "description": "Enable triangulation using cell towers only.",
+            "json": "{\"req\":\"card.triangulate\",\"mode\":\"cell\",\"on\":true,\"set\":true}"
         },
         {
-            "title": "Enable Triangulation",
-            "description": "Enable triangulation mode for location tracking when GPS is unavailable.",
-            "json": "{\"req\":\"card.triangulate\",\"on\":true}"
+            "title": "Dual Mode", 
+            "description": "Enable triangulation using both Wi-Fi and cell towers when connected to USB power.",
+            "json": "{\"req\":\"card.triangulate\",\"mode\":\"wifi,cell\",\"on\":true,\"usb\":true,\"set\":true}"
         },
         {
             "title": "Disable Triangulation",
-            "description": "Disable triangulation mode to conserve power.",
-            "json": "{\"req\":\"card.triangulate\",\"on\":false}"
+            "description": "Disable triangulation mode.",
+            "json": "{\"req\":\"card.triangulate\",\"mode\":\"-\"}"
         }
     ],
     "annotations": [
         {
             "title": "note",
-            "description": "Triangulation uses cellular tower and Wi-Fi access point signal strengths to estimate location when GPS is unavailable or disabled. Accuracy is typically less precise than GPS but can provide useful location information in urban environments with multiple cell towers or Wi-Fi networks."
+            "description": "See [Using Cell Tower & Wi-Fi Triangulation](https://dev.blues.io/guides-and-tutorials/collecting-sensor-data/notecard-guides/using-cell-tower-wi-fi-triangulation/) for more information."
         }
     ]
 }

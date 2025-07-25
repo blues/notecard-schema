@@ -2,67 +2,44 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.triangulate.rsp.notecard.api.json",
     "title": "card.triangulate Response Application Programming Interface (API) Schema",
-    "description": "Response containing triangulated location data and positioning information derived from cellular towers and Wi-Fi access points.",
+    "description": "Response containing triangulated location information and triangulation settings.",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "apiVersion": "9.1.1",
     "properties": {
-        "status": {
-            "description": "The current status of the triangulation operation",
-            "type": "string"
-        },
-        "lat": {
-            "description": "The estimated latitude in degrees from triangulation",
-            "type": "number",
-            "minimum": -90,
-            "maximum": 90
-        },
-        "lon": {
-            "description": "The estimated longitude in degrees from triangulation",
-            "type": "number",
-            "minimum": -180,
-            "maximum": 180
+        "motion": {
+            "description": "Time of last detected Notecard movement.",
+            "type": "integer",
+            "minimum": 0
         },
         "time": {
-            "description": "Unix epoch time in seconds when the triangulation was calculated",
+            "description": "Time of last triangulation scan.",
             "type": "integer",
             "minimum": 0
         },
-        "accuracy": {
-            "description": "Estimated accuracy of the triangulated position in meters",
-            "type": "number",
-            "minimum": 0
-        },
-        "towers": {
-            "description": "Number of cellular towers used in the triangulation calculation",
-            "type": "integer",
-            "minimum": 0
-        },
-        "wifi": {
-            "description": "Number of Wi-Fi access points used in the triangulation calculation",
-            "type": "integer",
-            "minimum": 0
+        "mode": {
+            "description": "A comma-separated list indicating the active triangulation modes.",
+            "type": "string"
         },
         "on": {
-            "description": "Indicates whether triangulation mode is currently enabled",
+            "description": "`true` if triangulation scans will be performed even if the device has not moved.",
             "type": "boolean"
+        },
+        "usb": {
+            "description": "`true` if triangulation scans will be performed only when the device is USB-powered.",
+            "type": "boolean"
+        },
+        "length": {
+            "description": "The length of the `text` buffer provided in the current or a previous request.",
+            "type": "integer",
+            "minimum": 0
         }
     },
     "samples": [
         {
-            "title": "Successful Triangulation",
-            "description": "Example response from a successful triangulation with location data",
-            "json": "{\"status\":\"triangulated\",\"lat\":37.7749,\"lon\":-122.4194,\"time\":1678886400,\"accuracy\":150.5,\"towers\":3,\"wifi\":5,\"on\":true}"
-        },
-        {
-            "title": "Insufficient Data", 
-            "description": "Example response when insufficient towers or access points are available",
-            "json": "{\"status\":\"insufficient-data\",\"towers\":1,\"wifi\":0,\"on\":true}"
-        },
-        {
-            "title": "Triangulation Disabled",
-            "description": "Example response when triangulation mode is disabled",
-            "json": "{\"status\":\"disabled\",\"on\":false}"
+            "title": "Example Response",
+            "description": "Response showing triangulation configuration and status.",
+            "json": "{\"usb\":true,\"mode\":\"wifi,cell\",\"length\":443,\"on\":true,\"time\":1606755042,\"motion\":1606757487}"
         }
     ]
 }
