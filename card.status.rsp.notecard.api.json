@@ -57,8 +57,10 @@
             "json": "{\"status\": \"{normal}\", \"usb\": true, \"storage\": 8, \"time\": 1599684765, \"connected\": true, \"cell\": true, \"sync\": true, \"inbound\": 60, \"outbound\": 360}"
         }
     ],
-    "annotations": {
-        "info": ["See [Configuring Synchronization Modes](notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work regarding the `inbound` and `outbound` fields."],
-        "warning": []
-    }
+    "annotations": [
+        {
+            "title": "note",
+            "description": "See [Configuring Synchronization Modes](notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work regarding the `inbound` and `outbound` fields."
+        }
+    ]
 }
