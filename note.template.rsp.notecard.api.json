@@ -2,13 +2,52 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.rsp.notecard.api.json",
     "title": "note.template Response Application Programming Interface (API) Schema",
+    "description": "Response from the `note.template` request. When `verify` is set to `true`, returns the current template information. Otherwise, returns success status of the template operation.",
     "type": "object",
     "properties": {
         "success": {
             "description": "Whether the template was set successfully",
             "type": "boolean"
+        },
+        "template": {
+            "description": "When `verify` is `true`, returns the current template body for the specified Notefile",
+            "type": "object"
+        },
+        "file": {
+            "description": "When `verify` is `true`, returns the Notefile name for which the template is set",
+            "type": "string"
+        },
+        "length": {
+            "description": "When `verify` is `true`, returns the maximum payload length configured for the template",
+            "type": "integer",
+            "minimum": 0
+        },
+        "format": {
+            "description": "When `verify` is `true`, returns the format setting for the template",
+            "type": "string"
+        },
+        "port": {
+            "description": "When `verify` is `true` and on LoRa/Starnote, returns the port number assigned to the Notefile",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
         }
     },
-    "version": "0.1.1",
+    "samples": [
+        {
+            "success": true
+        },
+        {},
+        {
+            "file": "readings.qo",
+            "template": {
+                "temperature": 14.1,
+                "humidity": 11,
+                "pump_state": "4"
+            },
+            "format": "compact"
+        }
+    ],
+    "version": "0.2.0",
     "apiVersion": "9.1.1"
 }
