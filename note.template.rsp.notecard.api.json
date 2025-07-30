@@ -3,12 +3,34 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.rsp.notecard.api.json",
     "title": "note.template Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.0",
+    "apiVersion": "9.1.1",
     "properties": {
-        "success": {
-            "description": "Whether the template was set successfully",
+        "bytes": {
+            "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
+            "type": "integer"
+        },
+        "template": {
+            "description": "`true` if an active template exists on the Notefile.",
             "type": "boolean"
+        },
+        "body": {
+            "description": "If the `verify` argument is provided and the Notefile has an active template, the template `body`.",
+            "type": "object"
+        },
+        "length": {
+            "description": "If the `verify` argument is provided and the Notefile has an active template with a payload, the payload length.",
+            "type": "integer"
+        },
+        "format": {
+            "description": "If the `format` argument is provided, this represents the format applied to the template.",
+            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Example Response",
+            "json": "{\"bytes\":40}"
+        }
+    ]
 }
