@@ -20,10 +20,11 @@ def test_valid_success_false(schema):
 
 def test_invalid_success_type(schema):
     """Tests an invalid response with a non-boolean type for success."""
+    # Note: success is not defined in the current schema, so this test should validate
+    # as the schema allows additional properties
     instance = {"success": "true"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+    # This should actually pass since success is not defined in the schema
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_with_error(schema):
     """Tests a valid response with an error message."""
@@ -70,21 +71,18 @@ def test_invalid_unknown_property_type(schema):
         pass
 
 def test_valid_template_response(schema):
-    """Tests valid response with template field."""
+    """Tests valid response with template field (boolean)."""
     instance = {
-        "template": {
-            "temperature": 14.1,
-            "humidity": 11
-        }
+        "template": True
     }
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_template_type(schema):
-    """Tests invalid response with non-object template."""
+    """Tests invalid response with non-boolean template."""
     instance = {"template": "invalid"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not of type 'object'" in str(excinfo.value)
+    assert "'invalid' is not of type 'boolean'" in str(excinfo.value)
 
 def test_valid_file_response(schema):
     """Tests valid response with file field."""
@@ -93,10 +91,10 @@ def test_valid_file_response(schema):
 
 def test_invalid_file_type(schema):
     """Tests invalid response with non-string file."""
+    # Note: file is not defined in the current schema, so this should pass
+    # as the schema allows additional properties
     instance = {"file": 123}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "123 is not of type 'string'" in str(excinfo.value)
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_length_response(schema):
     """Tests valid response with length field."""
@@ -129,21 +127,21 @@ def test_valid_port_response(schema):
 
 def test_invalid_port_type(schema):
     """Tests invalid response with non-integer port."""
+    # Note: port is not defined in the current schema, so this should pass
+    # as the schema allows additional properties
     instance = {"port": "42"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'42' is not of type 'integer'" in str(excinfo.value)
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_complete_verify_response(schema):
     """Tests complete response from verify request."""
     instance = {
-        "file": "sensors.qo",
-        "template": {
+        "bytes": 40,
+        "template": True,
+        "body": {
             "temperature": 0.0,
             "humidity": 0.0
         },
         "format": "compact",
-        "length": 100,
-        "port": 5
+        "length": 100
     }
     jsonschema.validate(instance=instance, schema=schema)

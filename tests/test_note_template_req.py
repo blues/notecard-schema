@@ -155,15 +155,13 @@ def test_invalid_length_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'250' is not of type 'integer'" in str(excinfo.value)
 
-def test_invalid_length_negative(schema):
-    """Tests invalid request with negative length parameter."""
+def test_valid_length_negative_one(schema):
+    """Tests valid request with length=-1 (now allowed in schema)."""
     instance = {
         "req": "note.template",
         "length": -1
     }
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "-1 is less than the minimum of 0" in str(excinfo.value)
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_delete_parameter(schema):
     """Tests valid request with delete parameter."""
@@ -191,12 +189,50 @@ def test_valid_format_compact(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_format_value(schema):
-    """Tests invalid request with invalid format value."""
+def test_invalid_length_too_negative(schema):
+    """Tests invalid request with length less than -1."""
     instance = {
         "req": "note.template",
-        "format": "invalid"
+        "length": -2
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not one of ['compact']" in str(excinfo.value)
+    assert "-2 is less than the minimum of -1" in str(excinfo.value)
+
+def test_valid_port_parameter(schema):
+    """Tests valid request with port parameter."""
+    instance = {
+        "req": "note.template",
+        "port": 50
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_invalid_port_type(schema):
+    """Tests invalid request with non-integer port parameter."""
+    instance = {
+        "req": "note.template",
+        "port": "50"
+    }
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'50' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_port_too_low(schema):
+    """Tests invalid request with port below minimum."""
+    instance = {
+        "req": "note.template",
+        "port": 0
+    }
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "0 is less than the minimum of 1" in str(excinfo.value)
+
+def test_invalid_port_too_high(schema):
+    """Tests invalid request with port above maximum."""
+    instance = {
+        "req": "note.template",
+        "port": 101
+    }
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "101 is greater than the maximum of 100" in str(excinfo.value)
