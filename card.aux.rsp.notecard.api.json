@@ -3,6 +3,8 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.rsp.notecard.api.json",
     "title": "card.aux Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "The current mode of the AUX interface",
@@ -23,6 +25,16 @@
             "minimum": 0
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "AUX Status Response",
+            "description": "Example response showing current AUX configuration.",
+            "json": "{\"mode\": \"gpio\"}"
+        },
+        {
+            "title": "AUX Data Response",
+            "description": "Example response with received data.",
+            "json": "{\"mode\": \"monitor\", \"text\": \"sensor data\", \"count\": 11}"
+        }
+    ]
 }

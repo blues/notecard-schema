@@ -4,6 +4,8 @@
     "title": "card.aux Request Application Programming Interface (API) Schema",
     "description": "Configure various uses of the general-purpose I/O (GPIO) pins AUX1-AUX4 on the Notecard edge connector for tracking applications and simple GPIO sensing and counting tasks.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "The AUX mode",
@@ -21,6 +23,56 @@
                 "track-monitor",
                 "track-neo-monitor",
                 "-"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "dfu",
+                    "description": "Device Firmware Update mode for flashing firmware."
+                },
+                {
+                    "const": "gpio",
+                    "description": "General-purpose I/O mode for digital input/output operations."
+                },
+                {
+                    "const": "led",
+                    "description": "LED control mode for visual status indication."
+                },
+                {
+                    "const": "monitor",
+                    "description": "Monitor mode for data collection and observation."
+                },
+                {
+                    "const": "motion",
+                    "description": "Motion detection mode using built-in accelerometer."
+                },
+                {
+                    "const": "neo",
+                    "description": "NeoPixel control mode for RGB LED strips."
+                },
+                {
+                    "const": "neo-monitor",
+                    "description": "Combined NeoPixel and monitor mode with visual feedback."
+                },
+                {
+                    "const": "off",
+                    "description": "Disable AUX functionality completely."
+                },
+                {
+                    "const": "track",
+                    "description": "Location tracking mode for GPS operations."
+                },
+                {
+                    "const": "track-monitor",
+                    "description": "Combined tracking and monitor mode."
+                },
+                {
+                    "const": "track-neo-monitor",
+                    "description": "Combined tracking, NeoPixel, and monitor mode."
+                },
+                {
+                    "const": "-",
+                    "description": "Reset to default AUX configuration."
+                }
             ]
         },
         "usage": {
@@ -39,6 +91,48 @@
                     "count",
                     "count-pulldown",
                     "count-pullup"
+                ],
+                "sub-descriptions": [
+                    {
+                        "const": "",
+                        "description": "No specific configuration for this pin."
+                    },
+                    {
+                        "const": "off",
+                        "description": "Disable this AUX pin."
+                    },
+                    {
+                        "const": "high",
+                        "description": "Set pin to high output state."
+                    },
+                    {
+                        "const": "low",
+                        "description": "Set pin to low output state."
+                    },
+                    {
+                        "const": "input",
+                        "description": "Configure pin as digital input."
+                    },
+                    {
+                        "const": "input-pulldown",
+                        "description": "Configure pin as input with internal pull-down resistor."
+                    },
+                    {
+                        "const": "input-pullup",
+                        "description": "Configure pin as input with internal pull-up resistor."
+                    },
+                    {
+                        "const": "count",
+                        "description": "Count rising edges on this pin."
+                    },
+                    {
+                        "const": "count-pulldown",
+                        "description": "Count rising edges with internal pull-down resistor."
+                    },
+                    {
+                        "const": "count-pullup",
+                        "description": "Count rising edges with internal pull-up resistor."
+                    }
                 ]
             }
         },
@@ -153,6 +247,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Set GPIO Mode",
+            "description": "Configure AUX pins for GPIO usage.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"gpio\", \"usage\": [\"input\", \"high\", \"low\", \"count\"]}"
+        },
+        {
+            "title": "Enable NeoPixel Monitor Mode",
+            "description": "Configure AUX for NeoPixel monitoring with custom brightness and count.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"neo-monitor\", \"sensitivity\": 50, \"count\": 5, \"offset\": 1}"
+        },
+        {
+            "title": "Configure Track Mode",
+            "description": "Set AUX to track mode for location tracking.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"track\"}"
+        },
+        {
+            "title": "Disable AUX",
+            "description": "Turn off AUX functionality.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"off\"}"
+        }
+    ]
 }
