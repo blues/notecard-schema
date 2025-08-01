@@ -1,0 +1,33 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.sleep.rsp.notecard.api.json",
+    "title": "card.sleep Response Application Programming Interface (API) Schema",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "on": {
+            "description": "`true` if sleep mode is enabled.",
+            "type": "boolean"
+        },
+        "off": {
+            "description": "`true` if sleep mode is disabled.",
+            "type": "boolean"
+        },
+        "seconds": {
+            "description": "The number of seconds the Notecard will wait before entering sleep mode (only included if default settings are overridden).",
+            "type": "integer"
+        },
+        "mode": {
+            "description": "Returns `\"accel\"` if the Notecard is configured to wake from deep sleep on any movement detected by the onboard accelerometer.",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "title": "Sleep Mode Status",
+            "description": "Example response showing current sleep configuration.",
+            "json": "{\"seconds\": 10, \"mode\": \"accel\", \"on\": true}"
+        }
+    ]
+}

@@ -3,3 +3,5 @@ __pycache__
 docs
 site
 .DS_Store
+.claude
+.python-version
