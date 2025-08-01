@@ -4,6 +4,9 @@
     "title": "card.aux.serial Request Application Programming Interface (API) Schema",
     "description": "Configure various uses of the AUXTX and AUXRX pins on the Notecard's edge connector.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "mode": {
             "description": "The AUX mode. Must be one of the following",
@@ -16,7 +19,50 @@
                 "notify,signals",
                 "notify,env",
                 "notify,dfu"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "req",
+                    "description": "Request mode for sending commands and receiving responses.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "gps",
+                    "description": "GPS mode for external GPS module communication.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "notify",
+                    "description": "General notification mode.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "notify,accel",
+                    "description": "Notification mode for accelerometer events.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "notify,signals",
+                    "description": "Notification mode for signal events.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "notify,env",
+                    "description": "Notification mode for environment variable changes.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "notify,dfu",
+                    "description": "Notification mode for Device Firmware Update events.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                }
             ]
+        },
+        "minutes": {
+            "description": "When in notify,dfu mode, the number of minutes for DFU notification timeout.",
+            "type": "integer",
+            "minimum": 1,
+            "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -50,6 +96,32 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's serial data interfaces. See the debugging with FTDI cable guide for an example of connecting to the Notecard AUX pins using an FTDI cable."
+        }
+    ],
+    "samples": [
+        {
+            "title": "Enable GPS Mode",
+            "description": "Configure AUX serial for external GPS communication.",
+            "json": "{\"req\": \"card.aux.serial\", \"mode\": \"gps\"}"
+        },
+        {
+            "title": "Enable DFU Notifications",
+            "description": "Configure AUX serial for DFU notifications with timeout.",
+            "json": "{\"cmd\": \"card.aux.serial\", \"mode\": \"notify,dfu\", \"minutes\": 30}"
+        },
+        {
+            "title": "Enable Environment Notifications",
+            "description": "Configure AUX serial for environment variable change notifications.",
+            "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,env\"}"
+        },
+        {
+            "title": "Request Mode",
+            "description": "Set AUX serial to request mode for command/response communication.",
+            "json": "{\"cmd\": \"card.aux.serial\", \"mode\": \"req\"}"
+        }
+    ]
 }
