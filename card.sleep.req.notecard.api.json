@@ -1,0 +1,99 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.sleep.req.notecard.api.json",
+    "title": "card.sleep Request Application Programming Interface (API) Schema",
+    "description": "Only valid when used with Notecard WiFi v2. Allows the ESP32-based Notecard WiFi v2 to fall back to a low current draw when idle.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["WIFI"],
+    "properties": {
+        "on": {
+            "description": "Set to true to enable the Notecard WiFi v2 to sleep once it is idle for >= 30 seconds.",
+            "type": "boolean"
+        },
+        "off": {
+            "description": "Set to true to disable the sleep mode on the Notecard WiFi v2.",
+            "type": "boolean"
+        },
+        "seconds": {
+            "description": "The number of seconds the Notecard will wait before entering sleep mode (minimum value is 30).",
+            "type": "integer",
+            "minimum": 30
+        },
+        "mode": {
+            "description": "Set to 'accel' to wake from deep sleep on any movement detected by the onboard accelerometer. Set to '-accel' to reset to the default setting.",
+            "type": "string",
+            "enum": ["accel", "-accel"],
+            "sub-descriptions": [
+                {
+                    "const": "accel",
+                    "description": "Wake from deep sleep on any movement detected by the onboard accelerometer."
+                },
+                {
+                    "const": "-accel",
+                    "description": "Reset to the default setting."
+                }
+            ]
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.sleep"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.sleep"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.sleep"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.sleep"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Only valid for Notecard WiFi v2. Sleep mode will not activate while USB-connected."
+        }
+    ],
+    "samples": [
+        {
+            "title": "Enable Sleep Mode",
+            "description": "Enable sleep mode with default settings.",
+            "json": "{\"req\": \"card.sleep\", \"on\": true}"
+        },
+        {
+            "title": "Configure Sleep with Accelerometer Wake",
+            "description": "Enable sleep mode with accelerometer wake functionality.",
+            "json": "{\"req\": \"card.sleep\", \"on\": true, \"mode\": \"accel\"}"
+        },
+        {
+            "title": "Custom Sleep Timer",
+            "description": "Set custom wait time before entering sleep mode.",
+            "json": "{\"req\": \"card.sleep\", \"seconds\": 60}"
+        },
+        {
+            "title": "Disable Sleep Mode",
+            "description": "Disable sleep mode functionality.",
+            "json": "{\"cmd\": \"card.sleep\", \"off\": true}"
+        }
+    ]
+}
