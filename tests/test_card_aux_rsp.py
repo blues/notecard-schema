@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.aux.rsp.notecard.api.json"
 
@@ -88,3 +89,16 @@ def test_valid_multiple_fields(schema):
         "count": 12
     }
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
