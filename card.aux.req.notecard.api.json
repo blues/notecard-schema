@@ -4,6 +4,9 @@
     "title": "card.aux Request Application Programming Interface (API) Schema",
     "description": "Configure various uses of the general-purpose I/O (GPIO) pins AUX1-AUX4 on the Notecard edge connector for tracking applications and simple GPIO sensing and counting tasks.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "mode": {
             "description": "The AUX mode",
@@ -21,6 +24,68 @@
                 "track-monitor",
                 "track-neo-monitor",
                 "-"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "dfu",
+                    "description": "Device Firmware Update mode for flashing firmware.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "gpio",
+                    "description": "General-purpose I/O mode for digital input/output operations.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "led",
+                    "description": "LED control mode for visual status indication.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "monitor",
+                    "description": "Monitor mode for data collection and observation.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "motion",
+                    "description": "Motion detection mode using built-in accelerometer.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "neo",
+                    "description": "NeoPixel control mode for RGB LED strips.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "neo-monitor",
+                    "description": "Combined NeoPixel and monitor mode with visual feedback.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "off",
+                    "description": "Disable AUX functionality completely.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "track",
+                    "description": "Location tracking mode for GPS operations.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "track-monitor",
+                    "description": "Combined tracking and monitor mode.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "track-neo-monitor",
+                    "description": "Combined tracking, NeoPixel, and monitor mode.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "-",
+                    "description": "Reset to default AUX configuration.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                }
             ]
         },
         "usage": {
@@ -39,6 +104,58 @@
                     "count",
                     "count-pulldown",
                     "count-pullup"
+                ],
+                "sub-descriptions": [
+                    {
+                        "const": "",
+                        "description": "No specific configuration for this pin.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "off",
+                        "description": "Disable this AUX pin.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "high",
+                        "description": "Set pin to high output state.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "low",
+                        "description": "Set pin to low output state.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input",
+                        "description": "Configure pin as digital input.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input-pulldown",
+                        "description": "Configure pin as input with internal pull-down resistor.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input-pullup",
+                        "description": "Configure pin as input with internal pull-up resistor.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "count",
+                        "description": "Count rising edges on this pin.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "count-pulldown",
+                        "description": "Count rising edges with internal pull-down resistor.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "count-pullup",
+                        "description": "Count rising edges with internal pull-up resistor.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    }
                 ]
             }
         },
@@ -114,12 +231,14 @@
                 1,
                 2,
                 5
-            ]
+            ],
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "offset": {
             "description": "When used with mode:neo-monitor or mode:track-neo-monitor, this is the 1-based index in a strip of NeoPixels",
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -153,6 +272,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Set GPIO Mode",
+            "description": "Configure AUX pins for GPIO usage.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"gpio\", \"usage\": [\"input\", \"high\", \"low\", \"count\"]}"
+        },
+        {
+            "title": "Enable NeoPixel Monitor Mode",
+            "description": "Configure AUX for NeoPixel monitoring with custom brightness and count.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"neo-monitor\", \"sensitivity\": 50, \"count\": 5, \"offset\": 1}"
+        },
+        {
+            "title": "Configure Track Mode",
+            "description": "Set AUX to track mode for location tracking.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"track\"}"
+        },
+        {
+            "title": "Disable AUX",
+            "description": "Turn off AUX functionality.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"off\"}"
+        }
+    ]
 }
