@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.dfu.req.notecard.api.json"
 
@@ -121,9 +122,62 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_start(schema):
+    """Tests valid start field."""
+    instance = {"req": "card.dfu", "start": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.dfu", "start": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_start_invalid_type(schema):
+    """Tests invalid type for start."""
+    instance = {"req": "card.dfu", "start": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_mode(schema):
+    """Tests valid mode field."""
+    instance = {"req": "card.dfu", "mode": "altdfu"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.dfu", "mode": "off"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_mode_invalid_enum(schema):
+    """Tests invalid mode enum value."""
+    instance = {"req": "card.dfu", "mode": "invalid"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'invalid' is not one of ['altdfu', 'off']" in str(excinfo.value)
+
+def test_mode_invalid_type(schema):
+    """Tests invalid type for mode."""
+    instance = {"req": "card.dfu", "mode": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
+def test_valid_mcuboot_name(schema):
+    """Tests the new mcuboot MCU class."""
+    instance = {"req": "card.dfu", "name": "mcuboot", "on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "card.dfu", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
