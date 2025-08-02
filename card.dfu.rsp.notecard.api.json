@@ -3,7 +3,20 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.dfu.rsp.notecard.api.json",
     "title": "card.dfu Response Application Programming Interface (API) Schema",
     "type": "object",
-    "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {
+        "name": {
+            "description": "The class of MCU that the Notecard is currently configured to support for Outboard DFU.",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "title": "DFU Status Response",
+            "description": "Example response showing current DFU configuration.",
+            "json": "{\"name\": \"stm32\"}"
+        }
+    ]
 }
