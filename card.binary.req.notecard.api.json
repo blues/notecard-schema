@@ -2,11 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.req.notecard.api.json",
     "title": "card.binary Request Application Programming Interface (API) Schema",
-    "description": "View the status of the binary storage area of the Notecard and optionally clear any data and related card.binary variables.",
+    "description": "View the status of the binary storage area of the Notecard and optionally clear any data and related `card.binary` variables. See the guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects) for best practices when using `card.binary`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "delete": {
-            "description": "Clear the COBS area on the Notecard and reset all related arguments previously set by a card.binary request",
+            "description": "Clear the COBS area on the Notecard and reset all related arguments previously set by a card.binary request.",
             "type": "boolean"
         },
         "cmd": {
@@ -41,6 +44,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "View Binary Status",
+            "description": "Check the status of binary storage area.",
+            "json": "{\"req\": \"card.binary\"}"
+        },
+        {
+            "title": "Reset Binary Data",
+            "description": "Clear the COBS area and reset binary variables.",
+            "json": "{\"req\": \"card.binary\", \"delete\": true}"
+        }
+    ]
 }

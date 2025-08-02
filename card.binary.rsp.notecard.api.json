@@ -3,24 +3,40 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.rsp.notecard.api.json",
     "title": "card.binary Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "cobs": {
-            "description": "The size of COBS-encoded data stored in the reserved area",
+            "description": "The size of COBS-encoded data stored in the reserved area (without the trailing \n).",
             "type": "integer"
         },
         "connected": {
-            "description": "Returns true if the Notecard is connected to the network",
+            "description": "Returns true if the Notecard is connected to the network.",
             "type": "boolean"
         },
         "err": {
-            "description": "If present, a string describing the error that occurred during transmission",
+            "description": "If present, a string describing the error that occurred during transmission.",
             "type": "string"
         },
         "length": {
-            "description": "The length of the binary data",
+            "description": "The amount of unencoded data currently stored (in bytes).",
             "type": "integer"
+        },
+        "max": {
+            "description": "The space available (in bytes) for storing unencoded data on the Notecard.",
+            "type": "integer"
+        },
+        "status": {
+            "description": "The MD5 checksum calculated for the entire unencoded buffer.",
+            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Binary Status Response",
+            "description": "Example response showing binary storage status.",
+            "json": "{\"connected\": true, \"max\": 130554, \"status\": \"ce6fdef565eeecf14ab38d83643b922d\", \"length\": 4, \"cobs\": 5}"
+        }
+    ]
 }
