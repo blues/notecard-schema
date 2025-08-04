@@ -2,6 +2,52 @@ import json
 import os
 import argparse
 import html
+import re
+
+def generate_sku_badges(skus):
+    """Generate badge HTML for SKUs."""
+    if not skus:
+        return ""
+
+    sku_map = {
+        "CELL": "cell",
+        "CELL+WIFI": "cell+wifi",
+        "LORA": "lora",
+        "WIFI": "wifi"
+    }
+
+    badges = []
+    for sku in skus:
+        if sku in sku_map:
+            badges.append(f'<Badge type="{sku_map[sku]}"/>')
+
+    return "".join(badges)
+
+def generate_argument_badges(skus):
+    """Generate argument-specific badge HTML for SKUs."""
+    if not skus:
+        return ""
+
+    sku_map = {
+        "CELL": "cell",
+        "CELL+WIFI": "cell+wifi",
+        "LORA": "lora",
+        "WIFI": "wifi"
+    }
+
+    badges = []
+    for sku in skus:
+        if sku in sku_map:
+            badges.append(f'<Badge type="{sku_map[sku]}" usage="argument"/>')
+
+    return "".join(badges)
+
+def convert_blues_urls_to_relative(text):
+    """Convert absolute Blues.io URLs to relative URLs."""
+    # Pattern to match Blues.io URLs
+    pattern = r'https://dev\.blues\.io(/[^)\s]*)'
+    replacement = r'\1'
+    return re.sub(pattern, replacement, text)
 
 def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     """Generates an MDX string from the JSON schema, optionally including response info."""
@@ -13,10 +59,12 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
         elif schema_data["properties"].get("cmd") and schema_data["properties"].get("cmd").get("const"):
             req_cmd_value = schema_data["properties"]["cmd"]["const"]
 
-    title = f"## {req_cmd_value}"
+    # Generate badges for SKUs
+    sku_badges = generate_sku_badges(schema_data.get("skus", []))
+    title = f"## {req_cmd_value} {sku_badges}".strip()
     description = schema_data.get("description", "")
 
-    arguments_mdx_content = generate_arguments_mdx(schema_data.get("properties", {}))
+    arguments_mdx_content = generate_arguments_mdx(schema_data.get("properties", {}), schema_data)
     example_requests_block = generate_examples_mdx(schema_data.get("samples", []))
 
     # Prepare data for response sections, ensuring defaults if response_schema_data is None or incomplete
@@ -25,7 +73,7 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     response_samples = effective_response_schema_data.get("samples", [])
 
     # generate_response_members_mdx always returns the block
-    response_members_block = generate_response_members_mdx(response_properties)
+    response_members_block = generate_response_members_mdx(response_properties, effective_response_schema_data)
     # generate_example_response_mdx returns block only if samples exist
     example_response_block = generate_example_response_mdx(response_samples)
 
@@ -40,31 +88,72 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
         example_response_block
     ]
 
-    return "\n\n".join(filter(None, mdx_parts))
+    mdx_content = "\n\n".join(filter(None, mdx_parts))
+    # Convert absolute Blues.io URLs to relative URLs
+    mdx_content = convert_blues_urls_to_relative(mdx_content)
+    return mdx_content
 
-def generate_arguments_mdx(properties):
+def generate_arguments_mdx(properties, schema_data):
     """Generates MDX for schema properties (arguments). Content only."""
     if not properties:
         return ""
     args_list = []
-    top_level_required = properties.get("required", [])
+
+    # Check if this is using oneOf structure for required fields
+    one_of_structure = schema_data.get("oneOf", [])
+    top_level_required = []
+    if one_of_structure:
+        # Extract required fields from oneOf structure
+        for variant in one_of_structure:
+            if "required" in variant:
+                top_level_required.extend(variant["required"])
+
     for prop_name, prop_details in properties.items():
         if prop_name in ["req", "cmd", "required"]:
             continue
+
         prop_type = prop_details.get("type", "N/A")
-        optional_tag = "(optional)"
-        if isinstance(top_level_required, list) and prop_name in top_level_required:
-             optional_tag = "(required)"
-        elif isinstance(properties.get("oneOf"), list):
-            pass
-        type_display = f"_{prop_type} {optional_tag}_"
+        optional_tag = " (optional)"
+        if prop_name in top_level_required:
+            optional_tag = ""
+
+        type_display = f"_{prop_type}{optional_tag}_"
         if prop_details.get("format"):
-            type_display = f"_{prop_type} (format: {prop_details.get('format')}) {optional_tag}_"
+            type_display = f"_{prop_type} (format: {prop_details.get('format')}){optional_tag}_"
         elif "const" in prop_details:
-            type_display = f"_const (value: `{prop_details["const"]}`) {optional_tag}_"
+            type_display = f"_const (value: `{prop_details['const']}`){optional_tag}_"
+
         description = prop_details.get("description", "No description.")
-        args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
+
+        # Handle special case for mode parameter with sub-descriptions
+        if prop_name == "mode" and "sub-descriptions" in prop_details:
+            sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
+            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+        else:
+            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
+
     return "\n\n".join(args_list)
+
+def generate_mode_sub_descriptions(sub_descriptions):
+    """Generate formatted sub-descriptions for mode parameter."""
+    sub_desc_parts = []
+
+    for sub_desc in sub_descriptions:
+        const_value = sub_desc.get("const", "")
+        description = sub_desc.get("description", "")
+        skus = sub_desc.get("skus", [])
+
+        badges = generate_argument_badges(skus)
+
+        # Handle special formatting for empty string
+        if const_value == "":
+            const_display = '`""`'
+        else:
+            const_display = f'`"{const_value}"`'
+
+        sub_desc_parts.append(f"{const_display} {badges}\n\n{description}")
+
+    return "\n\n".join(sub_desc_parts)
 
 def generate_cpp_for_sample(parsed_json_data):
     """Generates C++ code lines from parsed JSON data."""
@@ -87,10 +176,20 @@ def generate_cpp_for_sample(parsed_json_data):
             # Escape double quotes within the string value for C++
             escaped_value = value.replace('"', '\\"')
             cpp_lines.append(f'JAddStringToObject(req, "{key}", "{escaped_value}");')
-        elif isinstance(value, (int, float)):
-            cpp_lines.append(f'JAddNumberToObject(req, "{key}", {value});')
         elif isinstance(value, bool):
             cpp_lines.append(f'JAddBoolToObject(req, "{key}", {"true" if value else "false"});')
+        elif isinstance(value, (int, float)):
+            cpp_lines.append(f'JAddNumberToObject(req, "{key}", {value});')
+        elif isinstance(value, list):
+            # Handle arrays
+            cpp_lines.append(f'J *{key} = JAddArrayToObject(req, "{key}");')
+            for item in value:
+                if isinstance(item, str):
+                    cpp_lines.append(f'JAddItemToArray({key}, JCreateString("{item}"));')
+                elif isinstance(item, (int, float)):
+                    cpp_lines.append(f'JAddItemToArray({key}, JCreateNumber({item}));')
+                elif isinstance(item, bool):
+                    cpp_lines.append(f'JAddItemToArray({key}, JCreateBool({"true" if item else "false"}));')
 
     cpp_lines.append("")
     cpp_lines.append("NoteRequest(req);");
@@ -119,7 +218,9 @@ def generate_python_for_sample(parsed_json_data):
             python_lines.append(f'req["{key}"] = {True if value else False}')
         elif isinstance(value, (int, float)):
             python_lines.append(f'req["{key}"] = {value}')
-        # Arrays and nested objects are not handled for Python generation in this simplified version
+        elif isinstance(value, list):
+            # Handle arrays
+            python_lines.append(f'req["{key}"] = {json.dumps(value)}')
 
     python_lines.append("rsp = card.Transaction(req)")
     return python_lines
@@ -182,7 +283,7 @@ def generate_examples_mdx(samples):
 
 </ExampleRequests>"""
 
-def generate_response_members_mdx(properties):
+def generate_response_members_mdx(properties, response_schema_data):
     """Generates MDX for response schema properties, always including wrapper tags."""
     members_list_strings = []
     if properties:
@@ -191,16 +292,37 @@ def generate_response_members_mdx(properties):
             type_display = f"_{prop_type}_"
             if prop_details.get("format"):
                 type_display = f"_{prop_type} (format: {prop_details.get('format')})_"
+            elif prop_details.get("contentEncoding"):
+                type_display = f"_{prop_details.get('contentEncoding')} string_"
+            elif prop_name == "time" and prop_type == "integer":
+                type_display = "_UNIX Epoch time_"
+
             description = prop_details.get("description", "No description.")
-            members_list_strings.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
+
+            # Handle special formatting for files property with sub-descriptions
+            if prop_name == "files" and "sub-descriptions" in prop_details:
+                sub_desc_content = generate_response_sub_descriptions(prop_details["sub-descriptions"])
+                members_list_strings.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+            else:
+                members_list_strings.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
 
     content = "\n\n".join(members_list_strings)
     if content:
-      content = f"\n{content}\n"
+      content = f"\n\n{content}\n\n"
     else:
-      content = "\n"
+      content = "\n\n"
 
     return f"""<ResponseMembers>{content}</ResponseMembers>"""
+
+def generate_response_sub_descriptions(sub_descriptions):
+    """Generate formatted sub-descriptions for response properties."""
+    sub_desc_parts = []
+
+    for sub_desc in sub_descriptions:
+        const_value = sub_desc.get("const", "")
+        sub_desc_parts.append(f'`"{const_value}"`')
+
+    return "\n\n".join(sub_desc_parts)
 
 def generate_example_response_mdx(samples):
     """Generates MDX for example response only if samples exist."""
