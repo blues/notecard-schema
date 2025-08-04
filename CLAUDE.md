@@ -10,9 +10,10 @@ When adding a new schema (e.g., `card.sleep`):
 2. **Add comprehensive tests**: Create corresponding test files in `tests/` directory
 3. **Update index**: Add schema references to `notecard.api.json`
 4. **Verify descriptions**: Ensure all descriptions match exactly with official API documentation
+5. **Preserve markdown formatting**: Ensure all markdown formatting is preserved
 
 ## Repository Structure
-- Root directory contains all schema files (e.g., `card.*.json`)
+- Root directory contains all schema files, in the format `category`.`api`.`api content (optional)`.`req/rsp`.`notecard`.json  (e.g., `card.attn.req.notecard.json`,`card.wireless.penalty.rsp.notecard.json`,`hub.get.req.notecard.json`)
 - `tests/` directory contains test files following pattern `test_card_*_req.py` and `test_card_*_rsp.py`
 - `notecard.api.json` serves as the main index file referencing all schemas
 
@@ -23,7 +24,7 @@ When adding a new schema (e.g., `card.sleep`):
 - All schemas must pass validation tests before being considered complete
 
 ## Schema Conventions
-- **Title**: Follow pattern `"card.* Request/Response Application Programming Interface (API) Schema"`
+- **Title**: Follow pattern `"category.api Request/Response Application Programming Interface (API) Schema"`, (e.g. where `category` and `api` could be `card.attn` or `hub.get`, etc.)
 - **Version**: Currently using `"0.2.1"`
 - **API Version**: Currently `"9.1.1"`
 - **SKUs**: Include appropriate Notecard compatibility (e.g., `["WIFI"]` for WiFi-only APIs)
@@ -57,7 +58,7 @@ Provides JSON examples with titles and descriptions:
 ```
 
 ### `sub-descriptions`
-Detailed descriptions for enum values:
+Detailed descriptions for known parameter values:
 ```json
 "sub-descriptions": [
     {
@@ -72,13 +73,6 @@ Indicates Notecard compatibility at API and parameter level:
 ```json
 "skus": ["WIFI"]
 ```
-
-## Missing APIs Identified
-As of the last analysis, only `card.sleep` was missing from the repository schemas. This has now been implemented with:
-- Request schema with proper WiFi-only SKU restriction
-- Response schema with all documented fields
-- Comprehensive test coverage (42 tests total)
-- Integration with main index file
 
 ## Schema Validation Requirements
 - All parameter descriptions must match official API documentation exactly
