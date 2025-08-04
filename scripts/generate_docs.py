@@ -76,6 +76,15 @@ def generate_markdown_for_schema(schema, schema_type):
                 if isinstance(details, dict):
                     prop_type = details.get('type', '-')
                     prop_desc = details.get('description', '-')
+
+                    # Clean up _**NOTE:** and _**WARNING:** formatting in property descriptions
+                    if isinstance(prop_desc, str):
+                        # Replace _**NOTE:** with **NOTE:** and remove extra newlines
+                        prop_desc = prop_desc.replace('_**NOTE:**', '**NOTE:**')
+                        prop_desc = prop_desc.replace('_**WARNING:**', '**WARNING:**')
+                        # Replace multiple newlines with single space to keep content in table cell
+                        prop_desc = prop_desc.replace('\n\n', ' ').replace('\n', ' ')
+
                     prop_default = details.get('default', '-')
 
                     # Handle sub-descriptions if they exist
@@ -83,14 +92,26 @@ def generate_markdown_for_schema(schema, schema_type):
                         sub_descs_md = []
                         for sub_desc in details['sub-descriptions']:
                             if 'const' in sub_desc and 'description' in sub_desc:
-                                desc_line = f" - `{sub_desc['const']}`: {sub_desc['description']}"
+                                # Replace double newlines with single space to prevent table breaks
+                                # but keep single newlines for readability
+                                clean_description = sub_desc['description'].replace('\n\n', ' ').replace('\n', ' ')
+                                # Show const values as JSON strings with quotes
+                                const_json = json.dumps(sub_desc['const'])
+                                desc_line = f" - `{const_json}`: {clean_description}"
+
+                                # Add deprecated notice if present
+                                if sub_desc.get('deprecated', False):
+                                    desc_line += " ⚠️ **DEPRECATED**"
+
                                 # Add SKU information if present
                                 if 'skus' in sub_desc and isinstance(sub_desc['skus'], list):
                                     sku_list = ", ".join([f"`{sku}`" for sku in sub_desc['skus']])
                                     desc_line += f" ({sku_list})"
                                 sub_descs_md.append(desc_line)
                         if sub_descs_md:
-                            prop_desc += "<br/><br/>**Allowed Values:**<br/>" + "<br/>".join(sub_descs_md)
+                            # Convert list items to HTML ul/li for proper table formatting
+                            sub_descs_html = "<ul>" + "".join([f"<li>{item.lstrip('- ')}</li>" for item in sub_descs_md]) + "</ul>"  # Remove " - " prefix
+                            prop_desc += "<br/><br/>**Allowed Values:**" + sub_descs_html
                     # Append enum values to description if present and no sub-descriptions
                     elif 'enum' in details and isinstance(details['enum'], list):
                         enum_values = ", ".join([f"`{v}`" for v in details['enum']])
@@ -123,6 +144,22 @@ def generate_markdown_for_schema(schema, schema_type):
             md_parts.append("\n")
     else:
         md_parts.append("No specific parameters defined.\n")
+
+    # Add annotations section if available
+    if 'annotations' in schema and isinstance(schema['annotations'], list):
+        for annotation in schema['annotations']:
+            if isinstance(annotation, dict) and 'title' in annotation and 'description' in annotation:
+                annotation_title = annotation['title'].lower()
+                annotation_desc = annotation['description']
+
+                if annotation_title == 'note':
+                    md_parts.append(f"!!! note\n    {annotation_desc}\n")
+                elif annotation_title == 'warning':
+                    md_parts.append(f"!!! warning\n    {annotation_desc}\n")
+                elif annotation_title == 'deprecated':
+                    md_parts.append(f"!!! danger \"Deprecated\"\n    {annotation_desc}\n")
+                else:
+                    md_parts.append(f"!!! info \"{annotation_title.title()}\"\n    {annotation_desc}\n")
 
     # Add samples section if available
     if 'samples' in schema and isinstance(schema['samples'], list):
@@ -238,6 +275,20 @@ def main():
     # Sort API groups alphabetically
     for base_name in sorted(grouped_schemas.keys()):
         markdown_output.append(f"### `{base_name}`")
+
+        # Add version info if available (from request schema)
+        request_schema = grouped_schemas[base_name]['request']
+        if request_schema:
+            schema_data = request_schema[1]
+            version_info = []
+            if 'version' in schema_data:
+                version_info.append(f"Schema Version: `{schema_data['version']}`")
+            if 'apiVersion' in schema_data:
+                version_info.append(f"API Version: `{schema_data['apiVersion']}`")
+
+            if version_info:
+                markdown_output.append("#### Version Information\n")
+                markdown_output.append(" | ".join(version_info) + "\n\n")
 
         # Add API SKU if available
         if grouped_schemas[base_name]['request'] and 'skus' in grouped_schemas[base_name]['request'][1]:
