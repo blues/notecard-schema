@@ -110,7 +110,7 @@ def generate_markdown_for_schema(schema, schema_type):
                                 sub_descs_md.append(desc_line)
                         if sub_descs_md:
                             # Convert list items to HTML ul/li for proper table formatting
-                            sub_descs_html = "<ul>" + "".join([f"<li>{item[3:]}</li>" for item in sub_descs_md]) + "</ul>"  # Remove " - " prefix
+                            sub_descs_html = "<ul>" + "".join([f"<li>{item.lstrip('- ')}</li>" for item in sub_descs_md]) + "</ul>"  # Remove " - " prefix
                             prop_desc += "<br/><br/>**Allowed Values:**" + sub_descs_html
                     # Append enum values to description if present and no sub-descriptions
                     elif 'enum' in details and isinstance(details['enum'], list):
