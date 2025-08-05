@@ -2,11 +2,20 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.req.notecard.api.json",
     "title": "card.aux Request Application Programming Interface (API) Schema",
-    "description": "Configure various uses of the general-purpose I/O (GPIO) pins AUX1-AUX4 on the Notecard edge connector for tracking applications and simple GPIO sensing and counting tasks.",
+    "description": "Configure various uses of the general-purpose I/O (GPIO) pins `AUX1`-`AUX4` on the Notecard edge connector for tracking applications and simple GPIO sensing and counting tasks.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's serial data interfaces."
+        }
+    ],
     "properties": {
         "mode": {
-            "description": "The AUX mode",
+            "description": "The AUX mode. Must be one of the following keywords. Some keywords are only supported on certain types of Notecards.",
             "type": "string",
             "enum": [
                 "dfu",
@@ -21,10 +30,72 @@
                 "track-monitor",
                 "track-neo-monitor",
                 "-"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "dfu",
+                    "description": "Enable the Notecard's `AUX1` pin for Outboard Firmware Updates. When enabled, `AUX1` is active `LOW` when a DFU is in progress, and `HIGH` otherwise.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "gpio",
+                    "description": "Configure the Notecard for GPIO mode with `AUX1` OFF, `AUX2` as an output `LOW`, `AUX3` as an output `HIGH`, and `AUX4` as an input.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "led",
+                    "description": "When wiring LEDs to the Notecard's AUX pins (as is done when using monitor mode), use this mode along with the card.led API to manually enable/disable individual red, green, and/or yellow LEDs.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "monitor",
+                    "description": "If you plan to place your Notecard in an enclosure, monitor mode can be used to configure inputs and outputs typically placed on the faceplate of a device in order for a technician to test and monitor Notecard activity.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "motion",
+                    "description": "Supplement autonomous tracking with digital inputs and a status output.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "neo",
+                    "description": "When wiring a NeoPixel or NeoPixel strip to the Notecard's AUX2 pin (as is done when using neo-monitor mode), use this mode along with the card.led API to manually enable/disable a single NeoPixel.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "neo-monitor",
+                    "description": "Similar to monitor mode, neo-monitor mode supports NeoPixel LEDs that can be used to configure inputs and outputs typically placed on the faceplate of a device in order for a technician to test and monitor Notecard activity.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "off",
+                    "description": "Disable AUX mode.",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                },
+                {
+                    "const": "track",
+                    "description": "Enhance Notes in the `_track.qo` Notefile with temperature, pressure, and humidity readings from a connected BME280 sensor.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "track-monitor",
+                    "description": "Combines the functionality of the `track` and `monitor` AUX modes.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "track-neo-monitor",
+                    "description": "Combines `track` and `monitor` modes while also supporting NeoPixel LEDs that allow for monitoring Notecard activity.",
+                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                },
+                {
+                    "const": "-",
+                    "description": "Resets the AUX mode to its default value (`off`).",
+                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                }
             ]
         },
         "usage": {
-            "description": "An ordered list of pin modes for each AUX pin when in GPIO mode",
+            "description": "An ordered list of pin modes for each AUX pin when in GPIO mode.",
             "type": "array",
             "items": {
                 "type": "string",
@@ -39,29 +110,82 @@
                     "count",
                     "count-pulldown",
                     "count-pullup"
+                ],
+                "sub-descriptions": [
+                    {
+                        "const": "",
+                        "description": "to leave the pin unchanged.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "off",
+                        "description": "to disable the pin.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "high",
+                        "description": "to set the pin as a `HIGH` output.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "low",
+                        "description": "to set the pin as a `LOW` output.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input",
+                        "description": "to set the pin as an input.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input-pulldown",
+                        "description": "to set the pin as a pull-down input.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "input-pullup",
+                        "description": "to set the pin as a pull-up input.",
+                        "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    },
+                    {
+                        "const": "count",
+                        "description": "to set the pin as an input (interrupt) that increments a counter for each rising edge pulse on the pin. It is up to the device's designer to make sure that the signal is either HIGH or LOW at any time, and is never left floating.",
+                        "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    },
+                    {
+                        "const": "count-pulldown",
+                        "description": "Same as `count` usage, but a pull-down resistor internal to the Notecard will automatically keep the pin from floating.",
+                        "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    },
+                    {
+                        "const": "count-pullup",
+                        "description": "Same as `count` usage, but a pull-up resistor internal to the Notecard will automatically keep the pin from floating and falling edges of pulses are counted.",
+                        "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    }
                 ]
             }
         },
         "seconds": {
-            "description": "When in gpio mode, if an AUX pin is configured as a count type, the count of rising edges can be broken into samples of this duration",
+            "description": "When in `gpio` mode, if an `AUX` pin is configured as a `count` type, the count of rising edges can be broken into samples of this duration. Passing `0` or omitting this field will total into a single sample.",
             "type": "integer",
             "minimum": 0
         },
         "max": {
-            "description": "When in gpio mode, if an AUX pin is configured as a count type, the maximum number of samples of duration seconds",
+            "description": "When in `gpio` mode, if an `AUX` pin is configured as a `count` type, the maximum number of samples of duration `seconds`, after which all subsequent counts are added to the final sample. Passing `0` or omitting this value will provide a single incrementing count of rising edges on the pin.",
             "type": "integer",
             "minimum": 0
         },
         "start": {
-            "description": "When in gpio mode, if an AUX pin is configured as a count type, set to true to reset counters and start incrementing",
+            "description": "When in `gpio` mode, if an `AUX` pin is configured as a `count` type, set to `true` to reset counters and start incrementing.",
             "type": "boolean"
         },
         "gps": {
-            "description": "Deprecated. If true, along with mode:track the Notecard supports the use of an external GPS module",
-            "type": "boolean"
+            "description": "If `true`, along with `\"mode\":\"track\"` the Notecard supports the use of an external GPS module. This argument is deprecated. Use the `card.aux.serial` request with a `mode` of `\"gps\"` instead.",
+            "type": "boolean",
+            "deprecated": true
         },
         "rate": {
-            "description": "The AUX UART baud rate for debug communication over the AUXRX and AUXTX pins",
+            "description": "The AUX UART baud rate for debug communication over the AUXRX and AUXTX pins.",
             "enum": [
                 300,
                 600,
@@ -81,45 +205,52 @@
             "type": "integer"
         },
         "sync": {
-            "description": "If true, for pins set as input by usage, the Notecard will autonomously report any state changes as new notes in file",
-            "type": "boolean"
+            "description": "If `true`, for pins set as `input` by `usage`, the Notecard will autonomously report any state changes as new notes in `file`. For pins used as `counter`, the Notecard will use an interrupt to count pulses and will report the total in a new note in `file` unless it has been noted in the previous second.",
+            "type": "boolean",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "file": {
-            "description": "The name of the Notefile used to report state changes when used in conjunction with sync:true",
-            "type": "string"
+            "description": "The name of the Notefile used to report state changes when used in conjunction with `\"sync\": true`. Default Notefile name is `_button.qo`.",
+            "type": "string",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "connected": {
-            "description": "If true, defers the sync of the state change Notefile to the next sync as configured by the hub.set request",
-            "type": "boolean"
+            "description": "If `true`, defers the sync of the state change Notefile to the next sync as configured by the `hub.set` request.",
+            "type": "boolean",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "limit": {
-            "description": "If true, along with mode:track and gps:true the Notecard will disable concurrent modem use during GPS tracking",
+            "description": "If `true`, along with `\"mode\":\"track\"` and `gps:true` the Notecard will disable concurrent modem use during GPS tracking.",
             "type": "boolean"
         },
         "sensitivity": {
-            "description": "When used with mode:neo-monitor or mode:track-neo-monitor, this controls the brightness of NeoPixel lights",
+            "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this controls the brightness of NeoPixel lights, where `100` is the maximum brightness and `1` is the minimum.",
             "type": "integer",
             "minimum": 1,
-            "maximum": 100
+            "maximum": 100,
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "ms": {
-            "description": "When in gpio mode, this argument configures a debouncing interval",
+            "description": "When in `gpio` mode, this argument configures a debouncing interval. With a debouncing interval in place, the Notecard excludes all transitions with a shorter duration than the provided debounce time, in milliseconds. This interval only applies to GPIOs configured with a `usage` of `count`, `count-pulldown`, or `count-pullup`.",
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "count": {
-            "description": "When used with mode:neo-monitor or mode:track-neo-monitor, this controls the number of NeoPixels to use in a strip",
+            "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this controls the number of NeoPixels to use in a strip. Possible values are `1`, `2`, or `5`.",
             "type": "integer",
             "enum": [
                 1,
                 2,
                 5
-            ]
+            ],
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "offset": {
-            "description": "When used with mode:neo-monitor or mode:track-neo-monitor, this is the 1-based index in a strip of NeoPixels",
+            "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this is the 1-based index in a strip of NeoPixels that determines which single NeoPixel the host can command.",
             "type": "integer",
-            "minimum": 1
+            "minimum": 1,
+            "skus": ["CELL", "CELL+WIFI", "WIFI"]
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -153,6 +284,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Set GPIO Mode",
+            "description": "Configure AUX pins for GPIO usage.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"gpio\", \"usage\": [\"input\", \"high\", \"low\", \"count\"]}"
+        },
+        {
+            "title": "Enable NeoPixel Monitor Mode",
+            "description": "Configure AUX for NeoPixel monitoring with custom brightness and count.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"neo-monitor\", \"sensitivity\": 50, \"count\": 5, \"offset\": 1}"
+        },
+        {
+            "title": "Configure Track Mode",
+            "description": "Set AUX to track mode for location tracking.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"track\"}"
+        },
+        {
+            "title": "Disable AUX",
+            "description": "Turn off AUX functionality.",
+            "json": "{\"cmd\": \"card.aux\", \"mode\": \"off\"}"
+        }
+    ]
 }

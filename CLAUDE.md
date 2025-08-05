@@ -80,6 +80,50 @@ Indicates Notecard compatibility at API and parameter level:
 - Test coverage must include validation of all fields, types, and edge cases
 - Schemas must validate successfully against their own sample JSON
 
+## Schema Quality Assurance Checklist
+When reviewing or updating existing schemas, perform these validation checks:
+
+### 1. Documentation Accuracy
+- **Compare descriptions**: Verify all parameter descriptions match the official API reference documentation exactly
+- **Check mode descriptions**: Ensure enum sub-descriptions use exact wording from reference docs
+- **Verify markdown formatting**: Preserve backticks, quotes, and formatting as specified in reference
+- **Usage descriptions**: For parameters like `usage` arrays, ensure descriptions match reference format exactly
+
+### 2. SKU Compatibility
+- **Review SKU restrictions**: Verify SKU arrays match the compatibility shown in API documentation
+- **Check mode-specific SKUs**: Some modes (like `count` operations) may have restricted SKU support
+- **Parameter-level SKUs**: Ensure individual parameters have correct SKU restrictions where applicable
+
+### 3. Schema Structure Validation
+- **Request schema**: Must support both `req` and `cmd` patterns using `oneOf`
+- **Response schema**: Structure must match the actual API response format from reference docs
+- **Property types**: Verify all property types (string, integer, boolean, array, object) are correct
+- **Constraints**: Check minimum/maximum values, enum lists, and array item types
+
+### 4. Custom Schema Fields
+- **Annotations**: Add INFO/NOTE sections from reference docs as annotations with `title: "note"`
+- **Deprecated flags**: Add `deprecated: true` for deprecated parameters
+- **Sub-descriptions**: Include detailed explanations for enum values
+- **Samples**: Ensure sample JSON validates against the schema
+
+### 5. Test Coverage Verification
+- **Run existing tests**: `pipenv run pytest tests/test_[api]_req.py tests/test_[api]_rsp.py -v`
+- **Update tests if needed**: When schema structure changes, update corresponding test files
+- **Comprehensive coverage**: Tests should cover all parameters, types, validation rules, and edge cases
+- **Sample validation**: Verify schema samples pass validation tests
+
+### 6. Validation Commands
+```bash
+# Run specific API tests
+pipenv run pytest tests/test_card_aux_req.py tests/test_card_aux_rsp.py -v
+
+# Run all tests
+pipenv run pytest
+
+# Validate specific schema files exist and are properly named
+ls card.aux.req.notecard.api.json card.aux.rsp.notecard.api.json
+```
+
 ## Development Commands
 - `pipenv install --dev` - Install development dependencies
 - `pipenv run pytest` - Run all tests

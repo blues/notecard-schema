@@ -3,26 +3,57 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.aux.rsp.notecard.api.json",
     "title": "card.aux Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "mode": {
-            "description": "The current mode of the AUX interface",
+            "description": "The current AUX `mode`, or `off` if not set.",
             "type": "string"
         },
-        "text": {
-            "description": "Text received over the AUX interface",
-            "type": "string"
+        "state": {
+            "description": "When in AUX `gpio` mode, the state of each AUX pin.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "high": {
+                        "type": "boolean"
+                    },
+                    "low": {
+                        "type": "boolean"
+                    },
+                    "input": {
+                        "type": "boolean"
+                    },
+                    "count": {
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        }
+                    }
+                },
+                "additionalProperties": false
+            }
         },
-        "binary": {
-            "description": "Binary data received over the AUX interface",
-            "type": "string",
-            "format": "binary"
+        "time": {
+            "description": "When in AUX `gpio` mode, and if `count` is enabled on an AUX pin, the time that counting started.",
+            "type": "integer"
         },
-        "count": {
-            "description": "Number of bytes received",
-            "type": "integer",
-            "minimum": 0
+        "seconds": {
+            "description": "When in AUX `gpio` mode, and if `count` is enabled on an AUX pin, the number of seconds per sample.",
+            "type": "integer"
+        },
+        "power": {
+            "description": "If `true`, indicates the Notecard has USB (main) power. This parameter only appears in the body of the Note in Notehub if using `\"sync\":true`.",
+            "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "GPIO Mode Response",
+            "description": "Example response showing GPIO mode configuration with pin states.",
+            "json": "{\"mode\": \"gpio\", \"state\": [{}, {\"low\": true}, {\"high\": true}, {\"count\": [3]}], \"time\": 1592587637, \"seconds\": 2}"
+        }
+    ]
 }

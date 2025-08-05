@@ -125,12 +125,24 @@ def generate_arguments_mdx(properties, schema_data):
 
         description = prop_details.get("description", "No description.")
 
+        # Generate SKU badges for individual parameters
+        param_skus = prop_details.get("skus", [])
+        param_badges = generate_argument_badges(param_skus) if param_skus else ""
+
         # Handle special case for mode parameter with sub-descriptions
         if prop_name == "mode" and "sub-descriptions" in prop_details:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
             args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+        # Handle array parameters with sub-descriptions in items
+        elif prop_type == "array" and "items" in prop_details and "sub-descriptions" in prop_details["items"]:
+            sub_desc_content = generate_mode_sub_descriptions(prop_details["items"]["sub-descriptions"])
+            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
         else:
-            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
+            # Add parameter SKU badges after the parameter name if they exist
+            param_header = f"### `{prop_name}`"
+            if param_badges:
+                param_header = f"### `{prop_name}` {param_badges}"
+            args_list.append(f"{param_header}\n\n{type_display}\n\n{description}")
 
     return "\n\n".join(args_list)
 
@@ -345,7 +357,7 @@ def main():
     parser = argparse.ArgumentParser(description="Generate an MDX file from a Notecard API base name (e.g., card.contact).")
     parser.add_argument("api_base_name", help="Base name of the Notecard API (e.g., card.contact, hub.set).")
     parser.add_argument("--schema_dir", default=".", help="Directory where schema files are located. Defaults to current directory.")
-    parser.add_argument("-o", "--output_dir", default="./.docs", help="Directory to save the generated MDX file. Defaults to './docs/'.")
+    parser.add_argument("-o", "--output_dir", default="./docs", help="Directory to save the generated MDX file. Defaults to './docs/'.")
 
     args = parser.parse_args()
 

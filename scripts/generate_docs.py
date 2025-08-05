@@ -87,10 +87,16 @@ def generate_markdown_for_schema(schema, schema_type):
 
                     prop_default = details.get('default', '-')
 
-                    # Handle sub-descriptions if they exist
+                    # Handle sub-descriptions if they exist (either at property level or in array items)
+                    sub_descriptions_to_process = None
                     if 'sub-descriptions' in details and isinstance(details['sub-descriptions'], list):
+                        sub_descriptions_to_process = details['sub-descriptions']
+                    elif prop_type == 'array' and 'items' in details and 'sub-descriptions' in details['items']:
+                        sub_descriptions_to_process = details['items']['sub-descriptions']
+
+                    if sub_descriptions_to_process:
                         sub_descs_md = []
-                        for sub_desc in details['sub-descriptions']:
+                        for sub_desc in sub_descriptions_to_process:
                             if 'const' in sub_desc and 'description' in sub_desc:
                                 # Replace double newlines with single space to prevent table breaks
                                 # but keep single newlines for readability
