@@ -95,7 +95,7 @@
             ]
         },
         "usage": {
-            "description": "An ordered list of pin modes for each AUX pin when in GPIO mode. The following values can be used on all Notecards:",
+            "description": "An ordered list of pin modes for each AUX pin when in GPIO mode.",
             "type": "array",
             "items": {
                 "type": "string",
