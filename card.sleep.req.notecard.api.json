@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.sleep.req.notecard.api.json",
     "title": "card.sleep Request Application Programming Interface (API) Schema",
-    "description": "Only valid when used with Notecard WiFi v2. Allows the ESP32-based Notecard WiFi v2 to fall back to a low current draw when idle.",
+    "description": "Only valid when used with Notecard WiFi v2.\n\nAllows the ESP32-based Notecard WiFi v2 to fall back to a low current draw when idle (this behavior differs from the STM32-based Notecards that have a STOP mode where UART and I2C may still operate). Note that the Notecard WiFi v2 will not enable a \"sleep\" mode while plugged in via USB.\n\nRead more in the guide on using Deep Sleep Mode on Notecard WiFi v2.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
