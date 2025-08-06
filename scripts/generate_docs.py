@@ -3,6 +3,18 @@ import requests
 import os
 import re
 
+def inject_absolute_urls(text, base_url="https://dev.blues.io"):
+    """Convert relative links to absolute URLs by prepending the base URL."""
+    if not text:
+        return text
+
+    # Pattern to match markdown links with relative URLs (starting with /)
+    # e.g., [link text](/path/to/page) becomes [link text](https://dev.blues.io/path/to/page)
+    pattern = r'\[([^\]]+)\]\(/([^)]+)\)'
+    replacement = f'[\\1]({base_url}/\\2)'
+
+    return re.sub(pattern, replacement, text)
+
 def load_schema(path):
     """Loads and parses JSON schema from a local file path."""
     try:
@@ -36,7 +48,7 @@ def generate_markdown_for_schema(schema, schema_type):
     md_parts = []
 
     title = schema.get("title", "Untitled Request")
-    description = schema.get("description", "No description available.")
+    description = inject_absolute_urls(schema.get("description", "No description available."))
 
     # Schema properties are often nested, but prioritize root level
     properties = None
@@ -75,7 +87,7 @@ def generate_markdown_for_schema(schema, schema_type):
             for name, details in other_props.items():
                 if isinstance(details, dict):
                     prop_type = details.get('type', '-')
-                    prop_desc = details.get('description', '-')
+                    prop_desc = inject_absolute_urls(details.get('description', '-'))
 
                     # Clean up _**NOTE:** and _**WARNING:** formatting in property descriptions
                     if isinstance(prop_desc, str):
@@ -100,7 +112,7 @@ def generate_markdown_for_schema(schema, schema_type):
                             if 'const' in sub_desc and 'description' in sub_desc:
                                 # Replace double newlines with single space to prevent table breaks
                                 # but keep single newlines for readability
-                                clean_description = sub_desc['description'].replace('\n\n', ' ').replace('\n', ' ')
+                                clean_description = inject_absolute_urls(sub_desc['description']).replace('\n\n', ' ').replace('\n', ' ')
                                 # Show const values as JSON strings with quotes
                                 const_json = json.dumps(sub_desc['const'])
                                 desc_line = f" - `{const_json}`: {clean_description}"
@@ -156,7 +168,7 @@ def generate_markdown_for_schema(schema, schema_type):
         for annotation in schema['annotations']:
             if isinstance(annotation, dict) and 'title' in annotation and 'description' in annotation:
                 annotation_title = annotation['title'].lower()
-                annotation_desc = annotation['description']
+                annotation_desc = inject_absolute_urls(annotation['description'])
 
                 if annotation_title == 'note':
                     md_parts.append(f"!!! note\n    {annotation_desc}\n")
