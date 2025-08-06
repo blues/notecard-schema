@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.binary.rsp.notecard.api.json"
 
@@ -14,6 +15,8 @@ def test_valid_rsp_all_fields(schema):
         "cobs": 128,
         "connected": True,
         "length": 100,
+        "max": 130554,
+        "status": "ce6fdef565eeecf14ab38d83643b922d",
         "err": "some error description"
     }
     jsonschema.validate(instance=instance, schema=schema)
@@ -82,7 +85,48 @@ def test_err_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'string'" in str(excinfo.value)
 
+def test_max_valid(schema):
+    """Tests valid max values (integer)."""
+    instance = {"max": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"max": 130554}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_max_invalid_type(schema):
+    """Tests invalid type for max."""
+    instance = {"max": "130554"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'130554' is not of type 'integer'" in str(excinfo.value)
+
+def test_status_valid(schema):
+    """Tests valid status value (string)."""
+    instance = {"status": "ce6fdef565eeecf14ab38d83643b922d"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"status": ""}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_status_invalid_type(schema):
+    """Tests invalid type for status."""
+    instance = {"status": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
 def test_valid_additional_property(schema):
     """Tests valid response with an additional property (allowed by default)."""
     instance = {"cobs": 10, "extra_field": "hello"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
