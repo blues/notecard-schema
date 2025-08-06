@@ -52,6 +52,38 @@ def test_mode_invalid_array(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'string'" in str(excinfo.value)
 
+def test_rate_valid(schema):
+    """Tests valid rate field."""
+    instance = {"rate": 115200}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"rate": 9600}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"rate": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_rate_invalid_type(schema):
+    """Tests invalid type for rate."""
+    instance = {"rate": "115200"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'115200' is not of type 'integer'" in str(excinfo.value)
+
+def test_rate_invalid_float(schema):
+    """Tests invalid float type for rate."""
+    instance = {"rate": 115200.5}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "115200.5 is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_with_mode_and_rate(schema):
+    """Tests a valid response with both mode and rate."""
+    instance = {"mode": "req", "rate": 115200}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"mode": "gps", "rate": 9600}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"mode": "notify,accel", "rate": 115200}
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

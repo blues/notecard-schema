@@ -64,6 +64,9 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     title = f"## {req_cmd_value} {sku_badges}".strip()
     description = schema_data.get("description", "")
 
+    # Generate annotations block
+    annotations_block = generate_annotations_mdx(schema_data.get("annotations", []))
+
     arguments_mdx_content = generate_arguments_mdx(schema_data.get("properties", {}), schema_data)
     example_requests_block = generate_examples_mdx(schema_data.get("samples", []))
 
@@ -80,6 +83,7 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     mdx_parts = [
         title,
         description,
+        annotations_block,
         "<Arguments>",
         arguments_mdx_content,
         "</Arguments>",
@@ -172,16 +176,15 @@ def generate_cpp_for_sample(parsed_json_data):
     if not isinstance(parsed_json_data, dict):
         return []
 
-    req_val = parsed_json_data.get("req")
+    req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
     if not req_val:
-        # Cannot generate C++ if the 'req' field is missing, as it's fundamental
-        # for NoteNewRequest.
+        # Cannot generate C++ if neither 'req' nor 'cmd' field is present
         return []
 
     cpp_lines = [f'J *req = NoteNewRequest("{req_val}");']
 
     for key, value in parsed_json_data.items():
-        if key == "req":
+        if key in ["req", "cmd"]:
             continue
 
         if isinstance(value, str):
@@ -204,21 +207,24 @@ def generate_cpp_for_sample(parsed_json_data):
                     cpp_lines.append(f'JAddItemToArray({key}, JCreateBool({"true" if item else "false"}));')
 
     cpp_lines.append("")
-    cpp_lines.append("NoteRequest(req);");
+    cpp_lines.append("NoteRequest(req);")
     return cpp_lines
 
 def generate_python_for_sample(parsed_json_data):
     """Generates Python code lines from parsed JSON data."""
     if not isinstance(parsed_json_data, dict):
         return []
-    req_val = parsed_json_data.get("req")
+    req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
     if not req_val: return []
 
     # Start with the base request dictionary initialization
-    python_lines = [f'req = {{"req": "{req_val}"}}']
+    if "cmd" in parsed_json_data:
+        python_lines = [f'req = {{"cmd": "{req_val}"}}']
+    else:
+        python_lines = [f'req = {{"req": "{req_val}"}}']
 
     for key, value in parsed_json_data.items():
-        if key == "req":
+        if key in ["req", "cmd"]:
             continue
 
         if isinstance(value, str):
@@ -234,7 +240,10 @@ def generate_python_for_sample(parsed_json_data):
             # Handle arrays
             python_lines.append(f'req["{key}"] = {json.dumps(value)}')
 
-    python_lines.append("rsp = card.Transaction(req)")
+    if "cmd" in parsed_json_data:
+        python_lines.append("card.Transaction(req)")
+    else:
+        python_lines.append("rsp = card.Transaction(req)")
     return python_lines
 
 def generate_examples_mdx(samples):
@@ -335,6 +344,31 @@ def generate_response_sub_descriptions(sub_descriptions):
         sub_desc_parts.append(f'`"{const_value}"`')
 
     return "\n\n".join(sub_desc_parts)
+
+def generate_annotations_mdx(annotations):
+    """Generate MDX for schema annotations (notes, warnings, etc.)."""
+    if not annotations:
+        return ""
+    
+    annotation_blocks = []
+    
+    for annotation in annotations:
+        title = annotation.get("title", "note")
+        description = annotation.get("description", "")
+        
+        # Map annotation titles to MDX components
+        if title.lower() == "note":
+            component = "Note"
+        elif title.lower() == "info":
+            component = "Note"  # Info also uses Note component
+        elif title.lower() == "warning":
+            component = "Warning"
+        else:
+            component = "Note"  # Default to Note for unknown types
+        
+        annotation_blocks.append(f"<{component}>\n\n{description}\n\n</{component}>")
+    
+    return "\n\n".join(annotation_blocks)
 
 def generate_example_response_mdx(samples):
     """Generates MDX for example response only if samples exist."""
