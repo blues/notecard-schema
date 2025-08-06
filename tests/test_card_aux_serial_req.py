@@ -85,7 +85,7 @@ def test_minutes_invalid_float(schema):
 
 def test_valid_with_mode_and_minutes(schema):
     """Tests a valid request with both mode and minutes."""
-    instance = {"cmd": "card.aux.serial", "mode": "notify,dfu", "minutes": 60}
+    instance = {"req": "card.aux.serial", "mode": "notify,dfu", "minutes": 60}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_duration_valid(schema):
