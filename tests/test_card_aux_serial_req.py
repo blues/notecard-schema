@@ -29,7 +29,7 @@ def test_invalid_both_req_and_cmd(schema):
 def test_mode_valid(schema):
     """Tests valid mode pattern values."""
     valid_modes = [
-        "req", "gps", "notify,accel", "notify,signals",
+        "req", "gps", "notify", "notify,accel", "notify,signals",
         "notify,env", "notify,dfu", "notify,accel,env", "notify,accel,signals",
         "notify,env,dfu", "notify,accel,env,dfu"
     ]
@@ -47,7 +47,6 @@ def test_mode_invalid_pattern(schema):
 def test_mode_invalid_combinations(schema):
     """Tests invalid mode combinations that should not be allowed."""
     invalid_modes = [
-        "notify",  # notify must be combined with other options
         "req,gps",  # Can't mix base modes
         "gps,notify",  # Can't mix base modes
         "req,notify,accel",  # Can't mix base modes

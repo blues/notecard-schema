@@ -11,7 +11,7 @@
         "mode": {
             "description": "The AUX mode. Must be one of the following:",
             "type": "string",
-            "pattern": "^(?:req|gps|notify,(?:accel|signals|env|dfu)(?:,(?:accel|signals|env|dfu))*)$",
+            "pattern": "^(?:req|gps|notify(?:,(?:accel|signals|env|dfu)(?:,(?:accel|signals|env|dfu))*)?)$",
             "sub-descriptions": [
                 {
                     "const": "req",
@@ -20,6 +20,10 @@
                 {
                     "const": "gps",
                     "description": "Use an external GPS/GNSS module on the AUX pins."
+                },
+                {
+                    "const": "notify",
+                    "description": "Used along with one or more of the options below to send streaming data or notification data over the AUX pins. When used alone, preserves existing notification settings."
                 },
                 {
                     "const": "notify,accel",
