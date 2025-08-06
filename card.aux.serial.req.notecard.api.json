@@ -72,7 +72,7 @@
             "type": "integer"
         },
         "minutes": {
-            "description": "When using `\"mode\": \"dfu\"`, specify an interval for notifying the host.",
+            "description": "When using `\"mode\": \"notify,dfu\"`, specify an interval for notifying the host.",
             "type": "integer"
         },
         "cmd": {
