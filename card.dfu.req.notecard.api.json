@@ -2,14 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.dfu.req.notecard.api.json",
     "title": "card.dfu Request Application Programming Interface (API) Schema",
-    "description": "Used to configure a Notecard for Notecard Outboard Firmware Update.",
+    "description": "Used to configure a Notecard for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update).",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "name": {
-            "description": "One of the supported classes of host MCU. Supported MCU classes are 'esp32', 'stm32', 'stm32-bi', 'mcuboot', '-'",
+            "description": "One of the supported classes of host MCU. Supported MCU classes are `\"esp32\"`, `\"stm32\"`, `\"stm32-bi\"`, `\"mcuboot\"` (added in v5.3.1), and `\"-\"`, which resets the configuration. The \"bi\" in `\"stm32-bi\"` stands for \"boot inverted\", and the `\"stm32-bi\"` option should be used on STM32 family boards where the hardware boot pin is assumed to be active low, instead of active high. Supported MCUs can be found on the [Notecarrier F datasheet](/datasheets/notecarrier-datasheet/notecarrier-f-v1-3).",
             "type": "string",
             "enum": [
                 "esp32",
@@ -43,39 +43,39 @@
             ]
         },
         "on": {
-            "description": "Set to true to enable Notecard Outboard Firmware Update",
+            "description": "Set to `true` to enable Notecard Outboard Firmware Update.",
             "type": "boolean"
         },
         "off": {
-            "description": "Set to true to disable Notecard Outboard Firmware Update from occurring",
+            "description": "Set to `true` to disable Notecard Outboard Firmware Update from occurring.",
             "type": "boolean"
         },
         "seconds": {
-            "description": "When used with 'off':true, disable Notecard Outboard Firmware Update operations for the specified number of seconds",
+            "description": "When used with `\"off\":true`, disable Notecard Outboard Firmware Update operations for the specified number of `seconds`.",
             "type": "integer"
         },
         "stop": {
-            "description": "Set to true to disable the host RESET that is normally performed on the host MCU when the Notecard starts up",
+            "description": "Set to `true` to disable the host RESET that is normally performed on the host MCU when the Notecard starts up (in order to ensure a clean startup), and also when the Notecard wakes up the host MCU after the expiration of a `card.attn` \"sleep\" operation. If `true`, the host MCU will not be reset in these two conditions.",
             "type": "boolean"
         },
         "start": {
-            "description": "Set to true to re-enable host MCU reset during startup",
+            "description": "Set to `true` to enable the host RESET if previously disabled with `\"stop\":true`.",
             "type": "boolean"
         },
         "mode": {
-            "description": "Control whether a Notecard's AUX pins (default) or ALT_DFU pins are used for Notecard Outboard Firmware Update. Supported on Notecards that have ALT_DFU pins: all versions of Notecard Cell+WiFi, non-legacy versions of Notecard Cellular, and Notecard WiFi v2.",
+            "description": "The `mode` argument allows you to control whether a Notecard's `AUX` pins (default) or `ALT_DFU` pins are used for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update). This argument is only supported on Notecards that have `ALT_DFU` pins, which includes all versions of Notecard Cell+WiFi, non-legacy versions of Notecard Cellular, and Notecard WiFi v2.",
             "type": "string",
             "enum": ["altdfu", "off"],
             "skus": ["CELL", "CELL+WIFI", "WIFI"],
             "sub-descriptions": [
                 {
                     "const": "altdfu",
-                    "description": "Enable the Notecard's ALT_DFU pins (instead of the AUX pins) for use with Notecard Outboard Firmware Update.",
+                    "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update.",
                     "skus": ["CELL", "CELL+WIFI", "WIFI"]
                 },
                 {
                     "const": "off",
-                    "description": "Return the Notecard's ALT_DFU pins to their default state.",
+                    "description": "Return the Notecard's `ALT_DFU` pins to their default state.",
                     "skus": ["CELL", "CELL+WIFI", "WIFI"]
                 }
             ]
