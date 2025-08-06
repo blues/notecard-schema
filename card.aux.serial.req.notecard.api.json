@@ -11,15 +11,7 @@
         "mode": {
             "description": "The AUX mode. Must be one of the following:",
             "type": "string",
-            "enum": [
-                "req",
-                "gps",
-                "notify",
-                "notify,accel",
-                "notify,signals",
-                "notify,env",
-                "notify,dfu"
-            ],
+            "pattern": "^(?:req|gps|notify(?:,(?:accel|signals|env|dfu)(?:,(?:accel|signals|env|dfu))*)?)$",
             "sub-descriptions": [
                 {
                     "const": "req",
@@ -31,7 +23,7 @@
                 },
                 {
                     "const": "notify",
-                    "description": "Used along with one or more of the options below to send streaming data or notification data over the AUX pins:"
+                    "description": "Used along with one or more of the options below to send streaming data or notification data over the AUX pins. When used alone, preserves existing notification settings."
                 },
                 {
                     "const": "notify,accel",
@@ -137,6 +129,21 @@
             "title": "Request Mode",
             "description": "Set AUX serial to request mode for command/response communication.",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"req\"}"
+        },
+        {
+            "title": "Accelerometer Mode",
+            "description": "Send raw readings from the onboard accelerometer over AUX every 500 ms.",
+            "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel\", \"duration\": 500}"
+        },
+        {
+            "title": "Signal Mode",
+            "description": "Turn on Inbound Signals from Notehub for low-latency communication.",
+            "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,signals\"}"
+        },
+        {
+            "title": "Multiple Mode",
+            "description": "Subscribe to multiple notifications at once.",
+            "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel,env\", \"duration\": 500}"
         }
     ]
 }
