@@ -27,21 +27,37 @@ def test_invalid_both_req_and_cmd(schema):
         jsonschema.validate(instance=instance, schema=schema)
 
 def test_mode_valid(schema):
-    """Tests valid mode enum values."""
+    """Tests valid mode pattern values."""
     valid_modes = [
-        "req", "gps", "notify", "notify,accel", "notify,signals",
-        "notify,env", "notify,dfu"
+        "req", "gps", "notify,accel", "notify,signals",
+        "notify,env", "notify,dfu", "notify,accel,env", "notify,accel,signals",
+        "notify,env,dfu", "notify,accel,env,dfu"
     ]
     for mode in valid_modes:
         instance = {"req": "card.aux.serial", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
 
-def test_mode_invalid_enum(schema):
-    """Tests invalid mode enum value."""
+def test_mode_invalid_pattern(schema):
+    """Tests invalid mode pattern value."""
     instance = {"req": "card.aux.serial", "mode": "invalid_mode"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid_mode' is not one of ['req'," in str(excinfo.value)
+    assert "does not match" in str(excinfo.value) or "pattern" in str(excinfo.value).lower()
+
+def test_mode_invalid_combinations(schema):
+    """Tests invalid mode combinations that should not be allowed."""
+    invalid_modes = [
+        "notify",  # notify must be combined with other options
+        "req,gps",  # Can't mix base modes
+        "gps,notify",  # Can't mix base modes
+        "req,notify,accel",  # Can't mix base modes
+        "notify,invalid"  # Invalid notify option
+    ]
+    for mode in invalid_modes:
+        instance = {"req": "card.aux.serial", "mode": mode}
+        with pytest.raises(jsonschema.ValidationError) as excinfo:
+            jsonschema.validate(instance=instance, schema=schema)
+        assert "does not match" in str(excinfo.value) or "pattern" in str(excinfo.value).lower()
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""
