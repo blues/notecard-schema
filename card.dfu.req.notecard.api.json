@@ -18,7 +18,6 @@
                 "mcuboot",
                 "-"
             ],
-            "skus": ["CELL", "CELL+WIFI", "WIFI"],
             "sub-descriptions": [
                 {
                     "const": "esp32",
