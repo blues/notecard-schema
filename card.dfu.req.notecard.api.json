@@ -68,13 +68,11 @@
             "sub-descriptions": [
                 {
                     "const": "altdfu",
-                    "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update."
                 },
                 {
                     "const": "off",
-                    "description": "Return the Notecard's `ALT_DFU` pins to their default state.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "description": "Return the Notecard's `ALT_DFU` pins to their default state."
                 }
             ]
         },
