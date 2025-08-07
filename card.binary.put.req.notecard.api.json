@@ -2,20 +2,23 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.put.req.notecard.api.json",
     "title": "card.binary.put Request Application Programming Interface (API) Schema",
-    "description": "Adds binary data to the binary storage area of the Notecard. The Notecard expects to receive binary data immediately following the usage of this API command.",
+    "description": "Adds binary data to the binary storage area of the Notecard. The Notecard expects to receive binary data immediately following the usage of this API command.\n\nSee the guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects) for best practices when using `card.binary`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "offset": {
-            "description": "The number of bytes to offset the binary payload from 0 when appending the binary data to the binary storage area of the Notecard",
+            "description": "The number of bytes to offset the binary payload from 0 when appending the binary data to the binary storage area of the Notecard. Primarily used when sending multiple fragments of one binary payload to the Notecard.",
             "type": "integer",
             "minimum": 0
         },
         "cobs": {
-            "description": "The size of the COBS-encoded data (in bytes)",
+            "description": "The size of the COBS-encoded data (in bytes).",
             "type": "integer"
         },
         "status": {
-            "description": "The MD5 checksum of the data, before it has been encoded",
+            "description": "The MD5 checksum of the data, before it has been encoded.",
             "type": "string"
         },
         "cmd": {
@@ -30,7 +33,9 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "cobs",
+                "status"
             ],
             "properties": {
                 "req": {
@@ -40,7 +45,9 @@
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "cobs",
+                "status"
             ],
             "properties": {
                 "cmd": {
@@ -50,6 +57,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Put Binary Data",
+            "description": "Send binary data with MD5 checksum.",
+            "json": "{\"req\": \"card.binary.put\", \"cobs\": 5, \"status\": \"ce6fdef565eeecf14ab38d83643b922d\"}"
+        }
+    ]
 }
