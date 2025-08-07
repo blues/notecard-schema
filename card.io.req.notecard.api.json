@@ -6,6 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "i2c": {
             "description": "The alternate address to use for I2C communication. Pass `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default address",
@@ -28,6 +29,14 @@
                 {
                     "const": "i2c-master-disable",
                     "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`."
+                },
+                {
+                    "const": "+fallback",
+                    "description": "Setting `\"+fallback\"` while Notecard is paired with a Starnote device forces fallback mode: Wi-Fi and cellular are automatically failed over, and all traffic goes through NTN. This state persists across reboots and therefore is discouraged for use in production deployments because it can incur unexpectedly high satellite data costs."
+                },
+                {
+                    "const": "-fallback",
+                    "description": "Resets `\"+fallback\"` to its default state, ensuring fallback mode is only enabled if cellular/Wi-Fi are not available."
                 }
             ],
             "type": "string",
@@ -38,7 +47,9 @@
                 "+busy",
                 "-busy",
                 "i2c-master-disable",
-                "i2c-master-enable"
+                "i2c-master-enable",
+                "+fallback",
+                "-fallback"
             ]
         },
         "cmd": {
@@ -85,6 +96,10 @@
         {
             "description": "Disable Notecard Acting As I2C Master.",
             "json": "{\"req\": \"card.io\", \"mode\": \"i2c-master-disable\"}"
+        },
+        {
+            "description": "Force Fallback Mode For Starnote.",
+            "json": "{\"req\": \"card.io\", \"mode\": \"+fallback\"}"
         }
     ]
 }

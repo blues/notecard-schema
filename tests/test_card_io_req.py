@@ -46,7 +46,8 @@ def test_valid_mode_enums(schema):
     """Tests valid mode enum values."""
     valid_modes = [
         "-usb", "usb", "+usb", "+busy", "-busy",
-        "i2c-master-disable", "i2c-master-enable"
+        "i2c-master-disable", "i2c-master-enable",
+        "+fallback", "-fallback"
     ]
     for mode in valid_modes:
         instance = {"req": "card.io", "mode": mode}
