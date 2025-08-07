@@ -2,25 +2,26 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.contact.req.notecard.api.json",
     "title": "card.contact Request Application Programming Interface (API) Schema",
-    "description": "Used to set or retrieve information about the Notecard maintainer. Once set, this information is synched to Notehub.",
+    "description": "Used to set or retrieve information about the Notecard maintainer. Once set, this information is synced to Notehub.",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.2",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "name": {
-            "description": "Set the name of the Notecard maintainer",
+            "description": "Set the name of the Notecard maintainer.",
             "type": "string"
         },
         "org": {
-            "description": "Set the organization name of the Notecard maintainer",
+            "description": "Set the organization name of the Notecard maintainer.",
             "type": "string"
         },
         "role": {
-            "description": "Set the role of the Notecard maintainer",
+            "description": "Set the role of the Notecard maintainer.",
             "type": "string"
         },
         "email": {
-            "description": "Set the email address of the Notecard maintainer",
+            "description": "Set the email address of the Notecard maintainer.",
             "type": "string",
             "format": "email"
         },
@@ -58,7 +59,8 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Set Contact Information",
+            "title": "Set Contact Information",
+            "description": "Set contact information for the Notecard maintainer.",
             "json": "{\"req\": \"card.contact\", \"name\": \"Tom Turkey\", \"org\": \"Blues\", \"role\": \"Head of Security\", \"email\": \"tom@blues.com\"}"
         }
     ]
