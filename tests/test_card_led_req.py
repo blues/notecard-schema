@@ -100,3 +100,12 @@ def test_invalid_additional_property(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_schema_samples(schema):
+    """Tests that all schema samples validate against the schema."""
+    import json
+    
+    samples = schema.get("samples", [])
+    for sample in samples:
+        sample_json = json.loads(sample["json"])
+        jsonschema.validate(instance=sample_json, schema=schema)
