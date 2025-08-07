@@ -3,6 +3,9 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.get.rsp.notecard.api.json",
     "title": "card.binary.get Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "status": {
             "description": "The MD5 checksum of the data returned, after it has been decoded",
@@ -13,6 +16,11 @@
             "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Binary Data Response",
+            "description": "Example response with MD5 checksum.",
+            "json": "{\"status\":\"ce6fdef565eeecf14ab38d83643b922d\"}"
+        }
+    ]
 }

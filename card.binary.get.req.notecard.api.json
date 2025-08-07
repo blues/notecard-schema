@@ -2,20 +2,23 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.get.req.notecard.api.json",
     "title": "card.binary.get Request Application Programming Interface (API) Schema",
-    "description": "Returns binary data stored in the binary storage area of the Notecard. The response to this API command first returns the JSON-formatted response object, then the binary data.",
+    "description": "Returns binary data stored in the binary storage area of the Notecard. The response to this API command first returns the JSON-formatted response object, then the binary data.\n\nSee the guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects) for best practices when using `card.binary`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "cobs": {
-            "description": "The size of the COBS-encoded data you are expecting to be returned (in bytes)",
+            "description": "The size of the COBS-encoded data you are expecting to be returned (in bytes).",
             "type": "integer"
         },
         "offset": {
-            "description": "Used along with length, the number of bytes to offset the binary payload from 0 when retrieving binary data from the Notecard",
+            "description": "Used along with `length`, the number of bytes to offset the binary payload from 0 when retrieving binary data from the binary storage area of the Notecard. Primarily used when retrieving multiple fragments of a binary payload from the Notecard.",
             "type": "integer",
             "minimum": 0
         },
         "length": {
-            "description": "Used along with offset, the number of bytes to retrieve from the binary storage area of the Notecard",
+            "description": "Used along with `offset`, the number of bytes to retrieve from the binary storage area of the Notecard.",
             "type": "integer",
             "minimum": 0
         },
@@ -51,6 +54,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get All Binary Data",
+            "description": "Retrieve all binary data from storage area.",
+            "json": "{\"req\": \"card.binary.get\"}"
+        }
+    ]
 }
