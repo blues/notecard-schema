@@ -33,9 +33,7 @@
     "oneOf": [
         {
             "required": [
-                "req",
-                "cobs",
-                "status"
+                "req"
             ],
             "properties": {
                 "req": {
@@ -45,9 +43,7 @@
         },
         {
             "required": [
-                "cmd",
-                "cobs",
-                "status"
+                "cmd"
             ],
             "properties": {
                 "cmd": {
