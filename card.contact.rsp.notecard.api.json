@@ -3,30 +3,32 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.contact.rsp.notecard.api.json",
     "title": "card.contact Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.2",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "name": {
-            "description": "Name of the Notecard maintainer",
+            "description": "Name of the Notecard maintainer.",
             "type": "string"
         },
         "org": {
-            "description": "Organization name of the Notecard maintainer",
+            "description": "Organization name of the Notecard maintainer.",
             "type": "string"
         },
         "role": {
-            "description": "Role of the Notecard maintainer",
+            "description": "Role of the Notecard maintainer.",
             "type": "string"
         },
         "email": {
-            "description": "Email address of the Notecard maintainer",
+            "description": "Email address of the Notecard maintainer.",
             "type": "string",
             "format": "email"
         }
     },
     "samples": [
         {
-            "description": "Get Contact Information",
+            "title": "Get Contact Information",
+            "description": "Example response showing contact information.",
             "json": "{\"name\": \"Tom Turkey\", \"org\": \"Blues\", \"role\": \"Head of Security\", \"email\": \"tom@blues.com\"}"
         }
     ]
