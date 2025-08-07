@@ -7,6 +7,12 @@
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "annotations": [
+        {
+            "title": "note",
+            "description": "The Notecard must first be configured for the appropriate LED type using `card.aux`. For monochromatic LEDs, use `{\"req\": \"card.aux\", \"mode\": \"led\"}`. For NeoPixels, use `{\"req\": \"card.aux\", \"mode\": \"neo\"}`."
+        }
+    ],
     "properties": {
         "mode": {
             "description": "Used to specify the color of the LED to turn on or off. For LEDs, possible values are `\"red\"`, `\"green\"`, and `\"yellow\"`. For NeoPixels, possible values are `\"red\"`, `\"green\"`, `\"blue\"`, `\"yellow\"`, `\"cyan\"`, `\"magenta\"`, `\"orange\"`, `\"white\"`, and `\"gray\"`.",
