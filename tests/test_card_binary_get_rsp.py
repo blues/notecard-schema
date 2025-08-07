@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.binary.get.rsp.notecard.api.json"
 
@@ -47,7 +48,6 @@ def test_valid_additional_property(schema):
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
-    import json
     for sample in schema_samples:
         sample_json_str = sample.get("json")
         if not sample_json_str:
