@@ -3,9 +3,12 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.mode.rsp.notecard.api.json",
     "title": "card.location.mode Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "mode": {
-            "description": "The GPS/GNSS connection mode. Will be continuous, periodic, or off",
+            "description": "The current location mode.",
             "type": "string",
             "enum": [
                 "continuous",
@@ -15,23 +18,40 @@
             ]
         },
         "seconds": {
-            "description": "When in periodic mode, location will be sampled at this interval, if the Notecard detects motion",
+            "description": "If specified, the periodic sample interval.",
             "type": "integer",
             "minimum": 0
         },
         "lat": {
-            "description": "The latitude in degrees of the last known location",
+            "description": "If geofence is enabled, the geofence center latitude in degrees.",
             "type": "number"
         },
         "lon": {
-            "description": "The longitude in degrees of the last known location",
+            "description": "If geofence is enabled, the geofence center longitude in degrees.",
             "type": "number"
         },
         "max": {
-            "description": "Maximum number of seconds to wait for a GPS fix",
+            "description": "If geofence is enabled, the meters from geofence center.",
+            "type": "integer"
+        },
+        "vseconds": {
+            "description": "If specified, the voltage-variable period.",
+            "type": "string"
+        },
+        "minutes": {
+            "description": "If geofence is enabled, the currently configured geofence debounce period.",
+            "type": "integer"
+        },
+        "threshold": {
+            "description": "When in periodic mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
             "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Location Mode Response",
+            "description": "Example response showing current location mode configuration.",
+            "json": "{\"mode\": \"continuous\", \"max\": 100, \"lat\": 42.5776, \"lon\": -70.87134, \"minutes\": 2, \"threshold\": 4}"
+        }
+    ]
 }
