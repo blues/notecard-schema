@@ -2,14 +2,17 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.rsp.notecard.api.json",
     "title": "card.location Response Application Programming Interface (API) Schema",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "type": "object",
     "properties": {
         "status": {
-            "description": "The current status of the Notecard GPS/GNSS connection",
+            "description": "The current status of the Notecard GPS/GNSS connection.",
             "type": "string"
         },
         "mode": {
-            "description": "The GPS/GNSS connection mode. Will be continuous, periodic, or off",
+            "description": "The GPS/GNSS connection mode. Will be `continuous`, `periodic`, or `off`.",
             "type": "string",
             "enum": [
                 "continuous",
@@ -18,22 +21,35 @@
             ]
         },
         "lat": {
-            "description": "The latitude in degrees of the last known location",
+            "description": "The latitude in degrees of the last known location.",
             "type": "number"
         },
         "lon": {
-            "description": "The longitude in degrees of the last known location",
+            "description": "The longitude in degrees of the last known location.",
             "type": "number"
         },
         "time": {
-            "description": "Unix epoch time in seconds",
+            "description": "UNIX Epoch time. The time of location capture.",
             "type": "integer"
         },
         "max": {
-            "description": "Maximum number of seconds to wait for a GPS fix",
+            "description": "If a geofence is enabled by `card.location.mode`, meters from the geofence center.",
             "type": "integer"
+        },
+        "count": {
+            "description": "The number of consecutive recorded GPS/GNSS failures.",
+            "type": "integer"
+        },
+        "dop": {
+            "description": "The \"Dilution of Precision\" value from the latest GPS/GNSS reading. The lower the value, the higher the confidence level of the reading. Values can be interpreted in [this Wikipedia table](https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)#Interpretation).",
+            "type": "number"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "GPS Location Response",
+            "description": "Example response with GPS location data.",
+            "json": "{\"status\": \"GPS updated (58 sec, 41dB SNR, 9 sats) {gps-active} {gps-signal} {gps-sats} {gps}\", \"mode\": \"periodic\", \"lat\": 42.577600, \"lon\": -70.871340, \"time\": 1598554399, \"max\": 25}"
+        }
+    ]
 }
