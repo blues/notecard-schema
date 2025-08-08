@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.location.rsp.notecard.api.json"
 
@@ -97,19 +98,64 @@ def test_max_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'unlimited' is not of type 'integer'" in str(excinfo.value)
 
+def test_valid_count(schema):
+    """Tests valid count field."""
+    instance = {"count": 5}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"count": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_count_invalid_type(schema):
+    """Tests invalid type for count."""
+    instance = {"count": "5"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'5' is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_dop(schema):
+    """Tests valid dop field."""
+    instance = {"dop": 1.5}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"dop": 0.8}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"dop": 10}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_dop_invalid_type(schema):
+    """Tests invalid type for dop."""
+    instance = {"dop": "1.5"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'1.5' is not of type 'number'" in str(excinfo.value)
+
 def test_valid_all_fields(schema):
     """Tests a valid response with all fields."""
     instance = {
-        "status": "Located",
+        "status": "GPS updated (58 sec, 41dB SNR, 9 sats) {gps-active} {gps-signal} {gps-sats} {gps}",
         "mode": "periodic",
-        "lat": 40.7128,
-        "lon": -74.0060,
-        "time": 1700000000,
-        "max": 1800
+        "lat": 42.577600,
+        "lon": -70.871340,
+        "time": 1598554399,
+        "max": 25,
+        "count": 0,
+        "dop": 1.2
     }
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
-    instance = {"status": "ok", "accuracy": 10.5}
+    instance = {"result": "success"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
