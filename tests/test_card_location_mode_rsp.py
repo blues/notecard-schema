@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.location.mode.rsp.notecard.api.json"
 
@@ -103,7 +104,76 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_vseconds(schema):
+    """Tests valid vseconds field."""
+    instance = {"vseconds": "usb:3600;high:14400;normal:43200;low:86400;dead:0"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"vseconds": ""}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_vseconds_invalid_type(schema):
+    """Tests invalid type for vseconds."""
+    instance = {"vseconds": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
+def test_valid_minutes(schema):
+    """Tests valid minutes field."""
+    instance = {"minutes": 5}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"minutes": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_minutes_invalid_type(schema):
+    """Tests invalid type for minutes."""
+    instance = {"minutes": "5"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'5' is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_threshold(schema):
+    """Tests valid threshold field."""
+    instance = {"threshold": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"threshold": 10}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_threshold_invalid_type(schema):
+    """Tests invalid type for threshold."""
+    instance = {"threshold": "0"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'0' is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_all_fields_updated(schema):
+    """Tests a valid response with all fields including new ones."""
+    instance = {
+        "mode": "continuous",
+        "seconds": 0,
+        "vseconds": "usb:60;high:300;normal:3600;low:14400;dead:0",
+        "lat": 42.5776,
+        "lon": -70.87134,
+        "max": 100,
+        "minutes": 2,
+        "threshold": 4
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
-    instance = {"mode": "off", "reason": "user_request"}
+    instance = {"result": "success"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)

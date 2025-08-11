@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.location.mode.req.notecard.api.json"
 
@@ -148,9 +149,64 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_delete(schema):
+    """Tests valid delete field."""
+    instance = {"req": "card.location.mode", "delete": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.location.mode", "delete": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_delete_invalid_type(schema):
+    """Tests invalid type for delete."""
+    instance = {"req": "card.location.mode", "delete": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_minutes(schema):
+    """Tests valid minutes field."""
+    instance = {"req": "card.location.mode", "minutes": 5}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.location.mode", "minutes": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_minutes_invalid_type(schema):
+    """Tests invalid type for minutes."""
+    instance = {"req": "card.location.mode", "minutes": "5"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'5' is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_threshold(schema):
+    """Tests valid threshold field."""
+    instance = {"req": "card.location.mode", "threshold": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.location.mode", "threshold": 10}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_threshold_invalid_type(schema):
+    """Tests invalid type for threshold."""
+    instance = {"req": "card.location.mode", "threshold": "0"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'0' is not of type 'integer'" in str(excinfo.value)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "card.location.mode", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
