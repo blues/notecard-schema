@@ -36,7 +36,6 @@
         "payload": {
             "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
             "type": "string",
-            "format": "binary",
             "contentEncoding": "base64"
         },
         "cmd": {
