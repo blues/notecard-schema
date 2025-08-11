@@ -3,7 +3,15 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.monitor.rsp.notecard.api.json",
     "title": "card.monitor Response Application Programming Interface (API) Schema",
     "type": "object",
-    "properties": {},
     "version": "0.2.1",
-    "apiVersion": "9.1.1"
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {},
+    "samples": [
+        {
+            "title": "Monitor Response",
+            "description": "Example response from card.monitor request.",
+            "json": "{}"
+        }
+    ]
 }

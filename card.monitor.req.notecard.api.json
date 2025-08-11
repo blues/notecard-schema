@@ -67,7 +67,8 @@
     ],
     "samples": [
         {
-            "description": "Example",
+            "title": "Override LED Behavior",
+            "description": "Configure the green LED to pulse 5 times.",
             "json": "{\"req\":\"card.monitor\", \"mode\":\"green\", \"count\":5}"
         }
     ]
