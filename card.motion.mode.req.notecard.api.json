@@ -13,7 +13,7 @@
             "type": "boolean"
         },
         "stop": {
-            "description": "`true` to disable the Notecard accelerometer stop motion tracking.",
+            "description": "`true` to disable the Notecard accelerometer and stop motion tracking.",
             "type": "boolean"
         },
         "seconds": {
