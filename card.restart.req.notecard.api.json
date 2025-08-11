@@ -4,6 +4,14 @@
     "title": "card.restart Request Application Programming Interface (API) Schema",
     "description": "Performs a firmware restart of the Notecard.",
     "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -37,6 +45,17 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Calls to `card.restart` are not supported for use in production applications as they can cause increased cellular data and consumption credit usage."
+        }
+    ],
+    "samples": [
+        {
+            "title": "Restart Notecard",
+            "description": "Perform a firmware restart of the Notecard.",
+            "json": "{\"req\": \"card.restart\"}"
+        }
+    ]
 }

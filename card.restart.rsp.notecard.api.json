@@ -2,8 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restart.rsp.notecard.api.json",
     "title": "card.restart Response Application Programming Interface (API) Schema",
+    "description": "Response from the Notecard restart command. The response is typically empty as the restart occurs immediately.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Empty Restart Response",
+            "description": "Typical empty response before Notecard restarts.",
+            "json": "{}"
+        }
+    ]
 }
