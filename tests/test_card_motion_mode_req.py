@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.motion.mode.req.notecard.api.json"
 
@@ -72,17 +73,38 @@ def test_seconds_invalid_type(schema):
     assert "'60' is not of type 'integer'" in str(excinfo.value)
 
 def test_valid_sensitivity(schema):
-    """Tests valid sensitivity field."""
-    instance = {"req": "card.motion.mode", "sensitivity": 5}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {"req": "card.motion.mode", "sensitivity": 0}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {"req": "card.motion.mode", "sensitivity": -1} # Allows negative?
-    jsonschema.validate(instance=instance, schema=schema)
+    """Tests valid sensitivity field with enum values."""
+    valid_values = [-1, 0, 1, 2, 3, 4, 5]
+    for value in valid_values:
+        instance = {"req": "card.motion.mode", "sensitivity": value}
+        jsonschema.validate(instance=instance, schema=schema)
 
 def test_sensitivity_invalid_type(schema):
     """Tests invalid type for sensitivity."""
     instance = {"req": "card.motion.mode", "sensitivity": "5"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'5' is not of type 'integer'" in str(excinfo.value)
+
+def test_sensitivity_invalid_enum_value(schema):
+    """Tests invalid enum value for sensitivity."""
+    instance = {"req": "card.motion.mode", "sensitivity": 10}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not one of" in str(excinfo.value)
+
+def test_valid_motion(schema):
+    """Tests valid motion field."""
+    instance = {"req": "card.motion.mode", "motion": 5}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.motion.mode", "motion": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.motion.mode", "motion": 100}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_motion_invalid_type(schema):
+    """Tests invalid type for motion."""
+    instance = {"req": "card.motion.mode", "motion": "5"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'5' is not of type 'integer'" in str(excinfo.value)
@@ -104,7 +126,8 @@ def test_valid_all_fields(schema):
         "start": True,
         "stop": False,
         "seconds": 15,
-        "sensitivity": 8
+        "sensitivity": 2,
+        "motion": 5
     }
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -114,3 +137,16 @@ def test_invalid_additional_property(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
