@@ -4,25 +4,28 @@
     "title": "card.motion.sync Request Application Programming Interface (API) Schema",
     "description": "Configures automatic sync triggered by Notecard movement.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "start": {
-            "description": "Set to true to start motion-triggered syncing",
+            "description": "`true` to start motion-triggered syncing.",
             "type": "boolean"
         },
         "stop": {
-            "description": "Set to true to stop motion-triggered syncing",
+            "description": "`true` to stop motion-triggered syncing.",
             "type": "boolean"
         },
         "minutes": {
-            "description": "The maximum frequency at which sync will be triggered",
+            "description": "The maximum frequency at which sync will be triggered. Even if a `threshold` is set and exceeded, there will only be a single sync for this amount of time.",
             "type": "integer"
         },
         "count": {
-            "description": "The number of most recent motion buckets to examine",
+            "description": "The number of most recent motion buckets to examine.",
             "type": "integer"
         },
         "threshold": {
-            "description": "The number of buckets that must indicate motion in order to trigger a sync",
+            "description": "The number of buckets that must indicate motion in order to trigger a sync. If set to `0`, the Notecard will only perform a sync when its orientation changes.",
             "type": "integer"
         },
         "cmd": {
@@ -57,6 +60,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Start Motion-Triggered Sync",
+            "description": "Enable motion-triggered syncing with default settings.",
+            "json": "{\"req\": \"card.motion.sync\", \"start\": true}"
+        },
+        {
+            "title": "Configure Motion Sync Parameters",
+            "description": "Set motion sync with specific timing and threshold parameters.",
+            "json": "{\"req\": \"card.motion.sync\", \"start\": true, \"minutes\": 20, \"count\": 20, \"threshold\": 5}"
+        },
+        {
+            "title": "Stop Motion-Triggered Sync",
+            "description": "Disable motion-triggered syncing.",
+            "json": "{\"req\": \"card.motion.sync\", \"stop\": true}"
+        },
+        {
+            "title": "Orientation Change Only",
+            "description": "Configure sync to trigger only on orientation changes.",
+            "json": "{\"req\": \"card.motion.sync\", \"start\": true, \"threshold\": 0, \"minutes\": 10}"
+        }
+    ]
 }
