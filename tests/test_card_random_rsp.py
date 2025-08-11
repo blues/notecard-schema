@@ -83,15 +83,23 @@ def test_payload_valid_base64_patterns(schema):
         instance = {"payload": b64_data}
         jsonschema.validate(instance=instance, schema=schema)
 
-def test_multiple_additional_properties(schema):
-    """Tests response with multiple additional properties."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with additional property."""
+    instance = {"count": 50, "status": "success"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
+
+def test_invalid_multiple_additional_properties(schema):
+    """Tests response with multiple additional properties (should fail)."""
     instance = {
         "count": 50,
         "status": "success",
-        "extra_field": "value",
-        "another_field": 123
+        "extra_field": "value"
     }
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
