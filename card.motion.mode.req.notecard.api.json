@@ -106,7 +106,7 @@
         {
             "title": "Stop Motion Tracking",
             "description": "Disable motion tracking.",
-            "json": "{\"cmd\": \"card.motion.mode\", \"stop\": true}"
+            "json": "{\"req\": \"card.motion.mode\", \"stop\": true}"
         },
         {
             "title": "Configure Motion Status Change",
