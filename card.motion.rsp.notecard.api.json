@@ -3,32 +3,44 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.rsp.notecard.api.json",
     "title": "card.motion Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "count": {
-            "description": "The number of accelerometer motion events since the last card.motion request was made",
+            "description": "The number of accelerometer motion events since the `card.motion` request was last made.",
             "type": "integer"
         },
-        "status": {
-            "description": "The current status of the Notecard accelerometer",
-            "type": "string"
-        },
         "alert": {
-            "description": "If true, the Notecard's accelerometer detected a free-fall since the last request to card.motion",
+            "description": "`true` if the Notecard's accelerometer detected a free-fall since the last request to `card.motion`.",
             "type": "boolean"
         },
         "motion": {
-            "description": "Time of the last accelerometer motion event",
+            "description": "Time of the last accelerometer motion event.",
             "type": "integer"
         },
+        "status": {
+            "description": "Comma-separated list of accelerometer orientation events that ocurred since the last request to `card.motion`. One or more of the following: `\"face-up\"`, `\"face-down\"`, `\"portrait-up\"`, `\"portrait-down\"`, `\"landscape-right\"`, `\"landscape-left\"`, `\"angled\"`.",
+            "type": "string"
+        },
         "seconds": {
-            "description": "Number of seconds since the last motion event",
+            "description": "If the `minutes` argument is provided, the duration of each bucket of sample accelerometer movements.",
             "type": "integer"
         },
         "movements": {
-            "description": "String with motion counts in each bucket",
+            "description": "If the `minutes` argument is provided, a string of base-36 characters, where each character represents the number of accelerometer movements in each bucket during the sample duration. Each character will be a digit 0-9, A-Z to indicate a count of 10-35, or `*` to indicate a count greater than 35.",
+            "type": "string"
+        },
+        "mode": {
+            "description": "Returns the current motion status of the Notecard (e.g. `\"stopped\"` or `\"moving\"`). Learn how to configure this feature in this guide.",
             "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Motion Response",
+            "description": "Example response showing motion data with sampling buckets.",
+            "json": "{\"count\": 17, \"status\": \"face-up\", \"alert\": true, \"motion\": 1599741952, \"seconds\": 5, \"movements\": \"520000000000000000000A\"}"
+        }
+    ]
 }
