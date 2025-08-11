@@ -2,11 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.req.notecard.api.json",
     "title": "card.motion Request Application Programming Interface (API) Schema",
-    "description": "Returns information about the Notecard accelerometer's motion and orientation. Motion tracking must be enabled first with card.motion.mode. Otherwise, this request will return {}.",
+    "description": "Returns information about the Notecard accelerometer's motion and orientation. Motion tracking must be enabled first with `card.motion.mode`. Otherwise, this request will return `{}`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "minutes": {
-            "description": "Amount of time to sample for buckets of accelerometer-measured movement",
+            "description": "Amount of time to sample for buckets of accelerometer-measured movement. For instance, `5` will sample motion events for the previous five minutes and return a `movements` string with motion counts in each bucket.",
             "type": "integer"
         },
         "cmd": {
@@ -41,6 +44,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Motion with Minutes Sampling",
+            "description": "Request motion information with 2-minute sampling buckets.",
+            "json": "{\"req\": \"card.motion\", \"minutes\": 2}"
+        }
+    ]
 }
