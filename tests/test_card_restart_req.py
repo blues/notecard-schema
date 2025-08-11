@@ -1,5 +1,6 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "card.restart.req.notecard.api.json"
 
@@ -12,6 +13,20 @@ def test_valid_cmd(schema):
     """Tests a minimal valid request using 'cmd'."""
     instance = {"cmd": "card.restart"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_req_invalid_value(schema):
+    """Tests invalid req value."""
+    instance = {"req": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.restart' was expected" in str(excinfo.value)
+
+def test_cmd_invalid_value(schema):
+    """Tests invalid cmd value."""
+    instance = {"cmd": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.restart' was expected" in str(excinfo.value)
 
 def test_invalid_empty_object(schema):
     """Tests invalid empty object (needs req or cmd)."""
@@ -40,3 +55,16 @@ def test_invalid_additional_property_with_cmd(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
