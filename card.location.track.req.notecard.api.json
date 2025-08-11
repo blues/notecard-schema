@@ -2,33 +2,41 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.track.req.notecard.api.json",
     "title": "card.location.track Request Application Programming Interface (API) Schema",
-    "description": "Store location data in a Notefile at the periodic interval, or using a specified heartbeat.",
+    "description": "Store location data in a Notefile at the `periodic` interval, or using a specified `heartbeat`. This request is only available when the `card.location.mode` request has been set to `periodic`—e.g. `{\"req\":\"card.location.mode\",\"mode\":\"periodic\",\"seconds\":300}`. If you want to track and transmit data simultaneously consider using an external GPS/GNSS module with the Notecard. If you connect a BME280 sensor on the I2C bus, Notecard will include a temperature, humidity, and pressure reading with each captured Note. If you connect an ENS210 sensor on the I2C bus, Notecard will include a temperature and pressure reading with each captured Note.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "start": {
-            "description": "Set to true to start Notefile tracking",
+            "description": "Set to `true` to start Notefile tracking.",
             "type": "boolean"
         },
         "heartbeat": {
-            "description": "When start is true, set to true to enable tracking even when motion is not detected",
+            "description": "When `start` is `true`, set to `true` to enable tracking even when motion is not detected. If using `heartbeat`, also set the `hours` below.",
             "type": "boolean"
         },
         "hours": {
-            "description": "If heartbeat is true, add a heartbeat entry at this hourly interval. Use a negative integer to specify a heartbeat in minutes instead of hours",
+            "description": "If `heartbeat` is true, add a heartbeat entry at this hourly interval. Use a negative integer to specify a heartbeat in minutes instead of hours.",
             "type": "integer"
         },
         "sync": {
-            "description": "Set to true to perform an immediate sync to the Notehub each time a new Note is added",
+            "description": "Set to `true` to perform an immediate sync to the Notehub each time a new Note is added.",
             "type": "boolean"
         },
         "stop": {
-            "description": "Set to true to stop Notefile tracking",
+            "description": "Set to `true` to stop Notefile tracking.",
             "type": "boolean"
         },
         "file": {
-            "description": "The name of the Notefile to store location data in",
+            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's documentation for details on the format of the data captured.",
             "type": "string",
-            "default": "track.qo"
+            "default": "_track.qo"
+        },
+        "payload": {
+            "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
+            "type": "string",
+            "contentEncoding": "base64"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -62,6 +70,21 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Start",
+            "description": "Start location tracking.",
+            "json": "{\"req\": \"card.location.track\", \"start\": true}"
+        },
+        {
+            "title": "Stop",
+            "description": "Stop location tracking.",
+            "json": "{\"req\": \"card.location.track\", \"stop\": true}"
+        },
+        {
+            "title": "Heartbeat",
+            "description": "Start tracking with heartbeat mode and immediate sync.",
+            "json": "{\"req\": \"card.location.track\", \"start\": true, \"sync\": true, \"heartbeat\": true, \"hours\": 2}"
+        }
+    ]
 }

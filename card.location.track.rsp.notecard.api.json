@@ -3,7 +3,40 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.track.rsp.notecard.api.json",
     "title": "card.location.track Response Application Programming Interface (API) Schema",
     "type": "object",
-    "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {
+        "start": {
+            "description": "`true` if tracking is enabled.",
+            "type": "boolean"
+        },
+        "stop": {
+            "description": "`true` if tracking is disabled.",
+            "type": "boolean"
+        },
+        "heartbeat": {
+            "description": "`true` if heartbeat is enabled.",
+            "type": "boolean"
+        },
+        "seconds": {
+            "description": "If tracking is enabled and a heartbeat `hours` value is not set, the tracking interval set in `card.location.mode`.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "The `heartbeat` interval in minutes, if provided.",
+            "type": "integer"
+        },
+        "file": {
+            "description": "The tracking Notefile, if provided.",
+            "type": "string"
+        }
+    },
+    "samples": [
+        {
+            "title": "Location Track Response",
+            "description": "Example response showing tracking configuration with heartbeat enabled.",
+            "json": "{\"start\": true, \"heartbeat\": true, \"file\": \"locations.qo\", \"minutes\": 120}"
+        }
+    ]
 }
