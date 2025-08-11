@@ -32,7 +32,7 @@
             "type": "string"
         },
         "mode": {
-            "description": "Returns the current motion status of the Notecard (e.g. `\"stopped\"` or `\"moving\"`). Learn how to configure this feature in this guide.",
+            "description": "Returns the current motion status of the Notecard (e.g. `\"stopped\"` or `\"moving\"`). Learn how to configure this feature [in this guide](/guides-and-tutorials/notecard-guides/asset-tracking-with-gps#wake-host-or-send-note-on-motion-status-change).",
             "type": "string"
         }
     },
