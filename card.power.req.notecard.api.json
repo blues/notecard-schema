@@ -63,7 +63,7 @@
         {
             "title": "Reset Counters",
             "description": "Reset power consumption counters back to 0.",
-            "json": "{\"req\": \"card.power\", \"reset\": true}"
+            "json": "{\"cmd\": \"card.power\", \"reset\": true}"
         }
     ]
 }
