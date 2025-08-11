@@ -23,13 +23,15 @@ When adding a new schema (e.g., `card.sleep`):
 - Run tests with: `pipenv run pytest`
 - All schemas must pass validation tests before being considered complete
 
-## Schema Conventions
+## Schema Conventions (Retain the order of the fields)
 - **Title**: Follow pattern `"category.api Request/Response Application Programming Interface (API) Schema"`, (e.g. where `category` and `api` could be `card.attn` or `hub.get`, etc.)
 - **Version**: Currently using `"0.2.1"`
 - **API Version**: Currently `"9.1.1"`
 - **SKUs**: Include appropriate Notecard compatibility (e.g., `["WIFI"]` for WiFi-only APIs)
 - **Properties**: Support both `req` and `cmd` patterns using `oneOf` validation
 - **Additional Properties**: Set to `false` for strict validation
+- **Annotations**: Add INFO/WARNING sections from reference docs as annotations with `title: "note"`
+- **Samples**: Include samples for each schema
 
 ## Custom Schema Fields
 The repository uses several custom fields for documentation generation:
@@ -112,6 +114,23 @@ When reviewing or updating existing schemas, perform these validation checks:
 - **Comprehensive coverage**: Tests should cover all parameters, types, validation rules, and edge cases
 - **Sample validation**: Verify schema samples pass validation tests
 
+Every test file should include the test for the schema samples.
+
+```python
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
+```
+
 ### 6. Validation Commands
 ```bash
 # Run specific API tests
@@ -128,3 +147,5 @@ ls card.aux.req.notecard.api.json card.aux.rsp.notecard.api.json
 - `pipenv install --dev` - Install development dependencies
 - `pipenv run pytest` - Run all tests
 - `python scripts/update_schema_version.py --property apiVersion --target-version X.X.X --pattern "card.*"` - Update API versions
+
+- Always preserve the order of the json fields in the schema, use card.aux as a reference to see how to order them correctly

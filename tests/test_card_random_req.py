@@ -64,7 +64,7 @@ def test_mode_invalid_value(schema):
     assert "'payload' was expected" in str(excinfo.value)
 
 def test_mode_without_count(schema):
-    """Tests mode without count (should be valid)."""
+    """Tests mode without count (should pass - count is optional)."""
     instance = {"req": "card.random", "mode": "payload"}
     jsonschema.validate(instance=instance, schema=schema)
 
