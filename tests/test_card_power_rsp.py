@@ -109,10 +109,12 @@ def test_valid_partial_fields(schema):
     instance = {"temperature": 22.5}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
     instance = {"temperature": 25.0, "voltage": 4.1, "status": "ok"}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
