@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.power.rsp.notecard.api.json",
     "title": "card.power Response Application Programming Interface (API) Schema",
+    "description": "Response containing power consumption readings and environmental data from the Notecard.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "temperature": {
             "description": "The temperature from Notecard's onboard sensor in degrees centigrade, including the calibration offset.",
@@ -19,9 +21,11 @@
             "type": "number"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Example Response",
+            "title": "Power Consumption Response",
+            "description": "Example response with power consumption data.",
             "json": "{\"temperature\": 26.028314208984398, \"voltage\": 4.200970458984375, \"milliamp_hours\": 3.9566722000000007}"
         }
     ]

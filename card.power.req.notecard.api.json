@@ -51,15 +51,18 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Get Latest Power Consumption Reading",
+            "title": "Get Latest Power Consumption Reading",
+            "description": "Request current power consumption data.",
             "json": "{\"req\": \"card.power\"}"
         },
         {
-            "description": "Set Cadence of Readings",
+            "title": "Set Cadence of Readings",
+            "description": "Configure how often power consumption is logged.",
             "json": "{\"req\": \"card.power\", \"minutes\": 60}"
         },
         {
-            "description": "Reset Counters",
+            "title": "Reset Counters",
+            "description": "Reset power consumption counters back to 0.",
             "json": "{\"cmd\": \"card.power\", \"reset\": true}"
         }
     ]
