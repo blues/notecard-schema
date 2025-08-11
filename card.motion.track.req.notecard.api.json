@@ -4,34 +4,37 @@
     "title": "card.motion.track Request Application Programming Interface (API) Schema",
     "description": "Configures automatic capture of Notecard accelerometer motion in a Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "start": {
-            "description": "Set to true to start motion capture",
+            "description": "`true` to start motion capture.",
             "type": "boolean"
         },
         "stop": {
-            "description": "Set to true to stop motion capture",
+            "description": "`true` to stop motion capture.",
             "type": "boolean"
         },
         "minutes": {
-            "description": "The maximum period to capture Notes in the Notefile",
+            "description": "The maximum period to capture Notes in the Notefile.",
             "type": "integer"
         },
         "count": {
-            "description": "The number of most recent motion buckets to examine",
+            "description": "The number of most recent motion buckets to examine.",
             "type": "integer"
         },
         "threshold": {
-            "description": "The number of buckets that must indicate motion in order to capture",
+            "description": "The number of buckets that must indicate motion in order to capture.",
             "type": "integer"
         },
         "file": {
-            "description": "The Notefile to use for motion capture Notes",
+            "description": "The Notefile to use for motion capture Notes. See the [`_motion.qo` Notefile's documentation](/api-reference/system-notefiles#motion-qo) for details on the format of the data captured.",
             "type": "string",
             "default": "_motion.qo"
         },
         "now": {
-            "description": "Set to true to trigger the immediate creation of a motion.qo event if the orientation of the Notecard changes",
+            "description": "Set to `true` to trigger the immediate creation of a `_motion.qo` event if the orientation of the Notecard changes (overriding the `minutes` setting).",
             "type": "boolean"
         },
         "cmd": {
@@ -66,6 +69,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Start Motion Tracking",
+            "description": "Enable motion tracking with default settings.",
+            "json": "{\"req\": \"card.motion.track\", \"start\": true}"
+        },
+        {
+            "title": "Configure Motion Tracking with Custom File",
+            "description": "Set motion tracking with custom parameters and Notefile.",
+            "json": "{\"req\": \"card.motion.track\", \"start\": true, \"minutes\": 20, \"count\": 20, \"threshold\": 5, \"file\": \"movements.qo\"}"
+        },
+        {
+            "title": "Stop Motion Tracking",
+            "description": "Disable motion tracking.",
+            "json": "{\"req\": \"card.motion.track\", \"stop\": true}"
+        },
+        {
+            "title": "Enable Immediate Orientation Changes",
+            "description": "Configure motion tracking with immediate orientation change capture.",
+            "json": "{\"req\": \"card.motion.track\", \"start\": true, \"now\": true, \"minutes\": 15}"
+        }
+    ]
 }

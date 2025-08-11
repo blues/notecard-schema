@@ -2,8 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.track.rsp.notecard.api.json",
     "title": "card.motion.track Response Application Programming Interface (API) Schema",
+    "description": "Response from configuring automatic capture of Notecard accelerometer motion in a Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Successful Configuration Response",
+            "description": "Empty response indicating successful motion tracking configuration.",
+            "json": "{}"
+        }
+    ]
 }
