@@ -2,23 +2,62 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.mode.req.notecard.api.json",
     "title": "card.motion.mode Request Application Programming Interface (API) Schema",
-    "description": "Configures accelerometer motion monitoring parameters used when providing results to card.motion.",
+    "description": "Configures accelerometer motion monitoring parameters used when providing results to `card.motion`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "start": {
-            "description": "Set to true to enable the Notecard accelerometer and start motion tracking",
+            "description": "`true` to enable the Notecard accelerometer and start motion tracking.",
             "type": "boolean"
         },
         "stop": {
-            "description": "Set to true to disable the Notecard accelerometer and stop motion tracking",
+            "description": "`true` to disable the Notecard accelerometer and stop motion tracking.",
             "type": "boolean"
         },
         "seconds": {
-            "description": "Period for each bucket of movements to be accumulated when minutes is used with card.motion",
+            "description": "Period for each bucket of movements to be accumulated when `minutes` is used with `card.motion`.",
             "type": "integer"
         },
         "sensitivity": {
-            "description": "Used to set the accelerometer sample rate",
+            "description": "Used to set the accelerometer sample rate. The default sample rate of 1.6Hz could miss short-duration accelerations (e.g. bumps and jolts), and free fall detection may not work reliably with short falls. The penalty for increasing the sample rate to 25Hz is increased current consumption by ~1.5uA relative to the default `-1` setting.",
+            "type": "integer",
+            "default": -1,
+            "enum": [-1, 0, 1, 2, 3, 4, 5],
+            "sub-descriptions": [
+                {
+                    "const": -1,
+                    "description": "1.6Hz, +/-2G range, 1 milli-G sensitivity"
+                },
+                {
+                    "const": 0,
+                    "description": "Not specified. Do not modify the current sample rate."
+                },
+                {
+                    "const": 1,
+                    "description": "25Hz, +/- 16G range, 7.8 milli-G sensitivity"
+                },
+                {
+                    "const": 2,
+                    "description": "25Hz, +/- 8G range, 3.9 milli-G sensitivity"
+                },
+                {
+                    "const": 3,
+                    "description": "25Hz, +/- 4G range, 1.95 milli-G sensitivity"
+                },
+                {
+                    "const": 4,
+                    "description": "25Hz, +/- 2G range, 1 milli-G sensitivity"
+                },
+                {
+                    "const": 5,
+                    "description": "25Hz, +/- 2G range, 0.25 milli-G sensitivity"
+                }
+            ]
+        },
+        "motion": {
+            "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.",
             "type": "integer"
         },
         "cmd": {
@@ -53,6 +92,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Start Motion Tracking",
+            "description": "Enable motion tracking with default settings.",
+            "json": "{\"req\": \"card.motion.mode\", \"start\": true}"
+        },
+        {
+            "title": "Configure Motion Tracking with Parameters",
+            "description": "Enable motion tracking with custom sensitivity and bucket duration.",
+            "json": "{\"req\": \"card.motion.mode\", \"start\": true, \"seconds\": 10, \"sensitivity\": 2}"
+        },
+        {
+            "title": "Stop Motion Tracking",
+            "description": "Disable motion tracking.",
+            "json": "{\"req\": \"card.motion.mode\", \"stop\": true}"
+        },
+        {
+            "title": "Configure Motion Status Change",
+            "description": "Set motion threshold for status change detection.",
+            "json": "{\"req\": \"card.motion.mode\", \"motion\": 5, \"seconds\": 60}"
+        }
+    ]
 }
