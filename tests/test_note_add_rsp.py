@@ -22,24 +22,15 @@ def test_valid_template_field(schema):
     instance = {"template": False}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_note_field(schema):
-    """Tests valid note field."""
-    instance = {"note": "abc123def456"}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_total_and_template(schema):
     """Tests valid response with total and template fields."""
     instance = {"total": 8, "template": True}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_total_and_note(schema):
-    """Tests valid response with total and note fields."""
-    instance = {"total": 5, "note": "generated_id_123"}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_valid_all_fields(schema):
-    """Tests valid response with all fields."""
-    instance = {"total": 15, "template": True, "note": "auto_generated_456"}
+    """Tests valid response with both fields."""
+    instance = {"total": 15, "template": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_total_zero(schema):
@@ -52,30 +43,6 @@ def test_valid_total_large_number(schema):
     instance = {"total": 999999}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_note_empty_string(schema):
-    """Tests valid response with empty note string."""
-    instance = {"note": ""}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_note_with_special_chars(schema):
-    """Tests valid response with note containing special characters."""
-    instance = {"note": "note-123_abc.def"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_note_uuid_format(schema):
-    """Tests valid response with UUID-like note ID."""
-    instance = {"note": "550e8400-e29b-41d4-a716-446655440000"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_note_alphanumeric(schema):
-    """Tests valid response with alphanumeric note ID."""
-    instance = {"note": "ABCdef123456"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_template_with_note(schema):
-    """Tests valid response with template and note fields."""
-    instance = {"template": False, "note": "manual_id_789"}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_total_invalid_type_string(schema):
     """Tests invalid string type for total."""
@@ -138,33 +105,6 @@ def test_template_invalid_type_object(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
-def test_note_invalid_type_integer(schema):
-    """Tests invalid integer type for note."""
-    instance = {"note": 123}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "123 is not of type 'string'" in str(excinfo.value)
-
-def test_note_invalid_type_boolean(schema):
-    """Tests invalid boolean type for note."""
-    instance = {"note": False}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "False is not of type 'string'" in str(excinfo.value)
-
-def test_note_invalid_type_array(schema):
-    """Tests invalid array type for note."""
-    instance = {"note": ["note_id"]}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
-
-def test_note_invalid_type_object(schema):
-    """Tests invalid object type for note."""
-    instance = {"note": {"id": "note123"}}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'string'" in str(excinfo.value)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
@@ -192,7 +132,8 @@ def test_invalid_common_additional_properties(schema):
         {"live": False},
         {"full": True},
         {"limit": False},
-        {"max": 10}
+        {"max": 10},
+        {"note": "should_not_be_in_response"}
     ]
     
     for field_dict in invalid_fields:
@@ -255,7 +196,7 @@ def test_strict_validation(schema):
         "file", "body", "payload", "sync", "key", "verify", "binary", 
         "live", "full", "limit", "max", "cmd", "req", "status", "error", 
         "message", "result", "data", "success", "code", "info", "warning",
-        "timestamp", "size", "count", "index", "position"
+        "timestamp", "size", "count", "index", "position", "note"
     ]
     
     for prop in properties_to_test:
@@ -269,11 +210,8 @@ def test_field_combinations(schema):
     combinations = [
         {"total": 1},
         {"template": True},
-        {"note": "id123"},
         {"total": 5, "template": False},
-        {"total": 10, "note": "generated_456"},
-        {"template": True, "note": "templated_789"},
-        {"total": 0, "template": False, "note": "empty_file_note"}
+        {"total": 0, "template": True}
     ]
     
     for combo in combinations:
@@ -290,13 +228,6 @@ def test_edge_case_values(schema):
         {"template": True},
         {"template": False},
         
-        # Various note ID formats
-        {"note": ""},  # Empty string
-        {"note": "a"},  # Single character
-        {"note": "very_long_note_id_with_many_characters_123456789"},  # Long string
-        {"note": "123"},  # Numeric string
-        {"note": "true"},  # Boolean-like string
-        {"note": "null"},  # Null-like string
     ]
     
     for case in edge_cases:
@@ -305,14 +236,12 @@ def test_edge_case_values(schema):
 def test_database_response_scenarios(schema):
     """Tests typical database response scenarios."""
     scenarios = [
-        # Database with generated ID
-        {"total": 3, "note": "auto_gen_abc123"},
-        # Database without ID generation
+        # Database operation
         {"total": 7},
         # Templated database
         {"total": 12, "template": True},
-        # Templated database with ID
-        {"total": 4, "template": True, "note": "template_id_456"}
+        # Basic database response
+        {"total": 4, "template": False}
     ]
     
     for scenario in scenarios:
@@ -345,24 +274,6 @@ def test_zero_and_negative_totals(schema):
     for value in test_values:
         jsonschema.validate(instance=value, schema=schema)
 
-def test_note_id_formats(schema):
-    """Tests various note ID formats."""
-    id_formats = [
-        {"note": "simple"},
-        {"note": "snake_case_id"},
-        {"note": "kebab-case-id"},
-        {"note": "CamelCaseId"},
-        {"note": "mixed_Case-123"},
-        {"note": "123456789"},
-        {"note": "uuid-like-550e8400-e29b-41d4"},
-        {"note": "with.dots"},
-        {"note": "with spaces"},
-        {"note": "with@symbols#$%"},
-        {"note": "unicode_测试_🚀"}
-    ]
-    
-    for id_format in id_formats:
-        jsonschema.validate(instance=id_format, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

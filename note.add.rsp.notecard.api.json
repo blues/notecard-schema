@@ -15,10 +15,6 @@
         "template": {
             "description": "`true` when a template is active on the Notefile.",
             "type": "boolean"
-        },
-        "note": {
-            "description": "The ID of the added note. Only returned when adding to database files (`.db/.dbs/.dbx`) with `note` parameter set to \"?\" for auto-generated IDs.",
-            "type": "string"
         }
     },
     "additionalProperties": false,
@@ -32,11 +28,6 @@
             "title": "Add Response with Template Active",
             "description": "Response when adding to a templated Notefile.",
             "json": "{\"total\": 8, \"template\": true}"
-        },
-        {
-            "title": "Database Add Response with Generated ID",
-            "description": "Response when adding to database with auto-generated note ID.",
-            "json": "{\"total\": 5, \"note\": \"abc123def456\"}"
         },
         {
             "title": "Empty Response",
