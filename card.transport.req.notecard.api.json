@@ -121,8 +121,34 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Example",
-            "json": "{\"req\":\"card.transport\", \"method\":\"wifi-cell\"}"
+            "title": "Set WiFi-Cell Priority",
+            "description": "Configure Notecard Cell+WiFi to prioritize WiFi while falling back to cellular.",
+            "json": "{\"req\": \"card.transport\", \"method\": \"wifi-cell\"}"
+        },
+        {
+            "title": "Enable WiFi Only Mode",
+            "description": "Configure device to use WiFi connectivity only.",
+            "json": "{\"req\": \"card.transport\", \"method\": \"wifi\"}"
+        },
+        {
+            "title": "Enable Cellular Only Mode", 
+            "description": "Configure device to use cellular connectivity only.",
+            "json": "{\"req\": \"card.transport\", \"method\": \"cell\"}"
+        },
+        {
+            "title": "Reset to Default Transport",
+            "description": "Reset the transport mode to device default settings.",
+            "json": "{\"cmd\": \"card.transport\", \"method\": \"-\"}"
+        },
+        {
+            "title": "Configure NTN Mode",
+            "description": "Enable NTN (Non-Terrestrial Network) mode for Starnote connectivity.",
+            "json": "{\"req\": \"card.transport\", \"method\": \"ntn\"}"
+        },
+        {
+            "title": "WiFi-Cell-NTN Priority",
+            "description": "Configure triple fallback: WiFi → cellular → NTN with custom timeout.",
+            "json": "{\"req\": \"card.transport\", \"method\": \"wifi-cell-ntn\", \"seconds\": 1800}"
         }
     ]
 }
