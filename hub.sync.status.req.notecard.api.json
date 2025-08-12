@@ -4,11 +4,10 @@
     "title": "hub.sync.status Request Application Programming Interface (API) Schema",
     "description": "Check on the status of a recently triggered or previous sync.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "sync": {
-            "description": "Whether to sync immediately",
-            "type": "boolean"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "hub.sync.status"
@@ -16,6 +15,10 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "hub.sync.status"
+        },
+        "sync": {
+            "description": "`true` if this request should auto-initiate a sync pending outbound data.",
+            "type": "boolean"
         }
     },
     "oneOf": [
@@ -41,6 +44,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Check Sync Status",
+            "description": "Check the status of a recent or previous sync.",
+            "json": "{\"req\": \"hub.sync.status\"}"
+        },
+        {
+            "title": "Check Status and Auto-Initiate Sync",
+            "description": "Check sync status and auto-initiate sync if there is pending outbound data.",
+            "json": "{\"req\": \"hub.sync.status\", \"sync\": true}"
+        }
+    ]
 }

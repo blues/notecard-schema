@@ -2,45 +2,65 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.status.rsp.notecard.api.json",
     "title": "hub.sync.status Response Application Programming Interface (API) Schema",
+    "description": "Response containing the status of a recently triggered or previous sync.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "status": {
-            "description": "Status of the sync operation",
-            "type": "string"
-        },
-        "mode": {
-            "description": "Current sync mode",
-            "type": "string"
-        },
-        "time": {
-            "description": "Time of the last sync",
-            "type": "integer"
-        },
         "alert": {
-            "description": "Alert message",
-            "type": "string"
-        },
-        "sync": {
-            "description": "Whether a sync is in progress",
+            "description": "`true` if an error occurred during the most recent sync.",
             "type": "boolean"
         },
         "completed": {
-            "description": "Whether the sync has completed",
-            "type": "boolean"
+            "description": "Number of seconds since the last sync completion.",
+            "type": "integer"
+        },
+        "mode": {
+            "description": "The current state of the wireless connectivity module in use.",
+            "type": "string"
         },
         "requested": {
-            "description": "Whether a sync has been requested",
-            "type": "boolean"
-        },
-        "seconds": {
-            "description": "Number of seconds since the last sync",
+            "description": "Number of seconds since the last explicit sync request.",
             "type": "integer"
         },
         "scan": {
-            "description": "Whether a scan is in progress",
+            "description": "Returns `true` if triangulation data was sent to Notehub in the most recent sync.",
             "type": "boolean"
+        },
+        "seconds": {
+            "description": "If the Notecard is in a Penalty Box, the number of seconds until the penalty condition ends.",
+            "type": "integer"
+        },
+        "status": {
+            "description": "The status of the current or previous sync. Refer to [this listing](/notecard/notecard-walkthrough/notecard-error-and-status-codes/) for the meaning of the various status codes returned (e.g. `{sync-end}`).",
+            "type": "string"
+        },
+        "sync": {
+            "description": "`true` if the notecard has unsynchronized notes, or requires a sync to set its internal clock.",
+            "type": "boolean"
+        },
+        "time": {
+            "description": "Time of the last sync completion. Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Sync Status with Completion Info",
+            "description": "Response showing sync status with completion time and alert.",
+            "json": "{\"status\": \"completed {sync-end}\", \"mode\": \"{modem-off}\", \"time\": 1598367163, \"alert\": true, \"sync\": true, \"completed\": 1648}"
+        },
+        {
+            "title": "Sync Status with Penalty Box",
+            "description": "Response when Notecard is in penalty box.",
+            "json": "{\"status\": \"waiting {network-down}\", \"mode\": \"{modem-off}\", \"sync\": false, \"seconds\": 300}"
+        },
+        {
+            "title": "Recent Sync with Triangulation",
+            "description": "Response showing recent sync with scan data.",
+            "json": "{\"status\": \"completed {sync-end}\", \"mode\": \"{modem-off}\", \"time\": 1598367163, \"sync\": false, \"completed\": 45, \"scan\": true}"
+        }
+    ]
 }
