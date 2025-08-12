@@ -23,7 +23,7 @@
         {
             "title": "Empty Response",
             "description": "Example response when verifying DFU mode with length 0.",
-            "json": "{}"
+            "json": "{\"payload\": \"\"}"
         },
         {
             "title": "Small Data Block",
