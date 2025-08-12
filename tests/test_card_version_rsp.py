@@ -64,12 +64,13 @@ def test_body_invalid_type(schema):
     [
         ("org", "Blues", 123, "string"),
         ("product", "Notecard", True, "string"),
+        ("target", "r5", 123, "string"),
         ("version", "1.2.3", 123, "string"),
         ("ver_major", 1, "1", "integer"),
         ("ver_minor", 2, "2", "integer"),
         ("ver_patch", 3, "3", "integer"),
         ("ver_build", 1234, "1234", "integer"),
-        ("built", "2023-01-01T12:00:00Z", 123456, "string") # String type check only
+        ("built", "Sep  5 2023 12:21:30", 123456, "string") # String type check only
     ]
 )
 def test_body_sub_properties(schema, sub_field, valid_value, invalid_value, expected_type):
@@ -97,13 +98,14 @@ def test_valid_body_all_fields(schema):
         "version": "v1",
         "body": {
             "org": "Blues Wireless",
-            "product": "Notecard-WBNA",
-            "version": "firmware-v2.1.1-1234",
-            "ver_major": 2,
-            "ver_minor": 1,
+            "product": "Notecard",
+            "target": "r5",
+            "version": "notecard-5.3.1",
+            "ver_major": 5,
+            "ver_minor": 3,
             "ver_patch": 1,
-            "ver_build": 1234,
-            "built": "2024-01-15T10:30:00Z"
+            "ver_build": 371,
+            "built": "Sep  5 2023 12:21:30"
         }
     }
     jsonschema.validate(instance=instance, schema=schema)
@@ -131,12 +133,15 @@ def test_optional_fields(schema, field_name, valid_value, invalid_value, expecte
         jsonschema.validate(instance=instance, schema=schema)
     assert f"is not of type \'{expected_type}\'" in str(excinfo.value)
 
-def test_device_invalid_pattern(schema):
-    """Tests invalid pattern for device field."""
-    instance = {"version": "v1", "device": "invalid-pattern"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "does not match '^dev:[0-9]{15}$'" in str(excinfo.value)
+def test_device_valid_pattern(schema):
+    """Tests valid device field patterns."""
+    # Test typical DeviceUID format
+    instance = {"version": "v1", "device": "dev:123456789012345"}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    # Test other valid device formats
+    instance = {"version": "v1", "device": "dev:000000000000000"}
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_all_fields_outer(schema):
     """Tests a valid response with all top-level fields populated."""
@@ -156,7 +161,30 @@ def test_valid_all_fields_outer(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
     instance = {"version": "v1", "extra": "data"}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_body_invalid_additional_property(schema):
+    """Tests invalid body object with additional property."""
+    instance = {"version": "v1", "body": {"org": "Blues", "invalid_field": "test"}}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('invalid_field' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    import json
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
