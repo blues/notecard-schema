@@ -2,8 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.pending.req.notecard.api.json",
     "title": "file.changes.pending Request Application Programming Interface (API) Schema",
-    "description": "Returns info about file changes that are pending upload to Notehub.",
+    "description": "The file.changes.pending request returns information about file changes that are pending upload to Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -37,6 +40,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Check Pending Changes",
+            "description": "Query for pending file changes awaiting upload to Notehub.",
+            "json": "{\"req\": \"file.changes.pending\"}"
+        }
+    ]
 }

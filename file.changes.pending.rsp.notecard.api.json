@@ -2,25 +2,59 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.pending.rsp.notecard.api.json",
     "title": "file.changes.pending Response Application Programming Interface (API) Schema",
+    "description": "Response containing information about file changes pending upload to Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "total": {
-            "description": "The total of unsynced notes across all Notefiles",
-            "type": "integer"
-        },
         "changes": {
-            "description": "The number of changes across all files",
+            "description": "The number of changes across all files.",
             "type": "integer"
-        },
-        "pending": {
-            "description": "Whether there are pending changes",
-            "type": "boolean"
         },
         "info": {
-            "description": "Information about changes for each Notefile",
-            "type": "object"
+            "description": "An object with a key for each Notefile and value object with the `changes` and `total` for each file.",
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "changes": {
+                        "description": "Number of changes in this specific file",
+                        "type": "integer"
+                    },
+                    "total": {
+                        "description": "Total number of notes in this specific file",
+                        "type": "integer"
+                    }
+                },
+                "additionalProperties": false
+            }
+        },
+        "pending": {
+            "description": "`true` if there are pending changes.",
+            "type": "boolean"
+        },
+        "total": {
+            "description": "The total of unsynced notes across all Notefiles.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Pending Changes Response",
+            "description": "Response showing pending changes across multiple files.",
+            "json": "{\"total\": 3, \"changes\": 3, \"pending\": true, \"info\": {\"sensors.qo\": {\"changes\": 3, \"total\": 3}}}"
+        },
+        {
+            "title": "No Pending Changes",
+            "description": "Response when no changes are pending upload.",
+            "json": "{\"total\": 0, \"changes\": 0, \"pending\": false}"
+        },
+        {
+            "title": "Multiple Files with Changes",
+            "description": "Response with pending changes across multiple Notefiles.",
+            "json": "{\"total\": 5, \"changes\": 5, \"pending\": true, \"info\": {\"sensors.qo\": {\"changes\": 3, \"total\": 3}, \"data.qo\": {\"changes\": 2, \"total\": 2}}}"
+        }
+    ]
 }
