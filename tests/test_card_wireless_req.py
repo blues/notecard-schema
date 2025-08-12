@@ -88,9 +88,44 @@ def test_valid_all_fields(schema):
     instance = {"req": "card.wireless", "mode": "auto", "apn": "test.apn", "method": "primary"}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_hours_field(schema):
+    """Tests valid hours field."""
+    instance = {"req": "card.wireless", "method": "dual-primary-secondary", "hours": 24}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.wireless", "method": "dual-secondary-primary", "hours": 1}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_hours_invalid_type(schema):
+    """Tests invalid type for hours field."""
+    instance = {"req": "card.wireless", "hours": "24"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'24' is not of type 'integer'" in str(excinfo.value)
+
+def test_hours_invalid_minimum(schema):
+    """Tests hours field below minimum value."""
+    instance = {"req": "card.wireless", "hours": 0}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "0 is less than the minimum of 1" in str(excinfo.value)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "card.wireless", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    import json
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
