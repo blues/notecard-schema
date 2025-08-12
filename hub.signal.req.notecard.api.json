@@ -46,7 +46,7 @@
     "additionalProperties": false,
     "annotations": [
         {
-            "title": "note",
+            "title": "warning",
             "description": "A Notecard must be in continuous mode and have its `sync` argument set to `true` to receive signals."
         }
     ],
