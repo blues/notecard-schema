@@ -2,49 +2,59 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.get.rsp.notecard.api.json",
     "title": "hub.get Response Application Programming Interface (API) Schema",
+    "description": "Response containing the current Notehub configuration for the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "device": {
-            "description": "The DeviceUID for the Notecard",
-            "type": "string"
-        },
-        "product": {
-            "description": "Product identifier",
-            "type": "string"
-        },
-        "mode": {
-            "description": "Hub mode (periodic, continuous, minimum)",
-            "type": "string"
-        },
-        "outbound": {
-            "description": "Outbound data period in seconds",
-            "type": "integer"
-        },
-        "voutbound": {
-            "description": "Voltage-variable outbound period",
-            "type": "string"
-        },
-        "inbound": {
-            "description": "Inbound data period in seconds",
-            "type": "integer"
-        },
-        "vinbound": {
-            "description": "Voltage-variable inbound period",
+            "description": "The [DeviceUID](/api-reference/glossary#deviceuid) for the Notecard.",
             "type": "string"
         },
         "host": {
-            "description": "Host address",
+            "description": "The URL of the Notehub host.",
+            "type": "string"
+        },
+        "inbound": {
+            "description": "The max wait time, in minutes, to sync inbound data from Notehub.",
+            "type": "integer"
+        },
+        "mode": {
+            "description": "The current operating `mode` of the Notecard, as defined in `hub.set`.",
+            "type": "string"
+        },
+        "outbound": {
+            "description": "The max wait time, in minutes, to sync outbound data from the Notecard.",
+            "type": "integer"
+        },
+        "product": {
+            "description": "The ProductUID to which the Notecard is registered.",
             "type": "string"
         },
         "sn": {
-            "description": "Serial number",
+            "description": "The serial number of the device, if set.",
             "type": "string"
         },
         "sync": {
-            "description": "Whether sync is enabled",
+            "description": "`true` if the device is in `continuous` mode and set to sync every time a change is detected.",
             "type": "boolean"
+        },
+        "vinbound": {
+            "description": "If `inbound` has been overridden with a voltage-variable value.",
+            "type": "string"
+        },
+        "voutbound": {
+            "description": "If `outbound` is overridden with a voltage-variable value.",
+            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Notehub Configuration Response",
+            "description": "Response with current Notehub configuration settings.",
+            "json": "{\"device\": \"dev:000000000000000\", \"product\": \"com.your-company.your-name:your_product\", \"mode\": \"periodic\", \"outbound\": 60, \"inbound\": 240, \"host\": \"a.notefile.net\", \"sn\": \"your-serial-number\"}"
+        }
+    ]
 }

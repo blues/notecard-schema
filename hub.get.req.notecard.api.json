@@ -4,6 +4,9 @@
     "title": "hub.get Request Application Programming Interface (API) Schema",
     "description": "Retrieves the current Notehub configuration for the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -37,6 +40,11 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get Notehub Configuration",
+            "description": "Retrieve the current Notehub configuration for the Notecard.",
+            "json": "{\"req\": \"hub.get\"}"
+        }
+    ]
 }
