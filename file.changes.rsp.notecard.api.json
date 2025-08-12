@@ -2,21 +2,55 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.rsp.notecard.api.json",
     "title": "file.changes Response Application Programming Interface (API) Schema",
+    "description": "Response containing information about file changes and their status.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "total": {
-            "description": "Total number of files",
-            "type": "integer"
-        },
         "changes": {
-            "description": "Number of files that have changed",
+            "description": "The number of files that have changed since the last check for the specified tracker, or total files with pending changes if no tracker is used.",
             "type": "integer"
         },
         "info": {
-            "description": "Information about the changes",
-            "type": "object"
+            "description": "Detailed information object containing per-file change information and status details for each Notefile.",
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "changes": {
+                        "description": "Number of changes in this specific file",
+                        "type": "integer"
+                    },
+                    "status": {
+                        "description": "Status information for the file",
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": true
+            }
+        },
+        "total": {
+            "description": "The total number of files that were examined for changes.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Basic Change Response",
+            "description": "Response showing changes detected in monitored files.",
+            "json": "{\"total\": 3, \"changes\": 1}"
+        },
+        {
+            "title": "Detailed Change Information",
+            "description": "Response with detailed per-file change information.",
+            "json": "{\"total\": 2, \"changes\": 1, \"info\": {\"sensors.qo\": {\"changes\": 5}, \"data.qo\": {\"changes\": 0}}}"
+        },
+        {
+            "title": "No Changes Detected",
+            "description": "Response when no changes are found in monitored files.",
+            "json": "{\"total\": 2, \"changes\": 0}"
+        }
+    ]
 }
