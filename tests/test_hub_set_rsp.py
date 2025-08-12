@@ -4,11 +4,6 @@ import json
 
 SCHEMA_FILE = "hub.set.rsp.notecard.api.json"
 
-def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_empty_response_object(schema):
     """Tests that empty response object is valid."""
     instance = {}
@@ -34,7 +29,7 @@ def test_invalid_common_additional_properties(schema):
         {"success": True},
         {"config": {}}
     ]
-    
+
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
@@ -57,7 +52,7 @@ def test_response_type_validation(schema):
         ["array"],
         None
     ]
-    
+
     for invalid_instance in invalid_types:
         if invalid_instance is None:
             continue  # Skip None as it's handled differently
@@ -70,15 +65,15 @@ def test_response_is_object_type(schema):
     # String should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance="not an object", schema=schema)
-    
+
     # Number should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=42, schema=schema)
-    
+
     # Array should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=[], schema=schema)
-    
+
     # Boolean should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=True, schema=schema)
@@ -100,7 +95,7 @@ def test_strict_validation(schema):
         "device", "product", "status", "error", "message", "time",
         "result", "data", "success", "code", "info", "warning", "config"
     ]
-    
+
     for prop in properties_to_test:
         instance = {prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
