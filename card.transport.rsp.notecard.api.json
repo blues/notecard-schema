@@ -2,19 +2,44 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.transport.rsp.notecard.api.json",
     "title": "card.transport Response Application Programming Interface (API) Schema",
+    "description": "Response containing the current connectivity method configuration of the Notecard.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "method": {
             "description": "The connectivity method currently enabled on the device.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "-",
+                "cell",
+                "cell-ntn",
+                "dual-wifi-cell",
+                "ntn",
+                "wifi",
+                "wifi-cell",
+                "wifi-cell-ntn",
+                "wifi-ntn"
+            ]
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Response for `card.transport` with method set to `wifi-cell`.",
+            "title": "WiFi-Cell Priority Response",
+            "description": "Response showing WiFi-cellular priority transport mode is active.",
             "json": "{\"method\": \"wifi-cell\"}"
+        },
+        {
+            "title": "Cellular Only Response",
+            "description": "Response showing cellular-only transport mode is active.",
+            "json": "{\"method\": \"cell\"}"
+        },
+        {
+            "title": "NTN Mode Response",
+            "description": "Response showing NTN (Non-Terrestrial Network) transport mode is active.",
+            "json": "{\"method\": \"ntn\"}"
         }
     ]
 }
