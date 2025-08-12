@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.req.notecard.api.json",
     "title": "card.time Request Application Programming Interface (API) Schema",
-    "description": "Retrieves current date and time information in UTC. Upon power-up, the Notecard must complete a sync to Notehub in order to obtain time and location data. Before the time is obtained, this request will return `{\"zone\":\"UTC,Unknown\"}`.\n\nSee `card.time` in action as part of the [Car Detector](https://dev.blues.io/accelerators/car-detector/) and [Cellular Speed Radar and Camera](https://dev.blues.io/accelerators/cellular-speed-radar-and-camera) accelerator projects.",
+    "description": "Retrieves current date and time information in UTC. Upon power-up, the Notecard must complete a sync to Notehub in order to obtain time and location data. Before the time is obtained, this request will return `{\"zone\":\"UTC,Unknown\"}`.",
     "type": "object",
     "skus": [
         "CELL",
