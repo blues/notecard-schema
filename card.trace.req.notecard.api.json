@@ -1,0 +1,65 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.trace.req.notecard.api.json",
+    "title": "card.trace Request Application Programming Interface (API) Schema",
+    "description": "Enable and disable [trace mode](/guides-and-tutorials/notecard-guides/using-notecard-trace-mode) on a Notecard for debugging.",
+    "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "properties": {
+        "mode": {
+            "description": "Set to `\"on\"` to enable trace mode on a Notecard, or `\"off\"` to disable it.",
+            "type": "string",
+            "enum": ["on", "off"]
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.trace"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.trace"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "card.trace"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "card.trace"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Enable Trace Mode",
+            "description": "Enable trace mode for debugging the Notecard.",
+            "json": "{\"req\": \"card.trace\", \"mode\": \"on\"}"
+        },
+        {
+            "title": "Disable Trace Mode",
+            "description": "Disable trace mode on the Notecard.",
+            "json": "{\"cmd\": \"card.trace\", \"mode\": \"off\"}"
+        }
+    ]
+}
