@@ -4,6 +4,8 @@
     "title": "card.version Response Application Programming Interface (API) Schema",
     "description": "Response containing firmware version information and device details.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "api": {
@@ -90,8 +92,6 @@
         "version"
     ],
     "additionalProperties": false,
-    "version": "0.2.1",
-    "apiVersion": "9.1.1",
     "samples": [
         {
             "title": "Complete Version Response",
