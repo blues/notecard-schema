@@ -212,12 +212,10 @@ def test_info_file_total_invalid_float(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "3.5 is not of type 'integer'" in str(excinfo.value)
 
-def test_info_file_additional_property_not_allowed(schema):
-    """Tests that additional properties in info file objects are not allowed."""
-    instance = {"info": {"sensors.qo": {"changes": 3, "total": 3, "extra": "not-allowed"}}}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+def test_info_file_additional_property_allowed(schema):
+    """Tests that additional properties in info file objects are allowed."""
+    instance = {"info": {"sensors.qo": {"changes": 3, "total": 3, "extra": "allowed"}}}
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_all_fields(schema):
     """Tests valid response with all possible fields."""
