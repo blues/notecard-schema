@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.req.notecard.api.json",
     "title": "file.changes Request Application Programming Interface (API) Schema",
-    "description": "The file.changes request performs queries on a single or multiple files to determine if new Notes are available to read, or if there are unsynced Notes in local Notefiles.",
+    "description": "The file.changes request performs queries on a single or multiple files to determine if new Notes are available to read, or if there are unsynced Notes in local Notefiles.\n\n*Note: This request is a Notefile API request, only. `.qo` Notes in Notehub are automatically ingested and stored, or sent to applicable Routes.*",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
