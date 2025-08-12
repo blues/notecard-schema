@@ -2,24 +2,41 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.signal.rsp.notecard.api.json",
     "title": "hub.signal Response Application Programming Interface (API) Schema",
+    "description": "Response containing a received signal from Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "body": {
-            "description": "Signal information",
+            "description": "The JSON body of a received signal.",
             "type": "object"
         },
         "connected": {
-            "description": "Whether the Notecard is connected to the network",
+            "description": "`true` if the Notecard is connected to Notehub.",
             "type": "boolean"
         },
         "signals": {
-            "description": "Array of signal information",
-            "type": "array",
-            "items": {
-                "type": "object"
-            }
+            "description": "The number of queued signals remaining.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Signal Received",
+            "description": "Response when a signal is received from Notehub.",
+            "json": "{\"body\": {\"example-key\": \"example-value\"}, \"connected\": true}"
+        },
+        {
+            "title": "No Signals Available",
+            "description": "Response when no signals are available.",
+            "json": "{\"connected\": true, \"signals\": 0}"
+        },
+        {
+            "title": "Multiple Signals Queued",
+            "description": "Response with remaining queued signals.",
+            "json": "{\"body\": {\"data\": \"signal-data\"}, \"connected\": true, \"signals\": 3}"
+        }
+    ]
 }
