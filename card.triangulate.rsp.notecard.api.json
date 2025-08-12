@@ -4,16 +4,17 @@
     "title": "card.triangulate Response Application Programming Interface (API) Schema",
     "description": "Response containing triangulated location information and triangulation settings.",
     "type": "object",
-    "version": "0.1.2",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "motion": {
-            "description": "UNIX Epoch time of last detected Notecard movement.",
+            "description": "Time of last detected Notecard movement.",
             "type": "integer",
             "minimum": 0
         },
         "time": {
-            "description": "UNIX Epoch time of last triangulation scan.",
+            "description": "Time of last triangulation scan.",
             "type": "integer",
             "minimum": 0
         },
@@ -35,11 +36,17 @@
             "minimum": 0
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "title": "Example Response",
-            "description": "Response showing triangulation configuration and status.",
+            "title": "Complete Triangulation Response",
+            "description": "Response showing full triangulation configuration and status information.",
             "json": "{\"usb\":true,\"mode\":\"wifi,cell\",\"length\":443,\"on\":true,\"time\":1606755042,\"motion\":1606757487}"
+        },
+        {
+            "title": "Minimal Triangulation Response",
+            "description": "Response showing basic triangulation mode configuration.",
+            "json": "{\"mode\":\"cell\",\"on\":false}"
         }
     ]
 }

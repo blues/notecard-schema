@@ -127,6 +127,44 @@ def test_mode_only_response(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_invalid_additional_property(schema):
+    """Tests invalid response with additional property."""
+    instance = {"mode": "wifi,cell", "extra": "field"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_invalid_multiple_additional_properties(schema):
+    """Tests response with multiple additional properties (should fail)."""
+    instance = {
+        "mode": "wifi,cell",
+        "extra": "field",
+        "invalid": "property"
+    }
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
+
+def test_various_mode_combinations(schema):
+    """Tests various valid mode combinations."""
+    # Single modes
+    instance = {"mode": "cell"}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    instance = {"mode": "wifi"}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    # Combined modes
+    instance = {"mode": "wifi,cell"}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    instance = {"mode": "cell,wifi"}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    # Empty mode
+    instance = {"mode": ""}
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
