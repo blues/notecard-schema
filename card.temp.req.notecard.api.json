@@ -2,23 +2,31 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.temp.req.notecard.api.json",
     "title": "card.temp Request Application Programming Interface (API) Schema",
-    "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.",
+    "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.\n\nWhen using a Notecard Cellular or Notecard Cell+WiFi, if you connect a BME280 sensor on the I2C bus the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus the Notecard will add `temperature` and `pressure` fields to the response.",
     "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "properties": {
         "minutes": {
-            "description": "If specified, creates a templated _temp.qo file that gathers Notecard temperature value at the specified minutes interval",
+            "description": "If specified, creates a templated `_temp.qo` file that gathers Notecard temperature value at the specified minutes interval. _When using [card.aux track mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-track-mode), the sensor temperature, pressure, and humidity is also included with each Note._",
             "type": "integer"
         },
         "status": {
-            "description": "Overrides minutes with a voltage-variable value",
+            "description": "Overrides `minutes` with a voltage-variable value. For example: `\"usb:15;high:30;normal:60;720\"`. See [Voltage-Variable Sync Behavior](/notecard/notecard-walkthrough/low-power-design#voltage-variable-sync-behavior) for more information on configuring these values.",
             "type": "string"
         },
         "stop": {
-            "description": "If set to true, the Notecard will stop logging the temperature value at the interval specified with the minutes parameter",
+            "description": "If set to `true`, the Notecard will stop logging the temperature value at the interval specified with the `minutes` parameter (see above).",
             "type": "boolean"
         },
         "sync": {
-            "description": "If set to true, the Notecard will immediately sync any pending _temp.qo Notes created with the minutes parameter",
+            "description": "If set to `true`, the Notecard will immediately sync any pending `_temp.qo` Notes created with the `minutes` parameter (see above).",
             "type": "boolean"
         },
         "cmd": {
@@ -53,6 +61,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get Card Temperature",
+            "description": "Get current temperature from Notecard's onboard sensor.",
+            "json": "{\"req\": \"card.temp\"}"
+        },
+        {
+            "title": "Configure Temperature Tracking",
+            "description": "Set up automatic temperature logging at 30-minute intervals.",
+            "json": "{\"req\": \"card.temp\", \"minutes\": 30}"
+        },
+        {
+            "title": "Stop Temperature Tracking",
+            "description": "Stop automatic temperature logging.",
+            "json": "{\"cmd\": \"card.temp\", \"stop\": true}"
+        },
+        {
+            "title": "Sync Temperature Notes",
+            "description": "Immediately sync pending temperature notes.",
+            "json": "{\"cmd\": \"card.temp\", \"sync\": true}"
+        }
+    ]
 }
