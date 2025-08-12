@@ -2,21 +2,36 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.stats.rsp.notecard.api.json",
     "title": "file.stats Response Application Programming Interface (API) Schema",
+    "description": "Response containing resource statistics about local Notefiles.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "total": {
-            "description": "Total number of notes in the file",
-            "type": "integer"
-        },
         "changes": {
-            "description": "Number of changes to the file",
+            "description": "The number of Notes across all Notefiles pending sync.",
             "type": "integer"
         },
         "sync": {
-            "description": "Whether the file is synced with Notehub",
+            "description": "`true` if a sync is recommended based on the number of pending notes.",
             "type": "boolean"
+        },
+        "total": {
+            "description": "The total number of Notes across all Notefiles.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "File Statistics Response",
+            "description": "Response with resource statistics showing pending sync recommendation.",
+            "json": "{\"total\": 83, \"changes\": 78, \"sync\": true}"
+        },
+        {
+            "title": "No Pending Changes",
+            "description": "Response when no changes are pending sync.",
+            "json": "{\"total\": 25, \"changes\": 0, \"sync\": false}"
+        }
+    ]
 }
