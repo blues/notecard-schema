@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.sleep.rsp.notecard.api.json",
     "title": "card.sleep Response Application Programming Interface (API) Schema",
+    "description": "Response containing current sleep mode configuration for Notecard WiFi v2.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["WIFI"],
     "properties": {
         "on": {
             "description": "`true` if sleep mode is enabled.",
@@ -23,6 +25,7 @@
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "title": "Sleep Mode Status",

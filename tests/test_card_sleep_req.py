@@ -117,6 +117,20 @@ def test_valid_all_fields_cmd(schema):
     instance = {"cmd": "card.sleep", "off": True, "seconds": 30, "mode": "-accel"}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_req_invalid_value(schema):
+    """Tests invalid req value."""
+    instance = {"req": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.sleep' was expected" in str(excinfo.value)
+
+def test_cmd_invalid_value(schema):
+    """Tests invalid cmd value."""
+    instance = {"cmd": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.sleep' was expected" in str(excinfo.value)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "card.sleep", "extra": "field"}
