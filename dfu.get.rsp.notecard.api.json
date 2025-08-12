@@ -2,19 +2,33 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.rsp.notecard.api.json",
     "title": "dfu.get Response Application Programming Interface (API) Schema",
+    "description": "Response containing base64-encoded firmware data retrieved from the Notecard for use with host MCU firmware updates.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "payload": {
             "description": "A base64 string containing firmware data of the provided `length`.",
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Returns a base64 string containing firmware data of the provided `length`.",
+            "title": "Firmware Data Response",
+            "description": "Example response with base64-encoded firmware data.",
             "json": "{\"payload\": \"AAAAAAAAAAAAAAAAcy8ACIEvAAgAAAAAjy8ACJ0vAAg=\"}"
+        },
+        {
+            "title": "Empty Response",
+            "description": "Example response when verifying DFU mode with length 0.",
+            "json": "{}"
+        },
+        {
+            "title": "Small Data Block",
+            "description": "Example response with a small firmware data block.",
+            "json": "{\"payload\": \"dGVzdGZpcm13YXJlZGF0YQ==\"}"
         }
     ]
 }

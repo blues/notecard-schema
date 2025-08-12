@@ -6,6 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "length": {
             "description": "The number of bytes of firmware data to read and return to the host. Set to `0` to verify that the Notecard is in DFU mode without attempting to retrieve data.",
@@ -47,16 +48,27 @@
         }
     ],
     "additionalProperties": false,
-    "samples": [
-        {
-            "description": "Retrieves 32 bytes of firmware data from the Notecard, with an offset of 32 bytes.",
-            "json": "{\"req\": \"dfu.get\", \"length\": 32, \"offset\": 32}"
-        }
-    ],
     "annotations": [
         {
             "title": "note",
-            "description": "This request is functional only when the Notecard has been set to `dfu` mode with a `hub.set`, `mode:dfu` request."
+            "description": "This request is functional only when the Notecard has been set to `dfu` mode with a `hub.set, mode:dfu` request."
+        }
+    ],
+    "samples": [
+        {
+            "title": "Retrieve Firmware Data",
+            "description": "Retrieve 32 bytes of firmware data from the Notecard with an offset of 32 bytes.",
+            "json": "{\"req\": \"dfu.get\", \"length\": 32, \"offset\": 32}"
+        },
+        {
+            "title": "Verify DFU Mode",
+            "description": "Verify that the Notecard is in DFU mode without retrieving data.",
+            "json": "{\"req\": \"dfu.get\", \"length\": 0}"
+        },
+        {
+            "title": "Read First Block",
+            "description": "Read the first 1024 bytes of firmware data from the beginning.",
+            "json": "{\"req\": \"dfu.get\", \"length\": 1024, \"offset\": 0}"
         }
     ]
 }

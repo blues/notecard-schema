@@ -40,10 +40,12 @@ def test_payload_invalid_type_array(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'string'" in str(excinfo.value)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property (allowed by default)."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
     instance = {"payload": "dGVzdA==", "extra": 123}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
