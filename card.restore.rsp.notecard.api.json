@@ -2,8 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restore.rsp.notecard.api.json",
     "title": "card.restore Response Application Programming Interface (API) Schema",
+    "description": "Response from the Notecard factory reset command. The response is typically empty as the reset and restart occur immediately.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Empty Factory Reset Response",
+            "description": "Typical empty response before Notecard factory reset and restart.",
+            "json": "{}"
+        }
+    ]
 }
