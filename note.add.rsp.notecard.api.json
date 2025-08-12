@@ -2,13 +2,33 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.add.rsp.notecard.api.json",
     "title": "note.add Response Application Programming Interface (API) Schema",
+    "description": "Response containing information about the added Note.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "note": {
-            "description": "ID of the added note",
-            "type": "string"
+        "total": {
+            "description": "The total number of Notes in the Notefile.",
+            "type": "integer"
+        },
+        "template": {
+            "description": "`true` when a template is active on the Notefile.",
+            "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "required": ["total"],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Basic Add Response",
+            "description": "Response showing total notes after adding to a Notefile.",
+            "json": "{\"total\": 12}"
+        },
+        {
+            "title": "Add Response with Template Active",
+            "description": "Response when adding to a templated Notefile.",
+            "json": "{\"total\": 8, \"template\": true}"
+        }
+    ]
 }
