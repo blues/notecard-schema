@@ -4,99 +4,186 @@
     "title": "hub.set Request Application Programming Interface (API) Schema",
     "description": "The hub.set request is the primary method for controlling the Notecard's Notehub connection and sync behavior.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "product": {
-            "description": "Product identifier",
-            "type": "string"
-        },
-        "host": {
-            "description": "Host address",
-            "type": "string"
-        },
-        "mode": {
-            "description": "Hub mode (periodic, continuous, minimum, off)",
-            "type": "string",
-            "enum": [
-                "continuous",
-                "periodic",
-                "minimum",
-                "off"
-            ]
-        },
-        "sn": {
-            "description": "Serial number",
-            "type": "string"
-        },
-        "outbound": {
-            "description": "Outbound data period in seconds",
-            "type": "integer"
-        },
-        "duration": {
-            "description": "Duration of the outbound period in seconds",
-            "type": "integer"
-        },
-        "voutbound": {
-            "description": "Voltage-variable outbound period",
-            "type": "string"
-        },
-        "inbound": {
-            "description": "Inbound data period in seconds",
-            "type": "integer"
-        },
-        "vinbound": {
-            "description": "Voltage-variable inbound period",
-            "type": "string"
-        },
         "align": {
-            "description": "Whether to align the inbound and outbound periods",
+            "description": "Use `true` to align syncs on a regular time-periodic cycle.",
             "type": "boolean"
-        },
-        "sync": {
-            "description": "Whether to sync immediately",
-            "type": "boolean"
-        },
-        "on": {
-            "description": "Whether to turn on the hub",
-            "type": "boolean"
-        },
-        "seconds": {
-            "description": "Number of seconds to wait before turning off",
-            "type": "integer"
-        },
-        "off": {
-            "description": "Whether to turn off the hub",
-            "type": "boolean"
-        },
-        "uperiodic": {
-            "description": "Microseconds for periodic mode",
-            "type": "integer"
-        },
-        "umin": {
-            "description": "Microseconds for minimum mode",
-            "type": "integer"
-        },
-        "uoff": {
-            "description": "Microseconds for off mode",
-            "type": "integer"
-        },
-        "details": {
-            "description": "Whether to include details in the response",
-            "type": "boolean"
-        },
-        "version": {
-            "description": "Version information",
-            "type": [
-                "string",
-                "object"
-            ]
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "hub.set"
         },
+        "details": {
+            "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. Use `\"-\"` to reset a Notecard's LoRaWAN details to its default values.",
+            "skus": ["LORA"],
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "deveui": {
+                            "type": "string",
+                            "pattern": "^[0-9A-Fa-f]+$"
+                        },
+                        "appeui": {
+                            "type": "string", 
+                            "pattern": "^[0-9A-Fa-f]+$"
+                        },
+                        "appkey": {
+                            "type": "string",
+                            "pattern": "^[0-9A-Fa-f]+$"
+                        }
+                    },
+                    "required": ["deveui", "appeui", "appkey"],
+                    "additionalProperties": false
+                },
+                {
+                    "const": "-"
+                }
+            ]
+        },
+        "duration": {
+            "description": "When in `continuous` mode, the amount of time, in minutes, of each session (the minimum allowed value is `15`).",
+            "type": "integer",
+            "minimum": 15
+        },
+        "host": {
+            "description": "The URL of the Notehub service. Use `\"-\"` to reset to the default value.",
+            "type": "string"
+        },
+        "inbound": {
+            "description": "The max wait time, in minutes, to sync inbound data from Notehub. Use `-1` to reset the value back to its default of `0`. A value of `0` means that the Notecard will never sync inbound data unless explicitly told to do so.",
+            "type": "integer",
+            "minimum": -1
+        },
+        "mode": {
+            "description": "The Notecard's synchronization mode.",
+            "type": "string",
+            "enum": ["periodic", "continuous", "minimum", "off", "dfu"],
+            "sub-descriptions": [
+                {
+                    "const": "periodic",
+                    "description": "Periodically connect to the Notehub. This is the default value set on each Notecard after a factory reset."
+                },
+                {
+                    "const": "continuous", 
+                    "description": "Enables an always-on network connection, for high power devices. Outbound data still syncs periodically, unless specified in a Note or File request."
+                },
+                {
+                    "const": "minimum",
+                    "description": "Disables periodic connection. The Notecard will not sync until it receives an explicit `hub.sync` request. OTA DFU updates are not available when using this mode."
+                },
+                {
+                    "const": "off",
+                    "description": "Disables automatic and manual syncs. `hub.sync` requests will be ignored in this mode. OTA DFU updates are not available when using this mode."
+                },
+                {
+                    "const": "dfu",
+                    "description": "Puts the Notecard in DFU mode for IAP host MCU firmware updates. This mode is effectively the same as `off` in terms of the Notecard's network and Notehub connections."
+                }
+            ]
+        },
+        "off": {
+            "description": "Set to `true` to manually instruct the Notecard to resume periodic mode after a web transaction has completed.",
+            "type": "boolean"
+        },
+        "on": {
+            "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.",
+            "type": "boolean"
+        },
+        "outbound": {
+            "description": "The max wait time, in minutes, to sync outbound data from the Notecard. Use `-1` to reset the value back to its default of `0`. A value of `0` means that the Notecard will never sync outbound data unless explicitly told to do so.",
+            "type": "integer",
+            "minimum": -1
+        },
+        "product": {
+            "description": "A Notehub-managed unique identifier that is used to match Devices with Projects.",
+            "type": "string"
+        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "hub.set"
+        },
+        "seconds": {
+            "description": "If in `periodic` mode and using `on` above, the number of seconds to run in continuous mode before switching back to periodic mode. If not set, a default of 300 seconds is used.",
+            "type": "integer"
+        },
+        "sn": {
+            "description": "The end product's serial number.",
+            "type": "string"
+        },
+        "sync": {
+            "description": "If in `continuous` mode, automatically and immediately sync each time an inbound Notefile change is detected on Notehub.\n\n**NOTE:** The `sync` argument is not supported when a Notecard is in NTN mode.",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "type": "boolean"
+        },
+        "umin": {
+            "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `minimum` mode when disconnected.",
+            "type": "boolean"
+        },
+        "uoff": {
+            "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `off` mode when disconnected.",
+            "type": "boolean"
+        },
+        "uperiodic": {
+            "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `periodic` mode when disconnected.",
+            "type": "boolean"
+        },
+        "version": {
+            "description": "The version of your host firmware. You may pass a simple version number string, or an object with detailed information about the firmware image.",
+            "oneOf": [
+                {
+                    "type": "string"
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "org": {
+                            "type": "string"
+                        },
+                        "product": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "version": {
+                            "type": "string"
+                        },
+                        "built": {
+                            "type": "string"
+                        },
+                        "ver_major": {
+                            "type": "integer"
+                        },
+                        "ver_minor": {
+                            "type": "integer"
+                        },
+                        "ver_patch": {
+                            "type": "integer"
+                        },
+                        "ver_build": {
+                            "type": "integer"
+                        },
+                        "builder": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            ]
+        },
+        "vinbound": {
+            "description": "Overrides `inbound` with a voltage-variable value. Use `\"-\"` to clear this value.\n\n**NOTE:** Setting voltage-variable values is not supported on Notecard XP.",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "type": "string"
+        },
+        "voutbound": {
+            "description": "Overrides `outbound` with a voltage-variable value. Use `\"-\"` to clear this value.\n\n**NOTE:** Setting voltage-variable values is not supported on Notecard XP.",
+            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "type": "string"
         }
     },
     "oneOf": [
@@ -122,6 +209,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Set ProductUID",
+            "description": "Change device ProductUID and serial number.",
+            "json": "{\"req\": \"hub.set\", \"product\": \"com.your-company.your-name:your_product\", \"sn\": \"my-device\"}"
+        },
+        {
+            "title": "Periodic Mode",
+            "description": "Configure periodic mode with outbound and inbound sync timing.",
+            "json": "{\"req\": \"hub.set\", \"mode\": \"periodic\", \"product\": \"com.your-company.your-name:your_product\", \"outbound\": 90, \"inbound\": 240}"
+        },
+        {
+            "title": "Continuous Mode",
+            "description": "Configure continuous mode with session duration and automatic sync.",
+            "json": "{\"req\": \"hub.set\", \"mode\": \"continuous\", \"product\": \"com.your-company.your-name:your_product\", \"outbound\": 30, \"inbound\": 60, \"duration\": 240, \"sync\": true}"
+        },
+        {
+            "title": "Voltage-Variable Sync",
+            "description": "Configure voltage-dependent synchronization periods.",
+            "json": "{\"req\": \"hub.set\", \"mode\": \"periodic\", \"voutbound\": \"usb:30;high:60;normal:90;low:120;dead:0\", \"vinbound\": \"usb:60;high:120;normal:240;low:480;dead:0\"}"
+        }
+    ]
 }
