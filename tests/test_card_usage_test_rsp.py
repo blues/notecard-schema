@@ -193,6 +193,13 @@ def test_large_values_valid(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
+    instance = {"max": 12730, "extra": "field"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

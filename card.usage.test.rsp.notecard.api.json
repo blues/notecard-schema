@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.rsp.notecard.api.json",
     "title": "card.usage.test Response Application Programming Interface (API) Schema",
+    "description": "Response containing data usage projection and analysis results.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "max": {
             "description": "The days of projected data available based on test.",
@@ -23,7 +25,7 @@
             "type": "integer"
         },
         "time": {
-            "description": "Time of device activation (UNIX Epoch time).",
+            "description": "Time of device activation.",
             "type": "integer"
         },
         "bytes_sent": {
@@ -51,10 +53,17 @@
             "type": "integer"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Example Response",
+            "title": "Complete Usage Test Results",
+            "description": "Example response showing comprehensive usage projection data.",
             "json": "{\"max\": 12730, \"days\": 7, \"bytes_per_day\": 41136, \"seconds\": 1291377, \"time\": 1598479763, \"bytes_sent\": 163577, \"bytes_received\": 454565, \"notes_sent\": 114, \"notes_received\": 26, \"sessions_standard\": 143, \"sessions_secure\": 31}"
+        },
+        {
+            "title": "Basic Projection Results",
+            "description": "Example response with essential projection metrics.",
+            "json": "{\"max\": 1825, \"days\": 30, \"bytes_per_day\": 56832, \"seconds\": 2592000, \"time\": 1700000000}"
         }
     ]
 }
