@@ -2,65 +2,63 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.status.rsp.notecard.api.json",
     "title": "card.status Response Application Programming Interface (API) Schema",
+    "description": "Response containing general information about the Notecard's operating status.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "status": {
-            "description": "General status information",
+            "description": "General status information.",
             "type": "string"
         },
         "usb": {
-            "description": "`true`, if the Notecard is being powered by USB",
+            "description": "`true` if the Notecard is being powered by USB.",
             "type": "boolean"
         },
         "storage": {
-            "description": "The percentage of storage in use on the Notecard",
+            "description": "The percentage of storage in use on the Notecard.",
             "type": "integer"
         },
         "time": {
-            "description": "The UNIX Epoch Time of approximately when the Notecard was first powered up",
+            "description": "The UNIX Epoch Time of approximately when the Notecard was first powered up.",
             "type": "integer"
         },
         "connected": {
-            "description": "`true`, if the Notecard is connected to the Notehub",
+            "description": "`true` if connected to Notehub.",
             "type": "boolean"
         },
         "cell": {
-            "description": "`true`, if the Notecard has a cellular connection",
+            "description": "`true` if the modem is currently powered on.",
             "type": "boolean"
         },
         "gps": {
-            "description": "`true`, if Notecard's GPS module is currently powered on",
+            "description": "`true` if Notecard's GPS module is currently powered on.",
             "type": "boolean"
         },
         "wifi": {
-            "description": "`true`, if the Notecard's Wi-Fi radio is currently powered on",
+            "description": "`true` if the Notecard's Wi-Fi radio is currently powered on.",
             "type": "boolean"
         },
         "sync": {
-            "description": "`true`, if the Notecard is currently syncing with the Notehub",
+            "description": "`true` if the Notecard has ever connected to Notehub.",
             "type": "boolean"
         },
         "inbound": {
-            "description": "The effective inbound synchronization period being used by the device",
+            "description": "The effective inbound synchronization period being used by the device. See [Configuring Synchronization Modes](/notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work.",
             "type": "integer"
         },
         "outbound": {
-            "description": "The effective outbound synchronization period being used by the device",
+            "description": "The effective outbound synchronization period being used by the device. See [Configuring Synchronization Modes](/notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work.",
             "type": "integer"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Get Notecard Status Response",
+            "title": "Notecard Status Response",
+            "description": "Example response showing Notecard operating status information.",
             "json": "{\"status\": \"{normal}\", \"usb\": true, \"storage\": 8, \"time\": 1599684765, \"connected\": true, \"cell\": true, \"sync\": true, \"inbound\": 60, \"outbound\": 360}"
-        }
-    ],
-    "annotations": [
-        {
-            "title": "note",
-            "description": "See [Configuring Synchronization Modes](notecard/notecard-walkthrough/essential-requests/#configuring-synchronization-modes) for details on how Notecard synchronization modes work regarding the `inbound` and `outbound` fields."
         }
     ]
 }
