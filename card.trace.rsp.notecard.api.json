@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.trace.rsp.notecard.api.json",
+    "title": "card.trace Response Application Programming Interface (API) Schema",
+    "description": "Response from trace mode configuration request. Returns an empty object upon successful completion.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Trace Mode Configuration Response",
+            "description": "Standard response after successfully enabling or disabling trace mode.",
+            "json": "{}"
+        }
+    ]
+}
