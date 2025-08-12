@@ -17,6 +17,7 @@
             "type": "boolean"
         }
     },
+    "required": ["total"],
     "additionalProperties": false,
     "samples": [
         {
@@ -28,11 +29,6 @@
             "title": "Add Response with Template Active",
             "description": "Response when adding to a templated Notefile.",
             "json": "{\"total\": 8, \"template\": true}"
-        },
-        {
-            "title": "Empty Response",
-            "description": "Minimal response when no additional information is provided.",
-            "json": "{}"
         }
     ]
 }

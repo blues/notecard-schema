@@ -5,8 +5,8 @@ import json
 SCHEMA_FILE = "note.add.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with required total field."""
+    instance = {"total": 1}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_total_field(schema):
@@ -16,10 +16,10 @@ def test_valid_total_field(schema):
 
 def test_valid_template_field(schema):
     """Tests valid template field."""
-    instance = {"template": True}
+    instance = {"total": 10, "template": True}
     jsonschema.validate(instance=instance, schema=schema)
     
-    instance = {"template": False}
+    instance = {"total": 5, "template": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 
@@ -79,28 +79,28 @@ def test_total_valid_negative(schema):
 
 def test_template_invalid_type_string(schema):
     """Tests invalid string type for template."""
-    instance = {"template": "true"}
+    instance = {"total": 1, "template": "true"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'true' is not of type 'boolean'" in str(excinfo.value)
 
 def test_template_invalid_type_integer(schema):
     """Tests invalid integer type for template."""
-    instance = {"template": 1}
+    instance = {"total": 1, "template": 1}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
 
 def test_template_invalid_type_array(schema):
     """Tests invalid array type for template."""
-    instance = {"template": [True]}
+    instance = {"total": 1, "template": [True]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
 def test_template_invalid_type_object(schema):
     """Tests invalid object type for template."""
-    instance = {"template": {"active": True}}
+    instance = {"total": 1, "template": {"active": True}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
@@ -108,7 +108,7 @@ def test_template_invalid_type_object(schema):
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
-    instance = {"extra": 123}
+    instance = {"total": 1, "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -137,13 +137,14 @@ def test_invalid_common_additional_properties(schema):
     ]
     
     for field_dict in invalid_fields:
+        field_dict["total"] = 1  # Add required field
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
         assert "Additional properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests that multiple additional properties are not allowed."""
-    instance = {"status": "ok", "message": "added", "extra": True}
+    instance = {"total": 1, "status": "ok", "message": "added", "extra": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -189,6 +190,20 @@ def test_additional_properties_false(schema):
     # Verify schema has additionalProperties: false
     assert schema.get("additionalProperties") is False
 
+def test_empty_response_invalid(schema):
+    """Tests that empty response is invalid due to required total field."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'total' is a required property" in str(excinfo.value)
+
+def test_template_only_invalid(schema):
+    """Tests that response with only template field is invalid."""
+    instance = {"template": True}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'total' is a required property" in str(excinfo.value)
+
 def test_strict_validation(schema):
     """Tests that schema enforces strict validation."""
     # Any additional property should be rejected
@@ -200,7 +215,7 @@ def test_strict_validation(schema):
     ]
     
     for prop in properties_to_test:
-        instance = {prop: "test"}
+        instance = {"total": 1, prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=instance, schema=schema)
         assert "Additional properties are not allowed" in str(excinfo.value)
@@ -209,7 +224,6 @@ def test_field_combinations(schema):
     """Tests various valid field combinations."""
     combinations = [
         {"total": 1},
-        {"template": True},
         {"total": 5, "template": False},
         {"total": 0, "template": True}
     ]
@@ -225,8 +239,8 @@ def test_edge_case_values(schema):
         {"total": 0},  # Minimum reasonable value
         
         # Boolean values
-        {"template": True},
-        {"template": False},
+        {"total": 1, "template": True},
+        {"total": 0, "template": False},
         
     ]
     
