@@ -2,8 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.log.rsp.notecard.api.json",
     "title": "hub.log Response Application Programming Interface (API) Schema",
+    "description": "Response from logging a device health message to Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {},
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Empty Response",
+            "description": "Successful response with no content.",
+            "json": "{}"
+        }
+    ]
 }

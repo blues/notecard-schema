@@ -4,17 +4,12 @@
     "title": "hub.log Request Application Programming Interface (API) Schema",
     "description": "Add a \"device health\" log message to send to Notehub on the next sync via the _health_host.qo Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "text": {
-            "description": "Text to log",
-            "type": "string"
-        },
         "alert": {
-            "description": "Whether this is an alert message",
-            "type": "boolean"
-        },
-        "sync": {
-            "description": "Whether to sync this log message immediately",
+            "description": "`true` if the message is urgent. This doesn't change any functionality, but rather `alert` is provided as a convenient flag to use in your program logic.",
             "type": "boolean"
         },
         "cmd": {
@@ -24,6 +19,14 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "hub.log"
+        },
+        "sync": {
+            "description": "`true` if a sync should be initiated immediately. Setting `true` will also remove the Notecard from certain types of penalty boxes.",
+            "type": "boolean"
+        },
+        "text": {
+            "description": "Text to log.",
+            "type": "string"
         }
     },
     "oneOf": [
@@ -49,6 +52,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Log Health Alert with Immediate Sync",
+            "description": "Log an urgent health alert and sync immediately.",
+            "json": "{\"req\": \"hub.log\", \"text\": \"something is wrong!\", \"alert\": true, \"sync\": true}"
+        },
+        {
+            "title": "Log Simple Message",
+            "description": "Log a simple text message.",
+            "json": "{\"req\": \"hub.log\", \"text\": \"System status: normal\"}"
+        }
+    ]
 }
