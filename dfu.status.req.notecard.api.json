@@ -4,44 +4,54 @@
     "title": "dfu.status Request Application Programming Interface (API) Schema",
     "description": "Gets and sets the background download status of MCU host or Notecard firmware updates.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "name": {
-            "description": "Determines which type of firmware update status to view",
+            "description": "Determines which type of firmware update status to view. The value can be `\"user\"` (default), which gets the status of MCU host firmware updates, or `\"card\"`, which gets the status of Notecard firmware updates.",
             "type": "string",
             "enum": [
                 "user",
                 "card"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "user",
+                    "description": "Gets the status of MCU host firmware updates (default)."
+                },
+                {
+                    "const": "card",
+                    "description": "Gets the status of Notecard firmware updates."
+                }
             ]
         },
         "stop": {
-            "description": "Clear DFU state and delete the local firmware image from the Notecard",
+            "description": "`true` to clear DFU state and delete the local firmware image from the Notecard.",
             "type": "boolean"
         },
         "status": {
-            "description": "Optional string synchronized to Notehub, which can be used for informational or diagnostic purposes",
+            "description": "When setting `stop` to `true`, an optional string synchronized to Notehub, which can be used for informational or diagnostic purposes.",
             "type": "string"
         },
         "version": {
-            "description": "Version information on the host firmware to pass to Notehub",
-            "type": [
-                "string",
-                "object"
-            ]
+            "description": "Version information on the host firmware to pass to Notehub. You may pass a simple version number string (e.g. `\"1.0.0.0\"`), or an object with detailed information about the firmware image (recommended).",
+            "type": ["string", "object"]
         },
         "vvalue": {
-            "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled",
+            "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled. Use a boolean `1` (on) or `0` (off) for each source/voltage level: `usb:<1/0>;high:<1/0>;normal:<1/0>;low:<1/0>;dead:0`.",
             "type": "string"
         },
         "on": {
-            "description": "Allow firmware downloads from Notehub",
+            "description": "`true` to allow firmware downloads from Notehub.",
             "type": "boolean"
         },
         "off": {
-            "description": "Disable firmware downloads from Notehub",
+            "description": "`true` to disable firmware downloads from Notehub.",
             "type": "boolean"
         },
         "err": {
-            "description": "Sets the host DFU to an error state with the specified string",
+            "description": "If `err` text is provided along with `\"stop\":true`, this sets the host DFU to an error state with the specified string.",
             "type": "string"
         },
         "cmd": {
@@ -76,6 +86,36 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Enable DFU Downloads",
+            "description": "Enable firmware downloads from Notehub.",
+            "json": "{\"req\": \"dfu.status\", \"on\": true}"
+        },
+        {
+            "title": "Disable DFU Downloads",
+            "description": "Disable firmware downloads from Notehub.",
+            "json": "{\"req\": \"dfu.status\", \"off\": true}"
+        },
+        {
+            "title": "Voltage-Variable Enable",
+            "description": "Enable DFU downloads only when USB-powered or high voltage.",
+            "json": "{\"req\": \"dfu.status\", \"vvalue\": \"usb:1;high:1;normal:0;low:0;dead:0\"}"
+        },
+        {
+            "title": "Check Notecard DFU Status",
+            "description": "Get the status of Notecard firmware updates.",
+            "json": "{\"req\": \"dfu.status\", \"name\": \"card\"}"
+        },
+        {
+            "title": "Stop DFU with Status",
+            "description": "Clear DFU state and provide status information.",
+            "json": "{\"req\": \"dfu.status\", \"stop\": true, \"status\": \"Update cancelled by user\"}"
+        },
+        {
+            "title": "Set Version Information",
+            "description": "Provide version information for host firmware.",
+            "json": "{\"req\": \"dfu.status\", \"version\": \"1.2.4\"}"
+        }
+    ]
 }
