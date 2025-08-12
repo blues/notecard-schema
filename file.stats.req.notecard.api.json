@@ -4,14 +4,17 @@
     "title": "file.stats Request Application Programming Interface (API) Schema",
     "description": "Gets resource statistics about local Notefiles.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "file": {
-            "description": "Optional file to get stats for",
-            "type": "string"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "file.stats"
+        },
+        "file": {
+            "description": "Returns the stats for the specified Notefile only.",
+            "type": "string"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -41,6 +44,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get All File Stats",
+            "description": "Get resource statistics for all Notefiles.",
+            "json": "{\"req\": \"file.stats\"}"
+        },
+        {
+            "title": "Get Specific File Stats",
+            "description": "Get resource statistics for a specific Notefile.",
+            "json": "{\"req\": \"file.stats\", \"file\": \"sensors.qo\"}"
+        }
+    ]
 }
