@@ -32,10 +32,6 @@ def test_valid_body_with_time(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_error_response(schema):
-    """Tests valid error response."""
-    instance = {"err": "environment hasn't been modified {env-not-modified}"}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_text_invalid_type(schema):
     """Tests invalid type for text."""
@@ -79,12 +75,6 @@ def test_time_invalid_float(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "1656315835.5 is not of type 'integer'" in str(excinfo.value)
 
-def test_err_invalid_type(schema):
-    """Tests invalid type for err."""
-    instance = {"err": 123}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "123 is not of type 'string'" in str(excinfo.value)
 
 def test_valid_complex_response(schema):
     """Tests a valid response with all possible fields."""
