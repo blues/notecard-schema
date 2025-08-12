@@ -4,14 +4,14 @@
     "title": "card.temp Request Application Programming Interface (API) Schema",
     "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.\n\nWhen using a Notecard Cellular or Notecard Cell+WiFi, if you connect a BME280 sensor on the I2C bus the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus the Notecard will add `temperature` and `pressure` fields to the response.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
         "LORA",
         "WIFI"
     ],
-    "version": "0.2.1",
-    "apiVersion": "9.1.1",
     "properties": {
         "minutes": {
             "description": "If specified, creates a templated `_temp.qo` file that gathers Notecard temperature value at the specified minutes interval. _When using [card.aux track mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-track-mode), the sensor temperature, pressure, and humidity is also included with each Note._",

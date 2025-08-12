@@ -2,10 +2,10 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.rsp.notecard.api.json",
     "title": "card.location Response Application Programming Interface (API) Schema",
+    "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-    "type": "object",
     "properties": {
         "status": {
             "description": "The current status of the Notecard GPS/GNSS connection.",
@@ -45,6 +45,7 @@
             "type": "number"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "title": "GPS Location Response",

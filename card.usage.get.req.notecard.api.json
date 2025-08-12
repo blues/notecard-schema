@@ -4,13 +4,13 @@
     "title": "card.usage.get Request Application Programming Interface (API) Schema",
     "description": "Returns the card's network usage statistics.",
     "type": "object",
-    "skus": [
-        "CELL",
-        "CELL+WIFI", 
-        "WIFI"
-    ],
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The time period to use for statistics. Must be one of:\n\n`\"total\"` for all stats since the Notecard was activated.\n\n`\"1hour\"`\n\n`\"1day\"`\n\n`\"30day\"`",
@@ -32,7 +32,7 @@
                     "description": "Statistics for the last hour period."
                 },
                 {
-                    "const": "1day", 
+                    "const": "1day",
                     "description": "Statistics for the last day period."
                 },
                 {
