@@ -2,27 +2,30 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.changes.req.notecard.api.json",
     "title": "file.changes Request Application Programming Interface (API) Schema",
-    "description": "Used to perform queries on a single or multiple files to determine if new Notes are available to read, or if there are unsynced Notes in local Notefiles.",
+    "description": "The file.changes request performs queries on a single or multiple files to determine if new Notes are available to read, or if there are unsynced Notes in local Notefiles.\n\n*Note: This request is a Notefile API request, only. `.qo` Notes in Notehub are automatically ingested and stored, or sent to applicable Routes.*",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "file.changes"
+        },
         "files": {
-            "description": "One or more files to obtain change information from",
+            "description": "An array of Notefile names to obtain change information from. If not specified, queries all Notefiles.",
             "type": "array",
             "items": {
                 "type": "string"
             }
         },
-        "tracker": {
-            "description": "ID of a change tracker to use to determine changes to Notefiles",
-            "type": "string"
-        },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "file.changes"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "file.changes"
+        },
+        "tracker": {
+            "description": "An ID string for a change tracker to use to determine changes to Notefiles. Each tracker maintains its own state for monitoring file changes.",
+            "type": "string"
         }
     },
     "oneOf": [
@@ -48,6 +51,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Check All Files",
+            "description": "Check all Notefiles for changes without specifying files or tracker.",
+            "json": "{\"req\": \"file.changes\"}"
+        },
+        {
+            "title": "Check Specific Files",
+            "description": "Check specific Notefiles for changes.",
+            "json": "{\"req\": \"file.changes\", \"files\": [\"sensors.qo\", \"data.qo\"]}"
+        },
+        {
+            "title": "Use Change Tracker",
+            "description": "Use a change tracker to monitor file changes over time.",
+            "json": "{\"req\": \"file.changes\", \"tracker\": \"my-tracker\"}"
+        },
+        {
+            "title": "Tracker with Specific Files",
+            "description": "Combine change tracker with specific file monitoring.",
+            "json": "{\"req\": \"file.changes\", \"files\": [\"sensors.qo\"], \"tracker\": \"sensor-tracker\"}"
+        }
+    ]
 }
