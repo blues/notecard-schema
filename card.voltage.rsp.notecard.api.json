@@ -2,49 +2,73 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.voltage.rsp.notecard.api.json",
     "title": "card.voltage Response Application Programming Interface (API) Schema",
+    "description": "Response containing current voltage information and historical trend analysis.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "mode": {
-            "description": "The current voltage threshold mode",
+            "description": "The current voltage-variable threshold value returned from Notecard.",
             "type": "string"
         },
         "usb": {
-            "description": "Whether the Notecard is being powered by USB",
+            "description": "`true` if the Notecard is connected to USB power.",
             "type": "boolean"
         },
         "value": {
-            "description": "Current voltage in volts",
+            "description": "The current voltage.",
             "type": "number"
         },
-        "vref": {
-            "description": "Reference voltage in volts",
+        "hours": {
+            "description": "The number of hours used for trend analysis.",
+            "type": "integer"
+        },
+        "vmin": {
+            "description": "The lowest voltage value captured during the measurement period.",
             "type": "number"
         },
         "vmax": {
-            "description": "Maximum voltage threshold",
+            "description": "The highest voltage value captured during the measurement period.",
             "type": "number"
         },
-        "vmin": {
-            "description": "Minimum voltage threshold",
+        "vavg": {
+            "description": "The average voltage value during the measured period.",
             "type": "number"
         },
-        "vhigh": {
-            "description": "High voltage threshold",
+        "daily": {
+            "description": "Change of moving average in the last 24 hours, if relevant to the time period analyzed.",
             "type": "number"
         },
-        "vnormal": {
-            "description": "Normal voltage threshold",
+        "weekly": {
+            "description": "Change of moving average in the last 7 days, if relevant to the time period analyzed.",
             "type": "number"
         },
-        "vlow": {
-            "description": "Low voltage threshold",
+        "monthly": {
+            "description": "Change of moving average in the last 30 days, if relevant to the time period analyzed.",
             "type": "number"
         },
-        "vdead": {
-            "description": "Dead voltage threshold",
-            "type": "number"
+        "minutes": {
+            "description": "Represents the Notecard's uptime in minutes. This field is not present when the device is powered via USB.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "USB-Powered Voltage Response",
+            "description": "Example response when Notecard is powered via USB.",
+            "json": "{\"usb\": true, \"hours\": 120, \"mode\": \"usb\", \"value\": 5.112190219747135, \"vmin\": 4, \"vmax\": 4, \"vavg\": 4}"
+        },
+        {
+            "title": "Battery-Powered with Trends",
+            "description": "Example response showing battery voltage with trend analysis.",
+            "json": "{\"mode\": \"normal\", \"usb\": false, \"value\": 3.85, \"hours\": 720, \"vmin\": 3.2, \"vmax\": 4.1, \"vavg\": 3.75, \"daily\": -0.05, \"weekly\": -0.3, \"monthly\": -0.8, \"minutes\": 43200}"
+        },
+        {
+            "title": "Minimal Response",
+            "description": "Example minimal response with current voltage only.",
+            "json": "{\"value\": 3.92}"
+        }
+    ]
 }

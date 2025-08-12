@@ -36,7 +36,7 @@ def test_usb_invalid_type(schema):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["value", "vref", "vmax", "vmin", "vhigh", "vnormal", "vlow", "vdead"]
+    ["value", "vmin", "vmax", "vavg", "daily", "weekly", "monthly"]
 )
 def test_valid_number_field(schema, field_name):
     """Tests valid number type for various voltage fields."""
@@ -51,7 +51,7 @@ def test_valid_number_field(schema, field_name):
 
 @pytest.mark.parametrize(
     "field_name",
-    ["value", "vref", "vmax", "vmin", "vhigh", "vnormal", "vlow", "vdead"]
+    ["value", "vmin", "vmax", "vavg", "daily", "weekly", "monthly"]
 )
 def test_invalid_type_for_number_field(schema, field_name):
     """Tests invalid type for various voltage fields."""
@@ -63,20 +63,61 @@ def test_invalid_type_for_number_field(schema, field_name):
 def test_valid_all_fields(schema):
     """Tests a valid response with all fields."""
     instance = {
-        "mode": "default",
+        "mode": "normal",
         "usb": False,
-        "value": 4.01,
-        "vref": 3.3,
-        "vmax": 5.5,
-        "vmin": 2.8,
-        "vhigh": 4.5,
-        "vnormal": 3.5,
-        "vlow": 3.0,
-        "vdead": 2.5
+        "value": 3.85,
+        "hours": 720,
+        "vmin": 3.2,
+        "vmax": 4.1,
+        "vavg": 3.75,
+        "daily": -0.05,
+        "weekly": -0.3,
+        "monthly": -0.8,
+        "minutes": 43200
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property."""
-    instance = {"value": 4.1, "status": "ok"}
+def test_valid_hours_field(schema):
+    """Tests valid hours field."""
+    instance = {"hours": 120}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_hours_invalid_type(schema):
+    """Tests invalid type for hours field."""
+    instance = {"hours": "120"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'120' is not of type 'integer'" in str(excinfo.value)
+
+def test_valid_minutes_field(schema):
+    """Tests valid minutes field."""
+    instance = {"minutes": 43200}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_minutes_invalid_type(schema):
+    """Tests invalid type for minutes field."""
+    instance = {"minutes": "43200"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'43200' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
+    instance = {"value": 4.1, "status": "ok"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    import json
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
