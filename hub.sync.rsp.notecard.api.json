@@ -2,13 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.sync.rsp.notecard.api.json",
     "title": "hub.sync Response Application Programming Interface (API) Schema",
+    "description": "Response from manually initiating a sync with Notehub.",
     "type": "object",
-    "properties": {
-        "result": {
-            "description": "Empty object returned on success",
-            "type": "object"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Empty Response",
+            "description": "Successful response with no content.",
+            "json": "{}"
         }
-    },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    ]
 }

@@ -4,22 +4,25 @@
     "title": "hub.sync Request Application Programming Interface (API) Schema",
     "description": "Manually initiates a sync with Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "allow": {
-            "description": "Whether to allow the sync to proceed",
-            "type": "boolean"
-        },
-        "out": {
-            "description": "Whether to sync outbound data",
-            "type": "boolean"
-        },
-        "in": {
-            "description": "Whether to sync inbound data",
+            "description": "Set to `true` to remove the Notecard from certain types of penalty boxes (the default is `false`).",
             "type": "boolean"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "hub.sync"
+        },
+        "in": {
+            "description": "Set to `true` to only sync pending inbound Notefiles. **Required** when using NTN mode with Starnote to check for inbound Notefiles.",
+            "type": "boolean"
+        },
+        "out": {
+            "description": "Set to `true` to only sync pending outbound Notefiles.",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -49,6 +52,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Manual Sync",
+            "description": "Initiate a manual sync with Notehub.",
+            "json": "{\"req\": \"hub.sync\"}"
+        },
+        {
+            "title": "Sync with Penalty Box Removal",
+            "description": "Sync and remove Notecard from penalty boxes.",
+            "json": "{\"req\": \"hub.sync\", \"allow\": true}"
+        },
+        {
+            "title": "Outbound Only Sync",
+            "description": "Sync only pending outbound Notefiles.",
+            "json": "{\"req\": \"hub.sync\", \"out\": true}"
+        },
+        {
+            "title": "Inbound Only Sync",
+            "description": "Sync only pending inbound Notefiles (required for NTN mode).",
+            "json": "{\"req\": \"hub.sync\", \"in\": true}"
+        }
+    ]
 }
