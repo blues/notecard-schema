@@ -1,0 +1,61 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.clear.req.notecard.api.json",
+    "title": "file.clear Request Application Programming Interface (API) Schema",
+    "description": "Used to clear the contents of a specified outbound (.qo/.qos) Notefile, deleting all pending Notes.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "file.clear"
+        },
+        "file": {
+            "description": "The name of the Notefile whose Notes you wish to delete.",
+            "type": "string"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "file.clear"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req",
+                "file"
+            ],
+            "properties": {
+                "req": {
+                    "const": "file.clear"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd",
+                "file"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "file.clear"
+                }
+            }
+        }
+    ],
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Clear Outbound Notefile",
+            "description": "Clear all pending Notes from an outbound Notefile.",
+            "json": "{\"req\": \"file.clear\", \"file\": \"data.qo\"}"
+        },
+        {
+            "title": "Clear Encrypted Outbound Notefile",
+            "description": "Clear all pending Notes from an encrypted outbound Notefile.",
+            "json": "{\"req\": \"file.clear\", \"file\": \"sensors.qos\"}"
+        }
+    ]
+}

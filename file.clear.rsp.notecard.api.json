@@ -1,0 +1,19 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.clear.rsp.notecard.api.json",
+    "title": "file.clear Response Application Programming Interface (API) Schema",
+    "description": "Response confirming the clearing of the specified Notefile.",
+    "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Clear Success Response",
+            "description": "Successful response after clearing a Notefile.",
+            "json": "{}"
+        }
+    ]
+}
