@@ -13,7 +13,7 @@
             "type": "boolean"
         },
         "status": {
-            "description": "Details about the Notecard's transport (e.g. cellular, Wi-Fi, LoRa) connection status.\n\nUse `connected` (below) to check if the Notecard is connected to Notehub.",
+            "description": "Details about the Notecard's transport (e.g. cellular, Wi-Fi, LoRa) connection status.\n\nUse `connected` to check if the Notecard is connected to Notehub.",
             "type": "string"
         }
     },
