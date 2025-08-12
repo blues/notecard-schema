@@ -2,17 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.req.notecard.api.json",
     "title": "card.wireless Request Application Programming Interface (API) Schema",
-    "description": "View the last known network state, or customize the behavior of the modem. Note: Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access.",
+    "description": "View the last known network state, or customize the behavior of the modem. _Note: Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access._",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "WIFI"],
-    "annotations": [
-        {
-            "title": "note",
-            "description": "Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access."
-        }
-    ],
     "properties": {
         "mode": {
             "description": "Network scan mode. Must be one of: `\"-\"` to reset to the default mode, `\"auto\"` to perform automatic band scan mode (this is the default mode). The following values apply exclusively to Narrowband (NB) Notecard Cellular devices: `\"m\"` to restrict the modem to Cat-M1, `\"nb\"` to restrict the modem to Cat-NB1, `\"gprs\"` to restrict the modem to EGPRS.",
