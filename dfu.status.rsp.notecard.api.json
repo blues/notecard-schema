@@ -2,33 +2,81 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.status.rsp.notecard.api.json",
     "title": "dfu.status Response Application Programming Interface (API) Schema",
+    "description": "Response containing the current DFU mode and status information for firmware downloads.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "mode": {
-            "description": "Current DFU mode",
-            "type": "string"
+            "description": "The current DFU mode.",
+            "type": "string",
+            "enum": ["idle", "error", "downloading", "ready", "completed"],
+            "sub-descriptions": [
+                {
+                    "const": "idle",
+                    "description": "There is no firmware download in progress, and no data previously downloaded."
+                },
+                {
+                    "const": "error",
+                    "description": "The download or verification has failed. In this mode, the `status` field will contain the reason."
+                },
+                {
+                    "const": "downloading",
+                    "description": "The download is in progress. In this mode, the `status` field will contain info about progress."
+                },
+                {
+                    "const": "ready",
+                    "description": "The firmware data is fully downloaded."
+                },
+                {
+                    "const": "completed",
+                    "description": "The firmware has been installed."
+                }
+            ]
         },
         "status": {
-            "description": "Status of the DFU process",
+            "description": "The current status of the firmware download.",
             "type": "string"
         },
         "on": {
-            "description": "Whether firmware downloads from Notehub are allowed",
+            "description": "`true` when firmware downloads are enabled.",
             "type": "boolean"
         },
         "off": {
-            "description": "Whether firmware downloads from Notehub are disabled",
+            "description": "`true` when firmware downloads are disabled.",
             "type": "boolean"
         },
         "pending": {
-            "description": "Whether a firmware update is pending",
+            "description": "`true` when Notecard DFU is currently in-progress.",
             "type": "boolean"
         },
         "body": {
-            "description": "Additional information about the DFU status",
+            "description": "Object that includes essential details about the firmware binary, including the length of the length, its md5 hash, notes from the Notehub admin, created and updated dates, and more.",
             "type": "object"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "DFU Ready Status",
+            "description": "Example response showing firmware is ready for installation.",
+            "json": "{\"mode\": \"ready\", \"status\": \"successfully downloaded\", \"on\": true, \"body\": {\"crc32\": 2525287425, \"created\": 1599163431, \"info\": {}, \"length\": 42892, \"md5\": \"5a3f73a7f1b4bc8917b12b36c2532969\", \"modified\": 1599163431, \"name\": \"stm32-new-firmware$20200903200351.bin\", \"notes\": \"Latest prod firmware\", \"source\": \"stm32-new-firmware.bin\", \"type\": \"firmware\"}}"
+        },
+        {
+            "title": "DFU Idle Status",
+            "description": "Example response showing no firmware download in progress.",
+            "json": "{\"mode\": \"idle\", \"status\": \"no download in progress\", \"on\": true}"
+        },
+        {
+            "title": "DFU Downloading Status",
+            "description": "Example response showing firmware download in progress.",
+            "json": "{\"mode\": \"downloading\", \"status\": \"downloading: 45% complete\", \"on\": true, \"pending\": true}"
+        },
+        {
+            "title": "DFU Error Status",
+            "description": "Example response showing download error.",
+            "json": "{\"mode\": \"error\", \"status\": \"download failed: checksum mismatch\", \"on\": true}"
+        }
+    ]
 }
