@@ -4,11 +4,10 @@
     "title": "hub.signal Request Application Programming Interface (API) Schema",
     "description": "Receive a signal (a near-real-time note) from Notehub.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "seconds": {
-            "description": "Number of seconds to wait for a signal",
-            "type": "integer"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "hub.signal"
@@ -16,6 +15,10 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "hub.signal"
+        },
+        "seconds": {
+            "description": "The number of seconds to wait before timing out the request.",
+            "type": "integer"
         }
     },
     "oneOf": [
@@ -41,6 +44,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "annotations": [
+        {
+            "title": "warning",
+            "description": "A Notecard must be in continuous mode and have its `sync` argument set to `true` to receive signals."
+        },
+        {
+            "title": "note",
+            "description": "See our guide to [Using Inbound Signals](/guides-and-tutorials/notecard-guides/minimizing-latency#using-inbound-signals) for more information on how to set up a host microcontroller or single-board computer to receive inbound signals."
+        }
+    ],
+    "samples": [
+        {
+            "title": "Receive a Signal",
+            "description": "Check for an inbound signal from Notehub.",
+            "json": "{\"req\": \"hub.signal\"}"
+        },
+        {
+            "title": "Receive Signal with Timeout",
+            "description": "Check for an inbound signal with custom timeout.",
+            "json": "{\"req\": \"hub.signal\", \"seconds\": 30}"
+        }
+    ]
 }
