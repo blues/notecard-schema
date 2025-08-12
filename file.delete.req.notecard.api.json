@@ -4,17 +4,20 @@
     "title": "file.delete Request Application Programming Interface (API) Schema",
     "description": "Deletes Notefiles and the Notes they contain.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "file.delete"
+        },
         "files": {
-            "description": "Array of files to delete",
+            "description": "One or more files to delete.",
             "type": "array",
             "items": {
                 "type": "string"
             }
-        },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "file.delete"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -24,7 +27,8 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "files"
             ],
             "properties": {
                 "req": {
@@ -34,7 +38,8 @@
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "files"
             ],
             "properties": {
                 "cmd": {
@@ -44,6 +49,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Delete Multiple Files",
+            "description": "Delete multiple Notefiles and their contents.",
+            "json": "{\"req\": \"file.delete\", \"files\": [\"my-settings.db\", \"other-settings.db\"]}"
+        },
+        {
+            "title": "Delete Single File",
+            "description": "Delete a single Notefile and its contents.",
+            "json": "{\"req\": \"file.delete\", \"files\": [\"data.qo\"]}"
+        }
+    ]
 }
