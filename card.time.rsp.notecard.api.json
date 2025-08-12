@@ -2,16 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.rsp.notecard.api.json",
     "title": "card.time Response Application Programming Interface (API) Schema",
+    "description": "Response containing current date and time information in UTC along with location data if available.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "time": {
-            "description": "The current time in UTC (UNIX timestamp). Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
+            "description": "The current time in UTC. Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
             "type": "integer"
         },
         "area": {
-            "description": "The geographic area of the Notecard, if the cell tower is recognized",
+            "description": "The geographic area of the Notecard, if the cell tower is recognized.",
             "type": "string"
         },
         "zone": {
@@ -35,10 +37,17 @@
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Returns the current date and time information in UTC (UNIX timestamp).",
+            "title": "Complete Time Response",
+            "description": "Example response with full time and location information.",
             "json": "{\"time\": 1599769214, \"area\": \"Beverly, MA\", \"zone\": \"CDT,America/New York\", \"minutes\": -300, \"lat\": 42.5776, \"lon\": -70.87134, \"country\": \"US\"}"
+        },
+        {
+            "title": "Time Before Location Sync",
+            "description": "Example response when time is available but location data hasn't been obtained yet.",
+            "json": "{\"zone\": \"UTC,Unknown\"}"
         }
     ]
 }
