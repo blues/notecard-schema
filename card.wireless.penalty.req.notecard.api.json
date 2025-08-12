@@ -7,12 +7,6 @@
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "WIFI"],
-    "annotations": [
-        {
-            "title": "warning",
-            "description": "The misuse of this feature may result in the cellular carrier preventing the Notecard from future connections because it's effectively \"spamming\" the network. The cellular carrier may blacklist devices that it thinks are attempting to connect too frequently."
-        }
-    ],
     "properties": {
         "reset": {
             "description": "Set to `true` to remove the Notecard from certain types of penalty boxes.",
@@ -74,6 +68,12 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "warning",
+            "description": "The misuse of this feature may result in the cellular carrier preventing the Notecard from future connections because it's effectively \"spamming\" the network. The cellular carrier may blacklist devices that it thinks are attempting to connect too frequently."
+        }
+    ],
     "samples": [
         {
             "title": "Check Penalty Box State",
