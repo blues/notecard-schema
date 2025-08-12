@@ -4,11 +4,16 @@
     "title": "card.usage.get Request Application Programming Interface (API) Schema",
     "description": "Returns the card's network usage statistics.",
     "type": "object",
+    "skus": [
+        "CELL",
+        "CELL+WIFI", 
+        "WIFI"
+    ],
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "properties": {
         "mode": {
-            "description": "The time period to use for statistics.",
+            "description": "The time period to use for statistics. Must be one of:\n\n`\"total\"` for all stats since the Notecard was activated.\n\n`\"1hour\"`\n\n`\"1day\"`\n\n`\"30day\"`",
             "type": "string",
             "default": "total",
             "enum": [
@@ -21,6 +26,18 @@
                 {
                     "const": "total",
                     "description": "All stats since the Notecard was activated."
+                },
+                {
+                    "const": "1hour",
+                    "description": "Statistics for the last hour period."
+                },
+                {
+                    "const": "1day", 
+                    "description": "Statistics for the last day period."
+                },
+                {
+                    "const": "30day",
+                    "description": "Statistics for the last 30 days period."
                 }
             ]
         },
@@ -68,8 +85,24 @@
     ],
     "samples": [
         {
-            "description": "Example",
-            "json": "{\"req\":\"card.usage.get\", \"mode\":\"1day\", \"offset\": 5}"
+            "title": "Get Total Usage",
+            "description": "Retrieve all usage statistics since Notecard activation.",
+            "json": "{\"req\": \"card.usage.get\"}"
+        },
+        {
+            "title": "Get Daily Usage with Offset",
+            "description": "Get usage statistics for a specific day, 5 days ago.",
+            "json": "{\"req\": \"card.usage.get\", \"mode\": \"1day\", \"offset\": 5}"
+        },
+        {
+            "title": "Get Hourly Usage",
+            "description": "Get usage statistics for the current hour period.",
+            "json": "{\"req\": \"card.usage.get\", \"mode\": \"1hour\"}"
+        },
+        {
+            "title": "Get 30-Day Usage",
+            "description": "Get usage statistics for the last 30 days.",
+            "json": "{\"req\": \"card.usage.get\", \"mode\": \"30day\"}"
         }
     ]
 }
