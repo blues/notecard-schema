@@ -2,15 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.req.notecard.api.json",
     "title": "card.wireless.penalty Request Application Programming Interface (API) Schema",
-    "description": "View the current state of a [Notecard Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), manually remove the Notecard from a penalty box, or override penalty box defaults.",
+    "description": "View the current state of a [Notecard Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), manually remove the Notecard from a penalty box, or override penalty box defaults. _Warning: The misuse of this feature may result in the cellular carrier preventing the Notecard from future connections because it's effectively \"spamming\" the network. The cellular carrier may blacklist devices that it thinks are attempting to connect too frequently._",
     "type": "object",
-    "skus": [
-        "CELL",
-        "CELL+WIFI",
-        "WIFI"
-    ],
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "reset": {
             "description": "Set to `true` to remove the Notecard from certain types of penalty boxes.",
@@ -74,22 +70,19 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Check Penalty Box State.",
+            "title": "Check Penalty Box State",
+            "description": "Request current penalty box status and information.",
             "json": "{\"req\":\"card.wireless.penalty\"}"
         },
         {
-            "description": "Remove from Penalty Box.",
+            "title": "Remove from Penalty Box",
+            "description": "Reset and remove the Notecard from penalty box conditions.",
             "json": "{\"req\":\"card.wireless.penalty\",\"reset\":true}"
         },
         {
-            "description": "Override Default Penalty Box Settings.",
+            "title": "Override Default Penalty Box Settings",
+            "description": "Configure custom penalty box parameters with modified defaults.",
             "json": "{\"req\":\"card.wireless.penalty\",\"set\":true,\"rate\":2.0,\"add\":10,\"max\":720,\"min\":5}"
-        }
-    ],
-    "annotations": [
-        {
-            "title": "warning",
-            "description": "The misuse of this feature may result in the cellular carrier preventing the Notecard from future connections because it's effectively \"spamming\" the network. The cellular carrier may blacklist devices that it thinks are attempting to connect too frequently."
         }
     ]
 }
