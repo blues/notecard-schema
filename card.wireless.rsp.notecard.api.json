@@ -2,54 +2,112 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.rsp.notecard.api.json",
     "title": "card.wireless Response Application Programming Interface (API) Schema",
+    "description": "Response containing wireless connection status, signal quality information, and detailed modem/network data from the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "status": {
-            "description": "Current network status",
+            "description": "The current status of the wireless connection and modem.",
             "type": "string"
         },
         "count": {
-            "description": "Number of networks found",
+            "description": "Number of bars of signal quality.",
             "type": "integer"
         },
         "net": {
-            "description": "Array of networks found",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "rat": {
-                        "description": "Radio Access Technology",
-                        "type": "string"
-                    },
-                    "band": {
-                        "description": "Frequency band",
-                        "type": "string"
-                    },
-                    "rssi": {
-                        "description": "Received Signal Strength Indicator",
-                        "type": "integer"
-                    },
-                    "mcc": {
-                        "description": "Mobile Country Code",
-                        "type": "integer"
-                    },
-                    "mnc": {
-                        "description": "Mobile Network Code",
-                        "type": "integer"
-                    },
-                    "lac": {
-                        "description": "Location Area Code",
-                        "type": "integer"
-                    },
-                    "cid": {
-                        "description": "Cell ID",
-                        "type": "integer"
-                    }
+            "description": "An object with detailed modem, radio access technology, and signal information (details will differ depending on the type of Notecard).",
+            "type": "object",
+            "properties": {
+                "iccid": {
+                    "description": "Integrated Circuit Card Identifier of the SIM card.",
+                    "type": "string"
+                },
+                "imsi": {
+                    "description": "International Mobile Subscriber Identity.",
+                    "type": "string"
+                },
+                "imei": {
+                    "description": "International Mobile Equipment Identity.",
+                    "type": "string"
+                },
+                "modem": {
+                    "description": "Modem firmware version and model information.",
+                    "type": "string"
+                },
+                "band": {
+                    "description": "The frequency band being used for communication.",
+                    "type": "string"
+                },
+                "rat": {
+                    "description": "Radio Access Technology being used.",
+                    "type": "string"
+                },
+                "rssir": {
+                    "description": "Reference Signal Received Power (RSRP) reported by the modem.",
+                    "type": "integer"
+                },
+                "rssi": {
+                    "description": "Received Signal Strength Indicator.",
+                    "type": "integer"
+                },
+                "rsrp": {
+                    "description": "Reference Signal Received Power.",
+                    "type": "integer"
+                },
+                "sinr": {
+                    "description": "Signal to Interference plus Noise Ratio.",
+                    "type": "integer"
+                },
+                "rsrq": {
+                    "description": "Reference Signal Received Quality.",
+                    "type": "integer"
+                },
+                "bars": {
+                    "description": "Signal strength represented as bars (0-5).",
+                    "type": "integer"
+                },
+                "mcc": {
+                    "description": "Mobile Country Code.",
+                    "type": "integer"
+                },
+                "mnc": {
+                    "description": "Mobile Network Code.",
+                    "type": "integer"
+                },
+                "lac": {
+                    "description": "Location Area Code.",
+                    "type": "integer"
+                },
+                "cid": {
+                    "description": "Cell ID.",
+                    "type": "integer"
+                },
+                "updated": {
+                    "description": "Unix timestamp of when the network information was last updated.",
+                    "type": "integer"
                 }
-            }
+            },
+            "additionalProperties": false
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Complete Wireless Status Response",
+            "description": "Example response showing comprehensive wireless connection and signal information.",
+            "json": "{\"status\":\"{modem-off}\",\"count\":1,\"net\":{\"iccid\":\"00000000000000000000\",\"imsi\":\"000000000000000\",\"imei\":\"000000000000000\",\"modem\":\"EG91NAXGAR07A03M1G_BETA0415_01.001.01.001\",\"band\":\"LTE BAND 2\",\"rat\":\"lte\",\"rssir\":-69,\"rssi\":-70,\"rsrp\":-105,\"sinr\":-3,\"rsrq\":-17,\"bars\":1,\"mcc\":310,\"mnc\":410,\"lac\":28681,\"cid\":211150856,\"updated\":1599225076}}"
+        },
+        {
+            "title": "Basic Signal Information",
+            "description": "Example response with basic signal strength and status.",
+            "json": "{\"status\":\"connected\",\"count\":3}"
+        },
+        {
+            "title": "Network Details Response",
+            "description": "Example response showing detailed network information.",
+            "json": "{\"status\":\"searching\",\"count\":2,\"net\":{\"band\":\"LTE BAND 12\",\"rat\":\"lte\",\"rssi\":-85,\"bars\":2,\"mcc\":310,\"mnc\":260}}"
+        }
+    ]
 }

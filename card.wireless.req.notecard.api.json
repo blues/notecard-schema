@@ -2,11 +2,14 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.req.notecard.api.json",
     "title": "card.wireless Request Application Programming Interface (API) Schema",
-    "description": "View the last known network state, or customize the behavior of the modem. Note: Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access.",
+    "description": "View the last known network state, or customize the behavior of the modem. _Note: Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access._",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "mode": {
-            "description": "Network scan mode",
+            "description": "Network scan mode. Must be one of: `\"-\"` to reset to the default mode, `\"auto\"` to perform automatic band scan mode (this is the default mode). The following values apply exclusively to Narrowband (NB) Notecard Cellular devices: `\"m\"` to restrict the modem to Cat-M1, `\"nb\"` to restrict the modem to Cat-NB1, `\"gprs\"` to restrict the modem to EGPRS.",
             "type": "string",
             "enum": [
                 "-",
@@ -14,14 +17,36 @@
                 "m",
                 "nb",
                 "gprs"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "-",
+                    "description": "Reset to the default mode."
+                },
+                {
+                    "const": "auto",
+                    "description": "Perform automatic band scan mode (this is the default mode)."
+                },
+                {
+                    "const": "m",
+                    "description": "Restrict the modem to Cat-M1 (applies exclusively to Narrowband Notecard Cellular devices)."
+                },
+                {
+                    "const": "nb",
+                    "description": "Restrict the modem to Cat-NB1 (applies exclusively to Narrowband Notecard Cellular devices)."
+                },
+                {
+                    "const": "gprs",
+                    "description": "Restrict the modem to EGPRS (applies exclusively to Narrowband Notecard Cellular devices)."
+                }
             ]
         },
         "apn": {
-            "description": "Access Point Name (APN) when using an external SIM",
+            "description": "Access Point Name (APN) when using an external SIM. Use `\"-\"` to reset to the Notecard default APN.",
             "type": "string"
         },
         "method": {
-            "description": "Used when configuring a Notecard to failover to a different SIM",
+            "description": "Used when configuring a Notecard to failover to a different SIM.",
             "type": "string",
             "enum": [
                 "-",
@@ -29,7 +54,34 @@
                 "dual-secondary-primary",
                 "primary",
                 "secondary"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "-",
+                    "description": "Resets the Notecard to the default method."
+                },
+                {
+                    "const": "dual-primary-secondary",
+                    "description": "Will attempt to register with the internal SIM first, then failover to the external SIM."
+                },
+                {
+                    "const": "dual-secondary-primary",
+                    "description": "Will attempt to register with the external SIM first, then failover to the internal SIM."
+                },
+                {
+                    "const": "primary",
+                    "description": "Will exclusively use the internal SIM."
+                },
+                {
+                    "const": "secondary",
+                    "description": "Will exclusively use the external SIM."
+                }
             ]
+        },
+        "hours": {
+            "description": "When using the `method` argument with `\"dual-primary-secondary\"` or `\"dual-secondary-primary\"`, this is the number of hours after which the Notecard will attempt to switch back to the preferred SIM.",
+            "type": "integer",
+            "minimum": 1
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -63,6 +115,31 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Current Network State",
+            "description": "Request current network state without any modifications.",
+            "json": "{\"req\":\"card.wireless\"}"
+        },
+        {
+            "title": "Change Scan Mode",
+            "description": "Restrict the modem to Cat-NB1 for narrowband connectivity.",
+            "json": "{\"req\":\"card.wireless\",\"mode\":\"nb\"}"
+        },
+        {
+            "title": "Reset Scan Mode",
+            "description": "Reset network scan mode to default behavior.",
+            "json": "{\"req\":\"card.wireless\",\"mode\":\"-\"}"
+        },
+        {
+            "title": "Set External SIM APN",
+            "description": "Configure APN for external SIM card usage.",
+            "json": "{\"req\":\"card.wireless\",\"apn\":\"myapn.nb\"}"
+        },
+        {
+            "title": "Failover to External SIM",
+            "description": "Configure dual SIM failover with external SIM priority.",
+            "json": "{\"req\":\"card.wireless\",\"apn\":\"myapn.nb\",\"method\":\"dual-primary-secondary\"}"
+        }
+    ]
 }
