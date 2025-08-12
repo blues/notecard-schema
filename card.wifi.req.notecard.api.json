@@ -72,20 +72,29 @@
     ],
     "samples": [
         {
-            "description": "Set Wi-Fi SSID and password",
-            "json": "{\"req\":\"card.wifi\",\"ssid\":\"MyWiFiNetwork\",\"password\":\"MyPassword123\"}"
+            "title": "Create a Connection",
+            "description": "Set Wi-Fi SSID and password to connect to an access point.",
+            "json": "{\"req\":\"card.wifi\",\"ssid\":\"<ssid name>\",\"password\":\"<password>\"}"
         },
         {
-            "description": "Start SoftAP mode with custom name",
-            "json": "{\"req\":\"card.wifi\",\"name\":\"MyNotecard-\",\"start\":true}"
-        },
-        {
-            "description": "Configure multiple access points using text parameter",
-            "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
-        },
-        {
-            "description": "Clear existing Wi-Fi credentials",
+            "title": "Clear a Connection",
+            "description": "Clear existing Wi-Fi credentials to disconnect.",
             "json": "{\"req\":\"card.wifi\",\"ssid\":\"-\",\"password\":\"-\"}"
+        },
+        {
+            "title": "Customize the SoftAP",
+            "description": "Configure SoftAP with custom name and organization branding.",
+            "json": "{\"req\":\"card.wifi\",\"name\":\"ACME Inc\",\"org\":\"ACME Inc\"}"
+        },
+        {
+            "title": "Customize the SoftAP w/MAC Address",
+            "description": "Configure SoftAP name with MAC address suffix for unique identification.",
+            "json": "{\"req\":\"card.wifi\",\"name\":\"acme-\",\"org\":\"ACME Inc\"}"
+        },
+        {
+            "title": "Configure Multiple Access Points",
+            "description": "Set up multiple Wi-Fi access points for fallback connectivity.",
+            "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
         }
     ]
 }

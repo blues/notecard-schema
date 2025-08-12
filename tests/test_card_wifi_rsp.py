@@ -96,10 +96,12 @@ def test_valid_rsp_partial_fields(schema):
     instance = {"secure": False, "version": "2.1.0", "ssid": "TestNetwork"}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property (allowed by default)."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with an additional property."""
     instance = {"secure": True, "extra": 123}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
