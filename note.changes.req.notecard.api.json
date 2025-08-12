@@ -4,15 +4,10 @@
     "title": "note.changes Request Application Programming Interface (API) Schema",
     "description": "Used to incrementally retrieve changes within a specific Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "file": {
-            "description": "Name of the notefile to check for changes",
-            "type": "string"
-        },
-        "tracker": {
-            "description": "Tracker ID for monitoring changes",
-            "type": "string"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "note.changes"
@@ -20,8 +15,42 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "note.changes"
+        },
+        "file": {
+            "description": "The Notefile ID.",
+            "type": "string"
+        },
+        "tracker": {
+            "description": "The change tracker ID. This value is developer-defined and can be used across both the `note.changes` and `file.changes` requests.",
+            "type": "string"
+        },
+        "max": {
+            "description": "The maximum number of Notes to return in the request.",
+            "type": "integer",
+            "minimum": 1
+        },
+        "start": {
+            "description": "`true` to reset the tracker to the beginning.",
+            "type": "boolean"
+        },
+        "stop": {
+            "description": "`true` to delete the tracker.",
+            "type": "boolean"
+        },
+        "deleted": {
+            "description": "`true` to return deleted Notes with this request. Deleted notes are only persisted in a database notefile (`.db/.dbs`) between the time of note deletion on the Notecard and the time that a sync with notehub takes place. As such, this boolean will have no effect after a sync or on queue notefiles (`.q*`).",
+            "type": "boolean"
+        },
+        "delete": {
+            "description": "`true` to delete the Notes returned by the request.",
+            "type": "boolean"
+        },
+        "reset": {
+            "description": "`true` to reset a change tracker.",
+            "type": "boolean"
         }
     },
+    "required": ["file"],
     "oneOf": [
         {
             "required": [
@@ -45,6 +74,36 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Peek at Changes",
+            "description": "Check changes in a Notefile with tracker starting from beginning.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"my-settings.db\", \"tracker\": \"inbound-tracker\", \"start\": true}"
+        },
+        {
+            "title": "Pop Changes with Limit",
+            "description": "Retrieve and delete up to 2 changes from a Notefile.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"my-settings.db\", \"tracker\": \"inbound-tracker\", \"start\": true, \"delete\": true, \"max\": 2}"
+        },
+        {
+            "title": "Basic File Changes",
+            "description": "Get changes from a Notefile without tracker.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"data.db\"}"
+        },
+        {
+            "title": "Reset Tracker",
+            "description": "Reset a change tracker to start from beginning.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"events.db\", \"tracker\": \"event-tracker\", \"reset\": true}"
+        },
+        {
+            "title": "Include Deleted Notes",
+            "description": "Retrieve changes including deleted notes from database.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"config.db\", \"tracker\": \"config-tracker\", \"deleted\": true}"
+        },
+        {
+            "title": "Stop Tracker",
+            "description": "Delete a change tracker when finished.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"logs.db\", \"tracker\": \"log-tracker\", \"stop\": true}"
+        }
+    ]
 }

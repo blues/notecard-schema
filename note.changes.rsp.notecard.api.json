@@ -2,24 +2,56 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.changes.rsp.notecard.api.json",
     "title": "note.changes Response Application Programming Interface (API) Schema",
+    "description": "Response containing incremental changes from a specific Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
+        "total": {
+            "description": "The total number of Notes in the Notefile.",
+            "type": "integer"
+        },
         "changes": {
-            "description": "Whether there are changes",
-            "type": "boolean"
+            "description": "The number of pending changes in the Notefile.",
+            "type": "integer"
         },
         "notes": {
-            "description": "Array of note IDs that have changed",
-            "type": "array",
-            "items": {
-                "type": "string"
+            "description": "An object with a key for each Note (the Note ID in a DB Notefile or an internally-generated ID for `.qo` and `.qi` Notes) and value object with the `body` of each Note and the `time` the Note was added.",
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "body": {
+                        "description": "The body content of the Note.",
+                        "type": "object"
+                    },
+                    "time": {
+                        "description": "The time the Note was added (Unix timestamp).",
+                        "type": "integer"
+                    }
+                },
+                "required": ["body", "time"],
+                "additionalProperties": false
             }
-        },
-        "tracker": {
-            "description": "Tracker ID for monitoring changes",
-            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Changes Response with Notes",
+            "description": "Response showing changes with note details and timestamps.",
+            "json": "{\"changes\": 4, \"total\": 4, \"notes\": {\"setting-one\": {\"body\": {\"foo\": \"bar\"}, \"time\": 1598918235}, \"setting-two\": {\"body\": {\"foo\": \"bat\"}, \"time\": 1598918245}, \"setting-three\": {\"body\": {\"foo\": \"baz\"}, \"time\": 1598918225}, \"setting-four\": {\"body\": {\"foo\": \"foo\"}, \"time\": 1598910532}}}"
+        },
+        {
+            "title": "No Changes Response",
+            "description": "Response when no changes are available.",
+            "json": "{\"changes\": 0, \"total\": 10, \"notes\": {}}"
+        },
+        {
+            "title": "Single Change Response", 
+            "description": "Response with a single note change.",
+            "json": "{\"changes\": 1, \"total\": 5, \"notes\": {\"config-update\": {\"body\": {\"brightness\": 75, \"volume\": 50}, \"time\": 1609459200}}}"
+        }
+    ]
 }
