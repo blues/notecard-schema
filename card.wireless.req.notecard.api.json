@@ -6,7 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI"],
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "mode": {
             "description": "Network scan mode. Must be one of: `\"-\"` to reset to the default mode, `\"auto\"` to perform automatic band scan mode (this is the default mode). The following values apply exclusively to Narrowband (NB) Notecard Cellular devices: `\"m\"` to restrict the modem to Cat-M1, `\"nb\"` to restrict the modem to Cat-NB1, `\"gprs\"` to restrict the modem to EGPRS.",
