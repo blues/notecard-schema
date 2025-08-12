@@ -6,6 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL+WIFI", "WIFI"],
     "properties": {
         "secure": {
             "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",
@@ -24,10 +25,22 @@
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Wi-Fi connection status and configuration information",
+            "title": "Complete Wi-Fi Status Response",
+            "description": "Example response showing comprehensive Wi-Fi connection information.",
             "json": "{\"secure\":true, \"version\":\"3.12.3\", \"ssid\":\"<ssid name>\", \"security\":\"wpa2-psk\"}"
+        },
+        {
+            "title": "Basic Connection Response",
+            "description": "Example response with basic Wi-Fi access point information.",
+            "json": "{\"ssid\":\"HomeNetwork\", \"security\":\"wpa3\"}"
+        },
+        {
+            "title": "Version Information Response",
+            "description": "Example response showing Wi-Fi transceiver version.",
+            "json": "{\"version\":\"3.12.3\"}"
         }
     ]
 }
