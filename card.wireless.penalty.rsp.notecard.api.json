@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.rsp.notecard.api.json",
     "title": "card.wireless.penalty Response Application Programming Interface (API) Schema",
+    "description": "Response containing penalty box status information, including failure counts, duration, and current penalty conditions from the Notecard.",
     "type": "object",
-    "version": "0.1.1",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "minutes": {
             "description": "The time since the first network registration failure.",
@@ -23,10 +25,22 @@
             "type": "integer"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "description": "Penalty Box Status with Active Penalty.",
+            "title": "Active Penalty Box Status",
+            "description": "Example response showing Notecard in penalty box with active network registration failure.",
             "json": "{\"seconds\":3324,\"minutes\":69,\"status\":\"network: can't connect (55.4 min remaining) {registration-failure}{network}{extended-network-failure}\",\"count\":6}"
+        },
+        {
+            "title": "No Active Penalty",
+            "description": "Example response when Notecard is not in a penalty box.",
+            "json": "{\"minutes\":0,\"count\":0}"
+        },
+        {
+            "title": "Partial Penalty Information",
+            "description": "Example response with basic penalty metrics without active penalty.",
+            "json": "{\"count\":3,\"minutes\":15}"
         }
     ]
 }
