@@ -48,6 +48,10 @@
         {
             "title": "warning",
             "description": "A Notecard must be in continuous mode and have its `sync` argument set to `true` to receive signals."
+        },
+        {
+            "title": "note",
+            "description": "See our guide to [Using Inbound Signals](/guides-and-tutorials/notecard-guides/minimizing-latency#using-inbound-signals) for more information on how to set up a host microcontroller or single-board computer to receive inbound signals."
         }
     ],
     "samples": [
