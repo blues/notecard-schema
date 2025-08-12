@@ -19,7 +19,7 @@
             "maximum": 720
         },
         "mode": {
-            "description": "Used to set voltage thresholds based on how the Notecard will be powered.",
+            "description": "Used to set voltage thresholds based on how the Notecard will be powered.\n\n**NOTE:** Setting voltage thresholds is not supported on the Notecard XP.",
             "type": "string",
             "enum": [
                 "default",
