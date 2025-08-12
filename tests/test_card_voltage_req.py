@@ -47,7 +47,7 @@ def test_hours_invalid_type(schema):
 
 def test_valid_mode_enums(schema):
     """Tests valid mode enum values."""
-    valid_modes = ["default", "lipo", "li", "alkaline", "tad", "lic"]
+    valid_modes = ["default", "lipo", "l91", "alkaline", "tad", "lic", "?"]
     for mode in valid_modes:
         instance = {"req": "card.voltage", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
@@ -105,8 +105,55 @@ def test_valid_mode_and_thresholds(schema):
 
 def test_valid_all_fields(schema):
     """Tests valid request with all fields."""
-    instance = {"req": "card.voltage", "hours": 48, "mode": "default", "vmax": 5.5, "vmin": 2.8}
+    instance = {
+        "req": "card.voltage",
+        "hours": 48,
+        "mode": "lipo",
+        "offset": 12,
+        "vmax": 4.5,
+        "vmin": 2.5,
+        "name": "voltage_config",
+        "usb": True,
+        "alert": True,
+        "sync": True,
+        "calibration": 0.35,
+        "set": False
+    }
     jsonschema.validate(instance=instance, schema=schema)
+
+# Test new fields
+def test_valid_offset(schema):
+    """Tests valid offset field."""
+    instance = {"req": "card.voltage", "offset": 24}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "offset": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_name(schema):
+    """Tests valid name field."""
+    instance = {"req": "card.voltage", "name": "voltage_settings"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_usb_monitoring_fields(schema):
+    """Tests valid USB monitoring fields."""
+    instance = {"req": "card.voltage", "usb": True, "alert": True, "sync": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+def test_valid_calibration_fields(schema):
+    """Tests valid calibration fields."""
+    instance = {"req": "card.voltage", "calibration": 0.35, "set": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_hours_maximum_constraint(schema):
+    """Tests hours maximum constraint."""
+    instance = {"req": "card.voltage", "hours": 720}
+    jsonschema.validate(instance=instance, schema=schema)
+    
+    # Test exceeding maximum
+    instance = {"req": "card.voltage", "hours": 721}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "721 is greater than the maximum of 720" in str(excinfo.value)
 
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
@@ -114,3 +161,17 @@ def test_invalid_additional_property(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    import json
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)

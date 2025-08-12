@@ -4,30 +4,106 @@
     "title": "card.voltage Request Application Programming Interface (API) Schema",
     "description": "Provides the current V+ voltage level on the Notecard, and provides information about historical voltage trends. When used with the mode argument, configures voltage thresholds based on how the device is powered.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "hours": {
-            "description": "The number of hours to analyze, up to 720 (30 days)",
-            "type": "integer"
+            "description": "The number of hours to analyze, up to 720 (30 days).",
+            "type": "integer",
+            "maximum": 720
         },
         "mode": {
-            "description": "Used to set voltage thresholds based on how the Notecard will be powered",
+            "description": "Used to set voltage thresholds based on how the Notecard will be powered.",
             "type": "string",
             "enum": [
                 "default",
                 "lipo",
-                "li",
+                "l91",
                 "alkaline",
                 "tad",
-                "lic"
+                "lic",
+                "?"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "default",
+                    "description": "Default behavior. Equivalent to `normal:2.5;dead:0`."
+                },
+                {
+                    "const": "lipo",
+                    "description": "LiPo batteries. Equivalent to `usb:4.6;high:4.0;normal:3.5;low:3.2;dead:0`."
+                },
+                {
+                    "const": "l91",
+                    "description": "L91 batteries. Equivalent to `high:5.0;normal:4.5;low:0`."
+                },
+                {
+                    "const": "alkaline",
+                    "description": "Alkaline batteries. Equivalent to `usb:4.6;high:4.2;normal:3.6;low:0`."
+                },
+                {
+                    "const": "tad",
+                    "description": "Tadiran HLC batteries. Equivalent to `usb:4.6;normal:3.2;low:0`."
+                },
+                {
+                    "const": "lic",
+                    "description": "Lithium-ion capacitors. Equivalent to `usb:4.6;high:3.8;normal:3.1;low:0`."
+                },
+                {
+                    "const": "?",
+                    "description": "Query the Notecard for its currently-set thresholds."
+                }
             ]
         },
+        "offset": {
+            "description": "Number of hours to move into the past before starting analysis.",
+            "type": "integer",
+            "default": 0
+        },
         "vmax": {
-            "description": "Maximum voltage threshold",
-            "type": "number"
+            "description": "Ignore voltage readings above this level when performing calculations.",
+            "type": "number",
+            "default": 4.5
         },
         "vmin": {
-            "description": "Minimum voltage threshold",
-            "type": "number"
+            "description": "Ignore voltage readings below this level when performing calculations.",
+            "type": "number",
+            "default": 2.5
+        },
+        "name": {
+            "description": "Specifies an environment variable to override application default timing values.",
+            "type": "string"
+        },
+        "usb": {
+            "description": "When enabled, the Notecard will monitor for changes to USB power state.",
+            "type": "boolean",
+            "default": false
+        },
+        "alert": {
+            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `health.qo` Notefile when USB power is connected or disconnected.",
+            "type": "boolean",
+            "default": false
+        },
+        "sync": {
+            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will perform a sync when USB power is connected or disconnected.",
+            "type": "boolean",
+            "default": false
+        },
+        "calibration": {
+            "description": "The offset, in volts, to account for the forward voltage drop of the diode used between the battery and Notecard in either Blues- or customer-designed Notecarriers.",
+            "type": "number",
+            "default": 0.35
+        },
+        "set": {
+            "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",
+            "type": "boolean",
+            "default": false
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -61,6 +137,26 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get Voltage Trends",
+            "description": "Retrieve voltage information with trend analysis for 300 hours.",
+            "json": "{\"req\": \"card.voltage\", \"hours\": 300, \"vmax\": 4, \"vmin\": 2.2}"
+        },
+        {
+            "title": "Set LiPo Voltage Thresholds",
+            "description": "Configure voltage thresholds for LiPo battery operation.",
+            "json": "{\"req\": \"card.voltage\", \"mode\": \"lipo\"}"
+        },
+        {
+            "title": "Query Current Thresholds",
+            "description": "Query the Notecard for its currently-set voltage thresholds.",
+            "json": "{\"req\": \"card.voltage\", \"mode\": \"?\"}"
+        },
+        {
+            "title": "Enable USB Power Monitoring",
+            "description": "Enable USB power state monitoring with alerts and sync.",
+            "json": "{\"req\": \"card.voltage\", \"usb\": true, \"alert\": true, \"sync\": true}"
+        }
+    ]
 }
