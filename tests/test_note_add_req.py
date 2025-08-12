@@ -470,6 +470,24 @@ def test_valid_file_extensions(schema):
     for instance in valid_extensions:
         jsonschema.validate(instance=instance, schema=schema)
 
+def test_invalid_file_extensions(schema):
+    """Tests invalid file extensions."""
+    invalid_extensions = [
+        {"req": "note.add", "file": "data.txt", "body": {"temp": 25}},
+        {"req": "note.add", "file": "config.json", "body": {"data": "test"}},
+        {"req": "note.add", "file": "notes.csv", "body": {"value": 100}},
+        {"req": "note.add", "file": "file.log", "body": {"message": "error"}},
+        {"req": "note.add", "file": "data", "body": {"no_extension": True}},
+        {"req": "note.add", "file": "data.xyz", "body": {"unknown": "extension"}},
+        {"req": "note.add", "file": "data.QO", "body": {"case": "sensitive"}},  # Case sensitive
+        {"req": "note.add", "file": "data.qo.backup", "body": {"multiple": "extensions"}}
+    ]
+    
+    for instance in invalid_extensions:
+        with pytest.raises(jsonschema.ValidationError) as excinfo:
+            jsonschema.validate(instance=instance, schema=schema)
+        assert "does not match" in str(excinfo.value) or "pattern" in str(excinfo.value)
+
 def test_boolean_parameters_combinations(schema):
     """Tests various boolean parameter combinations."""
     combinations = [

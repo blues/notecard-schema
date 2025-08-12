@@ -17,9 +17,32 @@
             "const": "note.add"
         },
         "file": {
-            "description": "The name of the Notefile. On Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided.",
+            "description": "The name of the Notefile. On Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided. When using this request on the Notecard the Notefile name must end in one of: `.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport, `.qos` for a queue outgoing with encrypted transport, `.db` for a bidirectionally synchronized database with plaintext transport, `.dbs` for a bidirectionally synchronized database with encrypted transport, `.dbx` for a local-only database.",
             "type": "string",
-            "skus": ["LORA"]
+            "default": "data.qo",
+            "pattern": "\\.(qo|qos|db|dbs|dbx)$",
+            "sub-descriptions": [
+                {
+                    "pattern": "\\.qo$",
+                    "description": "Queue outgoing (Notecard to Notehub) with plaintext transport"
+                },
+                {
+                    "pattern": "\\.qos$", 
+                    "description": "Queue outgoing with encrypted transport"
+                },
+                {
+                    "pattern": "\\.db$",
+                    "description": "Bidirectionally synchronized database with plaintext transport"
+                },
+                {
+                    "pattern": "\\.dbs$",
+                    "description": "Bidirectionally synchronized database with encrypted transport"
+                },
+                {
+                    "pattern": "\\.dbx$",
+                    "description": "Local-only database"
+                }
+            ]
         },
         "note": {
             "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID. If `note` string is \"?\", then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`. If this argument is provided for a `.qo` Notefile, an error is returned.",
