@@ -28,6 +28,20 @@ def test_invalid_both_req_and_cmd(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is valid under each of" in str(excinfo.value)
 
+def test_req_invalid_value(schema):
+    """Tests invalid req value."""
+    instance = {"req": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.time' was expected" in str(excinfo.value)
+
+def test_cmd_invalid_value(schema):
+    """Tests invalid cmd value."""
+    instance = {"cmd": "invalid.command"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'card.time' was expected" in str(excinfo.value)
+
 def test_invalid_additional_property_with_req(schema):
     """Tests invalid request with req and an additional property."""
     instance = {"req": "card.time", "extra": "field"}
