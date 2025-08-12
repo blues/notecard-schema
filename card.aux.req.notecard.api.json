@@ -7,12 +7,6 @@
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-    "annotations": [
-        {
-            "title": "note",
-            "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's serial data interfaces."
-        }
-    ],
     "properties": {
         "mode": {
             "description": "The AUX mode. Must be one of the following keywords. Some keywords are only supported on certain types of Notecards.",
@@ -284,6 +278,12 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's serial data interfaces."
+        }
+    ],
     "samples": [
         {
             "title": "Set GPIO Mode",

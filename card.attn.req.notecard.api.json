@@ -4,6 +4,8 @@
     "title": "card.attn Request Application Programming Interface (API) Schema",
     "description": "Configure hardware notification from the Notecard to MCU host.\n\n_**NOTE:** Requires a connection between the Notecard ATTN pin and a GPIO pin on the host MCU._",
     "type": "object",
+    "version": "0.1.2",
+    "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "files": {
@@ -287,7 +289,5 @@
             "description": "Disarm all interrupts.",
             "json": "{\"req\":\"card.attn\",\"mode\":\"disarm,-all\"}"
         }
-    ],
-    "version": "0.1.2",
-    "apiVersion": "9.1.1"
+    ]
 }

@@ -4,13 +4,13 @@
     "title": "card.random Request Application Programming Interface (API) Schema",
     "description": "Obtain a single random 32 bit unsigned integer modulo `count` or `count` bytes of random data from the Notecard hardware random number generator.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
         "WIFI"
     ],
-    "version": "0.2.1",
-    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "Accepts a single value `\"payload\"` and, if specified, uses the `count` value to determine the number of bytes of random data to generate and return to the host.",

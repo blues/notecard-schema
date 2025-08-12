@@ -4,14 +4,14 @@
     "title": "card.status Request Application Programming Interface (API) Schema",
     "description": "Returns general information about the Notecard's operating status.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
         "LORA",
         "WIFI"
     ],
-    "version": "0.2.1",
-    "apiVersion": "9.1.1",
     "properties": {
         "cmd": {
             "description": "Command for the Notecard (no response)",

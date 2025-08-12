@@ -2,9 +2,10 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.led.rsp.notecard.api.json",
     "title": "card.led Response Application Programming Interface (API) Schema",
+    "description": "Response schema for card.led request.",
     "type": "object",
-    "properties": {},
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {}
 }

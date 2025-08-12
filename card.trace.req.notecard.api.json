@@ -4,14 +4,14 @@
     "title": "card.trace Request Application Programming Interface (API) Schema",
     "description": "Enable and disable [trace mode](/guides-and-tutorials/notecard-guides/using-notecard-trace-mode) on a Notecard for debugging.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
         "LORA",
         "WIFI"
     ],
-    "version": "0.2.1",
-    "apiVersion": "9.1.1",
     "properties": {
         "mode": {
             "description": "Set to `\"on\"` to enable trace mode on a Notecard, or `\"off\"` to disable it.",
