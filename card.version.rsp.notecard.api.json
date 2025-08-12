@@ -2,88 +2,111 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.version.rsp.notecard.api.json",
     "title": "card.version Response Application Programming Interface (API) Schema",
+    "description": "Response containing firmware version information and device details.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "api": {
-            "description": "Major version of the Notecard API",
+            "description": "The current Notecard API major version in use.",
             "type": "integer"
         },
         "board": {
-            "description": "Notecard hardware version number",
+            "description": "The Notecard board version number.",
             "type": "string"
         },
         "body": {
-            "description": "An object containing Notecard firmware details for programmatic access",
+            "description": "An object containing Notecard firmware details for programmatic access.",
             "type": "object",
             "properties": {
                 "org": {
-                    "description": "Organization name set for the Notecard",
+                    "description": "Organization name set for the Notecard.",
                     "type": "string"
                 },
                 "product": {
-                    "description": "Product name set for the Notecard",
+                    "description": "Product name set for the Notecard.",
+                    "type": "string"
+                },
+                "target": {
+                    "description": "Target platform identifier.",
                     "type": "string"
                 },
                 "version": {
-                    "description": "Firmware version of the Notecard",
+                    "description": "Firmware version of the Notecard.",
                     "type": "string"
                 },
                 "ver_major": {
-                    "description": "Major version of the Notecard firmware",
+                    "description": "Major version of the Notecard firmware.",
                     "type": "integer"
                 },
                 "ver_minor": {
-                    "description": "Minor version of the Notecard firmware",
+                    "description": "Minor version of the Notecard firmware.",
                     "type": "integer"
                 },
                 "ver_patch": {
-                    "description": "Patch version of the Notecard firmware",
+                    "description": "Patch version of the Notecard firmware.",
                     "type": "integer"
                 },
                 "ver_build": {
-                    "description": "Build version of the Notecard firmware",
+                    "description": "Build version of the Notecard firmware.",
                     "type": "integer"
                 },
                 "built": {
-                    "description": "Date and time the Notecard firmware was built",
-                    "type": "string",
-                    "format": "date-time"
+                    "description": "Date and time the Notecard firmware was built.",
+                    "type": "string"
                 }
-            }
+            },
+            "additionalProperties": false
         },
         "cell": {
-            "description": "Notecard supports cellular connectivity",
+            "description": "If `true`, indicates the Notecard supports cellular connectivity.",
             "type": "boolean"
         },
         "device": {
-            "description": "DeviceUID of the Notecard",
-            "type": "string",
-            "pattern": "^dev:[0-9]{15}$"
+            "description": "The DeviceUID of the Notecard.",
+            "type": "string"
         },
         "gps": {
-            "description": "Notecard has an onboard GPS module",
+            "description": "If `true`, indicates the Notecard has an onboard GPS module.",
             "type": "boolean"
         },
         "name": {
-            "description": "Official name of the device",
+            "description": "The official name of the device.",
             "type": "string"
         },
         "sku": {
-            "description": "Notecard Stock Keeping Unit (SKU)",
+            "description": "The Notecard SKU.",
             "type": "string"
         },
         "version": {
-            "description": "Complete firmware version of the Notecard",
+            "description": "The full version number of the Notecard firmware.",
             "type": "string"
         },
         "wifi": {
-            "description": "Notecard supports Wi-Fi connectivity",
+            "description": "If `true`, indicates the Notecard supports Wi-Fi connectivity.",
             "type": "boolean"
         }
     },
     "required": [
         "version"
     ],
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Complete Version Response",
+            "description": "Example response showing comprehensive version and device information.",
+            "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:000000000000000\", \"name\": \"Blues Wireless Notecard\", \"sku\": \"NOTE-NBGL\", \"board\": \"1.11\", \"cell\": true, \"gps\": true, \"api\": 5, \"body\": {\"org\": \"Blues Wireless\", \"product\": \"Notecard\", \"target\": \"r5\", \"version\": \"notecard-5.3.1\", \"ver_major\": 5, \"ver_minor\": 3, \"ver_patch\": 1, \"ver_build\": 371, \"built\": \"Sep  5 2023 12:21:30\"}}"
+        },
+        {
+            "title": "Minimal Version Response",
+            "description": "Example response with only the required version field.",
+            "json": "{\"version\": \"notecard-6.2.1\"}"
+        },
+        {
+            "title": "WiFi Notecard Version",
+            "description": "Example response for a WiFi-enabled Notecard.",
+            "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:123456789012345\", \"name\": \"Blues Wireless Notecard WiFi\", \"sku\": \"NOTE-WBEX\", \"wifi\": true, \"api\": 5}"
+        }
+    ]
 }

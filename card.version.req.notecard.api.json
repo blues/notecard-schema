@@ -4,6 +4,14 @@
     "title": "card.version Request Application Programming Interface (API) Schema",
     "description": "Returns firmware version information for the Notecard.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "api": {
             "description": "Host expected major version of the Notecard API",
@@ -42,6 +50,16 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Get Version Information",
+            "description": "Retrieve firmware version and device information.",
+            "json": "{\"req\": \"card.version\"}"
+        },
+        {
+            "title": "Version with Deprecated API Parameter",
+            "description": "Request with deprecated API version parameter (not recommended).",
+            "json": "{\"req\": \"card.version\", \"api\": 5}"
+        }
+    ]
 }
