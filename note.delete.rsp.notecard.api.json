@@ -2,13 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.delete.rsp.notecard.api.json",
     "title": "note.delete Response Application Programming Interface (API) Schema",
+    "description": "Response confirming Note deletion from a DB Notefile.",
     "type": "object",
-    "properties": {
-        "success": {
-            "description": "Whether the deletion was successful",
-            "type": "boolean"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Successful Delete Response",
+            "description": "Empty response confirming successful note deletion.",
+            "json": "{}"
         }
-    },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    ]
 }
