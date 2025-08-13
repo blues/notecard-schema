@@ -4,16 +4,10 @@
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
     "description": "Determines whether a Notecard should override a paired Starnote's GPS/GNSS location with its own GPS/GNSS location. The paired Starnote uses its own GPS/GNSS location by default.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "mode": {
-            "description": "GPS mode",
-            "type": "string",
-            "enum": [
-                "continuous",
-                "periodic",
-                "off"
-            ]
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "ntn.gps"
@@ -21,6 +15,14 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "ntn.gps"
+        },
+        "on": {
+            "description": "When `true`, a Starnote will use the GPS/GNSS location from its paired Notecard, instead of its own GPS/GNSS location.",
+            "type": "boolean"
+        },
+        "off": {
+            "description": "When `true`, a paired Starnote will use its own GPS/GNSS location. This is the default configuration.",
+            "type": "boolean"
         }
     },
     "oneOf": [
@@ -46,6 +48,21 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Enable Notecard GPS Override",
+            "description": "Configure Starnote to use the paired Notecard's GPS/GNSS location.",
+            "json": "{\"req\": \"ntn.gps\", \"on\": true}"
+        },
+        {
+            "title": "Use Starnote's Own GPS",
+            "description": "Configure Starnote to use its own GPS/GNSS location (default).",
+            "json": "{\"req\": \"ntn.gps\", \"off\": true}"
+        },
+        {
+            "title": "Query Current GPS Configuration",
+            "description": "Request current GPS/GNSS location configuration.",
+            "json": "{\"req\": \"ntn.gps\"}"
+        }
+    ]
 }
