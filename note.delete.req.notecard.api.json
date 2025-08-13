@@ -2,24 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.delete.req.notecard.api.json",
     "title": "note.delete Request Application Programming Interface (API) Schema",
-    "description": "Deletes a Note from a DB Notefile by its Note ID. To delete Notes from a .qi Notefile, use note.get or note.changes with delete:true.",
+    "description": "Deletes a Note from a **DB Notefile** by its Note ID. To delete Notes from a `.qi` Notefile, use `note.get` or `note.changes` with `delete:true`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "file": {
-            "description": "Name of the notefile to delete notes from",
-            "type": "string"
-        },
-        "note": {
-            "description": "ID of the note to delete",
-            "type": "string"
-        },
-        "notes": {
-            "description": "Array of note IDs to delete",
-            "type": "array",
-            "items": {
-                "type": "string"
-            }
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "note.delete"
@@ -27,8 +15,21 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "note.delete"
+        },
+        "file": {
+            "description": "The Notefile from which to delete a Note. Must be a Notefile with a `.db` or `.dbx` extension.",
+            "type": "string"
+        },
+        "note": {
+            "description": "The Note ID of the Note to delete.",
+            "type": "string"
+        },
+        "verify": {
+            "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
+            "type": "boolean"
         }
     },
+    "required": ["file", "note"],
     "oneOf": [
         {
             "required": [
@@ -52,6 +53,21 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Delete Note from DB Notefile",
+            "description": "Delete a specific note by ID from a database Notefile.",
+            "json": "{\"req\": \"note.delete\", \"file\": \"my-settings.db\", \"note\": \"measurements\"}"
+        },
+        {
+            "title": "Delete Note with Verification",
+            "description": "Delete a note and write to flash immediately for templated Notefile.",
+            "json": "{\"req\": \"note.delete\", \"file\": \"config.db\", \"note\": \"display-settings\", \"verify\": true}"
+        },
+        {
+            "title": "Delete Note with Command",
+            "description": "Delete a note using command syntax (no response expected).",
+            "json": "{\"cmd\": \"note.delete\", \"file\": \"temp-data.db\", \"note\": \"sensor-reading\"}"
+        }
+    ]
 }
