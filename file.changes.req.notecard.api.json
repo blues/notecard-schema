@@ -8,10 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "file.changes"
-        },
         "files": {
             "description": "An array of Notefile names to obtain change information from. If not specified, queries all Notefiles.",
             "type": "array",
@@ -19,13 +15,17 @@
                 "type": "string"
             }
         },
+        "tracker": {
+            "description": "An ID string for a change tracker to use to determine changes to Notefiles. Each tracker maintains its own state for monitoring file changes.",
+            "type": "string"
+        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "file.changes"
         },
-        "tracker": {
-            "description": "An ID string for a change tracker to use to determine changes to Notefiles. Each tracker maintains its own state for monitoring file changes.",
-            "type": "string"
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "file.changes"
         }
     },
     "oneOf": [

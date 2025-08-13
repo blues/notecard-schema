@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "note.template"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "note.template"
-        },
         "file": {
             "description": "The name of the Notefile to which the template will be applied.",
             "type": "string"
@@ -46,6 +38,14 @@
         "delete": {
             "description": "Set to `true` to delete all pending Notes using the template if one of the following scenarios is also true:\n\nConnecting via non-NTN (e.g. cellular or Wi-Fi) communications, but attempting to sync NTN-compatible Notefiles.\n\nor\n\nConnecting via NTN (e.g. satellite) communications, but attempting to sync non-NTN-compatible Notefiles.\n\nRead more about this feature in [Starnote Best Practices](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
             "type": "boolean"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "note.template"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "note.template"
         }
     },
     "required": ["file"],

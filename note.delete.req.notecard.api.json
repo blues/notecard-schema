@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "note.delete"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "note.delete"
-        },
         "file": {
             "description": "The Notefile from which to delete a Note. Must be a Notefile with a `.db` or `.dbx` extension.",
             "type": "string"
@@ -27,6 +19,14 @@
         "verify": {
             "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
             "type": "boolean"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "note.delete"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "note.delete"
         }
     },
     "required": ["file", "note"],

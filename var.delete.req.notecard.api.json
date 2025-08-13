@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "var.delete"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "var.delete"
-        },
         "name": {
             "description": "The unique Note ID.",
             "type": "string"
@@ -23,6 +15,14 @@
         "file": {
             "description": "The name of the DB Notefile that contains the Note to delete. Default value is `vars.db`.",
             "type": "string"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "var.delete"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "var.delete"
         }
     },
     "oneOf": [
