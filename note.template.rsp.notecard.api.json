@@ -2,7 +2,6 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.rsp.notecard.api.json",
     "title": "note.template Response Application Programming Interface (API) Schema",
-    "description": "Response from setting or verifying a Note template on a Notefile.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
