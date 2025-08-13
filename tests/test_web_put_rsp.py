@@ -20,10 +20,8 @@ def test_valid_with_payload(schema):
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_with_status(schema):
-    """Tests a valid response with status (note: schema defines as integer, but description suggests string)."""
-    # The schema incorrectly defines status as integer, but description says "32-character hex-encoded MD5 sum"
-    # Testing according to schema definition (integer) for now
-    instance = {"result": 200, "status": 12345}
+    """Tests a valid response with status (32-character hex-encoded MD5 sum)."""
+    instance = {"result": 200, "status": "5d41402abc4b2a76b9719d911017c592"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_complete_response(schema):
@@ -32,7 +30,7 @@ def test_valid_complete_response(schema):
         "result": 200,
         "body": {"message": "Success", "data": {"updated": True}},
         "payload": "SGVsbG8gV29ybGQ=",
-        "status": 67890
+        "status": "5d41402abc4b2a76b9719d911017c592"
     }
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -58,12 +56,11 @@ def test_invalid_payload_type(schema):
     assert "is not of type 'string'" in str(excinfo.value)
 
 def test_invalid_status_type(schema):
-    """Tests invalid type for status (should be integer according to schema)."""
-    # Note: This is testing the schema as-is, though the description suggests it should be a string
-    instance = {"result": 200, "status": "not-an-integer"}
+    """Tests invalid type for status (should be string)."""
+    instance = {"result": 200, "status": 12345}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not of type 'integer'" in str(excinfo.value)
+    assert "is not of type 'string'" in str(excinfo.value)
 
 def test_valid_http_status_codes(schema):
     """Tests valid HTTP status codes."""
@@ -128,10 +125,12 @@ def test_valid_error_responses(schema):
         instance = {"result": status_code, "body": body}
         jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property (schema allows them)."""
+def test_invalid_additional_property(schema):
+    """Tests invalid response with additional property (not allowed)."""
     instance = {"result": 200, "extra": "field"}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

@@ -49,7 +49,7 @@
         },
         "max": {
             "description": "The maximum size of the response from the remote server, in bytes. Useful if a memory-constrained host wants to limit the response size. Default (and maximum value) is 8192.",
-            "default": 90,
+            "default": 8192,
             "type": "integer"
         },
         "verify": {
@@ -80,22 +80,42 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "route"
             ],
             "properties": {
                 "req": {
                     "const": "web.put"
+                },
+                "route": {
+                    "type": "string"
                 }
+            },
+            "not": {
+                "allOf": [
+                    {"required": ["body"]},
+                    {"required": ["payload"]}
+                ]
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "route"
             ],
             "properties": {
                 "cmd": {
                     "const": "web.put"
+                },
+                "route": {
+                    "type": "string"
                 }
+            },
+            "not": {
+                "allOf": [
+                    {"required": ["body"]},
+                    {"required": ["payload"]}
+                ]
             }
         }
     ],

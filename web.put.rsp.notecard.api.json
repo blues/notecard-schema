@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.put.rsp.notecard.api.json",
     "title": "web.put Response Application Programming Interface (API) Schema",
+    "description": "Response containing the result of an HTTP or HTTPS PUT request to an external endpoint.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "result": {
             "description": "The HTTP Status Code.",
@@ -21,9 +23,10 @@
         },
         "status": {
             "description": "If a `payload` is returned in the response, this is a 32-character hex-encoded MD5 sum of the payload or payload fragment. Useful for the host to check for any I2C/UART corruption.",
-            "type": "integer"
+            "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Example Response",
