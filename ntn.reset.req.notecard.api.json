@@ -45,11 +45,6 @@
             "title": "Reset Starnote Configuration",
             "description": "Clear Starnote configuration to return to testing NTN mode.",
             "json": "{\"req\": \"ntn.reset\"}"
-        },
-        {
-            "title": "Reset Starnote Configuration (Command)",
-            "description": "Clear Starnote configuration without expecting a response.",
-            "json": "{\"cmd\": \"ntn.reset\"}"
         }
     ]
 }
