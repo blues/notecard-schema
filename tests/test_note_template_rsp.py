@@ -1,139 +1,54 @@
 import pytest
 import jsonschema
+import json
 
 SCHEMA_FILE = "note.template.rsp.notecard.api.json"
 
-def test_minimal_valid_response(schema):
-    """Tests a minimal valid response (empty object)."""
+def test_valid_empty_response(schema):
+    """Tests a valid empty response."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_success_true(schema):
-    """Tests a valid response with success=true."""
-    instance = {"success": True}
+def test_valid_bytes_response(schema):
+    """Tests valid response with bytes field."""
+    instance = {"bytes": 40}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_success_false(schema):
-    """Tests a valid response with success=false."""
-    instance = {"success": False}
+def test_valid_template_set_response(schema):
+    """Tests valid response when template is successfully set."""
+    instance = {"bytes": 25}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_success_type(schema):
-    """Tests an invalid response with a non-boolean type for success."""
-    # Note: success is not defined in the current schema, so this test should validate
-    # as the schema allows additional properties
-    instance = {"success": "true"}
-    # This should actually pass since success is not defined in the schema
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_with_error(schema):
-    """Tests a valid response with an error message."""
-    instance = {"err": "template validation failed"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_error_type(schema):
-    """Tests response with potential additional fields like error."""
-    # Since additionalProperties is not false, this should be valid
-    instance = {"err": "template validation failed"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_response_with_both_success_and_error(schema):
-    """Tests response that might contain both success and error fields."""
-    # This could be valid depending on the actual API behavior
+def test_valid_template_verify_response(schema):
+    """Tests valid response when verifying existing template."""
     instance = {
-        "success": False,
-        "err": "invalid template format"
+        "template": True,
+        "body": {"temperature": 14.1, "humidity": 11},
+        "bytes": 40
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_response_with_additional_fields(schema):
-    """Tests response with potential additional fields."""
-    # Based on pattern from other schemas, there might be additional response fields
+def test_valid_template_with_format_response(schema):
+    """Tests valid response showing compact format template."""
     instance = {
-        "success": True
+        "template": True,
+        "format": "compact",
+        "bytes": 25
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_empty_response_valid(schema):
-    """Tests that an empty response object is valid."""
-    instance = {}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_unknown_property_type(schema):
-    """Tests response with an invalid property type if schema doesn't allow additional properties."""
-    # This test will depend on whether additionalProperties is false in the schema
-    instance = {"unknown_field": 123}
-    try:
-        jsonschema.validate(instance=instance, schema=schema)
-        # If validation passes, the schema allows additional properties
-    except jsonschema.ValidationError:
-        # If validation fails, the schema doesn't allow additional properties
-        pass
-
-def test_valid_template_response(schema):
-    """Tests valid response with template field (boolean)."""
-    instance = {
-        "template": True
-    }
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_template_type(schema):
-    """Tests invalid response with non-boolean template."""
-    instance = {"template": "invalid"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not of type 'boolean'" in str(excinfo.value)
-
-def test_valid_file_response(schema):
-    """Tests valid response with file field."""
-    instance = {"file": "readings.qo"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_file_type(schema):
-    """Tests invalid response with non-string file."""
-    # Note: file is not defined in the current schema, so this should pass
-    # as the schema allows additional properties
-    instance = {"file": 123}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_length_response(schema):
+def test_valid_template_with_length_response(schema):
     """Tests valid response with length field."""
-    instance = {"length": 250}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_length_type(schema):
-    """Tests invalid response with non-integer length."""
-    instance = {"length": "250"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'250' is not of type 'integer'" in str(excinfo.value)
-
-def test_valid_format_response(schema):
-    """Tests valid response with format field."""
-    instance = {"format": "compact"}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_format_type(schema):
-    """Tests invalid response with non-string format."""
-    instance = {"format": 123}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "123 is not of type 'string'" in str(excinfo.value)
-
-def test_valid_port_response(schema):
-    """Tests valid response with port field."""
-    instance = {"port": 42}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_invalid_port_type(schema):
-    """Tests invalid response with non-integer port."""
-    # Note: port is not defined in the current schema, so this should pass
-    # as the schema allows additional properties
-    instance = {"port": "42"}
+    instance = {
+        "template": True,
+        "body": {"sensor": "temp-01", "value": 25.4},
+        "length": 256,
+        "bytes": 32
+    }
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_complete_verify_response(schema):
-    """Tests complete response from verify request."""
+    """Tests complete response from verify request with all fields."""
     instance = {
         "bytes": 40,
         "template": True,
@@ -145,3 +60,77 @@ def test_valid_complete_verify_response(schema):
         "length": 100
     }
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_invalid_bytes_type(schema):
+    """Tests invalid response with non-integer bytes."""
+    instance = {"bytes": "40"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'40' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_template_type(schema):
+    """Tests invalid response with non-boolean template."""
+    instance = {"template": "invalid"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'invalid' is not of type 'boolean'" in str(excinfo.value)
+
+def test_invalid_body_type(schema):
+    """Tests invalid response with non-object body."""
+    instance = {"body": "should be object"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'should be object' is not of type 'object'" in str(excinfo.value)
+
+def test_invalid_length_type(schema):
+    """Tests invalid response with non-integer length."""
+    instance = {"length": "250"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'250' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_format_type(schema):
+    """Tests invalid response with non-string format."""
+    instance = {"format": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
+def test_invalid_additional_property(schema):
+    """Tests invalid response with additional property."""
+    instance = {"extra": "not allowed"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
+
+def test_invalid_multiple_additional_properties(schema):
+    """Tests invalid response with multiple additional properties."""
+    instance = {"extra1": 123, "extra2": "test"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
+
+def test_response_type_validation(schema):
+    """Tests that response must be an object."""
+    invalid_types = ["string", 123, True, False, ["array"]]
+    
+    for invalid_instance in invalid_types:
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(instance=invalid_instance, schema=schema)
+
+def test_additional_properties_false(schema):
+    """Tests that additionalProperties is set to false."""
+    assert schema.get("additionalProperties") is False
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)
