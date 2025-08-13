@@ -2,22 +2,41 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.get.rsp.notecard.api.json",
     "title": "note.get Response Application Programming Interface (API) Schema",
+    "description": "Response containing a Note retrieved from a Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "note": {
-            "description": "ID of the note",
-            "type": "string"
-        },
         "body": {
-            "description": "Note body data",
+            "description": "The JSON body, if contained in the Note.",
             "type": "object"
         },
         "payload": {
-            "description": "Binary payload data",
-            "type": "string",
-            "format": "binary"
+            "description": "The payload, if contained in the Note.",
+            "type": "string"
+        },
+        "time": {
+            "description": "The time the Note was added to the Notecard or Notehub.",
+            "type": "integer"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Note with Body and Time",
+            "description": "Response showing note with JSON body and timestamp.",
+            "json": "{\"body\": {\"api-key1\": \"api-val1\"}, \"time\": 1598909219}"
+        },
+        {
+            "title": "Note with Payload",
+            "description": "Response showing note with base64 payload data.",
+            "json": "{\"payload\": \"aGVsbG8gd29ybGQ=\", \"time\": 1598909220}"
+        },
+        {
+            "title": "Complete Note Response",
+            "description": "Response with both body and payload fields.",
+            "json": "{\"body\": {\"temperature\": 23.5}, \"payload\": \"YWRkaXRpb25hbERhdGE=\", \"time\": 1598909221}"
+        }
+    ]
 }

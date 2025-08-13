@@ -2,21 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.get.req.notecard.api.json",
     "title": "note.get Request Application Programming Interface (API) Schema",
-    "description": "Retrieves a Note from a Notefile. The file must either be a DB Notefile or inbound queue file (see file argument below).",
+    "description": "Retrieves a Note from a Notefile. The file must either be a DB Notefile or inbound queue file (see `file` argument below).",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "file": {
-            "description": "Name of the notefile to get the note from",
-            "type": "string"
-        },
-        "note": {
-            "description": "ID of the note to get",
-            "type": "string"
-        },
-        "delete": {
-            "description": "Whether to delete the note after getting it",
-            "type": "boolean"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "note.get"
@@ -24,6 +15,27 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "note.get"
+        },
+        "file": {
+            "description": "The Notefile name must end in `.qi` (for plaintext transport), `.qis` (for encrypted transport), `.db` or `.dbx` (for local-only DB Notefiles).",
+            "type": "string",
+            "default": "data.qi"
+        },
+        "note": {
+            "description": "If the Notefile has a `.db` or `.dbx` extension, specifies a unique Note ID. Not applicable to `.qi` Notefiles.",
+            "type": "string"
+        },
+        "delete": {
+            "description": "`true` to delete the Note after retrieving it.",
+            "type": "boolean"
+        },
+        "deleted": {
+            "description": "`true` to allow retrieval of a deleted Note.",
+            "type": "boolean"
+        },
+        "decrypt": {
+            "description": "`true` to decrypt [encrypted inbound Notefiles](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
+            "type": "boolean"
         }
     },
     "oneOf": [
@@ -49,6 +61,31 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Pop From QI",
+            "description": "Retrieve and delete a note from an inbound queue file.",
+            "json": "{\"req\": \"note.get\", \"file\": \"requests.qi\", \"delete\": true}"
+        },
+        {
+            "title": "Read from DB",
+            "description": "Read a specific note from a database Notefile.",
+            "json": "{\"req\": \"note.get\", \"file\": \"my-settings.db\", \"note\": \"measurements\"}"
+        },
+        {
+            "title": "Get with Default File",
+            "description": "Retrieve from default data.qi file.",
+            "json": "{\"req\": \"note.get\"}"
+        },
+        {
+            "title": "Get Deleted Note",
+            "description": "Retrieve a deleted note from database.",
+            "json": "{\"req\": \"note.get\", \"file\": \"config.db\", \"note\": \"old-setting\", \"deleted\": true}"
+        },
+        {
+            "title": "Decrypt Encrypted Note",
+            "description": "Retrieve and decrypt an encrypted inbound note.",
+            "json": "{\"req\": \"note.get\", \"file\": \"secure.qis\", \"decrypt\": true}"
+        }
+    ]
 }
