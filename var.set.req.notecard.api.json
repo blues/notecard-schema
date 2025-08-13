@@ -4,15 +4,10 @@
     "title": "var.set Request Application Programming Interface (API) Schema",
     "description": "Adds or updates a Note in a DB Notefile, replacing the existing body with the specified key-value pair where text, value, or flag is the key. Provides a simpler interface to the note.update API.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "name": {
-            "description": "Name of the variable to set",
-            "type": "string"
-        },
-        "text": {
-            "description": "Value to set for the variable",
-            "type": "string"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "var.set"
@@ -20,31 +15,130 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "var.set"
+        },
+        "name": {
+            "description": "The unique Note ID.",
+            "type": "string"
+        },
+        "file": {
+            "description": "The name of the DB Notefile that contains the Note to add or update. Default value is `vars.db`.",
+            "type": "string"
+        },
+        "text": {
+            "description": "The string-based value to be stored in the DB Notefile.",
+            "type": "string"
+        },
+        "value": {
+            "description": "The numeric value to be stored in the DB Notefile.",
+            "type": "integer"
+        },
+        "flag": {
+            "description": "The boolean value to be stored in the DB Notefile.",
+            "type": "boolean"
+        },
+        "sync": {
+            "description": "Set to `true` to immediately sync any changes.",
+            "type": "boolean"
         }
     },
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "name"
             ],
             "properties": {
                 "req": {
                     "const": "var.set"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "flag": {
+                    "type": "boolean"
+                },
+                "sync": {
+                    "type": "boolean"
                 }
-            }
+            },
+            "anyOf": [
+                {
+                    "required": ["text"]
+                },
+                {
+                    "required": ["value"]
+                },
+                {
+                    "required": ["flag"]
+                }
+            ]
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "name"
             ],
             "properties": {
                 "cmd": {
                     "const": "var.set"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "integer"
+                },
+                "flag": {
+                    "type": "boolean"
+                },
+                "sync": {
+                    "type": "boolean"
                 }
-            }
+            },
+            "anyOf": [
+                {
+                    "required": ["text"]
+                },
+                {
+                    "required": ["value"]
+                },
+                {
+                    "required": ["flag"]
+                }
+            ]
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Set Text Variable",
+            "description": "Set a text variable named 'status' to 'open' in the default 'vars.db' DB Notefile.",
+            "json": "{\"req\": \"var.set\", \"name\": \"status\", \"text\": \"open\"}"
+        },
+        {
+            "title": "Set Numeric Variable",
+            "description": "Set a numeric variable named 'temperature' to 23 in a specific DB Notefile.",
+            "json": "{\"req\": \"var.set\", \"name\": \"temperature\", \"value\": 23, \"file\": \"sensors.db\"}"
+        },
+        {
+            "title": "Set Boolean Variable with Sync",
+            "description": "Set a boolean variable named 'active' to true and immediately sync changes.",
+            "json": "{\"req\": \"var.set\", \"name\": \"active\", \"flag\": true, \"sync\": true}"
+        }
+    ]
 }

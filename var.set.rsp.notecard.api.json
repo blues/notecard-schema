@@ -2,17 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.set.rsp.notecard.api.json",
     "title": "var.set Response Application Programming Interface (API) Schema",
+    "description": "Response confirming successful addition or update of a Note in a DB Notefile.",
     "type": "object",
-    "properties": {
-        "name": {
-            "description": "Name of the variable",
-            "type": "string"
-        },
-        "text": {
-            "description": "Value of the variable",
-            "type": "string"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Successful Variable Set Response",
+            "description": "Empty response confirming variable has been set successfully.",
+            "json": "{}"
         }
-    },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    ]
 }
