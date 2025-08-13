@@ -67,8 +67,7 @@ def get_all_schema_files():
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
     schema_files = []
 
-    # TODO: remove this once we have a proper schema hierarchy, apply this pattern to all schemas
-    for pattern in ["card.*.req.notecard.api.json", "card.*.rsp.notecard.api.json"]:
+    for pattern in ["*.req.notecard.api.json", "*.rsp.notecard.api.json"]:
         schema_files.extend(glob.glob(os.path.join(project_root, pattern)))
 
     return sorted(schema_files)
