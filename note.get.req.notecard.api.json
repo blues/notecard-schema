@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "note.get"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "note.get"
-        },
         "file": {
             "description": "The Notefile name must end in `.qi` (for plaintext transport), `.qis` (for encrypted transport), `.db` or `.dbx` (for local-only DB Notefiles).",
             "type": "string",
@@ -36,6 +28,14 @@
         "decrypt": {
             "description": "`true` to decrypt [encrypted inbound Notefiles](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
             "type": "boolean"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "note.get"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "note.get"
         }
     },
     "oneOf": [

@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "note.add"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "note.add"
-        },
         "file": {
             "description": "The name of the Notefile. On Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided. When using this request on the Notecard the Notefile name must end in one of: `.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport, `.qos` for a queue outgoing with encrypted transport, `.db` for a bidirectionally synchronized database with plaintext transport, `.dbs` for a bidirectionally synchronized database with encrypted transport, `.dbx` for a local-only database.",
             "type": "string",
@@ -27,7 +19,7 @@
                     "description": "Queue outgoing (Notecard to Notehub) with plaintext transport"
                 },
                 {
-                    "pattern": "\\.qos$", 
+                    "pattern": "\\.qos$",
                     "description": "Queue outgoing with encrypted transport"
                 },
                 {
@@ -93,6 +85,14 @@
             "type": "integer",
             "minimum": 1,
             "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "note.add"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "note.add"
         }
     },
     "oneOf": [

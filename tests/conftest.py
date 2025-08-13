@@ -40,7 +40,7 @@ def schema(request):
                     # Extract filename from URL and look for it locally
                     filename = ref_url.split('/')[-1]
                     local_file_path = os.path.join(project_root, filename)
-                    
+
                     try:
                         # Check if registry already has this specific URL resolved
                         registry.contents(ref_url)

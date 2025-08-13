@@ -12,10 +12,6 @@
             "description": "Use `true` to align syncs on a regular time-periodic cycle.",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "hub.set"
-        },
         "details": {
             "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. Use `\"-\"` to reset a Notecard's LoRaWAN details to its default values.",
             "skus": ["LORA"],
@@ -102,10 +98,6 @@
             "description": "A Notehub-managed unique identifier that is used to match Devices with Projects.",
             "type": "string"
         },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "hub.set"
-        },
         "seconds": {
             "description": "If in `periodic` mode and using `on` above, the number of seconds to run in continuous mode before switching back to periodic mode. If not set, a default of 300 seconds is used.",
             "type": "integer"
@@ -184,6 +176,14 @@
             "description": "Overrides `outbound` with a voltage-variable value. Use `\"-\"` to clear this value.\n\n**NOTE:** Setting voltage-variable values is not supported on Notecard XP.",
             "skus": ["CELL", "CELL+WIFI", "WIFI"],
             "type": "string"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "hub.set"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "hub.set"
         }
     },
     "oneOf": [

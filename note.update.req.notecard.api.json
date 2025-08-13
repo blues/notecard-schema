@@ -8,14 +8,6 @@
     "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "note.update"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
-            "const": "note.update"
-        },
         "file": {
             "description": "The name of the DB Notefile that contains the Note to update.",
             "type": "string"
@@ -35,6 +27,14 @@
         "verify": {
             "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
             "type": "boolean"
+        },
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "note.update"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "note.update"
         }
     },
     "required": ["file", "note"],
