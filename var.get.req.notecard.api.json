@@ -4,11 +4,10 @@
     "title": "var.get Request Application Programming Interface (API) Schema",
     "description": "Retrieves a Note from a DB Notefile. Provides a simpler interface to the note.get API.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "name": {
-            "description": "Name of the variable to get",
-            "type": "string"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "var.get"
@@ -16,31 +15,63 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "var.get"
+        },
+        "name": {
+            "description": "The unique Note ID.",
+            "type": "string"
+        },
+        "file": {
+            "description": "The name of the DB Notefile that contains the Note to retrieve. Default value is `vars.db`.",
+            "type": "string"
         }
     },
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "name"
             ],
             "properties": {
                 "req": {
                     "const": "var.get"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
                 }
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "name"
             ],
             "properties": {
                 "cmd": {
                     "const": "var.get"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string"
                 }
             }
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Retrieve Variable with Default File",
+            "description": "Retrieve a variable named 'status' from the default 'vars.db' DB Notefile.",
+            "json": "{\"req\": \"var.get\", \"name\": \"status\"}"
+        },
+        {
+            "title": "Retrieve Variable with Specific File",
+            "description": "Retrieve a variable named 'temperature' from the 'sensors.db' DB Notefile.",
+            "json": "{\"req\": \"var.get\", \"name\": \"temperature\", \"file\": \"sensors.db\"}"
+        }
+    ]
 }

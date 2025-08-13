@@ -2,17 +2,41 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.get.rsp.notecard.api.json",
     "title": "var.get Response Application Programming Interface (API) Schema",
+    "description": "Response containing a Note value from a DB Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "name": {
-            "description": "Name of the variable",
+        "text": {
+            "description": "The string-based value stored in the DB Notefile.",
             "type": "string"
         },
-        "text": {
-            "description": "Value of the variable",
-            "type": "string"
+        "value": {
+            "description": "The numeric value stored in the DB Notefile.",
+            "type": "number"
+        },
+        "flag": {
+            "description": "The boolean value stored in the DB Notefile.",
+            "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Text Value Response",
+            "description": "Response containing a string value from the DB Notefile.",
+            "json": "{\"text\": \"open\"}"
+        },
+        {
+            "title": "Numeric Value Response",
+            "description": "Response containing a numeric value from the DB Notefile.",
+            "json": "{\"value\": 42}"
+        },
+        {
+            "title": "Boolean Flag Response",
+            "description": "Response containing a boolean value from the DB Notefile.",
+            "json": "{\"flag\": true}"
+        }
+    ]
 }
