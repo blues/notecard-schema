@@ -50,21 +50,29 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "route"
             ],
             "properties": {
                 "req": {
                     "const": "web.delete"
+                },
+                "route": {
+                    "type": "string"
                 }
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "route"
             ],
             "properties": {
                 "cmd": {
                     "const": "web.delete"
+                },
+                "route": {
+                    "type": "string"
                 }
             }
         }
