@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.rsp.notecard.api.json",
     "title": "web Response Application Programming Interface (API) Schema",
+    "description": "Response containing the result of an HTTP or HTTPS request to an external endpoint.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "result": {
             "description": "The HTTP Status Code",
@@ -17,7 +19,7 @@
         "payload": {
             "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "string",
-            "format": "binary"
+            "contentEncoding": "base64"
         },
         "length": {
             "description": "The length of the returned binary payload (in bytes).",
@@ -28,6 +30,7 @@
             "type": "integer"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Response from a web request",

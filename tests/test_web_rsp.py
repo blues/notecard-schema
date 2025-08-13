@@ -80,10 +80,12 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_additional_property(schema):
-    """Tests response with an additional property (should be allowed)."""
+def test_invalid_additional_property(schema):
+    """Tests response with additional property (not allowed)."""
     instance = {"result": 200, "extra": 123}
-    jsonschema.validate(instance=instance, schema=schema)
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
