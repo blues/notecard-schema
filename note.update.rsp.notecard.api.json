@@ -2,13 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.update.rsp.notecard.api.json",
     "title": "note.update Response Application Programming Interface (API) Schema",
+    "description": "Response confirming Note update in a DB Notefile.",
     "type": "object",
-    "properties": {
-        "success": {
-            "description": "Whether the update was successful",
-            "type": "boolean"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Successful Update Response",
+            "description": "Empty response confirming successful note update.",
+            "json": "{}"
         }
-    },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    ]
 }

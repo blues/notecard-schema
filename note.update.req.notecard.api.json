@@ -2,26 +2,12 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.update.req.notecard.api.json",
     "title": "note.update Request Application Programming Interface (API) Schema",
-    "description": "Updates a Note in a DB Notefile by its ID, replacing the existing body and/or payload.",
+    "description": "Updates a Note in a **DB Notefile** by its ID, replacing the existing `body` and/or `payload`.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "file": {
-            "description": "Name of the notefile to update the note in",
-            "type": "string"
-        },
-        "note": {
-            "description": "ID of the note to update",
-            "type": "string"
-        },
-        "body": {
-            "description": "Updated note body data",
-            "type": "object"
-        },
-        "payload": {
-            "description": "Updated binary payload data",
-            "type": "string",
-            "format": "binary"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "note.update"
@@ -29,8 +15,33 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "note.update"
+        },
+        "file": {
+            "description": "The name of the DB Notefile that contains the Note to update.",
+            "type": "string"
+        },
+        "note": {
+            "description": "The unique Note ID.",
+            "type": "string"
+        },
+        "body": {
+            "description": "A JSON object to add to the Note. A Note must have either a `body` or `payload`, and can have both.",
+            "type": "object"
+        },
+        "payload": {
+            "description": "A base64-encoded binary payload. A Note must have either a `body` or `payload`, and can have both.",
+            "type": "string"
+        },
+        "verify": {
+            "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
+            "type": "boolean"
         }
     },
+    "required": ["file", "note"],
+    "anyOf": [
+        {"required": ["body"]},
+        {"required": ["payload"]}
+    ],
     "oneOf": [
         {
             "required": [
@@ -54,6 +65,31 @@
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Update Note Body",
+            "description": "Update a note with new JSON body content.",
+            "json": "{\"req\": \"note.update\", \"file\": \"my-settings.db\", \"note\": \"measurements\", \"body\": {\"interval\": 60}}"
+        },
+        {
+            "title": "Update Note Payload",
+            "description": "Update a note with new base64 payload data.",
+            "json": "{\"req\": \"note.update\", \"file\": \"data.db\", \"note\": \"sensor-1\", \"payload\": \"SGVsbG8gV29ybGQ=\"}"
+        },
+        {
+            "title": "Update with Body and Payload",
+            "description": "Update a note with both body and payload.",
+            "json": "{\"req\": \"note.update\", \"file\": \"config.db\", \"note\": \"device-config\", \"body\": {\"enabled\": true}, \"payload\": \"YWRkaXRpb25hbERhdGE=\"}"
+        },
+        {
+            "title": "Update with Verification",
+            "description": "Update a note in templated Notefile with immediate flash write.",
+            "json": "{\"req\": \"note.update\", \"file\": \"template.db\", \"note\": \"user-setting\", \"body\": {\"theme\": \"dark\"}, \"verify\": true}"
+        },
+        {
+            "title": "Update with Command",
+            "description": "Update a note using command syntax (no response expected).",
+            "json": "{\"cmd\": \"note.update\", \"file\": \"cache.db\", \"note\": \"temp-data\", \"body\": {\"status\": \"updated\"}}"
+        }
+    ]
 }
