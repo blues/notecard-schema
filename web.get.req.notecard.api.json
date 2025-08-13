@@ -64,21 +64,29 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "route"
             ],
             "properties": {
                 "req": {
                     "const": "web.get"
+                },
+                "route": {
+                    "type": "string"
                 }
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "route"
             ],
             "properties": {
                 "cmd": {
                     "const": "web.get"
+                },
+                "route": {
+                    "type": "string"
                 }
             }
         }

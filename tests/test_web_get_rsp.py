@@ -54,6 +54,17 @@ def test_invalid_cobs_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
 
+def test_invalid_additional_property(schema):
+    """Tests invalid response with additional property."""
+    instance = {"result": 200, "extra": "not allowed"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "Additional properties are not allowed" in str(excinfo.value)
+
+def test_additional_properties_false(schema):
+    """Tests that additionalProperties is set to false."""
+    assert schema.get("additionalProperties") is False
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
