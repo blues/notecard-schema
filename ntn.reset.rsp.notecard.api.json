@@ -2,13 +2,18 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.reset.rsp.notecard.api.json",
     "title": "ntn.reset Response Application Programming Interface (API) Schema",
+    "description": "Empty response confirming Starnote configuration reset.",
     "type": "object",
-    "properties": {
-        "success": {
-            "description": "Whether the reset was successful",
-            "type": "boolean"
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "properties": {},
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Successful Reset Response",
+            "description": "Empty response confirming Starnote configuration has been cleared.",
+            "json": "{}"
         }
-    },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    ]
 }
