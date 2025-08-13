@@ -83,22 +83,64 @@
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "route"
             ],
             "properties": {
                 "req": {
                     "const": "web.post"
+                },
+                "route": {
+                    "type": "string"
                 }
+            },
+            "not": {
+                "anyOf": [
+                    {
+                        "allOf": [
+                            {"required": ["body"]},
+                            {"required": ["payload"]}
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {"required": ["binary"]},
+                            {"required": ["body"]},
+                            {"properties": {"binary": {"const": true}}}
+                        ]
+                    }
+                ]
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "route"
             ],
             "properties": {
                 "cmd": {
                     "const": "web.post"
+                },
+                "route": {
+                    "type": "string"
                 }
+            },
+            "not": {
+                "anyOf": [
+                    {
+                        "allOf": [
+                            {"required": ["body"]},
+                            {"required": ["payload"]}
+                        ]
+                    },
+                    {
+                        "allOf": [
+                            {"required": ["binary"]},
+                            {"required": ["body"]},
+                            {"properties": {"binary": {"const": true}}}
+                        ]
+                    }
+                ]
             }
         }
     ],
