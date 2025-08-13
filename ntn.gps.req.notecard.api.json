@@ -64,15 +64,5 @@
             "description": "Request current GPS/GNSS location configuration.",
             "json": "{\"req\": \"ntn.gps\"}"
         }
-    ],
-    "annotations": [
-        {
-            "title": "note",
-            "description": "This API is only available as of Notecard firmware v6.2.3."
-        },
-        {
-            "title": "note", 
-            "description": "See the [Starnote Quickstart](https://dev.blues.io/quickstart/starnote-quickstart) for more information."
-        }
     ]
 }
