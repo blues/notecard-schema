@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.delete.rsp.notecard.api.json",
     "title": "web.delete Response Application Programming Interface (API) Schema",
+    "description": "Response containing the result of an HTTP or HTTPS DELETE request to an external endpoint.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "result": {
             "description": "The HTTP Status Code",
@@ -24,6 +26,7 @@
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Example Response",
