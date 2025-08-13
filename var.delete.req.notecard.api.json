@@ -4,11 +4,10 @@
     "title": "var.delete Request Application Programming Interface (API) Schema",
     "description": "Delete a Note from a DB Notefile by its name. Provides a simpler interface to the note.delete API.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
-        "name": {
-            "description": "Name of the variable to delete",
-            "type": "string"
-        },
         "cmd": {
             "description": "Command for the Notecard (no response)",
             "const": "var.delete"
@@ -16,31 +15,48 @@
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "var.delete"
+        },
+        "name": {
+            "description": "Name of the variable to delete",
+            "type": "string"
         }
     },
     "oneOf": [
         {
             "required": [
-                "req"
+                "req",
+                "name"
             ],
             "properties": {
                 "req": {
                     "const": "var.delete"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         },
         {
             "required": [
-                "cmd"
+                "cmd",
+                "name"
             ],
             "properties": {
                 "cmd": {
                     "const": "var.delete"
+                },
+                "name": {
+                    "type": "string"
                 }
             }
         }
     ],
     "additionalProperties": false,
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "samples": [
+        {
+            "title": "Delete Variable",
+            "description": "Delete a variable named 'temperature' from the DB Notefile.",
+            "json": "{\"req\": \"var.delete\", \"name\": \"temperature\"}"
+        }
+    ]
 }

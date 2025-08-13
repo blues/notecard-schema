@@ -2,13 +2,23 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.delete.rsp.notecard.api.json",
     "title": "var.delete Response Application Programming Interface (API) Schema",
+    "description": "Response confirming deletion of a variable from a DB Notefile.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "success": {
             "description": "Whether the variable was successfully deleted",
             "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Variable Deletion Success",
+            "description": "Successful response confirming variable deletion.",
+            "json": "{\"success\": true}"
+        }
+    ]
 }
