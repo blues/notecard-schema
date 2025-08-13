@@ -2,9 +2,11 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.get.rsp.notecard.api.json",
     "title": "web.get Response Application Programming Interface (API) Schema",
+    "description": "Response containing the result of an HTTP or HTTPS GET request to an external endpoint.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
         "result": {
             "description": "The HTTP Status Code.",
@@ -27,6 +29,7 @@
             "type": "integer"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Response body from HTTP GET request to the external service.",
