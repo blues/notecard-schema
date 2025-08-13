@@ -48,6 +48,7 @@
             "type": "boolean"
         }
     },
+    "required": ["file"],
     "oneOf": [
         {
             "required": [

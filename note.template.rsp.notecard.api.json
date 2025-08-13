@@ -3,8 +3,9 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.rsp.notecard.api.json",
     "title": "note.template Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
     "properties": {
         "bytes": {
             "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
@@ -27,10 +28,22 @@
             "type": "string"
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
-            "title": "Example Response",
-            "json": "{\"bytes\":40}"
+            "title": "Template Set Response",
+            "description": "Response when template is successfully set, showing bytes per note.",
+            "json": "{\"bytes\": 40}"
+        },
+        {
+            "title": "Template Verify Response",
+            "description": "Response when verifying existing template with all fields.",
+            "json": "{\"template\": true, \"body\": {\"temperature\": 14.1, \"humidity\": 11}, \"bytes\": 40}"
+        },
+        {
+            "title": "Template with Format Response",
+            "description": "Response showing compact format template.",
+            "json": "{\"template\": true, \"format\": \"compact\", \"bytes\": 25}"
         }
     ]
 }
