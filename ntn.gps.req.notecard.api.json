@@ -2,6 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json",
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
+    "description": "Determines whether a Notecard should override a paired Starnote's GPS/GNSS location with its own GPS/GNSS location. The paired Starnote uses its own GPS/GNSS location by default.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
