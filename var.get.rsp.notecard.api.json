@@ -14,7 +14,7 @@
         },
         "value": {
             "description": "The numeric value stored in the DB Notefile.",
-            "type": "integer"
+            "type": "number"
         },
         "flag": {
             "description": "The boolean value stored in the DB Notefile.",
