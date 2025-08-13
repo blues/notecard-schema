@@ -17,7 +17,11 @@
             "const": "var.delete"
         },
         "name": {
-            "description": "Name of the variable to delete",
+            "description": "The unique Note ID.",
+            "type": "string"
+        },
+        "file": {
+            "description": "The name of the DB Notefile that contains the Note to delete. Default value is `vars.db`.",
             "type": "string"
         }
     },
@@ -33,6 +37,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "file": {
+                    "type": "string"
                 }
             }
         },
@@ -47,6 +54,9 @@
                 },
                 "name": {
                     "type": "string"
+                },
+                "file": {
+                    "type": "string"
                 }
             }
         }
@@ -54,9 +64,14 @@
     "additionalProperties": false,
     "samples": [
         {
-            "title": "Delete Variable",
-            "description": "Delete a variable named 'temperature' from the DB Notefile.",
-            "json": "{\"req\": \"var.delete\", \"name\": \"temperature\"}"
+            "title": "Delete Variable with Default File",
+            "description": "Delete a variable named 'status' from the default 'vars.db' DB Notefile.",
+            "json": "{\"req\": \"var.delete\", \"name\": \"status\"}"
+        },
+        {
+            "title": "Delete Variable with Specific File",
+            "description": "Delete a variable named 'temperature' from the 'sensors.db' DB Notefile.",
+            "json": "{\"req\": \"var.delete\", \"name\": \"temperature\", \"file\": \"sensors.db\"}"
         }
     ]
 }

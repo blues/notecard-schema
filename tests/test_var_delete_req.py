@@ -10,7 +10,9 @@ def test_valid_requests(schema):
         {"req": "var.delete", "name": "temperature"},
         {"cmd": "var.delete", "name": "humidity"},
         {"req": "var.delete", "name": "sensor_data"},
-        {"cmd": "var.delete", "name": "config_value"}
+        {"cmd": "var.delete", "name": "config_value"},
+        {"req": "var.delete", "name": "status", "file": "sensors.db"},
+        {"cmd": "var.delete", "name": "data", "file": "vars.db"}
     ]
     
     for request in valid_requests:
@@ -77,6 +79,32 @@ def test_invalid_name_type(schema):
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=instance, schema=schema)
 
+def test_invalid_file_type(schema):
+    """Tests invalid type for file parameter."""
+    invalid_file_types = [
+        {"req": "var.delete", "name": "test", "file": 123},
+        {"req": "var.delete", "name": "test", "file": True},
+        {"req": "var.delete", "name": "test", "file": []},
+        {"req": "var.delete", "name": "test", "file": {}},
+        {"cmd": "var.delete", "name": "test", "file": None}
+    ]
+    
+    for instance in invalid_file_types:
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(instance=instance, schema=schema)
+
+def test_file_parameter_optional(schema):
+    """Tests that file parameter is optional."""
+    valid_requests = [
+        {"req": "var.delete", "name": "status"},  # No file parameter
+        {"cmd": "var.delete", "name": "data"},    # No file parameter
+        {"req": "var.delete", "name": "temp", "file": "sensors.db"},  # With file
+        {"cmd": "var.delete", "name": "config", "file": "vars.db"}    # With file
+    ]
+    
+    for request in valid_requests:
+        jsonschema.validate(instance=request, schema=schema)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with additional property."""
     instance = {
@@ -104,13 +132,13 @@ def test_variable_name_scenarios(schema):
     """Tests various realistic variable name scenarios."""
     scenarios = [
         {"req": "var.delete", "name": "temperature"},
-        {"req": "var.delete", "name": "humidity"},
+        {"req": "var.delete", "name": "humidity", "file": "sensors.db"},
         {"req": "var.delete", "name": "sensor_data"},
-        {"req": "var.delete", "name": "config_value"},
+        {"req": "var.delete", "name": "config_value", "file": "config.db"},
         {"req": "var.delete", "name": "device_status"},
-        {"cmd": "var.delete", "name": "last_reading"},
+        {"cmd": "var.delete", "name": "last_reading", "file": "data.db"},
         {"cmd": "var.delete", "name": "system_info"},
-        {"req": "var.delete", "name": "user_preference"}
+        {"req": "var.delete", "name": "user_preference", "file": "vars.db"}
     ]
     
     for scenario in scenarios:
