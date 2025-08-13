@@ -22,7 +22,10 @@ def test_valid_value_response(schema):
         {"value": 42},
         {"value": 0},
         {"value": -10},
-        {"value": 1000}
+        {"value": 1000},
+        {"value": 23.5},
+        {"value": -12.34},
+        {"value": 0.0}
     ]
     
     for response in valid_responses:
@@ -65,8 +68,7 @@ def test_invalid_value_type(schema):
         {"value": True},
         {"value": []},
         {"value": {}},
-        {"value": None},
-        {"value": 12.34}  # Should be integer, not float
+        {"value": None}
     ]
     
     for instance in invalid_value_types:
@@ -141,13 +143,16 @@ def test_variable_retrieval_scenarios(schema):
     """Tests realistic variable retrieval response scenarios."""
     scenarios = [
         {"text": "open"},        # String value
-        {"value": 23},          # Temperature reading  
+        {"value": 23},          # Integer temperature reading  
+        {"value": 23.5},        # Float temperature reading
         {"flag": True},         # Boolean status
         {"text": "error"},      # Error message
         {"value": 0},           # Zero value
+        {"value": 0.0},         # Zero float value
         {"flag": False},        # False flag
         {"text": "active"},     # Status text
-        {"value": -5},          # Negative value
+        {"value": -5},          # Negative integer value
+        {"value": -12.34},      # Negative float value
         {}                      # Empty response (no variable found)
     ]
     
@@ -196,16 +201,22 @@ def test_strict_validation(schema):
             jsonschema.validate(instance=instance, schema=schema)
         assert "Additional properties are not allowed" in str(excinfo.value)
 
-def test_integer_edge_cases(schema):
-    """Tests edge cases for integer value field."""
-    valid_integer_responses = [
+def test_number_edge_cases(schema):
+    """Tests edge cases for numeric value field."""
+    valid_number_responses = [
         {"value": 0},
+        {"value": 0.0},
         {"value": -1},
+        {"value": -1.0},
         {"value": 2147483647},   # Max 32-bit signed int
-        {"value": -2147483648}   # Min 32-bit signed int
+        {"value": -2147483648},  # Min 32-bit signed int
+        {"value": 1.7976931348623157e+308},  # Large float
+        {"value": -1.7976931348623157e+308}, # Large negative float
+        {"value": 2.2250738585072014e-308},  # Small positive float
+        {"value": -2.2250738585072014e-308}  # Small negative float
     ]
     
-    for response in valid_integer_responses:
+    for response in valid_number_responses:
         jsonschema.validate(instance=response, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):
