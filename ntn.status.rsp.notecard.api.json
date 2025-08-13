@@ -2,21 +2,37 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.status.rsp.notecard.api.json",
     "title": "ntn.status Response Application Programming Interface (API) Schema",
+    "description": "Response showing current status of Notecard's connection to paired Starnote.",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "status": {
-            "description": "Status of the Notehub connection",
+        "err": {
+            "description": "This member is present if any errors have occurred while connecting to a paired Starnote, for example: `{\"err\":\"no NTN module is connected {no-ntn-module}\"}`",
             "type": "string"
         },
-        "connected": {
-            "description": "Whether the Notecard is connected to Notehub",
-            "type": "boolean"
-        },
-        "time": {
-            "description": "Current time (Unix epoch seconds)",
-            "type": "integer"
+        "status": {
+            "description": "Details about a Notecard's connection to a paired Starnote, for example: `{\"status\":\"{ntn-idle}{ntn-unknown-location}\"}`",
+            "type": "string"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Starnote Idle Status",
+            "description": "Response showing Starnote connection in idle state.",
+            "json": "{\"status\": \"{ntn-idle}\"}"
+        },
+        {
+            "title": "Starnote Connection Error",
+            "description": "Response showing error when no NTN module is connected.",
+            "json": "{\"err\": \"no NTN module is connected {no-ntn-module}\"}"
+        },
+        {
+            "title": "Starnote Status with Location Info",
+            "description": "Response showing detailed status including location information.",
+            "json": "{\"status\": \"{ntn-idle}{ntn-unknown-location}\"}"
+        }
+    ]
 }
