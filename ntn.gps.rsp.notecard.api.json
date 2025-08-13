@@ -3,12 +3,30 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.rsp.notecard.api.json",
     "title": "ntn.gps Response Application Programming Interface (API) Schema",
     "type": "object",
+    "version": "0.2.1",
+    "apiVersion": "9.1.1",
+    "skus": ["CELL", "CELL+WIFI", "WIFI"],
     "properties": {
-        "mode": {
-            "description": "Current GPS mode",
-            "type": "string"
+        "on": {
+            "description": "Returned and `true` if a Starnote will use the GPS/GNSS location from its paired Notecard.",
+            "type": "boolean"
+        },
+        "off": {
+            "description": "Returned and `true` if a paired Starnote will use its own GPS/GNSS location.",
+            "type": "boolean"
         }
     },
-    "version": "0.1.1",
-    "apiVersion": "9.1.1"
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Starnote Using Own GPS",
+            "description": "Response indicating Starnote is using its own GPS/GNSS location (default).",
+            "json": "{\"off\": true}"
+        },
+        {
+            "title": "Starnote Using Notecard GPS",
+            "description": "Response indicating Starnote is using paired Notecard's GPS/GNSS location.",
+            "json": "{\"on\": true}"
+        }
+    ]
 }
