@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/web.req.notecard.api.json",
     "title": "web Request Application Programming Interface (API) Schema",
-    "description": "JSON description of the web API",
+    "description": "Performs an HTTP or HTTPS request against an external endpoint, with the ability to specify any valid HTTP method.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
