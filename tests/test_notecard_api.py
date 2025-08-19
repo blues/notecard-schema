@@ -116,3 +116,66 @@ def test_all_request_schemas_are_included_in_oneof(schema):
         file_path = os.path.join(project_root, filename)
         if not os.path.exists(file_path):
             pytest.fail(f"Referenced file {filename} does not exist at {file_path}")
+
+def test_every_api_has_request_and_response_pair():
+    """
+    Validates that for every API referenced in the 'oneOf' array,
+    both request (.req.notecard.api.json) and response (.rsp.notecard.api.json)
+    schema files exist in the project directory.
+    """
+    # Load the main schema
+    main_schema_path = os.path.join(project_root, SCHEMA_FILE)
+    with open(main_schema_path, 'r') as f:
+        main_schema_dict = json.load(f)
+
+    assert "oneOf" in main_schema_dict, "notecard.api.json must contain a 'oneOf' array."
+
+    # Extract all referenced request files from the oneOf array
+    referenced_req_files = set()
+    for ref_obj in main_schema_dict["oneOf"]:
+        assert "$ref" in ref_obj, "Each item in 'oneOf' must have a '$ref' key."
+        ref_value = ref_obj["$ref"]
+        filename = ref_value.split('/')[-1]
+        # Only consider .req. files (response files are not included in oneOf)
+        if ".req.notecard.api.json" in filename:
+            referenced_req_files.add(filename)
+
+    # Check that each referenced request file has a corresponding response file
+    missing_response_files = []
+    for req_filename in referenced_req_files:
+        # Convert request filename to expected response filename
+        # e.g., "card.attn.req.notecard.api.json" -> "card.attn.rsp.notecard.api.json"
+        rsp_filename = req_filename.replace(".req.notecard.api.json", ".rsp.notecard.api.json")
+        rsp_file_path = os.path.join(project_root, rsp_filename)
+
+        if not os.path.exists(rsp_file_path):
+            missing_response_files.append(rsp_filename)
+
+    # Report any missing response files
+    if missing_response_files:
+        pytest.fail(
+            f"The following response schema files are missing for APIs referenced in notecard.api.json: "
+            f"{sorted(missing_response_files)}"
+        )
+
+    # Also check that all existing response files have corresponding request files
+    rsp_files_pattern = os.path.join(project_root, "*.rsp.notecard.api.json")
+    actual_rsp_files = set()
+    for file_path in glob.glob(rsp_files_pattern):
+        filename = os.path.basename(file_path)
+        actual_rsp_files.add(filename)
+
+    orphaned_response_files = []
+    for rsp_filename in actual_rsp_files:
+        # Convert response filename to expected request filename
+        req_filename = rsp_filename.replace(".rsp.notecard.api.json", ".req.notecard.api.json")
+
+        if req_filename not in referenced_req_files:
+            orphaned_response_files.append(rsp_filename)
+
+    # Report any orphaned response files
+    if orphaned_response_files:
+        pytest.fail(
+            f"The following response schema files exist but have no corresponding request file "
+            f"referenced in notecard.api.json: {sorted(orphaned_response_files)}"
+        )
