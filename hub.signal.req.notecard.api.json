@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/hub.signal.req.notecard.api.json",
     "title": "hub.signal Request Application Programming Interface (API) Schema",
-    "description": "Receive a signal (a near-real-time note) from Notehub.",
+    "description": "Receive a Signal (a near-real-time note) from Notehub.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
