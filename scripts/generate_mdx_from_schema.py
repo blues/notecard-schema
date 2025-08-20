@@ -181,20 +181,38 @@ def generate_arguments_mdx(properties, schema_data):
         param_skus = prop_details.get("skus", [])
         param_badges = generate_argument_badges(param_skus) if param_skus else ""
 
+        # Generate deprecated badge if property is deprecated
+        deprecated_badge = ""
+        if prop_details.get("deprecated", False):
+            deprecated_badge = '<Badge type="deprecated" usage="argument" />'
+
+        # Create badges paragraph if any badges exist
+        badges_para = ""
+        all_badges = []
+        if param_badges:
+            # Add &nbsp; between individual SKU badges for proper spacing
+            badges_with_spacing = param_badges.replace('"/>', '"/>&nbsp;')
+            # Remove trailing &nbsp; if it exists
+            badges_with_spacing = badges_with_spacing.rstrip('&nbsp;')
+            all_badges.append(badges_with_spacing)
+        if deprecated_badge:
+            all_badges.append(deprecated_badge)
+
+        if all_badges:
+            # Join all badge groups with &nbsp; spacing
+            badges_combined = "&nbsp;".join(all_badges)
+            badges_para = f"\n\n<p>{badges_combined}</p>"
+
         # Handle special case for mode parameter with sub-descriptions
         if prop_name == "mode" and "sub-descriptions" in prop_details:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
-            param_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}"
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}\n\n{sub_desc_content}"
         # Handle array parameters with sub-descriptions in items
         elif prop_type == "array" and "items" in prop_details and "sub-descriptions" in prop_details["items"]:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["items"]["sub-descriptions"])
-            param_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}"
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}\n\n{sub_desc_content}"
         else:
-            # Add parameter SKU badges after the parameter name if they exist
-            param_header = f"### `{prop_name}`"
-            if param_badges:
-                param_header = f"### `{prop_name}` {param_badges}"
-            param_content = f"{param_header}\n\n{type_display}\n\n{description}"
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}"
 
         # Check if this property has minApiVersion and wrap it if so
         prop_min_version = prop_details.get("minApiVersion")
@@ -318,6 +336,7 @@ def generate_examples_mdx(samples):
 
     for sample_obj in samples:
         title = sample_obj.get("title", "Example")
+        description = sample_obj.get("description", "")
         json_sample_str = sample_obj.get("json", "{}")
 
         formatted_json_block = ""
@@ -344,6 +363,10 @@ def generate_examples_mdx(samples):
             code_tabs_inner_content_parts.append(python_block)
 
         tabs_inner_mdx = "\n\n".join(filter(None, code_tabs_inner_content_parts))
+
+        # Add description after the code blocks if it exists
+        if description:
+            tabs_inner_mdx += f"\n\n{description}"
 
         if num_samples == 1:
             # Single sample: <CodeTabs> without exampleRequestTitle
