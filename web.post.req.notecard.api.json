@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "route": {
             "description": "Alias for a Proxy Route in Notehub.",
@@ -37,7 +41,8 @@
         },
         "total": {
             "description": "When sending large payloads to Notehub in fragments across several `web.post` requests, the total size, in bytes, of the binary payload across all fragments.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "3.2.1"
         },
         "offset": {
             "description": "When sending payload fragments, the number of bytes of the binary payload to offset from 0 when reassembling on the Notehub once all fragments have been received.",
@@ -57,11 +62,13 @@
         },
         "async": {
             "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.1.1"
         },
         "binary": {
             "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
         },
         "file": {
             "description": "The name of the [local-only Database Notefile](https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-database-notefiles-for-local-only-state) (`.dbx`) to be used if the web request is issued [asynchronously](https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#using-web-transactions-asynchronously) and you wish to store the response.",
@@ -98,15 +105,37 @@
                 "anyOf": [
                     {
                         "allOf": [
-                            {"required": ["body"]},
-                            {"required": ["payload"]}
+                            {
+                                "required": [
+                                    "body"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "payload"
+                                ]
+                            }
                         ]
                     },
                     {
                         "allOf": [
-                            {"required": ["binary"]},
-                            {"required": ["body"]},
-                            {"properties": {"binary": {"const": true}}}
+                            {
+                                "required": [
+                                    "binary"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "body"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "binary": {
+                                        "const": true
+                                    }
+                                }
+                            }
                         ]
                     }
                 ]
@@ -129,15 +158,37 @@
                 "anyOf": [
                     {
                         "allOf": [
-                            {"required": ["body"]},
-                            {"required": ["payload"]}
+                            {
+                                "required": [
+                                    "body"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "payload"
+                                ]
+                            }
                         ]
                     },
                     {
                         "allOf": [
-                            {"required": ["binary"]},
-                            {"required": ["body"]},
-                            {"properties": {"binary": {"const": true}}}
+                            {
+                                "required": [
+                                    "binary"
+                                ]
+                            },
+                            {
+                                "required": [
+                                    "body"
+                                ]
+                            },
+                            {
+                                "properties": {
+                                    "binary": {
+                                        "const": true
+                                    }
+                                }
+                            }
                         ]
                     }
                 ]

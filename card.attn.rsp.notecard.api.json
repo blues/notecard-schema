@@ -52,7 +52,8 @@
         },
         "off": {
             "description": "This field is present and set to `true` if ATTN processing has been disabled with the `off` argument.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "7.2.1"
         }
     },
     "samples": [

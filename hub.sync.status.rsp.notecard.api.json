@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "alert": {
             "description": "`true` if an error occurred during the most recent sync.",
@@ -26,11 +31,13 @@
         },
         "scan": {
             "description": "Returns `true` if triangulation data was sent to Notehub in the most recent sync.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "6.1.1"
         },
         "seconds": {
             "description": "If the Notecard is in a Penalty Box, the number of seconds until the penalty condition ends.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "4.1.1"
         },
         "status": {
             "description": "The status of the current or previous sync. Refer to [this listing](/notecard/notecard-walkthrough/notecard-error-and-status-codes/) for the meaning of the various status codes returned (e.g. `{sync-end}`).",

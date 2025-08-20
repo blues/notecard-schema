@@ -6,11 +6,17 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "minApiVersion": "5.3.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "delete": {
             "description": "Clear the COBS area on the Notecard and reset all related arguments previously set by a card.binary request.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

@@ -6,7 +6,13 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "minApiVersion": "7.3.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "name": {
             "description": "The unique Note ID.",
@@ -14,7 +20,8 @@
         },
         "file": {
             "description": "The name of the DB Notefile that contains the Note to retrieve. Default value is `vars.db`.",
-            "type": "string"
+            "type": "string",
+            "minApiVersion": "7.3.1"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",

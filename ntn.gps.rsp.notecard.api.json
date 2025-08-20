@@ -6,11 +6,17 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "minApiVersion": "6.2.3",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "on": {
             "description": "Returned and `true` if a Starnote will use the GPS/GNSS location from its paired Notecard.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "6.2.3"
         },
         "off": {
             "description": "Returned and `true` if a paired Starnote will use its own GPS/GNSS location.",

@@ -5,7 +5,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "bytes": {
             "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
@@ -13,7 +18,8 @@
         },
         "template": {
             "description": "`true` if an active template exists on the Notefile.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.2.1"
         },
         "body": {
             "description": "If the `verify` argument is provided and the Notefile has an active template, the template `body`.",
@@ -25,7 +31,8 @@
         },
         "format": {
             "description": "If the `format` argument is provided, this represents the format applied to the template.",
-            "type": "string"
+            "type": "string",
+            "minApiVersion": "6.2.3"
         }
     },
     "additionalProperties": false,

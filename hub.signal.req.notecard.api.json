@@ -6,11 +6,16 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "seconds": {
             "description": "The number of seconds to wait before timing out the request.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "5.1.1"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",

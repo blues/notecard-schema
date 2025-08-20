@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The current voltage-variable threshold value returned from Notecard.",
@@ -14,7 +19,8 @@
         },
         "usb": {
             "description": "`true` if the Notecard is connected to USB power.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.5.1"
         },
         "value": {
             "description": "The current voltage.",

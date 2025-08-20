@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "file": {
             "description": "The name of the Notefile. On Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided. When using this request on the Notecard the Notefile name must end in one of: `.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport, `.qos` for a queue outgoing with encrypted transport, `.db` for a bidirectionally synchronized database with plaintext transport, `.dbs` for a bidirectionally synchronized database with encrypted transport, `.dbx` for a local-only database.",
@@ -34,7 +39,8 @@
                     "pattern": "\\.dbx$",
                     "description": "Local-only database"
                 }
-            ]
+            ],
+            "minApiVersion": "8.2.1"
         },
         "note": {
             "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID. If `note` string is \"?\", then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`. If this argument is provided for a `.qo` Notefile, an error is returned.",
@@ -63,28 +69,54 @@
         "binary": {
             "description": "If `true`, the Notecard will send all the data in the binary buffer to Notehub.",
             "type": "boolean",
-            "skus": ["CELL", "CELL+WIFI", "WIFI"]
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ],
+            "minApiVersion": "5.3.1"
         },
         "live": {
             "description": "If `true`, bypasses saving the Note to flash on the Notecard. Required to be set to `true` if also using `\"binary\":true`.",
             "type": "boolean",
-            "skus": ["CELL", "CELL+WIFI", "WIFI"]
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ]
         },
         "full": {
             "description": "If set to `true`, and the Note is using a Notefile Template, the Note will bypass usage of omitempty and retain `null`, `0`, `false`, and empty string `\"\"` values.",
             "type": "boolean",
-            "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "LORA",
+                "WIFI"
+            ],
+            "minApiVersion": "5.1.1"
         },
         "limit": {
             "description": "If set to `true`, the Note will not be created if Notecard is in a penalty box.",
             "type": "boolean",
-            "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "LORA",
+                "WIFI"
+            ],
+            "minApiVersion": "9.1.1"
         },
         "max": {
             "description": "Defines the maximum number of queued Notes permitted in the specified Notefile (`\"file\"`). Any Notes added after this value will be rejected. When used with `\"sync\":true`, a sync will be triggered when the number of pending Notes matches the `max` value.",
             "type": "integer",
             "minimum": 1,
-            "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "LORA",
+                "WIFI"
+            ]
         },
         "req": {
             "description": "Request for the Notecard (expects response)",

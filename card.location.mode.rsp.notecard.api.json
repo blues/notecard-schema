@@ -5,7 +5,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The current location mode.",
@@ -44,7 +49,8 @@
         },
         "threshold": {
             "description": "When in periodic mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "3.4.1"
         }
     },
     "samples": [

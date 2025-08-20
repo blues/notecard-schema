@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.1.2",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "files": {
             "description": "A list of [Notefiles](https://dev.blues.io/api-reference/glossary/#notefile) to watch for file-based interrupts.",
@@ -25,88 +30,163 @@
                 {
                     "const": "",
                     "description": "Fetches currently pending events in the \"files\" collection.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "arm",
                     "description": "Clear \"files\" events and cause the ATTN pin to go LOW. After an event occurs or \"seconds\" has elapsed, the ATTN pin will then go HIGH (a.k.a. \"fires\"). If \"seconds\" is 0, no timeout will be scheduled. If ATTN is armed, calling `arm` again will disarm (briefly pulling ATTN HIGH), then arm (non-idempotent).",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "auxgpio",
                     "description": "When armed, causes ATTN to fire if an AUX GPIO input changes. Disable by using `-auxgpio`.",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "3.4.1"
                 },
                 {
                     "const": "connected",
                     "description": "When armed, will cause ATTN to fire whenever the module connects to cellular. Disable with `-connected`.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "disarm",
                     "description": "Causes ATTN pin to go HIGH if it had been LOW.\n\nPassing both `\"disarm\"` and `\"-all\"` clears all ATTN monitors currently set.",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "3.2.1"
                 },
                 {
                     "const": "env",
                     "description": "When armed, causes ATTN to fire if an environment variable changes on the Notecard. Disable by using `-env`.",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "3.4.1"
                 },
                 {
                     "const": "files",
                     "description": "When armed, will cause ATTN to fire if any of the \"files\" are modified. Disable by using `-files`.",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "location",
                     "description": "When armed, will cause ATTN to fire whenever the Notecard GPS module makes a position fix. Disable by using `-location`.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "motion",
                     "description": "When armed, will cause ATTN to fire whenever the accelerometer detects module motion. Disable with `-motion`.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "motionchange",
                     "description": "When armed, will cause ATTN to fire whenever the `card.motion.mode` changes from \"moving\" to \"stopped\" (or vice versa). Learn how to configure this feature [in this guide](https://dev.blues.io/guides-and-tutorials/notecard-guides/asset-tracking-with-gps/#wake-host-or-send-note-on-motion-status-change).",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "6.1.1"
                 },
                 {
                     "const": "rearm",
                     "description": "Will arm ATTN if not already armed. Otherwise, resets the values of `mode`, `files`, and `seconds` specified in the initial `arm` or `rearm` request (idempotent).",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "signal",
                     "description": "When armed, will cause ATTN to fire whenever the Notecard receives a [signal](https://dev.blues.io/api-reference/glossary/#signal).",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "sleep",
                     "description": "Instruct the Notecard to pull the ATTN pin low for a period of time, and optionally keep a payload in memory. Can be used by the host to sleep the host MCU.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "usb",
                     "description": "When armed, will enable USB power events firing the ATTN pin. Disable with `-usb`.",
-                    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "watchdog",
                     "description": "Not an \"arm\" mode, rather will cause the ATTN pin to go from HIGH to LOW, then HIGH if the notecard fails to receive any JSON requests for \"seconds.\" In this mode, \"seconds\" must be >= 60.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
                     "const": "wireless",
                     "description": "Instruct the Notecard to fire the ATTN pin whenever the `card.wireless` [status](https://dev.blues.io/api-reference/notecard-api/card-requests/#card-wireless) changes.",
-                    "skus": ["CELL", "CELL+WIFI", "WIFI"]
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 }
             ]
         },
         "off": {
             "description": "When `true`, completely disables ATTN processing and sets the pin OFF. This setting is retained across device restarts.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "7.2.1"
         },
         "on": {
             "description": "When `true`, enables ATTN processing. This setting is retained across device restarts.",
@@ -129,7 +209,8 @@
         },
         "verify": {
             "description": "When `true`, returns the current attention mode configuration, if any.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.2.1"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

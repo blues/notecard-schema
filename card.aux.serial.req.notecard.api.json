@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The AUX mode. Must be one of the following:",
@@ -49,7 +54,8 @@
         },
         "rate": {
             "description": "The baud rate or speed at which information is transmitted over AUX serial. The default is `115200` unless using GPS, in which case the default is `9600`.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "4.1.1"
         },
         "limit": {
             "description": "If `true`, along with `\"mode\":\"gps\"` the Notecard will disable concurrent modem use during GPS tracking.",
@@ -65,7 +71,8 @@
         },
         "minutes": {
             "description": "When using `\"mode\": \"notify,dfu\"`, specify an interval for notifying the host.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "5.1.1"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
@@ -73,7 +80,8 @@
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
-            "const": "card.aux.serial"
+            "const": "card.aux.serial",
+            "minApiVersion": "3.4.1"
         }
     },
     "oneOf": [

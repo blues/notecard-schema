@@ -18,6 +18,7 @@ EXPECTED_HIERARCHY = [
     "type",
     "version",
     "apiVersion",
+    "minApiVersion",
     "skus",
     "properties",
     "oneOf",

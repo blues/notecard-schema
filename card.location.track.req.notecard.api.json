@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "start": {
             "description": "Set to `true` to start Notefile tracking.",
@@ -36,7 +40,8 @@
         "payload": {
             "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
             "type": "string",
-            "contentEncoding": "base64"
+            "contentEncoding": "base64",
+            "minApiVersion": "7.5.2"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

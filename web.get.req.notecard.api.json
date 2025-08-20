@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.3.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "route": {
             "description": "Alias for a Proxy Route in Notehub.",
@@ -30,11 +34,13 @@
         },
         "async": {
             "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.1.1"
         },
         "binary": {
             "description": "If `true`, the Notecard will return the response stored in its binary buffer.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
         },
         "offset": {
             "description": "Used along with `binary:true` and `max`, sent as a URL parameter to the remote endpoint. Represents the number of bytes to offset the binary payload from 0 when retrieving binary data from the remote endpoint.",

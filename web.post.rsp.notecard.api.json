@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "result": {
             "description": "The HTTP Status Code.",
@@ -27,7 +31,8 @@
         },
         "cobs": {
             "description": "If the web transaction returns a binary payload, `cobs` is the size of the COBS-encoded payload (in bytes).",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "5.3.1"
         },
         "length": {
             "description": "If the web transaction returns a binary payload, `length` is the size of the unencoded payload (in bytes).",

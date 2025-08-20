@@ -6,21 +6,69 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "minApiVersion": "3.5.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "Used to specify the color of the LED to turn on or off. For LEDs, possible values are `\"red\"`, `\"green\"`, and `\"yellow\"`. For NeoPixels, possible values are `\"red\"`, `\"green\"`, `\"blue\"`, `\"yellow\"`, `\"cyan\"`, `\"magenta\"`, `\"orange\"`, `\"white\"`, and `\"gray\"`.",
             "type": "string",
             "skus": {
-                "red": ["CELL", "CELL+WIFI", "WIFI"],
-                "green": ["CELL", "CELL+WIFI", "WIFI"],
-                "yellow": ["CELL", "CELL+WIFI", "WIFI"],
-                "blue": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-                "cyan": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-                "magenta": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-                "orange": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-                "white": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
-                "gray": ["CELL", "CELL+WIFI", "LORA", "WIFI"]
+                "red": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "WIFI"
+                ],
+                "green": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "WIFI"
+                ],
+                "yellow": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "WIFI"
+                ],
+                "blue": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ],
+                "cyan": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ],
+                "magenta": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ],
+                "orange": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ],
+                "white": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ],
+                "gray": [
+                    "CELL",
+                    "CELL+WIFI",
+                    "LORA",
+                    "WIFI"
+                ]
             },
             "sub-descriptions": [
                 {

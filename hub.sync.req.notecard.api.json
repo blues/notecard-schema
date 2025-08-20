@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "allow": {
             "description": "Set to `true` to remove the Notecard from certain types of penalty boxes (the default is `false`).",
@@ -18,7 +23,8 @@
         },
         "out": {
             "description": "Set to `true` to only sync pending outbound Notefiles.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "7.2.1"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
