@@ -492,7 +492,52 @@ def find_all_api_base_names(schema_dir):
 
     return sorted(api_base_names)
 
-def generate_single_mdx(api_base_name, schema_dir, output_dir):
+def get_category_name(api_base_name):
+    """Get the category name and order number for an API."""
+    category_mapping = {
+        'card': ('01 card Requests', 1),
+        'dfu': ('02 dfu Requests', 2),
+        'env': ('03 env Requests', 3),
+        'file': ('04 file Requests', 4),
+        'hub': ('05 hub Requests', 5),
+        'note': ('06 note Requests', 6),
+        'ntn': ('07 ntn Requests', 7),
+        'var': ('08 var Requests', 8),
+        'web': ('09 web Requests', 9)
+    }
+
+    # Extract category from API base name (e.g., 'card.attn' -> 'card')
+    category = api_base_name.split('.')[0]
+    return category_mapping.get(category, (f'{category} Requests', 99))
+
+def get_api_order_number(api_base_name, all_apis_in_category):
+    """Get a sequential order number for API within its category."""
+    # Get all APIs in the same category
+    category = api_base_name.split('.')[0]
+    category_apis = [api for api in all_apis_in_category if api.startswith(category + '.') or api == category]
+
+    # Sort APIs with special handling for bare category names
+    def sort_key(api):
+        parts = api.split('.')
+        if len(parts) == 1:
+            # Bare category API (like "web") - sort first with empty suffix
+            return ("",)
+        else:
+            # Regular API (like "web.delete") - sort by suffix parts
+            return tuple(parts[1:])
+
+    category_apis.sort(key=sort_key)
+
+    # Find the position of this API in the sorted list
+    try:
+        position = category_apis.index(api_base_name)
+    except ValueError:
+        position = 0
+
+    # Generate sequential numbers: 00, 05, 10, 15, 20, etc.
+    return position * 5
+
+def generate_single_mdx(api_base_name, schema_dir, output_dir, tidy=False, all_apis=None):
     """Generate MDX for a single API."""
     req_schema_filename = f"{api_base_name}.req.notecard.api.json"
     rsp_schema_filename = f"{api_base_name}.rsp.notecard.api.json"
@@ -523,8 +568,19 @@ def generate_single_mdx(api_base_name, schema_dir, output_dir):
     else:
         print(f"Info: Response schema file not found at {rsp_schema_path}. Response sections might be empty or based on defaults.")
 
-    output_mdx_filename = f"{api_base_name}.mdx"
-    output_mdx_path = os.path.join(output_dir, output_mdx_filename)
+    if tidy:
+        # Generate tidy directory structure
+        category_name, _ = get_category_name(api_base_name)
+        if all_apis is None:
+            all_apis = [api_base_name]  # Fallback for single API generation
+        api_order = get_api_order_number(api_base_name, all_apis)
+        api_folder_name = f"{api_order:02d} {api_base_name}"
+
+        output_mdx_path = os.path.join(output_dir, category_name, api_folder_name, "_main.mdx")
+    else:
+        # Original flat structure
+        output_mdx_filename = f"{api_base_name}.mdx"
+        output_mdx_path = os.path.join(output_dir, output_mdx_filename)
 
     os.makedirs(os.path.dirname(output_mdx_path), exist_ok=True)
 
@@ -537,17 +593,100 @@ def generate_single_mdx(api_base_name, schema_dir, output_dir):
     print(f"MDX file generated at {output_mdx_path}")
     return True
 
+def generate_category_main_mdx(category_name, category_apis, output_dir, prev_category=None, next_category=None):
+    """Generate a category-level _main.mdx file that imports and renders all APIs in the category."""
+    # Sort APIs to ensure consistent ordering
+    category_apis.sort()
+
+    # Create imports
+    imports = []
+    components = []
+
+    for api_name in category_apis:
+        api_order = get_api_order_number(api_name, category_apis)
+        folder_name = f"{api_order:02d} {api_name}"
+        component_name = f"S{api_order:02d}"
+
+        imports.append(f'import {component_name} from "./{folder_name}/_main.mdx";')
+        components.append(f'<{component_name} {{...props}} />')
+
+    # Generate the complete file content
+    imports_section = '\n'.join(imports)
+    components_section = '\n'.join(components)
+
+    # Extract the category name for the title (e.g., "01 card Requests" -> "card Requests")
+    title = category_name.split(' ', 1)[1] if ' ' in category_name else category_name
+
+    # Build navigation section
+    navigation_section = ""
+
+    # Add Previous tag
+    if prev_category:
+        prev_title = prev_category.split(' ', 1)[1] if ' ' in prev_category else prev_category
+        # Convert category name to URL slug (lowercase, spaces to hyphens)
+        prev_slug = prev_title.lower().replace(' ', '-')
+        navigation_section += f"""<Previous
+  title="{prev_title}"
+  href="/api-reference/notecard-api/{prev_slug}"
+/>"""
+    else:
+        # First category points to introduction
+        navigation_section += """<Previous
+  title="Introduction"
+  href="/api-reference/notecard-api/introduction"
+/>"""
+
+    # Add Next tag
+    if next_category:
+        next_title = next_category.split(' ', 1)[1] if ' ' in next_category else next_category
+        # Convert category name to URL slug (lowercase, spaces to hyphens)
+        next_slug = next_title.lower().replace(' ', '-')
+        navigation_section += f"""
+
+<Next title="{next_title}" href="/api-reference/notecard-api/{next_slug}" />"""
+
+    mdx_content = f"""{imports_section}
+
+# {title}
+
+{{props.urlConfig.description}}
+
+<SlugPicker
+  options={{props.allOptions}}
+  config={{props.urlConfig}}
+  text="Notecard Firmware Version:"
+/>
+
+{components_section}
+
+{navigation_section}
+"""
+
+    # Write the category main file
+    category_main_path = os.path.join(output_dir, category_name, "_main.mdx")
+    os.makedirs(os.path.dirname(category_main_path), exist_ok=True)
+
+    with open(category_main_path, "w") as f:
+        f.write(mdx_content.strip())
+    with open(category_main_path, "a") as f:
+        f.write("\n")
+
+    print(f"Category MDX file generated at {category_main_path}")
+    return True
+
 def main():
     parser = argparse.ArgumentParser(description="Generate MDX file(s) from Notecard API schema(s).")
     parser.add_argument("api_base_name", nargs='?', help="Base name of the Notecard API (e.g., card.contact, hub.set). Not required when using --all.")
     parser.add_argument("--all", action="store_true", help="Generate MDX files for all APIs found in the schema directory.")
     parser.add_argument("--schema_dir", default=".", help="Directory where schema files are located. Defaults to current directory.")
     parser.add_argument("-o", "--output_dir", default="./docs", help="Directory to save the generated MDX file(s). Defaults to './docs/'.")
+    parser.add_argument("--tidy", action="store_true", help="Generate files in organized directory structure with category folders and _main.mdx files (following blues.dev structure).")
 
     args = parser.parse_args()
 
     schema_dir = args.schema_dir
     output_dir = args.output_dir
+    tidy = args.tidy
 
     if args.all:
         # Generate MDX files for all APIs
@@ -557,14 +696,45 @@ def main():
             return
 
         print(f"Found {len(api_base_names)} APIs: {', '.join(api_base_names)}")
+        if tidy:
+            print("Using tidy directory structure with category folders...")
 
         success_count = 0
         for api_base_name in api_base_names:
             print(f"\nGenerating MDX for {api_base_name}...")
-            if generate_single_mdx(api_base_name, schema_dir, output_dir):
+            if generate_single_mdx(api_base_name, schema_dir, output_dir, tidy, api_base_names):
                 success_count += 1
 
         print(f"\nCompleted: {success_count}/{len(api_base_names)} MDX files generated successfully.")
+
+        # Generate category-level _main.mdx files if using tidy structure
+        if tidy:
+            print(f"\nGenerating category-level _main.mdx files...")
+            categories = {}
+
+            # Group APIs by category
+            for api_name in api_base_names:
+                category_name, _ = get_category_name(api_name)
+
+                if category_name not in categories:
+                    categories[category_name] = []
+                categories[category_name].append(api_name)
+
+            # Generate category files
+            category_success = 0
+            # Sort categories by their numerical prefix to ensure correct ordering
+            category_items = sorted(categories.items(), key=lambda x: x[0])
+
+            for i, (category_name, category_apis) in enumerate(category_items):
+                # Determine previous and next categories
+                prev_category = category_items[i-1][0] if i > 0 else None
+                next_category = category_items[i+1][0] if i < len(category_items) - 1 else None
+
+                print(f"Generating category file for {category_name}...")
+                if generate_category_main_mdx(category_name, category_apis, output_dir, prev_category, next_category):
+                    category_success += 1
+
+            print(f"Generated {category_success}/{len(categories)} category files successfully.")
     else:
         # Generate MDX for single API
         if not args.api_base_name:
@@ -572,7 +742,11 @@ def main():
             parser.print_help()
             return
 
-        generate_single_mdx(args.api_base_name, schema_dir, output_dir)
+        if tidy:
+            print("Error: --tidy option only supports --all flag. Use --all --tidy to generate all APIs in tidy structure.")
+            return
+
+        generate_single_mdx(args.api_base_name, schema_dir, output_dir, tidy)
 
 if __name__ == "__main__":
     main()
