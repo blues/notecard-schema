@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "length": {
             "description": "The number of bytes of firmware data to read and return to the host. Set to `0` to verify that the Notecard is in DFU mode without attempting to retrieve data.",

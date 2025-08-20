@@ -37,7 +37,7 @@
             "minApiVersion": "6.2.3"
         },
         "port": {
-            "description": "This argument is required on Notecard LoRa and a Notecard paired with Starnote, but ignored on all other Notecards.\n\nA port is a unique integer in the range 1–100, where each unique number represents one Notefile. This argument allows the Notecard to send a numerical reference to the Notefile over the air, rather than the full Notefile name.\n\nThe port you provide is also used in the \"frame port\" field on LoRaWAN gateways.",
+            "description": "This argument is required on Notecard LoRa and a Notecard paired with Starnote, but ignored on all other Notecards.\n\nA port is a unique integer in the range 1\u2013100, where each unique number represents one Notefile. This argument allows the Notecard to send a numerical reference to the Notefile over the air, rather than the full Notefile name.\n\nThe port you provide is also used in the \"frame port\" field on LoRaWAN gateways.",
             "type": "integer",
             "minimum": 1,
             "maximum": 100

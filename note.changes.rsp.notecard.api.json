@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "total": {
             "description": "The total number of Notes in the Notefile.",
@@ -31,7 +35,10 @@
                         "type": "integer"
                     }
                 },
-                "required": ["body", "time"],
+                "required": [
+                    "body",
+                    "time"
+                ],
                 "additionalProperties": false
             }
         }
@@ -49,7 +56,7 @@
             "json": "{\"changes\": 0, \"total\": 10, \"notes\": {}}"
         },
         {
-            "title": "Single Change Response", 
+            "title": "Single Change Response",
             "description": "Response with a single note change.",
             "json": "{\"changes\": 1, \"total\": 5, \"notes\": {\"config-update\": {\"body\": {\"brightness\": 75, \"volume\": 50}, \"time\": 1609459200}}}"
         }

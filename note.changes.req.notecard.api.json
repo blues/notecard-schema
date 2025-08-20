@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "file": {
             "description": "The Notefile ID.",
@@ -50,7 +54,9 @@
             "const": "note.changes"
         }
     },
-    "required": ["file"],
+    "required": [
+        "file"
+    ],
     "oneOf": [
         {
             "required": [

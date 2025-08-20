@@ -16,7 +16,6 @@
         "cobs": {
             "description": "The size of the COBS-encoded data you are expecting to be returned (in bytes).",
             "type": "integer"
-
         },
         "offset": {
             "description": "Used along with `length`, the number of bytes to offset the binary payload from 0 when retrieving binary data from the binary storage area of the Notecard. Primarily used when retrieving multiple fragments of a binary payload from the Notecard.",

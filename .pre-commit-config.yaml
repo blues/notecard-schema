@@ -1,0 +1,43 @@
+# Pre-commit hooks for Notecard Schema repository
+# Run `pre-commit install` to set up the git hook scripts
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.5.0
+    hooks:
+      # Ensure files end with a newline
+      - id: end-of-file-fixer
+        name: Fix End of Files
+        description: Ensures that a file is either empty or ends with one newline
+        files: '^[^/]+\.api\.json$'
+
+      # Remove trailing whitespace
+      - id: trailing-whitespace
+        name: Trim Trailing Whitespace
+        description: This hook trims trailing whitespace
+        files: '^[^/]+\.api\.json$'
+
+      # Pretty format JSON files
+      - id: pretty-format-json
+        name: Pretty format JSON
+        description: This hook sets a standard for formatting JSON files
+        files: '^[^/]+\.api\.json$'
+        args: [--autofix, --indent=4, --no-sort-keys]
+
+      # Check JSON syntax
+      - id: check-json
+        name: Check JSON
+        description: This hook checks json files for parseable syntax
+        files: '^[^/]+\.api\.json$'
+
+  - repo: local
+    hooks:
+      # Custom hook to validate Notecard API JSON schema structure
+      - id: validate-notecard-schemas
+        name: Validate Notecard API Schemas
+        description: Validate that all Notecard API JSON schemas follow the expected structure
+        entry: pipenv run pytest tests/test_custom_fields_validation.py -v
+        language: system
+        files: '^[^/]+\.notecard\.api\.json$'
+        pass_filenames: false
+        always_run: false

@@ -6,7 +6,10 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "secure": {
             "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",

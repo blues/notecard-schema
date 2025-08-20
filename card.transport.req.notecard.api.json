@@ -180,7 +180,7 @@
         },
         {
             "title": "WiFi-Cell-NTN Priority",
-            "description": "Configure triple fallback: WiFi → cellular → NTN with custom timeout.",
+            "description": "Configure triple fallback: WiFi \u2192 cellular \u2192 NTN with custom timeout.",
             "json": "{\"req\": \"card.transport\", \"method\": \"wifi-cell-ntn\", \"seconds\": 1800}"
         }
     ]

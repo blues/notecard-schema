@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.2",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "name": {
             "description": "Set the name of the Notecard maintainer.",

@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "name": {
             "description": "Determines which type of firmware update status to view. The value can be `\"user\"` (default), which gets the status of MCU host firmware updates, or `\"card\"`, which gets the status of Notecard firmware updates.",
@@ -36,7 +40,10 @@
         },
         "version": {
             "description": "Version information on the host firmware to pass to Notehub. You may pass a simple version number string (e.g. `\"1.0.0.0\"`), or an object with detailed information about the firmware image (recommended).",
-            "type": ["string", "object"]
+            "type": [
+                "string",
+                "object"
+            ]
         },
         "vvalue": {
             "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled. Use a boolean `1` (on) or `0` (off) for each source/voltage level: `usb:<1/0>;high:<1/0>;normal:<1/0>;low:<1/0>;dead:0`.",
