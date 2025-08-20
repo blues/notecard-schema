@@ -15,8 +15,7 @@
     "properties": {
         "err": {
             "description": "This member is present if any errors have occurred while connecting to a paired Starnote, for example: `{\"err\":\"no NTN module is connected {no-ntn-module}\"}`",
-            "type": "string",
-            "minApiVersion": "6.2.3"
+            "type": "string"
         },
         "status": {
             "description": "Details about a Notecard's connection to a paired Starnote, for example: `{\"status\":\"{ntn-idle}{ntn-unknown-location}\"}`",

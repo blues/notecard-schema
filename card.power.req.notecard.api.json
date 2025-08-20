@@ -16,8 +16,7 @@
         "minutes": {
             "description": "How often, in minutes, Notecard should log power consumption in a `_log.qo` Note. The default value is `720` (12 hours).",
             "default": 720,
-            "type": "integer",
-            "minApiVersion": "8.1.3"
+            "type": "integer"
         },
         "reset": {
             "description": "Set to `true` to reset the power consumption counters back to 0.",

@@ -15,8 +15,7 @@
     "properties": {
         "on": {
             "description": "Returned and `true` if a Starnote will use the GPS/GNSS location from its paired Notecard.",
-            "type": "boolean",
-            "minApiVersion": "6.2.3"
+            "type": "boolean"
         },
         "off": {
             "description": "Returned and `true` if a paired Starnote will use its own GPS/GNSS location.",

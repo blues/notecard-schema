@@ -9,8 +9,7 @@
     "properties": {
         "value": {
             "type": "number",
-            "description": "An illumination reading (in lux) from the attached OPT3001 sensor.",
-            "minApiVersion": "9.1.1"
+            "description": "An illumination reading (in lux) from the attached OPT3001 sensor."
         }
     },
     "samples": [

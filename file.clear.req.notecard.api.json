@@ -15,8 +15,7 @@
     "properties": {
         "file": {
             "description": "The name of the Notefile whose Notes you wish to delete.",
-            "type": "string",
-            "minApiVersion": "8.2.1"
+            "type": "string"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
