@@ -94,18 +94,22 @@
     "samples": [
         {
             "title": "Provide Schema",
+            "description": "Provide a template schema for the readings.qo Notefile with sample data.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\",\"body\":{\"new_vals\":true,\"temperature\":14.1,\"humidity\":11,\"pump_state\":\"4\"}}"
         },
         {
             "title": "Compact Schema for LoRa",
+            "description": "Set up a compact template for LoRa transmission on port 50 to reduce bandwidth usage.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\",\"body\":{\"new_vals\":true,\"temperature\":14.1,\"humidity\":11,\"pump_state\":\"4\"},\"format\":\"compact\",\"port\":50}"
         },
         {
             "title": "Compact Schema with Additional Fields",
+            "description": "Set up a compact template including location and timestamp fields for comprehensive sensor data.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\",\"body\":{\"temperature\":14.1,\"_lat\":14.1,\"_lon\":14.1,\"_ltime\":14,\"_time\":14},\"format\":\"compact\",\"port\":50}"
         },
         {
             "title": "Request Current Template",
+            "description": "Retrieve the current template configuration for the readings.qo Notefile.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\",\"verify\":true}"
         }
     ]
