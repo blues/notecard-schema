@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "file": {
             "description": "The name of the DB Notefile that contains the Note to update.",
@@ -37,10 +42,21 @@
             "const": "note.update"
         }
     },
-    "required": ["file", "note"],
+    "required": [
+        "file",
+        "note"
+    ],
     "anyOf": [
-        {"required": ["body"]},
-        {"required": ["payload"]}
+        {
+            "required": [
+                "body"
+            ]
+        },
+        {
+            "required": [
+                "payload"
+            ]
+        }
     ],
     "oneOf": [
         {

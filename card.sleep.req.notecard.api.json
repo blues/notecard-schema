@@ -6,7 +6,9 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["WIFI"],
+    "skus": [
+        "WIFI"
+    ],
     "properties": {
         "on": {
             "description": "Set to `true` to enable the Notecard WiFi v2 to sleep once it is idle for >= 30 seconds.",
@@ -24,7 +26,10 @@
         "mode": {
             "description": "Set to `\"accel\"` to wake from deep sleep on any movement detected by the onboard accelerometer. Set to `\"-accel\"` to reset to the default setting.",
             "type": "string",
-            "enum": ["accel", "-accel"],
+            "enum": [
+                "accel",
+                "-accel"
+            ],
             "sub-descriptions": [
                 {
                     "const": "accel",

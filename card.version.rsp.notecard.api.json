@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "api": {
             "description": "The current Notecard API major version in use.",
@@ -85,7 +90,8 @@
         },
         "wifi": {
             "description": "If `true`, indicates the Notecard supports Wi-Fi connectivity.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
         }
     },
     "required": [

@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "minutes": {
             "description": "The time since the first network registration failure.",
@@ -22,7 +26,8 @@
         },
         "seconds": {
             "description": "If the Notecard is in a [Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
-            "type": "integer"
+            "type": "integer",
+            "minApiVersion": "4.1.1"
         }
     },
     "additionalProperties": false,

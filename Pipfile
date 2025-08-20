@@ -12,3 +12,6 @@ mkdocs-llmstxt = "*"
 
 [requires]
 python_version = "3.13"
+
+[packages]
+pre-commit = "*"

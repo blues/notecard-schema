@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "route": {
             "description": "Alias for a Proxy Route in Notehub.",
@@ -46,7 +50,11 @@
     },
     "oneOf": [
         {
-            "required": ["req", "method","route"],
+            "required": [
+                "req",
+                "method",
+                "route"
+            ],
             "properties": {
                 "req": {
                     "const": "web"
@@ -71,7 +79,11 @@
             }
         },
         {
-            "required": ["cmd", "method","route"],
+            "required": [
+                "cmd",
+                "method",
+                "route"
+            ],
             "properties": {
                 "cmd": {
                     "const": "web"
@@ -102,7 +114,6 @@
             "title": "note",
             "description": "Please see the additional argument options available for `GET`, `POST`, `PUT`, and `DELETE` requests in the documentation provided."
         }
-
     ],
     "samples": [
         {

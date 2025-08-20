@@ -6,12 +6,22 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The current DFU mode.",
             "type": "string",
-            "enum": ["idle", "error", "downloading", "ready", "completed"],
+            "enum": [
+                "idle",
+                "error",
+                "downloading",
+                "ready",
+                "completed"
+            ],
             "sub-descriptions": [
                 {
                     "const": "idle",

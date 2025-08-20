@@ -2,11 +2,15 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.location.track.req.notecard.api.json",
     "title": "card.location.track Request Application Programming Interface (API) Schema",
-    "description": "Store location data in a Notefile at the `periodic` interval, or using a specified `heartbeat`. This request is only available when the `card.location.mode` request has been set to `periodic`—e.g. `{\"req\":\"card.location.mode\",\"mode\":\"periodic\",\"seconds\":300}`. If you want to track and transmit data simultaneously consider using an external GPS/GNSS module with the Notecard. If you connect a BME280 sensor on the I2C bus, Notecard will include a temperature, humidity, and pressure reading with each captured Note. If you connect an ENS210 sensor on the I2C bus, Notecard will include a temperature and pressure reading with each captured Note.",
+    "description": "Store location data in a Notefile at the `periodic` interval, or using a specified `heartbeat`. This request is only available when the `card.location.mode` request has been set to `periodic`\u2014e.g. `{\"req\":\"card.location.mode\",\"mode\":\"periodic\",\"seconds\":300}`. If you want to track and transmit data simultaneously consider using an external GPS/GNSS module with the Notecard. If you connect a BME280 sensor on the I2C bus, Notecard will include a temperature, humidity, and pressure reading with each captured Note. If you connect an ENS210 sensor on the I2C bus, Notecard will include a temperature and pressure reading with each captured Note.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "start": {
             "description": "Set to `true` to start Notefile tracking.",
@@ -36,7 +40,8 @@
         "payload": {
             "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
             "type": "string",
-            "contentEncoding": "base64"
+            "contentEncoding": "base64",
+            "minApiVersion": "7.5.2"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

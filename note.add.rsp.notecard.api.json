@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "total": {
             "description": "The total number of Notes in the Notefile.",
@@ -17,7 +22,9 @@
             "type": "boolean"
         }
     },
-    "required": ["total"],
+    "required": [
+        "total"
+    ],
     "additionalProperties": false,
     "samples": [
         {

@@ -6,7 +6,9 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["WIFI"],
+    "skus": [
+        "WIFI"
+    ],
     "properties": {
         "on": {
             "description": "`true` if sleep mode is enabled.",

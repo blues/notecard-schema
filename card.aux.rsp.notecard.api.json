@@ -5,7 +5,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The current AUX `mode`, or `off` if not set.",
@@ -46,7 +51,8 @@
         },
         "power": {
             "description": "If `true`, indicates the Notecard has USB (main) power. This parameter only appears in the body of the Note in Notehub if using `\"sync\":true`.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.3.1"
         }
     },
     "samples": [

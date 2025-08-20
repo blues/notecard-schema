@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "align": {
             "description": "Use `true` to align syncs on a regular time-periodic cycle.",
@@ -14,7 +19,9 @@
         },
         "details": {
             "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. Use `\"-\"` to reset a Notecard's LoRaWAN details to its default values.",
-            "skus": ["LORA"],
+            "skus": [
+                "LORA"
+            ],
             "oneOf": [
                 {
                     "type": "object",
@@ -24,7 +31,7 @@
                             "pattern": "^[0-9A-Fa-f]+$"
                         },
                         "appeui": {
-                            "type": "string", 
+                            "type": "string",
                             "pattern": "^[0-9A-Fa-f]+$"
                         },
                         "appkey": {
@@ -32,7 +39,11 @@
                             "pattern": "^[0-9A-Fa-f]+$"
                         }
                     },
-                    "required": ["deveui", "appeui", "appkey"],
+                    "required": [
+                        "deveui",
+                        "appeui",
+                        "appkey"
+                    ],
                     "additionalProperties": false
                 },
                 {
@@ -57,14 +68,20 @@
         "mode": {
             "description": "The Notecard's synchronization mode.",
             "type": "string",
-            "enum": ["periodic", "continuous", "minimum", "off", "dfu"],
+            "enum": [
+                "periodic",
+                "continuous",
+                "minimum",
+                "off",
+                "dfu"
+            ],
             "sub-descriptions": [
                 {
                     "const": "periodic",
                     "description": "Periodically connect to the Notehub. This is the default value set on each Notecard after a factory reset."
                 },
                 {
-                    "const": "continuous", 
+                    "const": "continuous",
                     "description": "Enables an always-on network connection, for high power devices. Outbound data still syncs periodically, unless specified in a Note or File request."
                 },
                 {
@@ -87,7 +104,8 @@
         },
         "on": {
             "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.4.1"
         },
         "outbound": {
             "description": "The max wait time, in minutes, to sync outbound data from the Notecard. Use `-1` to reset the value back to its default of `0`. A value of `0` means that the Notecard will never sync outbound data unless explicitly told to do so.",
@@ -108,7 +126,11 @@
         },
         "sync": {
             "description": "If in `continuous` mode, automatically and immediately sync each time an inbound Notefile change is detected on Notehub.\n\n**NOTE:** The `sync` argument is not supported when a Notecard is in NTN mode.",
-            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ],
             "type": "boolean"
         },
         "umin": {
@@ -121,7 +143,8 @@
         },
         "uperiodic": {
             "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `periodic` mode when disconnected.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "4.1.1"
         },
         "version": {
             "description": "The version of your host firmware. You may pass a simple version number string, or an object with detailed information about the firmware image.",
@@ -165,16 +188,25 @@
                     },
                     "additionalProperties": false
                 }
-            ]
+            ],
+            "minApiVersion": "7.3.1"
         },
         "vinbound": {
             "description": "Overrides `inbound` with a voltage-variable value. Use `\"-\"` to clear this value.\n\n**NOTE:** Setting voltage-variable values is not supported on Notecard XP.",
-            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ],
             "type": "string"
         },
         "voutbound": {
             "description": "Overrides `outbound` with a voltage-variable value. Use `\"-\"` to clear this value.\n\n**NOTE:** Setting voltage-variable values is not supported on Notecard XP.",
-            "skus": ["CELL", "CELL+WIFI", "WIFI"],
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ],
             "type": "string"
         },
         "req": {

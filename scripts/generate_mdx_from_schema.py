@@ -49,6 +49,21 @@ def convert_blues_urls_to_relative(text):
     replacement = r'\1'
     return re.sub(pattern, replacement, text)
 
+def generate_version_check_wrapper(content, min_api_version, include_note=False):
+    """Wrap content in VersionCheck tags if minApiVersion is present."""
+    if not min_api_version:
+        return content
+
+    # Convert version format from X.Y.Z to X-Y-Z
+    version = min_api_version.replace('.', '-')
+
+    if include_note:
+        opening_tag = f'<VersionCheck pageProps={{props}} version="{version}" includeNote={{true}}>'
+    else:
+        opening_tag = f'<VersionCheck pageProps={{props}} version="{version}">'
+
+    return f"{opening_tag}\n\n{content}\n\n</VersionCheck>"
+
 def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     """Generates an MDX string from the JSON schema, optionally including response info."""
 
@@ -80,19 +95,52 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     # generate_example_response_mdx returns block only if samples exist
     example_response_block = generate_example_response_mdx(response_samples)
 
-    mdx_parts = [
-        title,
-        description,
-        annotations_block,
-        "<Arguments>",
-        arguments_mdx_content,
-        "</Arguments>",
-        example_requests_block,
-        response_members_block,
-        example_response_block
-    ]
+    # Check for top-level minApiVersion in both request and response schemas
+    req_min_version = schema_data.get("minApiVersion")
+    rsp_min_version = effective_response_schema_data.get("minApiVersion")
+
+    # Use the higher version if both exist, or whichever exists
+    top_level_version = None
+    if req_min_version and rsp_min_version:
+        # Compare versions and use the higher one
+        req_parts = [int(x) for x in req_min_version.split('.')]
+        rsp_parts = [int(x) for x in rsp_min_version.split('.')]
+        top_level_version = req_min_version if req_parts >= rsp_parts else rsp_min_version
+    elif req_min_version:
+        top_level_version = req_min_version
+    elif rsp_min_version:
+        top_level_version = rsp_min_version
+
+    # If there's a top-level version, wrap everything except the title
+    if top_level_version:
+        content_parts = [
+            description,
+            annotations_block,
+            "<Arguments>",
+            arguments_mdx_content,
+            "</Arguments>",
+            example_requests_block,
+            response_members_block,
+            example_response_block
+        ]
+        content_without_title = "\n\n".join(filter(None, content_parts))
+        wrapped_content = generate_version_check_wrapper(content_without_title, top_level_version, include_note=True)
+        mdx_parts = [title, wrapped_content]
+    else:
+        mdx_parts = [
+            title,
+            description,
+            annotations_block,
+            "<Arguments>",
+            arguments_mdx_content,
+            "</Arguments>",
+            example_requests_block,
+            response_members_block,
+            example_response_block
+        ]
 
     mdx_content = "\n\n".join(filter(None, mdx_parts))
+
     # Convert absolute Blues.io URLs to relative URLs
     mdx_content = convert_blues_urls_to_relative(mdx_content)
     return mdx_content
@@ -133,20 +181,45 @@ def generate_arguments_mdx(properties, schema_data):
         param_skus = prop_details.get("skus", [])
         param_badges = generate_argument_badges(param_skus) if param_skus else ""
 
+        # Generate deprecated badge if property is deprecated
+        deprecated_badge = ""
+        if prop_details.get("deprecated", False):
+            deprecated_badge = '<Badge type="deprecated" usage="argument" />'
+
+        # Create badges paragraph if any badges exist
+        badges_para = ""
+        all_badges = []
+        if param_badges:
+            # Add &nbsp; between individual SKU badges for proper spacing
+            badges_with_spacing = param_badges.replace('"/>', '"/>&nbsp;')
+            # Remove trailing &nbsp; if it exists
+            badges_with_spacing = badges_with_spacing.rstrip('&nbsp;')
+            all_badges.append(badges_with_spacing)
+        if deprecated_badge:
+            all_badges.append(deprecated_badge)
+
+        if all_badges:
+            # Join all badge groups with &nbsp; spacing
+            badges_combined = "&nbsp;".join(all_badges)
+            badges_para = f"\n\n<p>{badges_combined}</p>"
+
         # Handle special case for mode parameter with sub-descriptions
         if prop_name == "mode" and "sub-descriptions" in prop_details:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
-            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}\n\n{sub_desc_content}"
         # Handle array parameters with sub-descriptions in items
         elif prop_type == "array" and "items" in prop_details and "sub-descriptions" in prop_details["items"]:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["items"]["sub-descriptions"])
-            args_list.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}\n\n{sub_desc_content}"
         else:
-            # Add parameter SKU badges after the parameter name if they exist
-            param_header = f"### `{prop_name}`"
-            if param_badges:
-                param_header = f"### `{prop_name}` {param_badges}"
-            args_list.append(f"{param_header}\n\n{type_display}\n\n{description}")
+            param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}"
+
+        # Check if this property has minApiVersion and wrap it if so
+        prop_min_version = prop_details.get("minApiVersion")
+        if prop_min_version:
+            param_content = generate_version_check_wrapper(param_content, prop_min_version)
+
+        args_list.append(param_content)
 
     return "\n\n".join(args_list)
 
@@ -158,6 +231,7 @@ def generate_mode_sub_descriptions(sub_descriptions):
         const_value = sub_desc.get("const", "")
         description = sub_desc.get("description", "")
         skus = sub_desc.get("skus", [])
+        min_version = sub_desc.get("minApiVersion")
 
         badges = generate_argument_badges(skus)
 
@@ -167,7 +241,13 @@ def generate_mode_sub_descriptions(sub_descriptions):
         else:
             const_display = f'`"{const_value}"`'
 
-        sub_desc_parts.append(f"{const_display} {badges}\n\n{description}")
+        sub_desc_content = f"{const_display} {badges}\n\n{description}"
+
+        # Wrap with VersionCheck if minApiVersion exists
+        if min_version:
+            sub_desc_content = generate_version_check_wrapper(sub_desc_content, min_version)
+
+        sub_desc_parts.append(sub_desc_content)
 
     return "\n\n".join(sub_desc_parts)
 
@@ -255,7 +335,8 @@ def generate_examples_mdx(samples):
     all_individual_code_tabs_blocks_mdx = []
 
     for sample_obj in samples:
-        description = sample_obj.get("description", "Example")
+        title = sample_obj.get("title", "Example")
+        description = sample_obj.get("description", "")
         json_sample_str = sample_obj.get("json", "{}")
 
         formatted_json_block = ""
@@ -283,13 +364,17 @@ def generate_examples_mdx(samples):
 
         tabs_inner_mdx = "\n\n".join(filter(None, code_tabs_inner_content_parts))
 
+        # Add description after the code blocks if it exists
+        if description:
+            tabs_inner_mdx += f"\n\n{description}"
+
         if num_samples == 1:
             # Single sample: <CodeTabs> without exampleRequestTitle
             individual_code_tabs_block = f"<CodeTabs>\n{tabs_inner_mdx}\n</CodeTabs>"
         else:
             # Multiple samples: <CodeTabs> with exampleRequestTitle
-            escaped_description = html.escape(description, quote=True)
-            individual_code_tabs_block = f'<CodeTabs exampleRequestTitle="{escaped_description}">\n{tabs_inner_mdx}\n</CodeTabs>'
+            escaped_title = html.escape(title, quote=True)
+            individual_code_tabs_block = f'<CodeTabs exampleRequestTitle="{escaped_title}">\n{tabs_inner_mdx}\n</CodeTabs>'
 
         all_individual_code_tabs_blocks_mdx.append(individual_code_tabs_block)
 
@@ -323,9 +408,16 @@ def generate_response_members_mdx(properties, response_schema_data):
             # Handle special formatting for files property with sub-descriptions
             if prop_name == "files" and "sub-descriptions" in prop_details:
                 sub_desc_content = generate_response_sub_descriptions(prop_details["sub-descriptions"])
-                members_list_strings.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}")
+                member_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}"
             else:
-                members_list_strings.append(f"### `{prop_name}`\n\n{type_display}\n\n{description}")
+                member_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}"
+
+            # Check if this property has minApiVersion and wrap it if so
+            prop_min_version = prop_details.get("minApiVersion")
+            if prop_min_version:
+                member_content = generate_version_check_wrapper(member_content, prop_min_version)
+
+            members_list_strings.append(member_content)
 
     content = "\n\n".join(members_list_strings)
     if content:
@@ -349,13 +441,13 @@ def generate_annotations_mdx(annotations):
     """Generate MDX for schema annotations (notes, warnings, etc.)."""
     if not annotations:
         return ""
-    
+
     annotation_blocks = []
-    
+
     for annotation in annotations:
         title = annotation.get("title", "note")
         description = annotation.get("description", "")
-        
+
         # Map annotation titles to MDX components
         if title.lower() == "note":
             component = "Note"
@@ -365,9 +457,9 @@ def generate_annotations_mdx(annotations):
             component = "Warning"
         else:
             component = "Note"  # Default to Note for unknown types
-        
+
         annotation_blocks.append(f"<{component}>\n\n{description}\n\n</{component}>")
-    
+
     return "\n\n".join(annotation_blocks)
 
 def generate_example_response_mdx(samples):
@@ -387,18 +479,21 @@ def generate_example_response_mdx(samples):
 
     return f"""<ExampleResponse>{content}</ExampleResponse>"""
 
-def main():
-    parser = argparse.ArgumentParser(description="Generate an MDX file from a Notecard API base name (e.g., card.contact).")
-    parser.add_argument("api_base_name", help="Base name of the Notecard API (e.g., card.contact, hub.set).")
-    parser.add_argument("--schema_dir", default=".", help="Directory where schema files are located. Defaults to current directory.")
-    parser.add_argument("-o", "--output_dir", default="./docs", help="Directory to save the generated MDX file. Defaults to './docs/'.")
+def find_all_api_base_names(schema_dir):
+    """Find all API base names by looking for .req.notecard.api.json files."""
+    api_base_names = []
 
-    args = parser.parse_args()
+    # Look for all .req.notecard.api.json files
+    for filename in os.listdir(schema_dir):
+        if filename.endswith('.req.notecard.api.json'):
+            # Extract the API base name (everything before .req.notecard.api.json)
+            api_base_name = filename.replace('.req.notecard.api.json', '')
+            api_base_names.append(api_base_name)
 
-    api_base_name = args.api_base_name
-    schema_dir = args.schema_dir
-    output_dir = args.output_dir
+    return sorted(api_base_names)
 
+def generate_single_mdx(api_base_name, schema_dir, output_dir):
+    """Generate MDX for a single API."""
     req_schema_filename = f"{api_base_name}.req.notecard.api.json"
     rsp_schema_filename = f"{api_base_name}.rsp.notecard.api.json"
 
@@ -407,7 +502,7 @@ def main():
 
     if not os.path.isfile(req_schema_path):
         print(f"Error: Request schema file not found at {req_schema_path}")
-        return
+        return False
 
     schema_data = None
     response_schema_data = None
@@ -417,7 +512,7 @@ def main():
             schema_data = json.load(f)
     except json.JSONDecodeError:
         print(f"Error: Could not parse JSON from request schema {req_schema_path}")
-        return
+        return False
 
     if os.path.isfile(rsp_schema_path):
         try:
@@ -440,6 +535,44 @@ def main():
     with open(output_mdx_path, "a") as f:
         f.write("\n")
     print(f"MDX file generated at {output_mdx_path}")
+    return True
+
+def main():
+    parser = argparse.ArgumentParser(description="Generate MDX file(s) from Notecard API schema(s).")
+    parser.add_argument("api_base_name", nargs='?', help="Base name of the Notecard API (e.g., card.contact, hub.set). Not required when using --all.")
+    parser.add_argument("--all", action="store_true", help="Generate MDX files for all APIs found in the schema directory.")
+    parser.add_argument("--schema_dir", default=".", help="Directory where schema files are located. Defaults to current directory.")
+    parser.add_argument("-o", "--output_dir", default="./docs", help="Directory to save the generated MDX file(s). Defaults to './docs/'.")
+
+    args = parser.parse_args()
+
+    schema_dir = args.schema_dir
+    output_dir = args.output_dir
+
+    if args.all:
+        # Generate MDX files for all APIs
+        api_base_names = find_all_api_base_names(schema_dir)
+        if not api_base_names:
+            print(f"No .req.notecard.api.json files found in {schema_dir}")
+            return
+
+        print(f"Found {len(api_base_names)} APIs: {', '.join(api_base_names)}")
+
+        success_count = 0
+        for api_base_name in api_base_names:
+            print(f"\nGenerating MDX for {api_base_name}...")
+            if generate_single_mdx(api_base_name, schema_dir, output_dir):
+                success_count += 1
+
+        print(f"\nCompleted: {success_count}/{len(api_base_names)} MDX files generated successfully.")
+    else:
+        # Generate MDX for single API
+        if not args.api_base_name:
+            print("Error: api_base_name is required when --all is not specified.")
+            parser.print_help()
+            return
+
+        generate_single_mdx(args.api_base_name, schema_dir, output_dir)
 
 if __name__ == "__main__":
     main()

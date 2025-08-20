@@ -83,7 +83,8 @@
         "usb": {
             "description": "When enabled, the Notecard will monitor for changes to USB power state.",
             "type": "boolean",
-            "default": false
+            "default": false,
+            "minApiVersion": "3.5.1"
         },
         "alert": {
             "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `health.qo` Notefile when USB power is connected or disconnected.",
@@ -98,7 +99,8 @@
         "calibration": {
             "description": "The offset, in volts, to account for the forward voltage drop of the diode used between the battery and Notecard in either Blues- or customer-designed Notecarriers.",
             "type": "number",
-            "default": 0.35
+            "default": 0.35,
+            "minApiVersion": "7.2.2"
         },
         "set": {
             "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",

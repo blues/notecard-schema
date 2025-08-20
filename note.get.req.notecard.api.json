@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "file": {
             "description": "The Notefile name must end in `.qi` (for plaintext transport), `.qis` (for encrypted transport), `.db` or `.dbx` (for local-only DB Notefiles).",

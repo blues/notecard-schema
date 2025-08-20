@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "minApiVersion": "6.2.3",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "err": {
             "description": "This member is present if any errors have occurred while connecting to a paired Starnote, for example: `{\"err\":\"no NTN module is connected {no-ntn-module}\"}`",

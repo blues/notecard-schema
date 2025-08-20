@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "start": {
             "description": "`true` to enable the Notecard accelerometer and start motion tracking.",
@@ -24,7 +28,15 @@
             "description": "Used to set the accelerometer sample rate. The default sample rate of 1.6Hz could miss short-duration accelerations (e.g. bumps and jolts), and free fall detection may not work reliably with short falls. The penalty for increasing the sample rate to 25Hz is increased current consumption by ~1.5uA relative to the default `-1` setting.",
             "type": "integer",
             "default": -1,
-            "enum": [-1, 0, 1, 2, 3, 4, 5],
+            "enum": [
+                -1,
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+            ],
             "sub-descriptions": [
                 {
                     "const": -1,
@@ -54,7 +66,8 @@
                     "const": 5,
                     "description": "25Hz, +/- 2G range, 0.25 milli-G sensitivity"
                 }
-            ]
+            ],
+            "minApiVersion": "3.3.1"
         },
         "motion": {
             "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.",

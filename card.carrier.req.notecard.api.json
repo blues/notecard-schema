@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.3",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "The `AUX_CHARGING` mode. Set to `\"charging\"` to tell the Notecard that `AUX_CHARGING` is connected to a Notecarrier that supports charging on `AUX_CHARGING`. Set to `\"-\"` or `\"off\"` to turn off the `AUX_CHARGING` detection.",

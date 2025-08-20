@@ -6,7 +6,13 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "minApiVersion": "7.4.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "i2c": {
             "description": "The alternate address to use for I2C communication. Pass `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default address",
@@ -20,7 +26,8 @@
                 },
                 {
                     "const": "+busy",
-                    "description": "If set to `\"+busy\"`, the Notecard's LED will be on when the Notecard is awake, and off when the Notecard goes to sleep."
+                    "description": "If set to `\"+busy\"`, the Notecard's LED will be on when the Notecard is awake, and off when the Notecard goes to sleep.",
+                    "minApiVersion": "7.4.1"
                 },
                 {
                     "const": "-busy",
@@ -28,11 +35,13 @@
                 },
                 {
                     "const": "i2c-master-disable",
-                    "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`."
+                    "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`.",
+                    "minApiVersion": "9.1.1"
                 },
                 {
                     "const": "+fallback",
-                    "description": "Setting `\"+fallback\"` while Notecard is paired with a Starnote device forces fallback mode: Wi-Fi and cellular are automatically failed over, and all traffic goes through NTN. This state persists across reboots and therefore is discouraged for use in production deployments because it can incur unexpectedly high satellite data costs."
+                    "description": "Setting `\"+fallback\"` while Notecard is paired with a Starnote device forces fallback mode: Wi-Fi and cellular are automatically failed over, and all traffic goes through NTN. This state persists across reboots and therefore is discouraged for use in production deployments because it can incur unexpectedly high satellite data costs.",
+                    "minApiVersion": "8.2.1"
                 },
                 {
                     "const": "-fallback",

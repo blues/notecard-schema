@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "alert": {
             "description": "`true` if the message is urgent. This doesn't change any functionality, but rather `alert` is provided as a convenient flag to use in your program logic.",

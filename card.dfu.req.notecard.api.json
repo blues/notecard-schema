@@ -6,7 +6,11 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "WIFI"
+    ],
     "properties": {
         "name": {
             "description": "One of the supported classes of host MCU. Supported MCU classes are `\"esp32\"`, `\"stm32\"`, `\"stm32-bi\"`, `\"mcuboot\"` (added in v5.3.1), and `\"-\"`, which resets the configuration. The \"bi\" in `\"stm32-bi\"` stands for \"boot inverted\", and the `\"stm32-bi\"` option should be used on STM32 family boards where the hardware boot pin is assumed to be active low, instead of active high. Supported MCUs can be found on the [Notecarrier F datasheet](/datasheets/notecarrier-datasheet/notecarrier-f-v1-3).",
@@ -64,7 +68,10 @@
         "mode": {
             "description": "The `mode` argument allows you to control whether a Notecard's `AUX` pins (default) or `ALT_DFU` pins are used for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update). This argument is only supported on Notecards that have `ALT_DFU` pins, which includes all versions of Notecard Cell+WiFi, non-legacy versions of Notecard Cellular, and Notecard WiFi v2.",
             "type": "string",
-            "enum": ["altdfu", "off"],
+            "enum": [
+                "altdfu",
+                "off"
+            ],
             "sub-descriptions": [
                 {
                     "const": "altdfu",

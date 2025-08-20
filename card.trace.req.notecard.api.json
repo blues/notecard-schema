@@ -16,7 +16,10 @@
         "mode": {
             "description": "Set to `\"on\"` to enable trace mode on a Notecard, or `\"off\"` to disable it.",
             "type": "string",
-            "enum": ["on", "off"]
+            "enum": [
+                "on",
+                "off"
+            ]
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

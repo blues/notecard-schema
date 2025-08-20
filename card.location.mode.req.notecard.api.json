@@ -6,7 +6,12 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
-    "skus": ["CELL", "CELL+WIFI", "LORA", "WIFI"],
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "mode": {
             "description": "Must be one of: `\"\"` to retrieve the current mode. `\"off\"` to turn location mode off. Approximate location may still be [ascertained from Notehub](/notecard/notecard-walkthrough/time-and-location-requests#ascertaining-an-approximate-device-location). `\"periodic\"` to sample location at a specified interval, if the device has moved. `\"continuous\"` to enable the Notecard's GPS/GNSS module for continuous sampling. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note. `\"fixed\"` to report the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa.",
@@ -52,7 +57,8 @@
         "threshold": {
             "description": "When in `periodic` mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
             "type": "integer",
-            "default": 0
+            "default": 0,
+            "minApiVersion": "3.4.1"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",

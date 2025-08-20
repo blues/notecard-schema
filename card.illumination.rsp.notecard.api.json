@@ -5,6 +5,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "minApiVersion": "9.1.1",
     "properties": {
         "value": {
             "type": "number",
