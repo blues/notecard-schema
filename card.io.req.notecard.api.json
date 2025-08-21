@@ -95,19 +95,23 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Change I2C Address",
+            "title": "Change I2C Address",
+            "description": "Change the Notecard's I2C address from its default of `0x17` to `0x18`.",
             "json": "{\"req\": \"card.io\", \"i2c\": 24}"
         },
         {
-            "description": "Keep LED On While Notecard Awake.",
+            "title": "Keep LED On While Notecard Awake.",
+            "description": "Keep the onboard LED on while the Notecard is awake.",
             "json": "{\"req\": \"card.io\", \"mode\": \"+busy\"}"
         },
         {
-            "description": "Disable Notecard Acting As I2C Master.",
+            "title": "Disable I2C Master.",
+            "description": "Disable the Notecard from acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`.",
             "json": "{\"req\": \"card.io\", \"mode\": \"i2c-master-disable\"}"
         },
         {
-            "description": "Force Fallback Mode For Starnote.",
+            "title": "Force Fallback Mode For Starnote.",
+            "description": "Force the Notecard to enter fallback mode (cellular/Wi-Fi automatically failed over to NTN).",
             "json": "{\"req\": \"card.io\", \"mode\": \"+fallback\"}"
         }
     ]

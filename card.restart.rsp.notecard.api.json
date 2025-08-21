@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Empty Restart Response",
-            "description": "Typical empty response before Notecard restarts.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

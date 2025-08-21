@@ -13,5 +13,6 @@
         "LORA",
         "WIFI"
     ],
-    "properties": {}
+    "properties": {},
+    "additionalProperties": false
 }

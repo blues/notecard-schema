@@ -12,12 +12,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Successful Configuration Response",
-            "description": "Empty response indicating successful motion sync configuration.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

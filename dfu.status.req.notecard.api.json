@@ -39,7 +39,7 @@
             "type": "string"
         },
         "version": {
-            "description": "Version information on the host firmware to pass to Notehub. You may pass a simple version number string (e.g. `\"1.0.0.0\"`), or an object with detailed information about the firmware image (recommended).",
+            "description": "Version information on the host firmware to pass to Notehub. You may pass a simple version number string (e.g. `\"1.0.0.0\"`), or an object with detailed information about the firmware image (recommended).\n\nIf you provide an object it must take the following form.\n\n`{\"org\":\"my-organization\",\"product\":\"My Product\",\"description\":\"A description of the image\",\"version\":\"1.2.4\",\"built\":\"Jan 01 2025 01:02:03\",\"ver_major\":1,\"ver_minor\":2,\"ver_patch\":4,\"ver_build\": 5,\"builder\":\"The Builder\"}`\n\nCode to help you generate a version with the correct formatting is available in [Enabling Notecard Outboard Firmware Update](/notecard/notecard-walkthrough/firmware-updates/#enabling-notecard-outboard-firmware-update).",
             "type": [
                 "string",
                 "object"

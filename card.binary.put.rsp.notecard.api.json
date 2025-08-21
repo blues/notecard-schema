@@ -16,12 +16,5 @@
             "description": "If present, a string describing the error that occurred during transmission",
             "type": "string"
         }
-    },
-    "samples": [
-        {
-            "title": "Successful Binary Put Response",
-            "description": "Example response with no errors.",
-            "json": "{}"
-        }
-    ]
+    }
 }

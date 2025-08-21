@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Empty Factory Reset Response",
-            "description": "Typical empty response before Notecard factory reset and restart.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

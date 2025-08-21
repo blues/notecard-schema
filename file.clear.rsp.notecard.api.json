@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Clear Success Response",
-            "description": "Successful response after clearing a Notefile.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

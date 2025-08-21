@@ -16,6 +16,7 @@
         "hours": {
             "description": "The number of hours to analyze, up to 720 (30 days).",
             "type": "integer",
+            "default": 720,
             "maximum": 720
         },
         "mode": {

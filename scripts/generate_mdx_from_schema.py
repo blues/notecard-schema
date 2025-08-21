@@ -164,15 +164,41 @@ def generate_arguments_mdx(properties, schema_data):
         if prop_name in ["req", "cmd", "required"]:
             continue
 
-        prop_type = prop_details.get("type", "N/A")
+        prop_type_raw = prop_details.get("type", "N/A")
+        
+        # Handle multiple types (e.g. ["string", "object"] -> "string or object")
+        if isinstance(prop_type_raw, list):
+            prop_type = " or ".join(prop_type_raw)
+        else:
+            prop_type = prop_type_raw
+            
         optional_tag = " (optional)"
         if prop_name in top_level_required:
             optional_tag = ""
 
+        # Add default value if present
+        default_value = prop_details.get("default")
+        if default_value is not None:
+            # Format default value with backticks for strings
+            if isinstance(default_value, str):
+                formatted_default = f"`{default_value}`"
+            else:
+                formatted_default = str(default_value)
+            
+            if optional_tag:
+                # Replace " (optional)" with " (optional, default X)"
+                optional_tag = f" (optional, default {formatted_default})"
+            else:
+                # Add default to required field
+                optional_tag = f" (default {formatted_default})"
+
         type_display = f"_{prop_type}{optional_tag}_"
         if prop_details.get("format"):
             type_display = f"_{prop_type} (format: {prop_details.get('format')}){optional_tag}_"
-        elif "const" in prop_details:
+        elif prop_name == "time" and prop_type == "integer":
+            type_display = f"_UNIX Epoch time{optional_tag}_"
+        elif "const" in prop_details and prop_type == "N/A":
+            # Only show const when there's no explicit type
             type_display = f"_const (value: `{prop_details['const']}`){optional_tag}_"
 
         description = prop_details.get("description", "No description.")
@@ -203,8 +229,8 @@ def generate_arguments_mdx(properties, schema_data):
             badges_combined = "&nbsp;".join(all_badges)
             badges_para = f"\n\n<p>{badges_combined}</p>"
 
-        # Handle special case for mode parameter with sub-descriptions
-        if prop_name == "mode" and "sub-descriptions" in prop_details:
+        # Handle parameters with sub-descriptions
+        if "sub-descriptions" in prop_details:
             sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
             param_content = f"### `{prop_name}`\n\n{type_display}{badges_para}\n\n{description}\n\n{sub_desc_content}"
         # Handle array parameters with sub-descriptions in items
@@ -232,16 +258,32 @@ def generate_mode_sub_descriptions(sub_descriptions):
         description = sub_desc.get("description", "")
         skus = sub_desc.get("skus", [])
         min_version = sub_desc.get("minApiVersion")
+        is_deprecated = sub_desc.get("deprecated", False)
 
         badges = generate_argument_badges(skus)
+        
+        # Add deprecated badge if this sub-description is deprecated
+        if is_deprecated:
+            deprecated_badge = '<Badge type="deprecated" usage="argument" />'
+            if badges:
+                badges = badges + deprecated_badge
+            else:
+                badges = deprecated_badge
 
-        # Handle special formatting for empty string
+        # Handle special formatting for different types
         if const_value == "":
             const_display = '`""`'
+        elif isinstance(const_value, (int, float)):
+            # Numeric values don't need quotes
+            const_display = f'`{const_value}`'
         else:
+            # String values need quotes
             const_display = f'`"{const_value}"`'
 
-        sub_desc_content = f"{const_display} {badges}\n\n{description}"
+        if badges:
+            sub_desc_content = f"{const_display} {badges}\n\n{description}"
+        else:
+            sub_desc_content = f"{const_display}: {description}"
 
         # Wrap with VersionCheck if minApiVersion exists
         if min_version:
@@ -251,80 +293,157 @@ def generate_mode_sub_descriptions(sub_descriptions):
 
     return "\n\n".join(sub_desc_parts)
 
-def generate_cpp_for_sample(parsed_json_data):
-    """Generates C++ code lines from parsed JSON data."""
-    if not isinstance(parsed_json_data, dict):
+def generate_cpp_for_sample(parsed_json_data_list):
+    """Generates C++ code lines from a list of parsed JSON data objects."""
+    if not isinstance(parsed_json_data_list, list):
         return []
 
-    req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
-    if not req_val:
-        # Cannot generate C++ if neither 'req' nor 'cmd' field is present
-        return []
+    all_cpp_lines = []
 
-    cpp_lines = [f'J *req = NoteNewRequest("{req_val}");']
-
-    for key, value in parsed_json_data.items():
-        if key in ["req", "cmd"]:
+    for i, parsed_json_data in enumerate(parsed_json_data_list):
+        if not isinstance(parsed_json_data, dict):
             continue
 
-        if isinstance(value, str):
-            # Escape double quotes within the string value for C++
-            escaped_value = value.replace('"', '\\"')
-            cpp_lines.append(f'JAddStringToObject(req, "{key}", "{escaped_value}");')
-        elif isinstance(value, bool):
-            cpp_lines.append(f'JAddBoolToObject(req, "{key}", {"true" if value else "false"});')
-        elif isinstance(value, (int, float)):
-            cpp_lines.append(f'JAddNumberToObject(req, "{key}", {value});')
-        elif isinstance(value, list):
-            # Handle arrays
-            cpp_lines.append(f'J *{key} = JAddArrayToObject(req, "{key}");')
-            for item in value:
-                if isinstance(item, str):
-                    cpp_lines.append(f'JAddItemToArray({key}, JCreateString("{item}"));')
-                elif isinstance(item, (int, float)):
-                    cpp_lines.append(f'JAddItemToArray({key}, JCreateNumber({item}));')
-                elif isinstance(item, bool):
-                    cpp_lines.append(f'JAddItemToArray({key}, JCreateBool({"true" if item else "false"}));')
-
-    cpp_lines.append("")
-    cpp_lines.append("NoteRequest(req);")
-    return cpp_lines
-
-def generate_python_for_sample(parsed_json_data):
-    """Generates Python code lines from parsed JSON data."""
-    if not isinstance(parsed_json_data, dict):
-        return []
-    req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
-    if not req_val: return []
-
-    # Start with the base request dictionary initialization
-    if "cmd" in parsed_json_data:
-        python_lines = [f'req = {{"cmd": "{req_val}"}}']
-    else:
-        python_lines = [f'req = {{"req": "{req_val}"}}']
-
-    for key, value in parsed_json_data.items():
-        if key in ["req", "cmd"]:
+        req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
+        if not req_val:
+            # Cannot generate C++ if neither 'req' nor 'cmd' field is present
             continue
 
-        if isinstance(value, str):
-            # Python string literals handle internal quotes automatically if the outer quotes differ,
-            # or use triple quotes. For simplicity, we'll rely on standard string repr.
-            # json.dumps can be good for ensuring valid Python string literal for the value.
-            python_lines.append(f'req["{key}"] = {json.dumps(value)}')
-        elif isinstance(value, bool): # Must check bool before int, as bool is a subclass of int
-            python_lines.append(f'req["{key}"] = {True if value else False}')
-        elif isinstance(value, (int, float)):
-            python_lines.append(f'req["{key}"] = {value}')
-        elif isinstance(value, list):
-            # Handle arrays
-            python_lines.append(f'req["{key}"] = {json.dumps(value)}')
+        if i == 0:
+            cpp_lines = [f'J *req = NoteNewRequest("{req_val}");']
+        else:
+            cpp_lines = [f'req = NoteNewRequest("{req_val}");']
 
-    if "cmd" in parsed_json_data:
-        python_lines.append("card.Transaction(req)")
-    else:
-        python_lines.append("rsp = card.Transaction(req)")
-    return python_lines
+        for key, value in parsed_json_data.items():
+            if key in ["req", "cmd"]:
+                continue
+
+            if isinstance(value, str):
+                # Escape double quotes within the string value for C++
+                escaped_value = value.replace('"', '\\"')
+                cpp_lines.append(f'JAddStringToObject(req, "{key}", "{escaped_value}");')
+            elif isinstance(value, bool):
+                cpp_lines.append(f'JAddBoolToObject(req, "{key}", {"true" if value else "false"});')
+            elif isinstance(value, (int, float)):
+                cpp_lines.append(f'JAddNumberToObject(req, "{key}", {value});')
+            elif isinstance(value, list):
+                # Handle arrays
+                cpp_lines.append(f'J *{key} = JAddArrayToObject(req, "{key}");')
+                for item in value:
+                    if isinstance(item, str):
+                        cpp_lines.append(f'JAddItemToArray({key}, JCreateString("{item}"));')
+                    elif isinstance(item, (int, float)):
+                        cpp_lines.append(f'JAddItemToArray({key}, JCreateNumber({item}));')
+                    elif isinstance(item, bool):
+                        cpp_lines.append(f'JAddItemToArray({key}, JCreateBool({"true" if item else "false"}));')
+
+        cpp_lines.append("")
+        cpp_lines.append("NoteRequest(req);")
+
+        # Add separator between multiple requests except for the last one
+        if i < len(parsed_json_data_list) - 1:
+            cpp_lines.append("")
+
+        all_cpp_lines.extend(cpp_lines)
+
+    return all_cpp_lines
+
+def generate_python_for_sample(parsed_json_data_list):
+    """Generates Python code lines from a list of parsed JSON data objects."""
+    if not isinstance(parsed_json_data_list, list):
+        return []
+
+    all_python_lines = []
+
+    for i, parsed_json_data in enumerate(parsed_json_data_list):
+        if not isinstance(parsed_json_data, dict):
+            continue
+
+        req_val = parsed_json_data.get("req") or parsed_json_data.get("cmd")
+        if not req_val:
+            continue
+
+        # Start with the base request dictionary initialization
+        if "cmd" in parsed_json_data:
+            python_lines = [f'req = {{"cmd": "{req_val}"}}']
+        else:
+            python_lines = [f'req = {{"req": "{req_val}"}}']
+
+        for key, value in parsed_json_data.items():
+            if key in ["req", "cmd"]:
+                continue
+
+            if isinstance(value, str):
+                # Python string literals handle internal quotes automatically if the outer quotes differ,
+                # or use triple quotes. For simplicity, we'll rely on standard string repr.
+                # json.dumps can be good for ensuring valid Python string literal for the value.
+                python_lines.append(f'req["{key}"] = {json.dumps(value)}')
+            elif isinstance(value, bool): # Must check bool before int, as bool is a subclass of int
+                python_lines.append(f'req["{key}"] = {True if value else False}')
+            elif isinstance(value, (int, float)):
+                python_lines.append(f'req["{key}"] = {value}')
+            elif isinstance(value, list):
+                # Handle arrays
+                python_lines.append(f'req["{key}"] = {json.dumps(value)}')
+
+        if "cmd" in parsed_json_data:
+            python_lines.append("card.Transaction(req)")
+        else:
+            python_lines.append("rsp = card.Transaction(req)")
+
+        # Add separator between multiple requests except for the last one
+        if i < len(parsed_json_data_list) - 1:
+            python_lines.append("")
+
+        all_python_lines.extend(python_lines)
+
+    return all_python_lines
+
+def parse_json_sample(json_string):
+    """Parse JSON sample that can be a single object, array of objects, or comma-separated objects."""
+    json_objects = []
+    
+    try:
+        # First try to parse as valid JSON
+        parsed = json.loads(json_string)
+        
+        if isinstance(parsed, list):
+            # It's a JSON array - return the objects in the array
+            json_objects = [obj for obj in parsed if isinstance(obj, dict)]
+        elif isinstance(parsed, dict):
+            # It's a single JSON object
+            json_objects = [parsed]
+    except json.JSONDecodeError:
+        # Fallback: try to parse as comma-separated JSON objects (legacy format)
+        parts = json_string.split("},{")
+        
+        if len(parts) > 1:
+            # Multiple JSON objects (legacy comma-separated format)
+            for i, part in enumerate(parts):
+                # Add back the closing brace for all but the last part
+                if i < len(parts) - 1:
+                    part = part + "}"
+                # Add back the opening brace for all but the first part
+                if i > 0:
+                    part = "{" + part
+                
+                try:
+                    parsed = json.loads(part)
+                    json_objects.append(parsed)
+                except json.JSONDecodeError:
+                    continue
+
+    return json_objects
+
+def format_json_objects_for_display(json_objects):
+    """Format a list of JSON objects for display with proper spacing."""
+    formatted_objects = []
+
+    for json_obj in json_objects:
+        formatted_json = json.dumps(json_obj, indent=2)
+        formatted_objects.append(formatted_json)
+
+    return "\n\n".join(formatted_objects)
 
 def generate_examples_mdx(samples):
     """Generates MDX for code samples, including C++ and Python if possible."""
@@ -343,16 +462,21 @@ def generate_examples_mdx(samples):
         cpp_code_lines = []
         python_code_lines = []
 
-        try:
-            parsed_json_data = json.loads(json_sample_str)
-            formatted_json_sample = json.dumps(parsed_json_data, indent=2)
+        # Parse JSON sample (single object, array of objects, or legacy comma-separated)
+        parsed_json_objects = parse_json_sample(json_sample_str)
+
+        if parsed_json_objects:
+            # Format the JSON objects for display
+            formatted_json_sample = format_json_objects_for_display(parsed_json_objects)
             formatted_json_block = f"```json\n{formatted_json_sample}\n```"
-            cpp_code_lines = generate_cpp_for_sample(parsed_json_data)
-            python_code_lines = generate_python_for_sample(parsed_json_data)
-        except json.JSONDecodeError:
-            # If JSON is invalid, still show it as a raw string in the JSON block
+
+            # Generate code for all JSON objects
+            cpp_code_lines = generate_cpp_for_sample(parsed_json_objects)
+            python_code_lines = generate_python_for_sample(parsed_json_objects)
+        else:
+            # If JSON parsing fails, still show it as a raw string in the JSON block
             formatted_json_block = f"```json\n{json_sample_str}\n```"
-            # Cannot generate C++ for invalid JSON
+            # Cannot generate C++ or Python for invalid JSON
 
         code_tabs_inner_content_parts = [formatted_json_block]
         if cpp_code_lines:
@@ -389,12 +513,18 @@ def generate_examples_mdx(samples):
 
 </ExampleRequests>"""
 
-def generate_response_members_mdx(properties, response_schema_data):
+def generate_response_members_mdx(properties, schema_data=None):
     """Generates MDX for response schema properties, always including wrapper tags."""
     members_list_strings = []
     if properties:
         for prop_name, prop_details in properties.items():
-            prop_type = prop_details.get("type", "N/A")
+            prop_type_raw = prop_details.get("type", "N/A")
+            
+            # Handle multiple types (e.g. ["string", "object"] -> "string or object")
+            if isinstance(prop_type_raw, list):
+                prop_type = " or ".join(prop_type_raw)
+            else:
+                prop_type = prop_type_raw
             type_display = f"_{prop_type}_"
             if prop_details.get("format"):
                 type_display = f"_{prop_type} (format: {prop_details.get('format')})_"
@@ -405,9 +535,9 @@ def generate_response_members_mdx(properties, response_schema_data):
 
             description = prop_details.get("description", "No description.")
 
-            # Handle special formatting for files property with sub-descriptions
-            if prop_name == "files" and "sub-descriptions" in prop_details:
-                sub_desc_content = generate_response_sub_descriptions(prop_details["sub-descriptions"])
+            # Handle sub-descriptions for any property
+            if "sub-descriptions" in prop_details:
+                sub_desc_content = generate_mode_sub_descriptions(prop_details["sub-descriptions"])
                 member_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}\n\n{sub_desc_content}"
             else:
                 member_content = f"### `{prop_name}`\n\n{type_display}\n\n{description}"
@@ -455,6 +585,8 @@ def generate_annotations_mdx(annotations):
             component = "Note"  # Info also uses Note component
         elif title.lower() == "warning":
             component = "Warning"
+        elif title.lower() == "deprecated":
+            component = "Deprecated"
         else:
             component = "Note"  # Default to Note for unknown types
 
@@ -463,21 +595,42 @@ def generate_annotations_mdx(annotations):
     return "\n\n".join(annotation_blocks)
 
 def generate_example_response_mdx(samples):
-    """Generates MDX for example response only if samples exist."""
+    """Generates MDX for example response samples in simple format."""
     if not samples:
         return ""
 
-    content = ""
-    sample = samples[0]
-    json_sample_str = sample.get("json", "{}")
-    try:
-        parsed_json = json.loads(json_sample_str)
-        formatted_json_sample = json.dumps(parsed_json, indent=2)
-        content = f"\n```json\n{formatted_json_sample}\n```\n"
-    except json.JSONDecodeError:
-        content = f"\n```json\n{json_sample_str}\n```\n"
+    num_samples = len(samples)
+    sample_blocks = []
 
-    return f"""<ExampleResponse>{content}</ExampleResponse>"""
+    for sample_obj in samples:
+        description = sample_obj.get("description", "")
+        json_sample_str = sample_obj.get("json", "{}")
+
+        # Format JSON for display
+        try:
+            parsed_json = json.loads(json_sample_str)
+            formatted_json_sample = json.dumps(parsed_json, indent=2)
+            formatted_json_block = f"```json\n{formatted_json_sample}\n```"
+        except json.JSONDecodeError:
+            formatted_json_block = f"```json\n{json_sample_str}\n```"
+
+        # Create sample block with JSON and description (only for multiple samples)
+        sample_block = formatted_json_block
+        if description and num_samples > 1:
+            sample_block += f"\n\n{description}"
+
+        sample_blocks.append(sample_block)
+
+    if not sample_blocks:
+        return ""
+
+    joined_samples = "\n\n".join(sample_blocks)
+
+    return f"""<ExampleResponse>
+
+{joined_samples}
+
+</ExampleResponse>"""
 
 def find_all_api_base_names(schema_dir):
     """Find all API base names by looking for .req.notecard.api.json files."""

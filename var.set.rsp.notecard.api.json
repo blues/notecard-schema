@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Successful Variable Set Response",
-            "description": "Empty response confirming variable has been set successfully.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

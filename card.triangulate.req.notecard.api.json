@@ -13,7 +13,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "The triangulation approach to use for determining the Notecard location. The following keywords can be used separately or together in a comma-delimited list, in any order.\n\n`cell` enables cell tower scanning to determine the position of the Device.\n\n`wifi` enables the use of nearby Wi-Fi access points to determine the position of the Device. To leverage this feature, the host will need to provide access point information to the Notecard via the `text` argument in subsequent requests.\n\n`-` to clear the currently-set triangulation mode.",
+            "description": "The triangulation approach to use for determining the Notecard location. The following keywords can be used separately or together in a comma-delimited list, in any order. See [Using Cell Tower & Wi-Fi Triangulation](/notecard/notecard-walkthrough/time-and-location-requests/#using-cell-tower-and-wi-fi-triangulation) for more information.",
             "type": "string",
             "pattern": "^(cell(,wifi)?|wifi(,cell)?|-)$",
             "sub-descriptions": [

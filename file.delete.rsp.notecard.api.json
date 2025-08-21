@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Delete Success Response",
-            "description": "Successful response after deleting Notefiles.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

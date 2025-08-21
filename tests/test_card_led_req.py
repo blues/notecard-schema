@@ -104,8 +104,49 @@ def test_invalid_additional_property(schema):
 def test_schema_samples(schema):
     """Tests that all schema samples validate against the schema."""
     import json
-    
+
+    def parse_json_sample(json_string):
+        """Parse JSON sample that can be a single object, array of objects, or comma-separated objects."""
+        json_objects = []
+
+        try:
+            # First try to parse as valid JSON
+            parsed = json.loads(json_string)
+
+            if isinstance(parsed, list):
+                # It's a JSON array - return the objects in the array
+                json_objects = [obj for obj in parsed if isinstance(obj, dict)]
+            elif isinstance(parsed, dict):
+                # It's a single JSON object
+                json_objects = [parsed]
+        except json.JSONDecodeError:
+            # Fallback: try to parse as comma-separated JSON objects (legacy format)
+            parts = json_string.split("},{")
+
+            if len(parts) > 1:
+                # Multiple JSON objects (legacy comma-separated format)
+                for i, part in enumerate(parts):
+                    # Add back the closing brace for all but the last part
+                    if i < len(parts) - 1:
+                        part = part + "}"
+                    # Add back the opening brace for all but the first part
+                    if i > 0:
+                        part = "{" + part
+
+                    try:
+                        parsed = json.loads(part)
+                        json_objects.append(parsed)
+                    except json.JSONDecodeError:
+                        continue
+
+        return json_objects
+
     samples = schema.get("samples", [])
     for sample in samples:
-        sample_json = json.loads(sample["json"])
-        jsonschema.validate(instance=sample_json, schema=schema)
+        json_objects = parse_json_sample(sample["json"])
+
+        # Only validate JSON objects that match this schema (card.led)
+        for json_obj in json_objects:
+            req_val = json_obj.get("req") or json_obj.get("cmd")
+            if req_val == "card.led":
+                jsonschema.validate(instance=json_obj, schema=schema)

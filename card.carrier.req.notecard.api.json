@@ -56,7 +56,7 @@
     "samples": [
         {
             "title": "Enable Charging Mode",
-            "description": "Set the AUX_CHARGING mode to charging.",
+            "description": "Set the `AUX_CHARGING` mode to charging.",
             "json": "{\"req\": \"card.carrier\", \"mode\": \"charging\"}"
         }
     ]

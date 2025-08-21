@@ -13,7 +13,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "Network scan mode. Must be one of: `\"-\"` to reset to the default mode, `\"auto\"` to perform automatic band scan mode (this is the default mode). The following values apply exclusively to Narrowband (NB) Notecard Cellular devices: `\"m\"` to restrict the modem to Cat-M1, `\"nb\"` to restrict the modem to Cat-NB1, `\"gprs\"` to restrict the modem to EGPRS.",
+            "description": "Network scan mode. Must be one of:",
             "type": "string",
             "enum": [
                 "-",
@@ -50,7 +50,7 @@
             "type": "string"
         },
         "method": {
-            "description": "Used when configuring a Notecard to failover to a different SIM.",
+            "description": "Used when configuring a [Notecard to failover to a different SIM](/guides-and-tutorials/notecard-guides/using-external-sim-cards/#failing-over-to-a-different-sim).",
             "type": "string",
             "enum": [
                 "-",

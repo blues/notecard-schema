@@ -13,7 +13,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "The time period to use for statistics. Must be one of:\n\n`\"total\"` for all stats since the Notecard was activated.\n\n`\"1hour\"`\n\n`\"1day\"`\n\n`\"30day\"`",
+            "description": "The time period to use for statistics. Must be one of:",
             "type": "string",
             "default": "total",
             "enum": [

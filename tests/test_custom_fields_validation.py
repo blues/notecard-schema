@@ -111,11 +111,41 @@ def test_samples_structure(schema_file):
                 assert isinstance(sample["title"], str), f"Sample {i} 'title' in {schema_file} is not a string"
                 assert len(sample["title"].strip()) > 0, f"Sample {i} 'title' in {schema_file} is empty"
 
-            # Validate that the JSON string is valid JSON
-            try:
-                json.loads(sample["json"])
-            except json.JSONDecodeError as e:
-                pytest.fail(f"Sample {i} 'json' in {schema_file} is not valid JSON: {e}")
+            # Validate that the JSON string contains valid JSON (single object, array, or legacy comma-separated)
+            def validate_json_sample(json_string):
+                """Validate JSON string that can be a single object, array, or legacy comma-separated objects."""
+                try:
+                    # Try to parse as valid JSON first
+                    parsed = json.loads(json_string)
+
+                    # Valid JSON - check if it's an object, array of objects, or other valid JSON
+                    if isinstance(parsed, (dict, list)):
+                        return True
+                    else:
+                        return False  # Other JSON types not expected in samples
+
+                except json.JSONDecodeError:
+                    # Fallback: try as legacy comma-separated JSON objects
+                    parts = json_string.split("},{")
+                    if len(parts) > 1:
+                        for i, part in enumerate(parts):
+                            # Add back the closing brace for all but the last part
+                            if i < len(parts) - 1:
+                                part = part + "}"
+                            # Add back the opening brace for all but the first part
+                            if i > 0:
+                                part = "{" + part
+
+                            try:
+                                json.loads(part)
+                            except json.JSONDecodeError:
+                                return False
+                        return True
+
+                    return False
+
+            if not validate_json_sample(sample["json"]):
+                pytest.fail(f"Sample {i} 'json' in {schema_file} is not valid JSON (single object, array, or legacy comma-separated): {sample['json']}")
 
     # Check samples in properties (recursively)
     def check_property_samples(properties, path=""):

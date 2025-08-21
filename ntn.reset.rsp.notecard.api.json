@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Successful Reset Response",
-            "description": "Empty response confirming Starnote configuration has been cleared.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

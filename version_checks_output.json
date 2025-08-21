@@ -1,0 +1,675 @@
+{
+  "summary": {
+    "total_version_checks": 92,
+    "api_checks": 11,
+    "response_checks": 16,
+    "request_checks": 65,
+    "unique_apis": 43,
+    "unique_versions": [
+      "3-2-1",
+      "3-3-1",
+      "3-4-1",
+      "3-5-1",
+      "4-1-1",
+      "5-1-1",
+      "5-3-1",
+      "6-1-1",
+      "6-2-3",
+      "7-2-1",
+      "7-2-2",
+      "7-3-1",
+      "7-4-1",
+      "7-5-1",
+      "7-5-2",
+      "8-1-3",
+      "8-2-1",
+      "9-1-1"
+    ]
+  },
+  "version_checks": [
+    {
+      "api": "card.attn",
+      "property": "mode",
+      "sub_property": "disarm",
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "verify",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "mode",
+      "sub_property": "auxgpio",
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "mode",
+      "sub_property": "env",
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "mode",
+      "sub_property": "motionchange",
+      "version": "6-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "off",
+      "sub_property": null,
+      "version": "7-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.attn",
+      "property": "off",
+      "sub_property": null,
+      "version": "7-2-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.aux",
+      "property": "rate",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "input-pulldown",
+      "version": "3-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "file",
+      "sub_property": null,
+      "version": "3-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "connected",
+      "sub_property": null,
+      "version": "3-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "power",
+      "sub_property": null,
+      "version": "3-3-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.aux",
+      "property": "sync",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "limit",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "dfu",
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "led",
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "neo",
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "track-monitor",
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "mode",
+      "sub_property": "track-neo-monitor",
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "sensitivity",
+      "sub_property": null,
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "count",
+      "sub_property": null,
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux",
+      "property": "ms",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux.serial",
+      "property": "req",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.aux.serial",
+      "property": "rate",
+      "sub_property": null,
+      "version": "4-1-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.aux.serial",
+      "property": "minutes",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.binary",
+      "property": null,
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "api"
+    },
+    {
+      "api": "card.binary.get",
+      "property": null,
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "api"
+    },
+    {
+      "api": "card.binary.put",
+      "property": null,
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "api"
+    },
+    {
+      "api": "card.dfu",
+      "property": "esp32",
+      "sub_property": null,
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.dfu",
+      "property": "altdfu",
+      "sub_property": null,
+      "version": "6-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.illumination",
+      "property": null,
+      "sub_property": null,
+      "version": "9-1-1",
+      "type": "api"
+    },
+    {
+      "api": "card.io",
+      "property": "mode",
+      "sub_property": "+busy",
+      "version": "7-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.io",
+      "property": null,
+      "sub_property": null,
+      "version": "7-4-1",
+      "type": "req"
+    },
+    {
+      "api": "card.io",
+      "property": "mode",
+      "sub_property": "+fallback",
+      "version": "8-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.io",
+      "property": "mode",
+      "sub_property": "i2c-master-disable",
+      "version": "9-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.led",
+      "property": null,
+      "sub_property": null,
+      "version": "3-5-1",
+      "type": "api"
+    },
+    {
+      "api": "card.location",
+      "property": null,
+      "sub_property": null,
+      "version": "6-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.location.mode",
+      "property": "threshold",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.location.track",
+      "property": "payload",
+      "sub_property": null,
+      "version": "7-5-2",
+      "type": "req"
+    },
+    {
+      "api": "card.motion",
+      "property": "stopped",
+      "sub_property": null,
+      "version": "6-1-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.motion.mode",
+      "property": "sensitivity",
+      "sub_property": null,
+      "version": "3-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.motion.mode",
+      "property": "mode",
+      "sub_property": null,
+      "version": "6-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.power",
+      "property": null,
+      "sub_property": null,
+      "version": "8-1-3",
+      "type": "api"
+    },
+    {
+      "api": "card.status",
+      "property": "gps",
+      "sub_property": null,
+      "version": "3-3-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.status",
+      "property": "sync",
+      "sub_property": null,
+      "version": "7-5-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.transport",
+      "property": "wifi-cell",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.transport",
+      "property": "seconds",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.transport",
+      "property": "allow",
+      "sub_property": null,
+      "version": "7-2-1",
+      "type": "req"
+    },
+    {
+      "api": "card.transport",
+      "property": "umin",
+      "sub_property": null,
+      "version": "9-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.version",
+      "property": "wifi",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "rsp"
+    },
+    {
+      "api": "card.voltage",
+      "property": "usb",
+      "sub_property": null,
+      "version": "3-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.voltage",
+      "property": "calibration",
+      "sub_property": null,
+      "version": "7-2-2",
+      "type": "req"
+    },
+    {
+      "api": "card.wifi",
+      "property": "text",
+      "sub_property": null,
+      "version": "7-5-1",
+      "type": "req"
+    },
+    {
+      "api": "card.wireless",
+      "property": "-",
+      "sub_property": null,
+      "version": "4-1-1",
+      "type": "req"
+    },
+    {
+      "api": "card.wireless",
+      "property": "dual-primary-secondary",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "card.wireless.penalty",
+      "property": "seconds",
+      "sub_property": null,
+      "version": "4-1-1",
+      "type": "rsp"
+    },
+    {
+      "api": "env.get",
+      "property": "names",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "env.get",
+      "property": "time",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "rsp"
+    },
+    {
+      "api": "env.modified",
+      "property": "time",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "env.set",
+      "property": "time",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "rsp"
+    },
+    {
+      "api": "file.clear",
+      "property": null,
+      "sub_property": null,
+      "version": "8-2-1",
+      "type": "api"
+    },
+    {
+      "api": "hub.set",
+      "property": "on",
+      "sub_property": null,
+      "version": "3-4-1",
+      "type": "req"
+    },
+    {
+      "api": "hub.set",
+      "property": "uperiodic",
+      "sub_property": null,
+      "version": "4-1-1",
+      "type": "req"
+    },
+    {
+      "api": "hub.set",
+      "property": "deveui",
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "req"
+    },
+    {
+      "api": "hub.set",
+      "property": "version",
+      "sub_property": null,
+      "version": "7-3-1",
+      "type": "req"
+    },
+    {
+      "api": "hub.signal",
+      "property": "seconds",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "hub.sync",
+      "property": "out",
+      "sub_property": null,
+      "version": "7-2-1",
+      "type": "req"
+    },
+    {
+      "api": "hub.sync.status",
+      "property": "seconds",
+      "sub_property": null,
+      "version": "4-1-1",
+      "type": "rsp"
+    },
+    {
+      "api": "hub.sync.status",
+      "property": "scan",
+      "sub_property": null,
+      "version": "6-1-1",
+      "type": "rsp"
+    },
+    {
+      "api": "note.add",
+      "property": "full",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "note.add",
+      "property": "binary",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "note.add",
+      "property": "file",
+      "sub_property": null,
+      "version": "8-2-1",
+      "type": "req"
+    },
+    {
+      "api": "note.add",
+      "property": "limit",
+      "sub_property": null,
+      "version": "9-1-1",
+      "type": "req"
+    },
+    {
+      "api": "note.template",
+      "property": "verify",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "note.template",
+      "property": "template",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "rsp"
+    },
+    {
+      "api": "note.template",
+      "property": "compact",
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "req"
+    },
+    {
+      "api": "note.template",
+      "property": "format",
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "rsp"
+    },
+    {
+      "api": "ntn.gps",
+      "property": null,
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "api"
+    },
+    {
+      "api": "ntn.reset",
+      "property": null,
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "api"
+    },
+    {
+      "api": "ntn.status",
+      "property": null,
+      "sub_property": null,
+      "version": "6-2-3",
+      "type": "api"
+    },
+    {
+      "api": "var.delete",
+      "property": "file",
+      "sub_property": null,
+      "version": "7-3-1",
+      "type": "req"
+    },
+    {
+      "api": "var.get",
+      "property": null,
+      "sub_property": null,
+      "version": "7-3-1",
+      "type": "api"
+    },
+    {
+      "api": "var.set",
+      "property": "file",
+      "sub_property": null,
+      "version": "7-3-1",
+      "type": "req"
+    },
+    {
+      "api": "web.delete",
+      "property": "async",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "web.get",
+      "property": "async",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "web.get",
+      "property": "binary",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "web.post",
+      "property": "total",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "web.post",
+      "property": "async",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    },
+    {
+      "api": "web.post",
+      "property": "binary",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "req"
+    },
+    {
+      "api": "web.post",
+      "property": "cobs",
+      "sub_property": null,
+      "version": "5-3-1",
+      "type": "rsp"
+    },
+    {
+      "api": "web.put",
+      "property": "total",
+      "sub_property": null,
+      "version": "3-2-1",
+      "type": "req"
+    },
+    {
+      "api": "web.put",
+      "property": "async",
+      "sub_property": null,
+      "version": "5-1-1",
+      "type": "req"
+    }
+  ]
+}

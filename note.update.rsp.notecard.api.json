@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Successful Update Response",
-            "description": "Empty response confirming successful note update.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

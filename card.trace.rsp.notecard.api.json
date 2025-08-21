@@ -13,12 +13,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Trace Mode Configuration Response",
-            "description": "Standard response after successfully enabling or disabling trace mode.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

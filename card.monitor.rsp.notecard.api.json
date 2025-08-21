@@ -10,12 +10,5 @@
         "CELL+WIFI",
         "WIFI"
     ],
-    "properties": {},
-    "samples": [
-        {
-            "title": "Monitor Response",
-            "description": "Example response from card.monitor request.",
-            "json": "{}"
-        }
-    ]
+    "properties": {}
 }

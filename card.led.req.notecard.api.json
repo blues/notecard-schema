@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.led.req.notecard.api.json",
     "title": "card.led Request Application Programming Interface (API) Schema",
-    "description": "Used along with the card.aux API to turn connected LEDs on/off or to manage a single connected NeoPixel.",
+    "description": "Used along with the [card.aux API](/api-reference/notecard-api/card-requests/latest#card-aux) to turn connected LEDs on/off or to manage a single connected NeoPixel.\n\nIf using monochromatic LEDs, they must be wired according to the instructions provided in the guide on [Using Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-monitor-mode). Please note that the use of monochromatic LEDs is not supported by Notecard for LoRa.\n\nIf using NeoPixels, the NeoPixel (or strip of NeoPixels) must be wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
@@ -17,71 +17,18 @@
         "mode": {
             "description": "Used to specify the color of the LED to turn on or off. For LEDs, possible values are `\"red\"`, `\"green\"`, and `\"yellow\"`. For NeoPixels, possible values are `\"red\"`, `\"green\"`, `\"blue\"`, `\"yellow\"`, `\"cyan\"`, `\"magenta\"`, `\"orange\"`, `\"white\"`, and `\"gray\"`.",
             "type": "string",
-            "skus": {
-                "red": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "WIFI"
-                ],
-                "green": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "WIFI"
-                ],
-                "yellow": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "WIFI"
-                ],
-                "blue": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ],
-                "cyan": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ],
-                "magenta": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ],
-                "orange": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ],
-                "white": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ],
-                "gray": [
-                    "CELL",
-                    "CELL+WIFI",
-                    "LORA",
-                    "WIFI"
-                ]
-            },
             "sub-descriptions": [
                 {
                     "const": "red",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off. **NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
                 },
                 {
                     "const": "green",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off. **NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
                 },
                 {
                     "const": "yellow",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off. **NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
                 },
                 {
                     "const": "blue",
@@ -169,18 +116,13 @@
     "samples": [
         {
             "title": "Turn Red LED On",
-            "description": "Turn the red LED on using monochromatic LEDs.",
-            "json": "{\"req\": \"card.led\", \"mode\": \"red\", \"on\": true}"
+            "description": "As shown above, the Notecard must also be in `led` mode and the LED(s) wired according to the instructions provided in the guide on [Using Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-monitor-mode).",
+            "json": "[{\"req\": \"card.aux\", \"mode\": \"led\"},{\"req\": \"card.led\", \"mode\": \"red\", \"on\": true}]"
         },
         {
             "title": "Turn Blue NeoPixel On",
-            "description": "Turn a blue NeoPixel on.",
-            "json": "{\"req\": \"card.led\", \"mode\": \"blue\", \"on\": true}"
-        },
-        {
-            "title": "Turn Green LED Off",
-            "description": "Turn the green LED off.",
-            "json": "{\"req\": \"card.led\", \"mode\": \"green\", \"off\": true}"
+            "description": "As shown above, the Notecard must also be in `neo`, `neo-monitor`, or `track-neo-monitor` mode and the NeoPixel(s) wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
+            "json": "[{\"req\": \"card.aux\", \"mode\": \"neo\"},{\"req\": \"card.led\", \"mode\": \"blue\", \"on\": true}]"
         }
     ]
 }

@@ -8,7 +8,3 @@ def test_minimal_valid_rsp(schema):
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_additional_property(schema):
-    """Tests valid response with an additional property."""
-    instance = {"status": "ok"}
-    jsonschema.validate(instance=instance, schema=schema)

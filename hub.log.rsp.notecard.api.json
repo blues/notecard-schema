@@ -12,12 +12,5 @@
         "WIFI"
     ],
     "properties": {},
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Empty Response",
-            "description": "Successful response with no content.",
-            "json": "{}"
-        }
-    ]
+    "additionalProperties": false
 }

@@ -13,7 +13,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "The current DFU mode.",
+            "description": "The current DFU mode. Will be one of:",
             "type": "string",
             "enum": [
                 "idle",
