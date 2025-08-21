@@ -88,12 +88,17 @@ def test_valid_complex_response(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_invalid_additional_property(schema):
-    """Tests invalid response with an additional property."""
+def test_invalid_additional_property_type(schema):
+    """Tests invalid type for additional property (environment variable)."""
     instance = {"text": "on", "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
+def test_valid_additional_property_string(schema):
+    """Tests valid string additional property (environment variable)."""
+    instance = {"my-env-var": "some-value", "time": 1656315835}
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
