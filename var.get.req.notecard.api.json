@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.get.req.notecard.api.json",
     "title": "var.get Request Application Programming Interface (API) Schema",
-    "description": "Retrieves a Note from a **DB Notefile**. Provides a simpler interface to the [note.get](/api-reference/notecard-api/note-requests/latest/#noteget) API.",
+    "description": "Retrieves a Note from a **DB Notefile**. Provides a simpler interface to the [note.get](/api-reference/notecard-api/note-requests/latest/#note-get) API.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
