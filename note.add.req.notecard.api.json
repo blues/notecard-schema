@@ -14,36 +14,35 @@
     ],
     "properties": {
         "file": {
-            "description": "The name of the Notefile. On Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided. When using this request on the Notecard the Notefile name must end in one of: `.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport, `.qos` for a queue outgoing with encrypted transport, `.db` for a bidirectionally synchronized database with plaintext transport, `.dbs` for a bidirectionally synchronized database with encrypted transport, `.dbx` for a local-only database.",
+            "description": "The name of the Notefile.\n\nOn Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided.\n\nWhen using this request on the Notecard the Notefile name must end in one of:\n\n`.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport\n\n`.qos` for a queue outgoing with encrypted transport\n\n`.db` for a bidirectionally synchronized database with plaintext transport\n\n`.dbs` for a bidirectionally synchronized database with encrypted transport\n\n`.dbx` for a local-only database",
             "type": "string",
             "default": "data.qo",
             "pattern": "\\.(qo|qos|db|dbs|dbx)$",
             "sub-descriptions": [
                 {
                     "pattern": "\\.qo$",
-                    "description": "Queue outgoing (Notecard to Notehub) with plaintext transport"
+                    "description": "queue outgoing (Notecard to Notehub) with plaintext transport"
                 },
                 {
                     "pattern": "\\.qos$",
-                    "description": "Queue outgoing with encrypted transport"
+                    "description": "queue outgoing with encrypted transport"
                 },
                 {
                     "pattern": "\\.db$",
-                    "description": "Bidirectionally synchronized database with plaintext transport"
+                    "description": "bidirectionally synchronized database with plaintext transport"
                 },
                 {
                     "pattern": "\\.dbs$",
-                    "description": "Bidirectionally synchronized database with encrypted transport"
+                    "description": "bidirectionally synchronized database with encrypted transport"
                 },
                 {
                     "pattern": "\\.dbx$",
-                    "description": "Local-only database"
+                    "description": "local-only database"
                 }
-            ],
-            "minApiVersion": "8.2.1"
+            ]
         },
         "note": {
-            "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID. If `note` string is \"?\", then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`. If this argument is provided for a `.qo` Notefile, an error is returned.",
+            "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID.\n\nIf `note` string is \"?\", then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`.\n\n_If this argument is provided for a `.qo` Notefile, an error is returned._",
             "type": "string"
         },
         "body": {
@@ -51,7 +50,7 @@
             "type": "object"
         },
         "payload": {
-            "description": "A base64-encoded binary payload. A note must have either a `body` or a `payload`, and can have both. If a Note template is not in use, payloads are limited to 250 bytes.",
+            "description": "A base64-encoded binary payload. A note must have either a `body` or a `payload`, and can have both. If a [Note template](/notecard/notecard-walkthrough/low-bandwidth-design/) is not in use, payloads are limited to 250 bytes.",
             "type": "string"
         },
         "sync": {
@@ -59,7 +58,7 @@
             "type": "boolean"
         },
         "key": {
-            "description": "The name of an environment variable in your Notehub.io project that contains the contents of a public key. Used when encrypting the Note body for transport.",
+            "description": "The name of an environment variable in your Notehub.io project that contains the contents of a public key. Used when [encrypting the Note body for transport](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
             "type": "string"
         },
         "verify": {
@@ -67,56 +66,30 @@
             "type": "boolean"
         },
         "binary": {
-            "description": "If `true`, the Notecard will send all the data in the binary buffer to Notehub.",
+            "description": "If `true`, the Notecard will send all the data in the binary buffer to Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects).",
             "type": "boolean",
-            "skus": [
-                "CELL",
-                "CELL+WIFI",
-                "WIFI"
-            ],
             "minApiVersion": "5.3.1"
         },
         "live": {
             "description": "If `true`, bypasses saving the Note to flash on the Notecard. Required to be set to `true` if also using `\"binary\":true`.",
             "type": "boolean",
-            "skus": [
-                "CELL",
-                "CELL+WIFI",
-                "WIFI"
-            ]
+            "minApiVersion": "5.3.1"
         },
         "full": {
-            "description": "If set to `true`, and the Note is using a Notefile Template, the Note will bypass usage of omitempty and retain `null`, `0`, `false`, and empty string `\"\"` values.",
+            "description": "If set to `true`, and the Note is using a [Notefile Template](/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates), the Note will bypass usage of [omitempty](/notecard/notecard-walkthrough/low-bandwidth-design/#use-of-in-templates) and retain `null`, `0`, `false`, and empty string `\"\"` values.",
             "type": "boolean",
-            "skus": [
-                "CELL",
-                "CELL+WIFI",
-                "LORA",
-                "WIFI"
-            ],
             "minApiVersion": "5.1.1"
         },
         "limit": {
-            "description": "If set to `true`, the Note will not be created if Notecard is in a penalty box.",
+            "description": "If set to `true`, the Note will not be created if Notecard is in a [penalty box](/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes).",
             "type": "boolean",
-            "skus": [
-                "CELL",
-                "CELL+WIFI",
-                "LORA",
-                "WIFI"
-            ],
             "minApiVersion": "9.1.1"
         },
         "max": {
             "description": "Defines the maximum number of queued Notes permitted in the specified Notefile (`\"file\"`). Any Notes added after this value will be rejected. When used with `\"sync\":true`, a sync will be triggered when the number of pending Notes matches the `max` value.",
             "type": "integer",
             "minimum": 1,
-            "skus": [
-                "CELL",
-                "CELL+WIFI",
-                "LORA",
-                "WIFI"
-            ]
+            "minApiVersion": "8.2.1"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -152,44 +125,9 @@
     "additionalProperties": false,
     "samples": [
         {
-            "title": "Add Note with Body and Sync",
+            "title": "Basic Note Add",
             "description": "Add a note with JSON body data and trigger immediate sync.",
             "json": "{\"req\": \"note.add\", \"file\": \"sensors.qo\", \"body\": {\"temp\": 72.22}, \"sync\": true}"
-        },
-        {
-            "title": "Add Note to Default File",
-            "description": "Add a note to the default data.qo file.",
-            "json": "{\"req\": \"note.add\", \"body\": {\"temperature\": 25.5, \"humidity\": 60}}"
-        },
-        {
-            "title": "Add Note with Payload",
-            "description": "Add a note with base64-encoded binary payload.",
-            "json": "{\"req\": \"note.add\", \"file\": \"data.qo\", \"payload\": \"SGVsbG8gV29ybGQ=\"}"
-        },
-        {
-            "title": "Add Note to Database with ID",
-            "description": "Add a note to a database file with specific note ID.",
-            "json": "{\"req\": \"note.add\", \"file\": \"config.db\", \"note\": \"device_config\", \"body\": {\"led_brightness\": 75}}"
-        },
-        {
-            "title": "Add Note with Random ID",
-            "description": "Add a note to database with auto-generated random ID.",
-            "json": "{\"req\": \"note.add\", \"file\": \"events.db\", \"note\": \"?\", \"body\": {\"event_type\": \"button_press\", \"timestamp\": 1640995200}}"
-        },
-        {
-            "title": "Add Encrypted Note",
-            "description": "Add an encrypted note using environment variable key.",
-            "json": "{\"req\": \"note.add\", \"file\": \"secure.qos\", \"body\": {\"sensitive_data\": \"confidential\"}, \"key\": \"my_public_key\"}"
-        },
-        {
-            "title": "Add Note with Max Queue Limit",
-            "description": "Add a note with maximum queue limit and sync trigger.",
-            "json": "{\"req\": \"note.add\", \"file\": \"alerts.qo\", \"body\": {\"alert_level\": \"high\"}, \"max\": 10, \"sync\": true}"
-        },
-        {
-            "title": "Add Binary Note with Live Mode",
-            "description": "Add a binary note that bypasses flash storage.",
-            "json": "{\"req\": \"note.add\", \"file\": \"live_data.qo\", \"body\": {\"sensor_reading\": 123}, \"binary\": true, \"live\": true}"
         }
     ]
 }

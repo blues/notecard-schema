@@ -18,7 +18,7 @@ def test_valid_template_field(schema):
     """Tests valid template field."""
     instance = {"total": 10, "template": True}
     jsonschema.validate(instance=instance, schema=schema)
-    
+
     instance = {"total": 5, "template": False}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -105,6 +105,31 @@ def test_template_invalid_type_object(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
+def test_valid_note_field(schema):
+    """Tests valid note field."""
+    instance = {"total": 1, "note": "generated_note_id_123"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_note_invalid_type_integer(schema):
+    """Tests invalid integer type for note."""
+    instance = {"total": 1, "note": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "123 is not of type 'string'" in str(excinfo.value)
+
+def test_note_invalid_type_boolean(schema):
+    """Tests invalid boolean type for note."""
+    instance = {"total": 1, "note": True}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "True is not of type 'string'" in str(excinfo.value)
+
+def test_note_invalid_type_object(schema):
+    """Tests invalid object type for note."""
+    instance = {"total": 1, "note": {"id": "123"}}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'string'" in str(excinfo.value)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
@@ -132,10 +157,9 @@ def test_invalid_common_additional_properties(schema):
         {"live": False},
         {"full": True},
         {"limit": False},
-        {"max": 10},
-        {"note": "should_not_be_in_response"}
+        {"max": 10}
     ]
-    
+
     for field_dict in invalid_fields:
         field_dict["total"] = 1  # Add required field
         with pytest.raises(jsonschema.ValidationError) as excinfo:
@@ -159,11 +183,11 @@ def test_response_type_validation(schema):
         ["array"],
         None
     ]
-    
+
     for invalid_instance in invalid_types:
         if invalid_instance is None:
             continue  # Skip None as it's handled differently
-        with pytest.raises(jsonschema.ValidationError) as excinfo:
+        with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=invalid_instance, schema=schema)
         # The error message will vary based on type, just ensure validation fails
 
@@ -172,15 +196,15 @@ def test_response_is_object_type(schema):
     # String should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance="not an object", schema=schema)
-    
+
     # Number should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=42, schema=schema)
-    
+
     # Array should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=[], schema=schema)
-    
+
     # Boolean should fail
     with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=True, schema=schema)
@@ -208,12 +232,12 @@ def test_strict_validation(schema):
     """Tests that schema enforces strict validation."""
     # Any additional property should be rejected
     properties_to_test = [
-        "file", "body", "payload", "sync", "key", "verify", "binary", 
-        "live", "full", "limit", "max", "cmd", "req", "status", "error", 
+        "file", "body", "payload", "sync", "key", "verify", "binary",
+        "live", "full", "limit", "max", "cmd", "req", "status", "error",
         "message", "result", "data", "success", "code", "info", "warning",
-        "timestamp", "size", "count", "index", "position", "note"
+        "timestamp", "size", "count", "index", "position"
     ]
-    
+
     for prop in properties_to_test:
         instance = {"total": 1, prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
@@ -227,7 +251,7 @@ def test_field_combinations(schema):
         {"total": 5, "template": False},
         {"total": 0, "template": True}
     ]
-    
+
     for combo in combinations:
         jsonschema.validate(instance=combo, schema=schema)
 
@@ -237,13 +261,13 @@ def test_edge_case_values(schema):
         # Large total values
         {"total": 2147483647},  # Max 32-bit signed integer
         {"total": 0},  # Minimum reasonable value
-        
+
         # Boolean values
         {"total": 1, "template": True},
         {"total": 0, "template": False},
-        
+
     ]
-    
+
     for case in edge_cases:
         jsonschema.validate(instance=case, schema=schema)
 
@@ -257,7 +281,7 @@ def test_database_response_scenarios(schema):
         # Basic database response
         {"total": 4, "template": False}
     ]
-    
+
     for scenario in scenarios:
         jsonschema.validate(instance=scenario, schema=schema)
 
@@ -273,7 +297,7 @@ def test_queue_response_scenarios(schema):
         # Large queue
         {"total": 500}
     ]
-    
+
     for scenario in scenarios:
         jsonschema.validate(instance=scenario, schema=schema)
 
@@ -284,7 +308,7 @@ def test_zero_and_negative_totals(schema):
         {"total": -1},   # Negative (edge case, might occur in error conditions)
         {"total": -100}  # Large negative
     ]
-    
+
     for value in test_values:
         jsonschema.validate(instance=value, schema=schema)
 

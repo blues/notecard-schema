@@ -343,14 +343,14 @@ def test_invalid_version_type(schema):
     instance = {"req": "hub.set", "version": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not valid under any of the given schemas" in str(excinfo.value)
+    assert "is not of type 'string', 'object'" in str(excinfo.value)
 
 def test_invalid_lorawan_details_type(schema):
     """Tests invalid LoRaWAN details type."""
     instance = {"req": "hub.set", "details": "invalid"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "is not valid under any of the given schemas" in str(excinfo.value)
+    assert "'-' was expected" in str(excinfo.value)
 
 def test_invalid_lorawan_details_missing_field(schema):
     """Tests invalid LoRaWAN details missing required field."""

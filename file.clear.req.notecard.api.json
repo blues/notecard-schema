@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/file.clear.req.notecard.api.json",
     "title": "file.clear Request Application Programming Interface (API) Schema",
-    "description": "Used to clear the contents of a specified outbound (.qo/.qos) Notefile, deleting all pending Notes.",
+    "description": "Used to clear the contents of a specified outbound (`.qo`/`.qos`) Notefile, deleting all pending Notes.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",

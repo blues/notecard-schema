@@ -32,16 +32,6 @@
             "title": "Note with Body and Time",
             "description": "Response showing note with JSON body and timestamp.",
             "json": "{\"body\": {\"api-key1\": \"api-val1\"}, \"time\": 1598909219}"
-        },
-        {
-            "title": "Note with Payload",
-            "description": "Response showing note with base64 payload data.",
-            "json": "{\"payload\": \"aGVsbG8gd29ybGQ=\", \"time\": 1598909220}"
-        },
-        {
-            "title": "Complete Note Response",
-            "description": "Response with both body and payload fields.",
-            "json": "{\"body\": {\"temperature\": 23.5}, \"payload\": \"YWRkaXRpb25hbERhdGE=\", \"time\": 1598909221}"
         }
     ]
 }

@@ -144,6 +144,7 @@
     "additionalProperties": false,
     "samples": [
         {
+            "title": "Web PUT Transaction",
             "description": "Performs a simple HTTP or HTTPS PUT request and returns the response.",
             "json": "{\"req\": \"web.put\", \"route\": \"SensorService\", \"name\": \"/updateReading\", \"body\": {\"id\": 1234, \"temp\": 72.32, \"humidity\": 32.2 }}"
         }

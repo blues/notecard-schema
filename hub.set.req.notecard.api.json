@@ -18,11 +18,20 @@
             "type": "boolean"
         },
         "details": {
-            "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. Use `\"-\"` to reset a Notecard's LoRaWAN details to its default values.",
+            "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. The argument you provide must be a JSON object with three keys, \"deveui\", \"appeui\", and \"appkey\", all of which are hexadecimal strings with no leading 0x. For example:\n\n`{\"deveui\":\"0080E11500088B37\",\"appeui\":\"6E6F746563617264\",\"appkey\":\"00088B37\"}`\n\nThe LoRaWAN details you send to a Notecard become part of its permanent configuration, and survive factory resets. You can reset a Notecard's LoRaWAN details to its default values by providing a `\"-\"` for the details argument.",
             "skus": [
                 "LORA"
             ],
+            "minApiVersion": "6.2.3",
+            "type": [
+                "string",
+                "object"
+            ],
             "oneOf": [
+                {
+                    "type": "string",
+                    "const": "-"
+                },
                 {
                     "type": "object",
                     "properties": {
@@ -45,14 +54,11 @@
                         "appkey"
                     ],
                     "additionalProperties": false
-                },
-                {
-                    "const": "-"
                 }
             ]
         },
         "duration": {
-            "description": "When in `continuous` mode, the amount of time, in minutes, of each session (the minimum allowed value is `15`).",
+            "description": "When in `continuous` mode, the amount of time, in minutes, of each session (the minimum allowed value is `15`). When this time elapses, the Notecard gracefully ends the current session and starts a new one in order to sync session-specific data to Notehub.",
             "type": "integer",
             "minimum": 15
         },
@@ -61,7 +67,7 @@
             "type": "string"
         },
         "inbound": {
-            "description": "The max wait time, in minutes, to sync inbound data from Notehub. Use `-1` to reset the value back to its default of `0`. A value of `0` means that the Notecard will never sync inbound data unless explicitly told to do so.",
+            "description": "The max wait time, in minutes, to sync inbound data from Notehub. Explicit syncs (e.g. using `hub.sync`) do not affect this cadence.\n\nWhen in `periodic` or `continuous` mode this argument is required, otherwise the Notecard will function as if it is in `minimum` mode as it pertains to syncing behavior.\n\nUse `-1` to reset the value back to its default of `0`.\n\nA value of `0` means that the Notecard will never sync inbound data unless explicitly told to do so (e.g. using `hub.sync`).",
             "type": "integer",
             "minimum": -1
         },
@@ -100,25 +106,27 @@
         },
         "off": {
             "description": "Set to `true` to manually instruct the Notecard to resume periodic mode after a web transaction has completed.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "3.4.1"
         },
         "on": {
-            "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.",
+            "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.\\n\\nIgnored if the Notecard is already in `continuous` mode or if the Notecard is NOT performing a web transaction.",
             "type": "boolean",
             "minApiVersion": "3.4.1"
         },
         "outbound": {
-            "description": "The max wait time, in minutes, to sync outbound data from the Notecard. Use `-1` to reset the value back to its default of `0`. A value of `0` means that the Notecard will never sync outbound data unless explicitly told to do so.",
+            "description": "The max wait time, in minutes, to sync outbound data from the Notecard. Explicit syncs (e.g. using `hub.sync`) do not affect this cadence.\n\nWhen in `periodic` or `continuous` mode this argument is required, otherwise the Notecard will function as if it is in `minimum` mode as it pertains to syncing behavior.\n\nUse `-1` to reset the value back to its default of `0`.\n\nA value of `0` means that the Notecard will never sync outbound data unless explicitly told to do so (e.g. using `hub.sync`).",
             "type": "integer",
             "minimum": -1
         },
         "product": {
-            "description": "A Notehub-managed unique identifier that is used to match Devices with Projects.",
+            "description": "A Notehub-managed unique identifier that is used to match Devices with Projects. This string is used during a device's auto-provisioning to find the Notehub Project that, once provisioned, will securely manage the device and its data.",
             "type": "string"
         },
         "seconds": {
-            "description": "If in `periodic` mode and using `on` above, the number of seconds to run in continuous mode before switching back to periodic mode. If not set, a default of 300 seconds is used.",
-            "type": "integer"
+            "description": "If in `periodic` mode and using `on` above, the number of seconds to run in continuous mode before switching back to periodic mode. If not set, a default of 300 seconds is used. Ignored if the Notecard is already in continuous mode.",
+            "type": "integer",
+            "minApiVersion": "3.4.1"
         },
         "sn": {
             "description": "The end product's serial number.",
@@ -135,11 +143,13 @@
         },
         "umin": {
             "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `minimum` mode when disconnected.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "4.1.1"
         },
         "uoff": {
             "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `off` mode when disconnected.",
-            "type": "boolean"
+            "type": "boolean",
+            "minApiVersion": "4.1.1"
         },
         "uperiodic": {
             "description": "Set to `true` to use USB/line power variable sync behavior, enabling the Notecard to stay in `continuous` mode when connected to USB/line power and fallback to `periodic` mode when disconnected.",
@@ -147,7 +157,11 @@
             "minApiVersion": "4.1.1"
         },
         "version": {
-            "description": "The version of your host firmware. You may pass a simple version number string, or an object with detailed information about the firmware image.",
+            "description": "The version of your host firmware. The value provided will appear on your device in Notehub under the \"Host Firmware\" tab.\n\nYou may pass a simple version number string (e.g. \"1.0.0.0\"), or an object with detailed information about the firmware image. If you provide an object it must take the following form.\n\n`{\"org\":\"my-organization\",\"product\":\"My Product\",\"description\":\"A description of the image\",\"version\":\"1.2.4\",\"built\":\"Jan 01 2025 01:02:03\",\"ver_major\":1,\"ver_minor\":2,\"ver_patch\":4,\"ver_build\": 5,\"builder\":\"The Builder\"}`\n\nIf your project uses [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update), you can alternatively use the [`dfu.status` request](/api-reference/notecard-api/dfu-requests/latest/#dfu-status) to set your host firmware version.",
+            "type": [
+                "string",
+                "object"
+            ],
             "oneOf": [
                 {
                     "type": "string"
@@ -261,6 +275,36 @@
             "title": "Voltage-Variable Sync",
             "description": "Configure voltage-dependent synchronization periods.",
             "json": "{\"req\": \"hub.set\", \"mode\": \"periodic\", \"voutbound\": \"usb:30;high:60;normal:90;low:120;dead:0\", \"vinbound\": \"usb:60;high:120;normal:240;low:480;dead:0\"}"
+        },
+        {
+            "title": "Set Host Firmware Version String",
+            "description": "Set host firmware version using a simple string.",
+            "json": "{\"req\": \"hub.set\", \"version\": \"1.2.3\"}"
+        },
+        {
+            "title": "Set Host Firmware Version Object",
+            "description": "Set host firmware version using detailed object information.",
+            "json": "{\"req\": \"hub.set\", \"version\": {\"org\": \"my-organization\", \"product\": \"My Product\", \"description\": \"A description of the image\", \"version\": \"1.2.4\", \"built\": \"Jan 01 2025 01:02:03\", \"ver_major\": 1, \"ver_minor\": 2, \"ver_patch\": 4, \"ver_build\": 5, \"builder\": \"The Builder\"}}"
+        },
+        {
+            "title": "Configure LoRaWAN Details",
+            "description": "Set alternative LoRaWAN server details for Notecard LoRa.",
+            "json": "{\"req\": \"hub.set\", \"details\": {\"deveui\": \"0080E11500088B37\", \"appeui\": \"6E6F746563617264\", \"appkey\": \"00088B3700112233445566778899AABB\"}}"
+        },
+        {
+            "title": "Reset LoRaWAN Details",
+            "description": "Reset LoRaWAN details to default values using dash.",
+            "json": "{\"req\": \"hub.set\", \"details\": \"-\"}"
+        },
+        {
+            "title": "USB Power Variable Sync",
+            "description": "Configure USB/line power variable sync to minimum mode.",
+            "json": "{\"req\": \"hub.set\", \"umin\": true}"
+        },
+        {
+            "title": "Web Transaction Control",
+            "description": "Temporarily switch to continuous mode for web transaction.",
+            "json": "{\"req\": \"hub.set\", \"on\": true, \"seconds\": 300}"
         }
     ]
 }

@@ -85,7 +85,8 @@
     "additionalProperties": false,
     "samples": [
         {
-            "description": "Example",
+            "title": "Web DELETE Transaction",
+            "description": "Performs a simple HTTP or HTTPS DELETE request and returns the response.",
             "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1\"}"
         }
     ]

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.delete.req.notecard.api.json",
     "title": "var.delete Request Application Programming Interface (API) Schema",
-    "description": "Delete a Note from a DB Notefile by its name. Provides a simpler interface to the note.delete API.",
+    "description": "Delete a Note from a **DB Notefile** by its `name`. Provides a simpler interface to the [note.delete](/api-reference/notecard-api/note-requests/latest/#notedelete) API.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",

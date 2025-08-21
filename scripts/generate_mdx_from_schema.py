@@ -172,6 +172,18 @@ def generate_arguments_mdx(properties, schema_data):
         else:
             prop_type = prop_type_raw
             
+        # Handle array types (e.g. array with items -> "array of string" or "array of string, integer")
+        if prop_type == "array" and "items" in prop_details:
+            items = prop_details["items"]
+            if "type" in items:
+                item_type = items["type"]
+                if isinstance(item_type, list):
+                    # Multiple item types: "array of string, integer"
+                    prop_type = f"array of {', '.join(item_type)}"
+                else:
+                    # Single item type: "array of string"
+                    prop_type = f"array of {item_type}"
+            
         optional_tag = " (optional)"
         if prop_name in top_level_required:
             optional_tag = ""
@@ -525,6 +537,18 @@ def generate_response_members_mdx(properties, schema_data=None):
                 prop_type = " or ".join(prop_type_raw)
             else:
                 prop_type = prop_type_raw
+                
+            # Handle array types (e.g. array with items -> "array of string" or "array of string, integer")
+            if prop_type == "array" and "items" in prop_details:
+                items = prop_details["items"]
+                if "type" in items:
+                    item_type = items["type"]
+                    if isinstance(item_type, list):
+                        # Multiple item types: "array of string, integer"
+                        prop_type = f"array of {', '.join(item_type)}"
+                    else:
+                        # Single item type: "array of string"
+                        prop_type = f"array of {item_type}"
             type_display = f"_{prop_type}_"
             if prop_details.get("format"):
                 type_display = f"_{prop_type} (format: {prop_details.get('format')})_"

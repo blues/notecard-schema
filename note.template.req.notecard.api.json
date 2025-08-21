@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.req.notecard.api.json",
     "title": "note.template Request Application Programming Interface (API) Schema",
-    "description": "By using the `note.template` request with any `.qo`/`.qos` Notefile, developers can provide the Notecard with a schema of sorts to apply to future Notes added to the Notefile. This template acts as a hint to the Notecard that allows it to internally store data as fixed-length binary records rather than as flexible JSON objects which require much more memory. Using templated Notes in place of regular Notes increases the storage and sync capability of the Notecard by an order of magnitude.",
+    "description": "By using the `note.template` request with any `.qo`/`.qos` Notefile, developers can provide the Notecard with a schema of sorts to apply to future Notes added to the Notefile. This template acts as a hint to the Notecard that allows it to internally store data as fixed-length binary records rather than as flexible JSON objects which require much more memory. Using templated Notes in place of regular Notes increases the storage and sync capability of the Notecard by an order of magnitude.\n\nRead about [Working with Note Templates](/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates) for additional information.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
@@ -81,16 +81,6 @@
         }
     ],
     "additionalProperties": false,
-    "annotations": [
-        {
-            "title": "note",
-            "description": "Read about [Working with Note Templates](https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates) for additional information."
-        },
-        {
-            "title": "note",
-            "description": "See examples of `note.template` usage in [these accelerator projects](https://dev.blues.io/accelerators/?category=&feature=templated-notefiles)."
-        }
-    ],
     "samples": [
         {
             "title": "Provide Schema",

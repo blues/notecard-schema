@@ -112,12 +112,17 @@
     "annotations": [
         {
             "title": "note",
-            "description": "Please see the additional argument options available for `GET`, `POST`, `PUT`, and `DELETE` requests in the documentation provided."
+            "description": "Please see the additional argument options available for [`GET`](/api-reference/notecard-api/web-requests/latest/#web-get), [`POST`](/api-reference/notecard-api/web-requests/latest/#web-post), [`PUT`](/api-reference/notecard-api/web-requests/latest/#web-put), and [`DELETE`](/api-reference/notecard-api/web-requests/latest/#web-delete) requests in the documentation provided."
+        },
+        {
+            "title": "warning",
+            "description": "The Notecard must have an active connection to Notehub while performing any web.* request. Please [consult this guide](/notecard/notecard-walkthrough/web-transactions/) for more information."
         }
     ],
     "samples": [
         {
-            "description": "Get the current time",
+            "title": "Web Transaction",
+            "description": "Performs a simple HTTP or HTTPS request and returns the response.",
             "json": "{\"req\": \"web\", \"method\": \"GET\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
         }
     ]

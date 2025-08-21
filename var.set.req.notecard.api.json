@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/var.set.req.notecard.api.json",
     "title": "var.set Request Application Programming Interface (API) Schema",
-    "description": "Adds or updates a Note in a DB Notefile, replacing the existing body with the specified key-value pair where text, value, or flag is the key. Provides a simpler interface to the note.update API.",
+    "description": "Adds or updates a Note in a **DB Notefile**, replacing the existing body with the specified key-value pair where text, value, or flag is the key. Provides a simpler interface to the [note.update](/api-reference/notecard-api/note-requests/latest/#noteupdate) API.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",

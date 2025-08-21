@@ -12,18 +12,6 @@
         "LORA",
         "WIFI"
     ],
-    "properties": {
-        "success": {
-            "description": "Whether the variable was successfully deleted",
-            "type": "boolean"
-        }
-    },
-    "additionalProperties": false,
-    "samples": [
-        {
-            "title": "Variable Deletion Success",
-            "description": "Successful response confirming variable deletion.",
-            "json": "{\"success\": true}"
-        }
-    ]
+    "properties": {},
+    "additionalProperties": false
 }

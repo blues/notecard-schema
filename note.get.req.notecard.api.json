@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.get.req.notecard.api.json",
     "title": "note.get Request Application Programming Interface (API) Schema",
-    "description": "Retrieves a Note from a Notefile. The file must either be a DB Notefile or inbound queue file (see `file` argument below).",
+    "description": "Retrieves a Note from a Notefile. The file must either be a DB Notefile or inbound queue file (see `file` argument below).\n\n`.qo`/`.qos` Notes must be read from the Notehub event table using the [Notehub Event API](/api-reference/notehub-api/events/latest/).",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
