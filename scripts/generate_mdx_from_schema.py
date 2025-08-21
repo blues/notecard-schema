@@ -165,13 +165,13 @@ def generate_arguments_mdx(properties, schema_data):
             continue
 
         prop_type_raw = prop_details.get("type", "N/A")
-        
+
         # Handle multiple types (e.g. ["string", "object"] -> "string or object")
         if isinstance(prop_type_raw, list):
             prop_type = " or ".join(prop_type_raw)
         else:
             prop_type = prop_type_raw
-            
+
         # Handle array types (e.g. array with items -> "array of string" or "array of string, integer")
         if prop_type == "array" and "items" in prop_details:
             items = prop_details["items"]
@@ -183,7 +183,7 @@ def generate_arguments_mdx(properties, schema_data):
                 else:
                     # Single item type: "array of string"
                     prop_type = f"array of {item_type}"
-            
+
         optional_tag = " (optional)"
         if prop_name in top_level_required:
             optional_tag = ""
@@ -196,7 +196,7 @@ def generate_arguments_mdx(properties, schema_data):
                 formatted_default = f"`{default_value}`"
             else:
                 formatted_default = str(default_value)
-            
+
             if optional_tag:
                 # Replace " (optional)" with " (optional, default X)"
                 optional_tag = f" (optional, default {formatted_default})"
@@ -273,7 +273,7 @@ def generate_mode_sub_descriptions(sub_descriptions):
         is_deprecated = sub_desc.get("deprecated", False)
 
         badges = generate_argument_badges(skus)
-        
+
         # Add deprecated badge if this sub-description is deprecated
         if is_deprecated:
             deprecated_badge = '<Badge type="deprecated" usage="argument" />'
@@ -414,11 +414,11 @@ def generate_python_for_sample(parsed_json_data_list):
 def parse_json_sample(json_string):
     """Parse JSON sample that can be a single object, array of objects, or comma-separated objects."""
     json_objects = []
-    
+
     try:
         # First try to parse as valid JSON
         parsed = json.loads(json_string)
-        
+
         if isinstance(parsed, list):
             # It's a JSON array - return the objects in the array
             json_objects = [obj for obj in parsed if isinstance(obj, dict)]
@@ -428,7 +428,7 @@ def parse_json_sample(json_string):
     except json.JSONDecodeError:
         # Fallback: try to parse as comma-separated JSON objects (legacy format)
         parts = json_string.split("},{")
-        
+
         if len(parts) > 1:
             # Multiple JSON objects (legacy comma-separated format)
             for i, part in enumerate(parts):
@@ -438,7 +438,7 @@ def parse_json_sample(json_string):
                 # Add back the opening brace for all but the first part
                 if i > 0:
                     part = "{" + part
-                
+
                 try:
                     parsed = json.loads(part)
                     json_objects.append(parsed)
@@ -531,13 +531,13 @@ def generate_response_members_mdx(properties, schema_data=None):
     if properties:
         for prop_name, prop_details in properties.items():
             prop_type_raw = prop_details.get("type", "N/A")
-            
+
             # Handle multiple types (e.g. ["string", "object"] -> "string or object")
             if isinstance(prop_type_raw, list):
                 prop_type = " or ".join(prop_type_raw)
             else:
                 prop_type = prop_type_raw
-                
+
             # Handle array types (e.g. array with items -> "array of string" or "array of string, integer")
             if prop_type == "array" and "items" in prop_details:
                 items = prop_details["items"]
