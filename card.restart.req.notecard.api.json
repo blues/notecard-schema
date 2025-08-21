@@ -55,7 +55,7 @@
         {
             "title": "Restart Notecard",
             "description": "Perform a firmware restart of the Notecard.",
-            "json": "{\"req\": \"card.restart\"}"
+            "json": "{\"cmd\": \"card.restart\"}"
         }
     ]
 }

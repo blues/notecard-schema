@@ -9,7 +9,6 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
-        "LORA",
         "WIFI"
     ],
     "properties": {
