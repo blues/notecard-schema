@@ -3,7 +3,7 @@
 Script to update the blues.dev repository with generated MDX documentation.
 
 This script:
-1. Clones the blues.dev repository to a temporary directory
+1. Clones the blues.dev repository to a temporary directory (optionally a specific branch) OR uses an existing repository directory
 2. Navigates to the Notecard API documentation directory
 3. Preserves existing _meta.json files
 4. Replaces the directory contents with newly generated MDX files
@@ -18,17 +18,22 @@ import argparse
 
 
 class DocsUpdater:
-    def __init__(self, repo_url="https://github.com/blues/blues.dev.git", dry_run=False, clone_dir=None):
+    def __init__(self, repo_url="https://github.com/blues/blues.dev.git", dry_run=False, clone_dir=None, branch=None, existing_repo=None):
         self.repo_url = repo_url
         self.dry_run = dry_run
         self.clone_dir = clone_dir
-        self.use_temp_dir = clone_dir is None
+        self.branch = branch
+        self.existing_repo = existing_repo
+        self.use_temp_dir = clone_dir is None and existing_repo is None
         self.temp_dir = None
         self.target_path = None
 
     def clone_repository(self):
         """Clone the blues.dev repository to specified or temporary directory."""
-        print("Cloning blues.dev repository...")
+        if self.branch:
+            print(f"Cloning blues.dev repository (branch: {self.branch})...")
+        else:
+            print("Cloning blues.dev repository...")
 
         if self.use_temp_dir:
             self.temp_dir = tempfile.mkdtemp(prefix="blues-dev-")
@@ -44,10 +49,18 @@ class DocsUpdater:
             self.temp_dir = clone_target
 
         try:
-            subprocess.run([
-                "git", "clone", self.repo_url, clone_target
-            ], check=True, capture_output=True, text=True)
-            print(f"Repository cloned to: {clone_target}")
+            # Prepare clone command with optional branch
+            clone_cmd = ["git", "clone"]
+            if self.branch:
+                clone_cmd.extend(["--branch", self.branch])
+            clone_cmd.extend([self.repo_url, clone_target])
+            
+            subprocess.run(clone_cmd, check=True, capture_output=True, text=True)
+            
+            if self.branch:
+                print(f"Repository cloned to: {clone_target} (branch: {self.branch})")
+            else:
+                print(f"Repository cloned to: {clone_target}")
         except subprocess.CalledProcessError as e:
             print(f"Error cloning repository: {e}")
             print(f"Git output: {e.stderr}")
@@ -56,6 +69,44 @@ class DocsUpdater:
         # Set the target path
         self.target_path = os.path.join(
             clone_target,
+            "wireless-dev-site",
+            "content",
+            "en",
+            "api-reference",
+            "04 Notecard API"
+        )
+
+        if not os.path.exists(self.target_path):
+            raise FileNotFoundError(f"Target directory not found: {self.target_path}")
+
+        print(f"Target directory: {self.target_path}")
+        return True
+
+    def setup_existing_repository(self):
+        """Setup to use an existing repository directory."""
+        if not self.existing_repo:
+            raise ValueError("No existing repository path provided")
+        
+        repo_path = os.path.abspath(self.existing_repo)
+        print(f"Using existing repository at: {repo_path}")
+        
+        # Validate that it's a valid repository directory
+        if not os.path.exists(repo_path):
+            raise FileNotFoundError(f"Repository directory not found: {repo_path}")
+        
+        if not os.path.isdir(repo_path):
+            raise ValueError(f"Path is not a directory: {repo_path}")
+        
+        # Check if it contains a .git directory
+        git_dir = os.path.join(repo_path, ".git")
+        if not os.path.exists(git_dir):
+            raise ValueError(f"Directory does not appear to be a git repository (no .git directory found): {repo_path}")
+        
+        self.temp_dir = repo_path
+        
+        # Set the target path
+        self.target_path = os.path.join(
+            repo_path,
             "wireless-dev-site",
             "content",
             "en",
@@ -205,7 +256,7 @@ class DocsUpdater:
 
         if os.path.exists(new_docs_dir):
             print(f"\nWould copy new documentation structure:")
-            for root, dirs, files in os.walk(new_docs_dir):
+            for root, _, files in os.walk(new_docs_dir):
                 level = root.replace(new_docs_dir, '').count(os.sep)
                 indent = '  ' * level
                 rel_path = os.path.relpath(root, new_docs_dir)
@@ -284,14 +335,19 @@ class DocsUpdater:
         if self.use_temp_dir and self.temp_dir and os.path.exists(self.temp_dir):
             print(f"Cleaning up temporary directory: {self.temp_dir}")
             shutil.rmtree(self.temp_dir)
+        elif self.existing_repo:
+            print(f"Using existing repository at: {self.temp_dir}")
         elif not self.use_temp_dir:
             print(f"Repository remains at: {self.temp_dir}")
 
     def update_docs(self, schema_dir, commit=False, push=False, commit_message=None):
         """Main method to update documentation."""
         try:
-            # Step 1: Clone repository
-            self.clone_repository()
+            # Step 1: Setup repository (clone or use existing)
+            if self.existing_repo:
+                self.setup_existing_repository()
+            else:
+                self.clone_repository()
 
             # Step 2: Preserve existing _meta.json files and Introduction content
             preserved_files = self.preserve_meta_files()
@@ -368,10 +424,29 @@ def main():
         help="Directory to clone the repository to (default: use temporary directory)"
     )
 
+    parser.add_argument(
+        "--branch",
+        help="Specific branch to clone and work with (default: repository default branch)"
+    )
+
+    parser.add_argument(
+        "--existing-repo",
+        help="Path to existing blues.dev repository directory (skips cloning)"
+    )
+
     args = parser.parse_args()
 
     if args.push and not args.commit:
         print("Error: --push requires --commit")
+        return 1
+
+    # Validate conflicting arguments
+    if args.existing_repo and args.dir:
+        print("Error: --existing-repo and --dir cannot be used together")
+        return 1
+    
+    if args.existing_repo and args.branch:
+        print("Error: --existing-repo and --branch cannot be used together (branch should be checked out manually)")
         return 1
 
     # Validate schema directory
@@ -391,7 +466,9 @@ def main():
         updater = DocsUpdater(
             repo_url=args.repo_url,
             dry_run=args.dry_run,
-            clone_dir=args.dir
+            clone_dir=args.dir,
+            branch=args.branch,
+            existing_repo=args.existing_repo
         )
         updater.update_docs(
             schema_dir=args.schema_dir,
