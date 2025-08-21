@@ -1,0 +1,206 @@
+name: Update blues.dev API Reference
+
+on:
+  # Trigger on tagged releases
+  release:
+    types: [published]
+
+  # Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Target branch for blues.dev repository'
+        required: false
+        default: 'main'
+        type: string
+      pr_title:
+        description: 'Custom PR title'
+        required: false
+        default: ''
+        type: string
+
+env:
+  # Python version to use
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  update-documentation:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout notecard-schema repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for version info
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+          pipenv install --dev
+
+      - name: Determine version and branch info
+        id: version_info
+        run: |
+          # Get version from git tag or use timestamp for manual runs
+          if [ "${{ github.event_name }}" = "release" ]; then
+            VERSION="${{ github.event.release.tag_name }}"
+            TRIGGER_TYPE="release"
+          else
+            VERSION="manual-$(date +%Y%m%d-%H%M%S)"
+            TRIGGER_TYPE="manual"
+          fi
+
+          # Set target branch
+          if [ -n "${{ github.event.inputs.branch }}" ]; then
+            TARGET_BRANCH="${{ github.event.inputs.branch }}"
+          else
+            TARGET_BRANCH="main"
+          fi
+
+          # Generate branch name for the PR
+          PR_BRANCH="update-notecard-api-docs-${VERSION}"
+
+          # Generate PR title
+          if [ -n "${{ github.event.inputs.pr_title }}" ]; then
+            PR_TITLE="${{ github.event.inputs.pr_title }}"
+          elif [ "${{ github.event_name }}" = "release" ]; then
+            PR_TITLE="Update Notecard API documentation (${VERSION})"
+          else
+            PR_TITLE="Update Notecard API documentation (manual trigger)"
+          fi
+
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+          echo "trigger_type=${TRIGGER_TYPE}" >> $GITHUB_OUTPUT
+          echo "target_branch=${TARGET_BRANCH}" >> $GITHUB_OUTPUT
+          echo "pr_branch=${PR_BRANCH}" >> $GITHUB_OUTPUT
+          echo "pr_title=${PR_TITLE}" >> $GITHUB_OUTPUT
+
+      - name: Setup Git configuration
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Clone blues.dev repository
+        run: |
+          git clone https://github.com/blues/blues.dev.git blues-dev-repo
+          cd blues-dev-repo
+          git checkout ${{ steps.version_info.outputs.target_branch }}
+
+      - name: Create new branch in blues.dev
+        run: |
+          cd blues-dev-repo
+          git checkout -b ${{ steps.version_info.outputs.pr_branch }}
+
+      - name: Generate and apply documentation updates
+        run: |
+          # Use the update_docs.py script with the existing repository
+          python3 scripts/update_docs.py \
+            --existing-repo ./blues-dev-repo \
+            --schema_dir . \
+            --commit \
+            --commit-message "Update Notecard API documentation from notecard-schema ${{ steps.version_info.outputs.version }}
+
+          Auto-generated documentation update from notecard-schema repository.
+
+          Trigger: ${{ steps.version_info.outputs.trigger_type }}
+          Version: ${{ steps.version_info.outputs.version }}
+          Commit: ${{ github.sha }}
+
+          This update includes:
+          - Latest API schema definitions
+          - Updated parameter descriptions
+          - New or modified API endpoints
+          - Preserved metadata and introduction content"
+
+      - name: Push changes to blues.dev fork
+        env:
+          GITHUB_TOKEN: ${{ secrets.BLUES_DEV_TOKEN }}
+        run: |
+          cd blues-dev-repo
+
+          # Check if there are any changes
+          if git diff --quiet HEAD~1; then
+            echo "No changes detected in documentation"
+            echo "changes_detected=false" >> $GITHUB_ENV
+            exit 0
+          fi
+
+          echo "Changes detected, proceeding with push"
+          echo "changes_detected=true" >> $GITHUB_ENV
+
+          # Configure remote with token
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/blues/blues.dev.git
+
+          # Push the new branch
+          git push origin ${{ steps.version_info.outputs.pr_branch }}
+
+      - name: Create Pull Request
+        if: env.changes_detected == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.BLUES_DEV_TOKEN }}
+        run: |
+          # Generate PR description
+          if [ "${{ github.event_name }}" = "release" ]; then
+            RELEASE_NOTES_URL="https://github.com/blues/notecard-schema/releases/tag/${{ github.event.release.tag_name }}"
+            PR_DESCRIPTION="## Notecard API Documentation Update
+
+          This PR updates the Notecard API documentation based on the latest schema definitions from the [notecard-schema repository](https://github.com/blues/notecard-schema).
+
+          ### Changes
+          - **Schema Version**: ${{ steps.version_info.outputs.version }}
+          - **Source Commit**: ${{ github.sha }}
+          - **Release Notes**: ${RELEASE_NOTES_URL}
+
+          This update was automatically generated by the notecard-schema release workflow."
+          else
+            PR_DESCRIPTION="## Notecard API Documentation Update (Manual)
+
+          This PR updates the Notecard API documentation based on the latest schema definitions from the [notecard-schema repository](https://github.com/blues/notecard-schema).
+
+          ### Changes
+          - **Trigger**: Manual workflow dispatch
+          - **Source Commit**: ${{ github.sha }}
+          - **Timestamp**: ${{ steps.version_info.outputs.version }}
+
+          This update was manually triggered and may include in-development changes."
+          fi
+
+          # Create the PR using GitHub CLI
+          cd blues-dev-repo
+          gh pr create \
+            --title "${{ steps.version_info.outputs.pr_title }}" \
+            --body "${PR_DESCRIPTION}" \
+            --base ${{ steps.version_info.outputs.target_branch }} \
+            --head ${{ steps.version_info.outputs.pr_branch }} \
+            --repo blues/blues.dev
+
+      - name: Output PR information
+        if: env.changes_detected == 'true'
+        run: |
+          echo "### Documentation Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ steps.version_info.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger**: ${{ steps.version_info.outputs.trigger_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Target Branch**: ${{ steps.version_info.outputs.target_branch }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **PR Branch**: ${{ steps.version_info.outputs.pr_branch }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Source Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Pull request created successfully in blues/blues.dev repository" >> $GITHUB_STEP_SUMMARY
+
+      - name: Handle no changes
+        if: env.changes_detected == 'false'
+        run: |
+          echo "### Documentation Update Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version**: ${{ steps.version_info.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger**: ${{ steps.version_info.outputs.trigger_type }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Result**: No changes detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Documentation is already up to date - no PR created" >> $GITHUB_STEP_SUMMARY

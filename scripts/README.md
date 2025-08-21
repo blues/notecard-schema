@@ -269,9 +269,43 @@ The scripts use standard Python libraries and project-specific modules. Install 
 pipenv install --dev
 ```
 
+## Automation
+
+### GitHub Workflow
+
+The repository includes an automated workflow (`.github/workflows/update-docs.yml`) that automatically updates the blues.dev documentation site when:
+
+- **Tagged Release**: A new release is published on the notecard-schema repository
+- **Manual Trigger**: The workflow is manually dispatched via GitHub Actions
+
+**Features:**
+- Automatically clones the blues.dev repository
+- Generates updated MDX documentation from schemas
+- Creates a new branch and commits changes
+- Opens a pull request with detailed change information
+- Handles both release and manual trigger scenarios
+
+**Required Secrets:**
+- `BLUES_DEV_TOKEN`: GitHub token with write access to the blues/blues.dev repository
+
+**Manual Trigger Options:**
+- `branch`: Target branch in blues.dev repository (default: main)
+- `pr_title`: Custom title for the pull request
+
+**Workflow Steps:**
+1. Checkout notecard-schema repository
+2. Set up Python environment and dependencies
+3. Determine version and branch information
+4. Clone blues.dev repository
+5. Create new branch for documentation updates
+6. Generate and apply documentation changes using `update_docs.py`
+7. Push changes and create pull request
+
 ## Notes
 
 - All scripts support `--help` for detailed usage information
 - Use `--dry-run` options where available to preview changes
 - Test schemas thoroughly after creation or modification
 - Follow the repository's schema conventions and validation requirements
+- The automation workflow preserves all metadata and introduction files
+- Manual workflow triggers are useful for testing documentation changes before release
