@@ -12,13 +12,9 @@
         "WIFI"
     ],
     "properties": {
-        "start": {
-            "description": "`true` to enable the Notecard accelerometer and start motion tracking.",
-            "type": "boolean"
-        },
-        "stop": {
-            "description": "`true` to disable the Notecard accelerometer and stop motion tracking.",
-            "type": "boolean"
+        "motion": {
+            "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.\n\nLearn how to configure this feature [in this guide](/guides-and-tutorials/notecard-guides/asset-tracking-with-gps/#wake-host-or-send-note-on-motion-status-change).",
+            "type": "integer"
         },
         "seconds": {
             "description": "Period for each bucket of movements to be accumulated when `minutes` is used with `card.motion`.",
@@ -69,16 +65,20 @@
             ],
             "minApiVersion": "3.3.1"
         },
-        "motion": {
-            "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.",
-            "type": "integer"
+        "start": {
+            "description": "`true` to enable the Notecard accelerometer and start motion tracking.",
+            "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.motion.mode"
+        "stop": {
+            "description": "`true` to disable the Notecard accelerometer and stop motion tracking.",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.motion.mode"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.motion.mode"
         }
     },

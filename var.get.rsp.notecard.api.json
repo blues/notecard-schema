@@ -14,6 +14,10 @@
         "WIFI"
     ],
     "properties": {
+        "flag": {
+            "description": "The boolean value stored in the DB Notefile.",
+            "type": "boolean"
+        },
         "text": {
             "description": "The string-based value stored in the DB Notefile.",
             "type": "string"
@@ -21,10 +25,6 @@
         "value": {
             "description": "The numeric value stored in the DB Notefile.",
             "type": "number"
-        },
-        "flag": {
-            "description": "The boolean value stored in the DB Notefile.",
-            "type": "boolean"
         }
     },
     "additionalProperties": false,

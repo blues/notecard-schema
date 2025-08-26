@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.random.req.notecard.api.json",
     "title": "card.random Request Application Programming Interface (API) Schema",
-    "description": "Obtain a single random 32 bit unsigned integer modulo `count` or `count` bytes of random data from the Notecard hardware random number generator.",
+    "description": "Obtain a single random 32 bit unsigned integer modulo or `count` number of bytes of random data from the Notecard hardware random number generator.",
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
@@ -12,21 +12,21 @@
         "WIFI"
     ],
     "properties": {
+        "count": {
+            "description": "If the `mode` argument is excluded from the request, the Notecard uses this as an upper-limit parameter and returns a random unsigned 32 bit integer between zero and the value provided.\n\nIf `\"mode\":\"payload\"` is used, this argument sets the number of random bytes of data to return in a base64-encoded buffer from the Notecard.",
+            "type": "integer"
+        },
         "mode": {
             "description": "Accepts a single value `\"payload\"` and, if specified, uses the `count` value to determine the number of bytes of random data to generate and return to the host.",
             "const": "payload",
             "type": "string"
         },
-        "count": {
-            "description": "If the `mode` argument is excluded from the request, the Notecard uses this as an upper-limit parameter and returns a random unsigned 32 bit integer between zero and the value provided.\n\nIf `\"mode\":\"payload\"` is used, this argument sets the number of random bytes of data to return in a base64-encoded buffer from the Notecard.",
-            "type": "integer"
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.random"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
-            "const": "card.random"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
             "const": "card.random"
         }
     },

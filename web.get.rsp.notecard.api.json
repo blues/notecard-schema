@@ -12,24 +12,24 @@
         "WIFI"
     ],
     "properties": {
-        "result": {
-            "description": "The HTTP Status Code.",
-            "type": "integer"
-        },
         "body": {
             "description": "The JSON response body from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "object"
         },
-        "payload": {
-            "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
-            "type": "string"
+        "cobs": {
+            "description": "The size of the COBS-encoded data (in bytes).",
+            "type": "integer"
         },
         "length": {
             "description": "The length of the returned binary payload (in bytes).",
             "type": "integer"
         },
-        "cobs": {
-            "description": "The size of the COBS-encoded data (in bytes).",
+        "payload": {
+            "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
+            "type": "string"
+        },
+        "result": {
+            "description": "The HTTP Status Code.",
             "type": "integer"
         }
     },

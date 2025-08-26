@@ -12,6 +12,11 @@
         "WIFI"
     ],
     "properties": {
+        "email": {
+            "description": "Set the email address of the Notecard maintainer.",
+            "type": "string",
+            "format": "email"
+        },
         "name": {
             "description": "Set the name of the Notecard maintainer.",
             "type": "string"
@@ -24,17 +29,12 @@
             "description": "Set the role of the Notecard maintainer.",
             "type": "string"
         },
-        "email": {
-            "description": "Set the email address of the Notecard maintainer.",
-            "type": "string",
-            "format": "email"
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.contact"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
-            "const": "card.contact"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
             "const": "card.contact"
         }
     },

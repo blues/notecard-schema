@@ -12,19 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "reset": {
-            "description": "Set to `true` to remove the Notecard from certain types of penalty boxes.",
-            "type": "boolean"
-        },
-        "set": {
-            "description": "Set to `true` to override the default settings of the [Network Registration Failure Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/#network-registration-failure).",
-            "type": "boolean"
-        },
-        "rate": {
-            "description": "The rate at which the penalty box time multiplier is increased over successive retries. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
-            "type": "number",
-            "default": 1.25
-        },
         "add": {
             "description": "The number of minutes to add to successive retries. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
             "type": "integer",
@@ -40,12 +27,25 @@
             "type": "integer",
             "default": 15
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.wireless.penalty"
+        "rate": {
+            "description": "The rate at which the penalty box time multiplier is increased over successive retries. Used with the `set` argument to override the Network Registration Failure Penalty Box defaults.",
+            "type": "number",
+            "default": 1.25
+        },
+        "reset": {
+            "description": "Set to `true` to remove the Notecard from certain types of penalty boxes.",
+            "type": "boolean"
+        },
+        "set": {
+            "description": "Set to `true` to override the default settings of the [Network Registration Failure Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/#network-registration-failure).",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.wireless.penalty"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.wireless.penalty"
         }
     },

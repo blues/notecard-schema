@@ -11,13 +11,13 @@
         "WIFI"
     ],
     "properties": {
-        "mode": {
-            "description": "The current `AUX_CHARGING` `mode`, or `off` if not set.",
-            "type": "string"
-        },
         "charging": {
             "description": "Will display `true` when in `AUX_CHARGING` `\"charging\"` mode.",
             "type": "boolean"
+        },
+        "mode": {
+            "description": "The current `AUX_CHARGING` `mode`, or `off` if not set.",
+            "type": "string"
         }
     },
     "samples": [

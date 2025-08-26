@@ -12,12 +12,12 @@
         "WIFI"
     ],
     "properties": {
-        "status": {
-            "description": "The MD5 checksum of the data returned, after it has been decoded",
-            "type": "string"
-        },
         "err": {
             "description": "If present, a string describing the error that occurred during transmission",
+            "type": "string"
+        },
+        "status": {
+            "description": "The MD5 checksum of the data returned, after it has been decoded",
             "type": "string"
         }
     },

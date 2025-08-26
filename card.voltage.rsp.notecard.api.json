@@ -13,9 +13,25 @@
         "WIFI"
     ],
     "properties": {
+        "daily": {
+            "description": "Change of moving average in the last 24 hours, if relevant to the time period analyzed.",
+            "type": "number"
+        },
+        "hours": {
+            "description": "The number of hours used for trend analysis.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "Represents the Notecard's uptime in minutes. This field is not present when the device is powered via USB.",
+            "type": "integer"
+        },
         "mode": {
-            "description": "The current voltage-variable threshold value returned from Notecard.",
+            "description": "The current voltage-variable threshold value returned from Notecard.\n\nFor example, if the voltage threshold is `\"usb:4.6;normal:3.5;dead:0\"` and the power source returns a voltage of `3.9`, the mode value would be `\"normal\"`.",
             "type": "string"
+        },
+        "monthly": {
+            "description": "Change of moving average in the last 30 days, if relevant to the time period analyzed.",
+            "type": "number"
         },
         "usb": {
             "description": "`true` if the Notecard is connected to USB power.",
@@ -26,37 +42,21 @@
             "description": "The current voltage.",
             "type": "number"
         },
-        "hours": {
-            "description": "The number of hours used for trend analysis.",
-            "type": "integer"
-        },
-        "vmin": {
-            "description": "The lowest voltage value captured during the measurement period.",
+        "vavg": {
+            "description": "The average voltage value during the measured period.",
             "type": "number"
         },
         "vmax": {
             "description": "The highest voltage value captured during the measurement period.",
             "type": "number"
         },
-        "vavg": {
-            "description": "The average voltage value during the measured period.",
-            "type": "number"
-        },
-        "daily": {
-            "description": "Change of moving average in the last 24 hours, if relevant to the time period analyzed.",
+        "vmin": {
+            "description": "The lowest voltage value captured during the measurement period.",
             "type": "number"
         },
         "weekly": {
             "description": "Change of moving average in the last 7 days, if relevant to the time period analyzed.",
             "type": "number"
-        },
-        "monthly": {
-            "description": "Change of moving average in the last 30 days, if relevant to the time period analyzed.",
-            "type": "number"
-        },
-        "minutes": {
-            "description": "Represents the Notecard's uptime in minutes. This field is not present when the device is powered via USB.",
-            "type": "integer"
         }
     },
     "additionalProperties": false,
@@ -70,11 +70,6 @@
             "title": "Battery-Powered with Trends",
             "description": "Example response showing battery voltage with trend analysis.",
             "json": "{\"mode\": \"normal\", \"usb\": false, \"value\": 3.85, \"hours\": 720, \"vmin\": 3.2, \"vmax\": 4.1, \"vavg\": 3.75, \"daily\": -0.05, \"weekly\": -0.3, \"monthly\": -0.8, \"minutes\": 43200}"
-        },
-        {
-            "title": "Minimal Response",
-            "description": "Example minimal response with current voltage only.",
-            "json": "{\"value\": 3.92}"
         }
     ]
 }

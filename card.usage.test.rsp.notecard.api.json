@@ -12,48 +12,48 @@
         "WIFI"
     ],
     "properties": {
-        "max": {
-            "description": "The days of projected data available based on test.",
-            "type": "integer"
-        },
-        "days": {
-            "description": "The number of days used for the test.",
-            "type": "integer"
-        },
         "bytes_per_day": {
             "description": "Average bytes per day used during the test period.",
-            "type": "integer"
-        },
-        "seconds": {
-            "description": "Number of seconds in the analyzed period.",
-            "type": "integer"
-        },
-        "time": {
-            "description": "Time of device activation.",
-            "type": "integer"
-        },
-        "bytes_sent": {
-            "description": "Number of bytes sent by the Notecard to Notehub.",
             "type": "integer"
         },
         "bytes_received": {
             "description": "Number of bytes received by the Notecard from Notehub.",
             "type": "integer"
         },
-        "notes_sent": {
-            "description": "Number of notes sent by the Notecard to Notehub.",
+        "bytes_sent": {
+            "description": "Number of bytes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "days": {
+            "description": "The number of days used for the test.",
+            "type": "integer"
+        },
+        "max": {
+            "description": "The days of projected data available based on test.",
             "type": "integer"
         },
         "notes_received": {
             "description": "Number of notes received by the Notecard from Notehub.",
             "type": "integer"
         },
-        "sessions_standard": {
-            "description": "Number of standard Notehub sessions.",
+        "notes_sent": {
+            "description": "Number of notes sent by the Notecard to Notehub.",
+            "type": "integer"
+        },
+        "seconds": {
+            "description": "Number of seconds in the analyzed period.",
             "type": "integer"
         },
         "sessions_secure": {
             "description": "Number of secure Notehub sessions.",
+            "type": "integer"
+        },
+        "sessions_standard": {
+            "description": "Number of standard Notehub sessions.",
+            "type": "integer"
+        },
+        "time": {
+            "description": "Time of device activation.",
             "type": "integer"
         }
     },

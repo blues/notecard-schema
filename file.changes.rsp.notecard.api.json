@@ -35,13 +35,13 @@
                 "additionalProperties": true
             }
         },
-        "total": {
-            "description": "The total of local Notes across all Notefiles. This includes Inbound Notes that have not been deleted, as well as outbound Notes that have yet to sync.",
-            "type": "integer"
-        },
         "pending": {
             "description": "Set to `true` if this was a pending changes request and there are changes",
             "type": "boolean"
+        },
+        "total": {
+            "description": "The total of local Notes across all Notefiles. This includes Inbound Notes that have not been deleted, as well as outbound Notes that have yet to sync.",
+            "type": "integer"
         }
     },
     "additionalProperties": false,

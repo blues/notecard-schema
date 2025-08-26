@@ -13,6 +13,15 @@
         "WIFI"
     ],
     "properties": {
+        "binary": {
+            "description": "If `true`, the Notecard will send all the data in the binary buffer to Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects).",
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
+        },
+        "body": {
+            "description": "A JSON object to be enqueued. A Note must have either a `body` or a `payload`, and can have both.",
+            "type": "object"
+        },
         "file": {
             "description": "The name of the Notefile.\n\nOn Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided.\n\nWhen using this request on the Notecard the Notefile name must end in one of:\n\n`.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport\n\n`.qos` for a queue outgoing with encrypted transport\n\n`.db` for a bidirectionally synchronized database with plaintext transport\n\n`.dbs` for a bidirectionally synchronized database with encrypted transport\n\n`.dbx` for a local-only database",
             "type": "string",
@@ -41,55 +50,46 @@
                 }
             ]
         },
-        "note": {
-            "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID.\n\nIf `note` string is \"?\", then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`.\n\n_If this argument is provided for a `.qo` Notefile, an error is returned._",
-            "type": "string"
-        },
-        "body": {
-            "description": "A JSON object to be enqueued. A note must have either a `body` or a `payload`, and can have both.",
-            "type": "object"
-        },
-        "payload": {
-            "description": "A base64-encoded binary payload. A note must have either a `body` or a `payload`, and can have both. If a [Note template](/notecard/notecard-walkthrough/low-bandwidth-design/) is not in use, payloads are limited to 250 bytes.",
-            "type": "string"
-        },
-        "sync": {
-            "description": "Set to `true` to sync immediately. Only applies to **outgoing** Notecard requests, and only guarantees syncing the specified Notefile. Auto-syncing **incoming** Notes from Notehub is set on the Notecard with `{\"req\": \"hub.set\", \"mode\":\"continuous\", \"sync\": true}`.",
-            "type": "boolean"
-        },
-        "key": {
-            "description": "The name of an environment variable in your Notehub.io project that contains the contents of a public key. Used when [encrypting the Note body for transport](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
-            "type": "string"
-        },
-        "verify": {
-            "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
-            "type": "boolean"
-        },
-        "binary": {
-            "description": "If `true`, the Notecard will send all the data in the binary buffer to Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects).",
-            "type": "boolean",
-            "minApiVersion": "5.3.1"
-        },
-        "live": {
-            "description": "If `true`, bypasses saving the Note to flash on the Notecard. Required to be set to `true` if also using `\"binary\":true`.",
-            "type": "boolean",
-            "minApiVersion": "5.3.1"
-        },
         "full": {
             "description": "If set to `true`, and the Note is using a [Notefile Template](/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates), the Note will bypass usage of [omitempty](/notecard/notecard-walkthrough/low-bandwidth-design/#use-of-in-templates) and retain `null`, `0`, `false`, and empty string `\"\"` values.",
             "type": "boolean",
             "minApiVersion": "5.1.1"
+        },
+        "key": {
+            "description": "The name of an environment variable in your Notehub.io project that contains the contents of a public key. Used when [encrypting the Note body for transport](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
+            "type": "string"
         },
         "limit": {
             "description": "If set to `true`, the Note will not be created if Notecard is in a [penalty box](/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes).",
             "type": "boolean",
             "minApiVersion": "9.1.1"
         },
+        "live": {
+            "description": "If `true`, bypasses saving the Note to flash on the Notecard. Required to be set to `true` if also using `\"binary\":true`.",
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
+        },
         "max": {
             "description": "Defines the maximum number of queued Notes permitted in the specified Notefile (`\"file\"`). Any Notes added after this value will be rejected. When used with `\"sync\":true`, a sync will be triggered when the number of pending Notes matches the `max` value.",
             "type": "integer",
             "minimum": 1,
             "minApiVersion": "8.2.1"
+        },
+        "note": {
+            "description": "If the Notefile has a `.db/.dbs/.dbx` extension, specifies a unique Note ID.\n\nIf `note` string is `\"?\"`, then a random unique Note ID is generated and returned as `{\"note\":\"xxx\"}`.\n\n_If this argument is provided for a `.qo` Notefile, an error is returned._",
+            "type": "string"
+        },
+        "payload": {
+            "description": "A base64-encoded binary payload. A Note must have either a `body` or a `payload`, and can have both. If a [Note template](/notecard/notecard-walkthrough/low-bandwidth-design/) is not in use, payloads are limited to 250 bytes.",
+            "type": "string"
+        },
+        "sync": {
+            "description": "Set to `true` to sync immediately. Only applies to **outgoing** Notecard requests, and only guarantees syncing the specified Notefile. Auto-syncing **incoming** Notes from Notehub is set on the Notecard with `{\"req\": \"hub.set\", \"mode\":\"continuous\", \"sync\": true}`.",
+            "type": "boolean"
+        },
+        "verify": {
+            "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -126,7 +126,7 @@
     "samples": [
         {
             "title": "Basic Note Add",
-            "description": "Add a note with JSON body data and trigger immediate sync.",
+            "description": "Add a Note with JSON body data and trigger immediate sync.",
             "json": "{\"req\": \"note.add\", \"file\": \"sensors.qo\", \"body\": {\"temp\": 72.22}, \"sync\": true}"
         }
     ]

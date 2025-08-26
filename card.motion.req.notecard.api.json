@@ -16,12 +16,12 @@
             "description": "Amount of time to sample for buckets of accelerometer-measured movement. For instance, `5` will sample motion events for the previous five minutes and return a `movements` string with motion counts in each bucket.",
             "type": "integer"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.motion"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.motion"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.motion"
         }
     },

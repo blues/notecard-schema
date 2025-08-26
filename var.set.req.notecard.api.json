@@ -13,14 +13,22 @@
         "WIFI"
     ],
     "properties": {
-        "name": {
-            "description": "The unique Note ID.",
-            "type": "string"
-        },
         "file": {
             "description": "The name of the DB Notefile that contains the Note to add or update. Default value is `vars.db`.",
             "type": "string",
             "minApiVersion": "7.3.1"
+        },
+        "flag": {
+            "description": "The boolean value to be stored in the DB Notefile.",
+            "type": "boolean"
+        },
+        "name": {
+            "description": "The unique Note ID.",
+            "type": "string"
+        },
+        "sync": {
+            "description": "Set to `true` to immediately sync any changes.",
+            "type": "boolean"
         },
         "text": {
             "description": "The string-based value to be stored in the DB Notefile.",
@@ -29,14 +37,6 @@
         "value": {
             "description": "The numeric value to be stored in the DB Notefile.",
             "type": "integer"
-        },
-        "flag": {
-            "description": "The boolean value to be stored in the DB Notefile.",
-            "type": "boolean"
-        },
-        "sync": {
-            "description": "Set to `true` to immediately sync any changes.",
-            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -145,17 +145,17 @@
     "samples": [
         {
             "title": "Set Text Variable",
-            "description": "Set a text variable named 'status' to 'open' in the default 'vars.db' DB Notefile.",
+            "description": "Set a text variable named `\"status\"` to `\"open\"` in the default `vars.db` DB Notefile.",
             "json": "{\"req\": \"var.set\", \"name\": \"status\", \"text\": \"open\"}"
         },
         {
             "title": "Set Numeric Variable",
-            "description": "Set a numeric variable named 'temperature' to 23 in a specific DB Notefile.",
+            "description": "Set a numeric variable named `\"temperature\"` to `23` in a specific DB Notefile.",
             "json": "{\"req\": \"var.set\", \"name\": \"temperature\", \"value\": 23, \"file\": \"sensors.db\"}"
         },
         {
             "title": "Set Boolean Variable with Sync",
-            "description": "Set a boolean variable named 'active' to true and immediately sync changes.",
+            "description": "Set a boolean variable named `\"active\"` to `true` and immediately sync changes.",
             "json": "{\"req\": \"var.set\", \"name\": \"active\", \"flag\": true, \"sync\": true}"
         }
     ]

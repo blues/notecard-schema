@@ -19,6 +19,19 @@
             "type": "integer"
         },
         "mode": {
+            "description": "Used to control the Notecard's IO behavior, including USB port, LED, I2C master, NTN fallback.",
+            "type": "string",
+            "enum": [
+                "-usb",
+                "usb",
+                "+usb",
+                "+busy",
+                "-busy",
+                "i2c-master-disable",
+                "i2c-master-enable",
+                "+fallback",
+                "-fallback"
+            ],
             "sub-descriptions": [
                 {
                     "const": "-usb",
@@ -47,26 +60,14 @@
                     "const": "-fallback",
                     "description": "Resets `\"+fallback\"` to its default state, ensuring fallback mode is only enabled if cellular/Wi-Fi are not available."
                 }
-            ],
-            "type": "string",
-            "enum": [
-                "-usb",
-                "usb",
-                "+usb",
-                "+busy",
-                "-busy",
-                "i2c-master-disable",
-                "i2c-master-enable",
-                "+fallback",
-                "-fallback"
             ]
-        },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.io"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.io"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.io"
         }
     },

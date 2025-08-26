@@ -12,6 +12,22 @@
         "WIFI"
     ],
     "properties": {
+        "lat": {
+            "description": "If geofence is enabled, the geofence center latitude in degrees.",
+            "type": "number"
+        },
+        "lon": {
+            "description": "If geofence is enabled, the geofence center longitude in degrees.",
+            "type": "number"
+        },
+        "max": {
+            "description": "If geofence is enabled, the meters from geofence center.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "If geofence is enabled, the currently configured geofence debounce period.",
+            "type": "integer"
+        },
         "mode": {
             "description": "The current location mode.",
             "type": "string",
@@ -27,30 +43,14 @@
             "type": "integer",
             "minimum": 0
         },
-        "lat": {
-            "description": "If geofence is enabled, the geofence center latitude in degrees.",
-            "type": "number"
-        },
-        "lon": {
-            "description": "If geofence is enabled, the geofence center longitude in degrees.",
-            "type": "number"
-        },
-        "max": {
-            "description": "If geofence is enabled, the meters from geofence center.",
-            "type": "integer"
-        },
-        "vseconds": {
-            "description": "If specified, the voltage-variable period.",
-            "type": "string"
-        },
-        "minutes": {
-            "description": "If geofence is enabled, the currently configured geofence debounce period.",
-            "type": "integer"
-        },
         "threshold": {
             "description": "When in periodic mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
             "type": "integer",
             "minApiVersion": "3.4.1"
+        },
+        "vseconds": {
+            "description": "If specified, the voltage-variable period.",
+            "type": "string"
         }
     },
     "samples": [

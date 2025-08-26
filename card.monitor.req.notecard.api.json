@@ -12,6 +12,11 @@
         "WIFI"
     ],
     "properties": {
+        "count": {
+            "description": "The number of pulses to send to the overridden AUX pin LED. Set this value to `0` to return the LED to its default behavior.",
+            "type": "integer",
+            "minimum": 0
+        },
         "mode": {
             "description": "Can be set to one of `green`, `red` or `yellow` to temporarily override the behavior of an AUX pin LED.\n\nSee [Using Monitor Mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode) for additional details.",
             "type": "string",
@@ -21,22 +26,17 @@
                 "yellow"
             ]
         },
-        "count": {
-            "description": "The number of pulses to send to the overridden AUX pin LED. Set this value to `0` to return the LED to its default behavior.",
-            "type": "integer",
-            "minimum": 0
-        },
         "usb": {
             "description": "Set to `true` to configure LED behavior so that it is only active when the Notecard is connected to USB power.",
             "type": "boolean",
             "default": false
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.monitor"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.monitor"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.monitor"
         }
     },

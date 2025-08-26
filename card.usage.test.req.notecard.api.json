@@ -25,12 +25,12 @@
             "type": "integer",
             "default": 1024
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.usage.test"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.usage.test"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.usage.test"
         }
     },

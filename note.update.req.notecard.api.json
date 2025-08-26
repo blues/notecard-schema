@@ -13,6 +13,10 @@
         "WIFI"
     ],
     "properties": {
+        "body": {
+            "description": "A JSON object to add to the Note. A Note must have either a `body` or `payload`, and can have both.",
+            "type": "object"
+        },
         "file": {
             "description": "The name of the DB Notefile that contains the Note to update.",
             "type": "string"
@@ -20,10 +24,6 @@
         "note": {
             "description": "The unique Note ID.",
             "type": "string"
-        },
-        "body": {
-            "description": "A JSON object to add to the Note. A Note must have either a `body` or `payload`, and can have both.",
-            "type": "object"
         },
         "payload": {
             "description": "A base64-encoded binary payload. A Note must have either a `body` or `payload`, and can have both.",
@@ -84,27 +84,27 @@
     "samples": [
         {
             "title": "Update Note Body",
-            "description": "Update a note with new JSON body content.",
+            "description": "Update a Note with new JSON body content.",
             "json": "{\"req\": \"note.update\", \"file\": \"my-settings.db\", \"note\": \"measurements\", \"body\": {\"interval\": 60}}"
         },
         {
             "title": "Update Note Payload",
-            "description": "Update a note with new base64 payload data.",
+            "description": "Update a Note with new base64 payload data.",
             "json": "{\"req\": \"note.update\", \"file\": \"data.db\", \"note\": \"sensor-1\", \"payload\": \"SGVsbG8gV29ybGQ=\"}"
         },
         {
             "title": "Update with Body and Payload",
-            "description": "Update a note with both body and payload.",
+            "description": "Update a Note with both body and payload.",
             "json": "{\"req\": \"note.update\", \"file\": \"config.db\", \"note\": \"device-config\", \"body\": {\"enabled\": true}, \"payload\": \"YWRkaXRpb25hbERhdGE=\"}"
         },
         {
             "title": "Update with Verification",
-            "description": "Update a note in templated Notefile with immediate flash write.",
+            "description": "Update a Note in a templated Notefile with immediate flash write.",
             "json": "{\"req\": \"note.update\", \"file\": \"template.db\", \"note\": \"user-setting\", \"body\": {\"theme\": \"dark\"}, \"verify\": true}"
         },
         {
             "title": "Update with Command",
-            "description": "Update a note using command syntax (no response expected).",
+            "description": "Update a Note using command syntax (no response expected).",
             "json": "{\"cmd\": \"note.update\", \"file\": \"cache.db\", \"note\": \"temp-data\", \"body\": {\"status\": \"updated\"}}"
         }
     ]

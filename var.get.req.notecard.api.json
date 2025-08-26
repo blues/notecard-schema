@@ -14,12 +14,12 @@
         "WIFI"
     ],
     "properties": {
-        "name": {
-            "description": "The unique Note ID.",
-            "type": "string"
-        },
         "file": {
             "description": "The name of the DB Notefile that contains the Note to retrieve. Default value is `vars.db`.",
+            "type": "string"
+        },
+        "name": {
+            "description": "The unique Note ID.",
             "type": "string"
         },
         "req": {
@@ -71,12 +71,12 @@
     "samples": [
         {
             "title": "Retrieve Variable with Default File",
-            "description": "Retrieve a variable named 'status' from the default 'vars.db' DB Notefile.",
+            "description": "Retrieve a variable named `\"status\"` from the default `vars.db` DB Notefile.",
             "json": "{\"req\": \"var.get\", \"name\": \"status\"}"
         },
         {
             "title": "Retrieve Variable with Specific File",
-            "description": "Retrieve a variable named 'temperature' from the 'sensors.db' DB Notefile.",
+            "description": "Retrieve a variable named `\"temperature\"` from the `sensors.db` DB Notefile.",
             "json": "{\"req\": \"var.get\", \"name\": \"temperature\", \"file\": \"sensors.db\"}"
         }
     ]

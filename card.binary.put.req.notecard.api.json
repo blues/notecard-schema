@@ -13,25 +13,25 @@
         "WIFI"
     ],
     "properties": {
+        "cobs": {
+            "description": "The size of the COBS-encoded data (in bytes).",
+            "type": "integer"
+        },
         "offset": {
             "description": "The number of bytes to offset the binary payload from 0 when appending the binary data to the binary storage area of the Notecard. Primarily used when sending multiple fragments of one binary payload to the Notecard.",
             "type": "integer",
             "minimum": 0
         },
-        "cobs": {
-            "description": "The size of the COBS-encoded data (in bytes).",
-            "type": "integer"
-        },
         "status": {
             "description": "The MD5 checksum of the data, before it has been encoded.",
             "type": "string"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.binary.put"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.binary.put"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.binary.put"
         }
     },

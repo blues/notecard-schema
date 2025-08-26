@@ -13,20 +13,20 @@
         "WIFI"
     ],
     "properties": {
-        "delete": {
-            "description": "Set to `true` to reset most Notecard configuration settings. Note that this does not reset stored Wi-Fi credentials or the [alternate I2C address](/notecard/notecard-walkthrough/advanced-notecard-configuration/#change-the-notecard-i2c-address) (if previously set) so the Notecard can still contact the network after a reset.\n\n*The Notecard will be unable to sync with Notehub until the `ProductUID` is set again.*",
-            "type": "boolean"
-        },
         "connected": {
             "description": "Set to `true` to reset the Notecard on Notehub. This will delete and deprovision the Notecard from Notehub the next time the Notecard connects. This also removes any Notefile templates used by this device.\n\nConversely, if `connected` is `false` (or omitted), the Notecard's settings and data will be restored from Notehub the next time the Notecard connects to the previously used Notehub project.",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.restore"
+        "delete": {
+            "description": "Set to `true` to reset most Notecard configuration settings. Note that this does not reset stored Wi-Fi credentials or the [alternate I2C address](/notecard/notecard-walkthrough/advanced-notecard-configuration/#change-the-notecard-i2c-address) (if previously set) so the Notecard can still contact the network after a reset.\n\n*The Notecard will be unable to sync with Notehub until the `ProductUID` is set again.*",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.restore"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.restore"
         }
     },

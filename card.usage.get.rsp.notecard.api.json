@@ -12,36 +12,36 @@
         "WIFI"
     ],
     "properties": {
-        "seconds": {
-            "description": "Number of seconds in the analyzed period.",
-            "type": "integer"
-        },
-        "time": {
-            "description": "Start time of the analyzed period or, if `mode=\"total\"`, the time of activation.",
+        "bytes_received": {
+            "description": "Number of bytes received by the Notecard from Notehub.",
             "type": "integer"
         },
         "bytes_sent": {
             "description": "Number of bytes sent by the Notecard to Notehub.",
             "type": "integer"
         },
-        "bytes_received": {
-            "description": "Number of bytes received by the Notecard from Notehub.",
+        "notes_received": {
+            "description": "Approximate number of notes received by the Notecard from Notehub.",
             "type": "integer"
         },
         "notes_sent": {
             "description": "Approximate number of notes sent by the Notecard to Notehub.",
             "type": "integer"
         },
-        "notes_received": {
-            "description": "Approximate number of notes received by the Notecard from Notehub.",
+        "seconds": {
+            "description": "Number of seconds in the analyzed period.",
+            "type": "integer"
+        },
+        "sessions_secure": {
+            "description": "Number of secure Notehub sessions.",
             "type": "integer"
         },
         "sessions_standard": {
             "description": "Number of standard Notehub sessions.",
             "type": "integer"
         },
-        "sessions_secure": {
-            "description": "Number of secure Notehub sessions.",
+        "time": {
+            "description": "Start time of the analyzed period or, if `mode=\"total\"`, the time of activation.",
             "type": "integer"
         }
     },

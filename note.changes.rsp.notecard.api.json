@@ -12,10 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "total": {
-            "description": "The total number of Notes in the Notefile.",
-            "type": "integer"
-        },
         "changes": {
             "description": "The number of pending changes in the Notefile.",
             "type": "integer"
@@ -41,13 +37,17 @@
                 ],
                 "additionalProperties": false
             }
+        },
+        "total": {
+            "description": "The total number of Notes in the Notefile.",
+            "type": "integer"
         }
     },
     "additionalProperties": false,
     "samples": [
         {
             "title": "Changes Response with Notes",
-            "description": "Response showing changes with note details and timestamps.",
+            "description": "Response showing changes with Note details and timestamps.",
             "json": "{\"changes\": 4, \"total\": 4, \"notes\": {\"setting-one\": {\"body\": {\"foo\": \"bar\"}, \"time\": 1598918235}, \"setting-two\": {\"body\": {\"foo\": \"bat\"}, \"time\": 1598918245}, \"setting-three\": {\"body\": {\"foo\": \"baz\"}, \"time\": 1598918225}, \"setting-four\": {\"body\": {\"foo\": \"foo\"}, \"time\": 1598910532}}}"
         },
         {
@@ -57,7 +57,7 @@
         },
         {
             "title": "Single Change Response",
-            "description": "Response with a single note change.",
+            "description": "Response with a single Note change.",
             "json": "{\"changes\": 1, \"total\": 5, \"notes\": {\"config-update\": {\"body\": {\"brightness\": 75, \"volume\": 50}, \"time\": 1609459200}}}"
         }
     ]

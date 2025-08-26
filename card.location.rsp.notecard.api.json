@@ -12,9 +12,25 @@
         "WIFI"
     ],
     "properties": {
-        "status": {
-            "description": "The current status of the Notecard GPS/GNSS connection.",
-            "type": "string"
+        "count": {
+            "description": "The number of consecutive recorded GPS/GNSS failures.",
+            "type": "integer"
+        },
+        "dop": {
+            "description": "The \"Dilution of Precision\" value from the latest GPS/GNSS reading. The lower the value, the higher the confidence level of the reading. Values can be interpreted in [this Wikipedia table](https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)#Interpretation).",
+            "type": "number"
+        },
+        "lat": {
+            "description": "The latitude in degrees of the last known location.",
+            "type": "number"
+        },
+        "lon": {
+            "description": "The longitude in degrees of the last known location.",
+            "type": "number"
+        },
+        "max": {
+            "description": "If a geofence is enabled by `card.location.mode`, meters from the geofence center.",
+            "type": "integer"
         },
         "mode": {
             "description": "The GPS/GNSS connection mode. Will be `continuous`, `periodic`, or `off`.",
@@ -25,29 +41,13 @@
                 "off"
             ]
         },
-        "lat": {
-            "description": "The latitude in degrees of the last known location.",
-            "type": "number"
-        },
-        "lon": {
-            "description": "The longitude in degrees of the last known location.",
-            "type": "number"
+        "status": {
+            "description": "The current status of the Notecard GPS/GNSS connection.",
+            "type": "string"
         },
         "time": {
             "description": "UNIX Epoch time. The time of location capture.",
             "type": "integer"
-        },
-        "max": {
-            "description": "If a geofence is enabled by `card.location.mode`, meters from the geofence center.",
-            "type": "integer"
-        },
-        "count": {
-            "description": "The number of consecutive recorded GPS/GNSS failures.",
-            "type": "integer"
-        },
-        "dop": {
-            "description": "The \"Dilution of Precision\" value from the latest GPS/GNSS reading. The lower the value, the higher the confidence level of the reading. Values can be interpreted in [this Wikipedia table](https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)#Interpretation).",
-            "type": "number"
         }
     },
     "additionalProperties": false,

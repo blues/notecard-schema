@@ -12,6 +12,23 @@
         "WIFI"
     ],
     "properties": {
+        "count": {
+            "description": "The number of most recent motion buckets to examine.",
+            "type": "integer"
+        },
+        "file": {
+            "description": "The Notefile to use for motion capture Notes. See the [`_motion.qo` Notefile's documentation](/api-reference/system-notefiles#motion-qo) for details on the format of the data captured.",
+            "type": "string",
+            "default": "_motion.qo"
+        },
+        "minutes": {
+            "description": "The maximum period to capture Notes in the Notefile.",
+            "type": "integer"
+        },
+        "now": {
+            "description": "Set to `true` to trigger the immediate creation of a `_motion.qo` event if the orientation of the Notecard changes (overriding the `minutes` setting).",
+            "type": "boolean"
+        },
         "start": {
             "description": "`true` to start motion capture.",
             "type": "boolean"
@@ -20,33 +37,16 @@
             "description": "`true` to stop motion capture.",
             "type": "boolean"
         },
-        "minutes": {
-            "description": "The maximum period to capture Notes in the Notefile.",
-            "type": "integer"
-        },
-        "count": {
-            "description": "The number of most recent motion buckets to examine.",
-            "type": "integer"
-        },
         "threshold": {
             "description": "The number of buckets that must indicate motion in order to capture.",
             "type": "integer"
         },
-        "file": {
-            "description": "The Notefile to use for motion capture Notes. See the [`_motion.qo` Notefile's documentation](/api-reference/system-notefiles#motion-qo) for details on the format of the data captured.",
-            "type": "string",
-            "default": "_motion.qo"
-        },
-        "now": {
-            "description": "Set to `true` to trigger the immediate creation of a `_motion.qo` event if the orientation of the Notecard changes (overriding the `minutes` setting).",
-            "type": "boolean"
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.motion.track"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
-            "const": "card.motion.track"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
             "const": "card.motion.track"
         }
     },

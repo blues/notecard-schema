@@ -13,21 +13,13 @@
         "WIFI"
     ],
     "properties": {
-        "time": {
-            "description": "The current time in UTC. Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
-            "type": "integer"
-        },
         "area": {
             "description": "The geographic area of the Notecard, if the cell tower is recognized.",
             "type": "string"
         },
-        "zone": {
-            "description": "The time zone of the Notecard, if the cell tower is recognized.",
+        "country": {
+            "description": "The country where the Notecard is located, if the cell tower is recognized.",
             "type": "string"
-        },
-        "minutes": {
-            "description": "Number of minutes East of GMT, if the cell tower is recognized.",
-            "type": "integer"
         },
         "lat": {
             "description": "Latitude of the Notecard, if the cell tower is recognized.",
@@ -37,8 +29,16 @@
             "description": "Longitude of the Notecard, if the cell tower is recognized.",
             "type": "number"
         },
-        "country": {
-            "description": "The country where the Notecard is located, if the cell tower is recognized.",
+        "minutes": {
+            "description": "Number of minutes East of GMT, if the cell tower is recognized.",
+            "type": "integer"
+        },
+        "time": {
+            "description": "The current time in UTC. Will only populate if the Notecard has completed a sync to Notehub to obtain the time.",
+            "type": "integer"
+        },
+        "zone": {
+            "description": "The time zone of the Notecard, if the cell tower is recognized.",
             "type": "string"
         }
     },

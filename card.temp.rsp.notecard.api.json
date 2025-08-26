@@ -13,16 +13,8 @@
         "WIFI"
     ],
     "properties": {
-        "value": {
-            "description": "The current temperature from the Notecard's onboard sensor in degrees centigrade, including the calibration offset.",
-            "type": "number"
-        },
         "calibration": {
             "description": "The calibration differential of the Notecard's onboard sensor.",
-            "type": "number"
-        },
-        "temperature": {
-            "description": "If the Notecard finds a BME280 or ENS210 sensor on the I2C bus, this field will be set to the temperature value from the connected sensor in degrees centigrade.",
             "type": "number"
         },
         "humidity": {
@@ -33,9 +25,17 @@
             "description": "If the Notecard finds a BME280 or ENS210 sensor on the I2C bus, this field will be set to the atmospheric pressure value from the connected sensor in Pascals.",
             "type": "number"
         },
+        "temperature": {
+            "description": "If the Notecard finds a BME280 or ENS210 sensor on the I2C bus, this field will be set to the temperature value from the connected sensor in degrees centigrade.",
+            "type": "number"
+        },
         "usb": {
             "description": "`true` if the Notecard is connected to USB power.",
             "type": "boolean"
+        },
+        "value": {
+            "description": "The current temperature from the Notecard's onboard sensor in degrees centigrade, including the calibration offset.",
+            "type": "number"
         },
         "voltage": {
             "description": "The current voltage.",

@@ -10,21 +10,21 @@
         "WIFI"
     ],
     "properties": {
-        "on": {
-            "description": "`true` if sleep mode is enabled.",
-            "type": "boolean"
+        "mode": {
+            "description": "Returns `\"accel\"` if the Notecard is configured to wake from deep sleep on any movement detected by the onboard accelerometer.",
+            "type": "string"
         },
         "off": {
             "description": "`true` if sleep mode is disabled.",
             "type": "boolean"
         },
+        "on": {
+            "description": "`true` if sleep mode is enabled.",
+            "type": "boolean"
+        },
         "seconds": {
             "description": "The number of seconds the Notecard will wait before entering sleep mode (only included if default settings are overridden).",
             "type": "integer"
-        },
-        "mode": {
-            "description": "Returns `\"accel\"` if the Notecard is configured to wake from deep sleep on any movement detected by the onboard accelerometer.",
-            "type": "string"
         }
     },
     "additionalProperties": false,

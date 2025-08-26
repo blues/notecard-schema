@@ -12,42 +12,14 @@
         "WIFI"
     ],
     "properties": {
-        "mode": {
-            "description": "Network scan mode. Must be one of:",
-            "type": "string",
-            "enum": [
-                "-",
-                "auto",
-                "m",
-                "nb",
-                "gprs"
-            ],
-            "sub-descriptions": [
-                {
-                    "const": "-",
-                    "description": "Reset to the default mode."
-                },
-                {
-                    "const": "auto",
-                    "description": "Perform automatic band scan mode (this is the default mode)."
-                },
-                {
-                    "const": "m",
-                    "description": "Restrict the modem to Cat-M1 (applies exclusively to Narrowband Notecard Cellular devices)."
-                },
-                {
-                    "const": "nb",
-                    "description": "Restrict the modem to Cat-NB1 (applies exclusively to Narrowband Notecard Cellular devices)."
-                },
-                {
-                    "const": "gprs",
-                    "description": "Restrict the modem to EGPRS (applies exclusively to Narrowband Notecard Cellular devices)."
-                }
-            ]
-        },
         "apn": {
             "description": "Access Point Name (APN) when using an external SIM. Use `\"-\"` to reset to the Notecard default APN.",
             "type": "string"
+        },
+        "hours": {
+            "description": "When using the `method` argument with `\"dual-primary-secondary\"` or `\"dual-secondary-primary\"`, this is the number of hours after which the Notecard will attempt to switch back to the preferred SIM.",
+            "type": "integer",
+            "minimum": 1
         },
         "method": {
             "description": "Used when configuring a [Notecard to failover to a different SIM](/guides-and-tutorials/notecard-guides/using-external-sim-cards/#failing-over-to-a-different-sim).",
@@ -82,17 +54,45 @@
                 }
             ]
         },
-        "hours": {
-            "description": "When using the `method` argument with `\"dual-primary-secondary\"` or `\"dual-secondary-primary\"`, this is the number of hours after which the Notecard will attempt to switch back to the preferred SIM.",
-            "type": "integer",
-            "minimum": 1
-        },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.wireless"
+        "mode": {
+            "description": "Network scan mode. Must be one of:",
+            "type": "string",
+            "enum": [
+                "-",
+                "auto",
+                "m",
+                "nb",
+                "gprs"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "-",
+                    "description": "Reset to the default mode."
+                },
+                {
+                    "const": "auto",
+                    "description": "Perform automatic band scan mode (this is the default mode)."
+                },
+                {
+                    "const": "m",
+                    "description": "Restrict the modem to Cat-M1 (applies exclusively to Narrowband Notecard Cellular devices)."
+                },
+                {
+                    "const": "nb",
+                    "description": "Restrict the modem to Cat-NB1 (applies exclusively to Narrowband Notecard Cellular devices)."
+                },
+                {
+                    "const": "gprs",
+                    "description": "Restrict the modem to EGPRS (applies exclusively to Narrowband Notecard Cellular devices)."
+                }
+            ]
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.wireless"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.wireless"
         }
     },

@@ -103,16 +103,6 @@
             "title": "Complete Version Response",
             "description": "Example response showing comprehensive version and device information.",
             "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:000000000000000\", \"name\": \"Blues Wireless Notecard\", \"sku\": \"NOTE-NBGL\", \"board\": \"1.11\", \"cell\": true, \"gps\": true, \"api\": 5, \"body\": {\"org\": \"Blues Wireless\", \"product\": \"Notecard\", \"target\": \"r5\", \"version\": \"notecard-5.3.1\", \"ver_major\": 5, \"ver_minor\": 3, \"ver_patch\": 1, \"ver_build\": 371, \"built\": \"Sep  5 2023 12:21:30\"}}"
-        },
-        {
-            "title": "Minimal Version Response",
-            "description": "Example response with only the required version field.",
-            "json": "{\"version\": \"notecard-6.2.1\"}"
-        },
-        {
-            "title": "WiFi Notecard Version",
-            "description": "Example response for a WiFi-enabled Notecard.",
-            "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:123456789012345\", \"name\": \"Blues Wireless Notecard WiFi\", \"sku\": \"NOTE-WBEX\", \"wifi\": true, \"api\": 5}"
         }
     ]
 }

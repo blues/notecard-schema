@@ -15,44 +15,44 @@
     ],
     "properties": {
         "mode": {
-            "description": "Used to specify the color of the LED to turn on or off. For LEDs, possible values are `\"red\"`, `\"green\"`, and `\"yellow\"`. For NeoPixels, possible values are `\"red\"`, `\"green\"`, `\"blue\"`, `\"yellow\"`, `\"cyan\"`, `\"magenta\"`, `\"orange\"`, `\"white\"`, and `\"gray\"`.",
+            "description": "Used to specify the color of the LED to turn on or off.\n\n**Note:** Notecard LoRa does not support monochromatic **LED** modes, only **NeoPixels**.",
             "type": "string",
             "sub-descriptions": [
                 {
                     "const": "red",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **LED** & **NeoPixel**"
                 },
                 {
                     "const": "green",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **LED** & **NeoPixel**"
                 },
                 {
                     "const": "yellow",
-                    "description": "**LEDs:** Used to specify the color of the LED to turn on or off.\n**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **LED** & **NeoPixel**"
                 },
                 {
                     "const": "blue",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 },
                 {
                     "const": "cyan",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 },
                 {
                     "const": "magenta",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 },
                 {
                     "const": "orange",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 },
                 {
                     "const": "white",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 },
                 {
                     "const": "gray",
-                    "description": "**NeoPixels:** Used to specify the color of a single NeoPixel."
+                    "description": "Supports **NeoPixel**"
                 }
             ],
             "enum": [
@@ -67,20 +67,20 @@
                 "gray"
             ]
         },
-        "on": {
-            "description": "Set to `true` to turn the specified LED or NeoPixel on.",
-            "type": "boolean"
-        },
         "off": {
             "description": "Set to `true` to turn the specified LED or NeoPixel off.",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.led"
+        "on": {
+            "description": "Set to `true` to turn the specified LED or NeoPixel on.",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.led"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.led"
         }
     },

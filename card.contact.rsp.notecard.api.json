@@ -11,6 +11,11 @@
         "WIFI"
     ],
     "properties": {
+        "email": {
+            "description": "Email address of the Notecard maintainer.",
+            "type": "string",
+            "format": "email"
+        },
         "name": {
             "description": "Name of the Notecard maintainer.",
             "type": "string"
@@ -22,11 +27,6 @@
         "role": {
             "description": "Role of the Notecard maintainer.",
             "type": "string"
-        },
-        "email": {
-            "description": "Email address of the Notecard maintainer.",
-            "type": "string",
-            "format": "email"
         }
     },
     "samples": [

@@ -113,6 +113,25 @@ def check_req_cmd_at_end(properties_keys):
 
     return issues
 
+def check_properties_alphabetical_order(properties_keys):
+    """Check that properties are in alphabetical order, excluding 'req' and 'cmd' which should be at the end."""
+    issues = []
+
+    if not properties_keys:
+        return issues
+
+    # Separate req/cmd from other properties
+    other_properties = [key for key in properties_keys if key not in ['req', 'cmd']]
+    req_cmd_properties = [key for key in properties_keys if key in ['req', 'cmd']]
+
+    # Check if other properties are in alphabetical order
+    if other_properties:
+        sorted_other_properties = sorted(other_properties)
+        if other_properties != sorted_other_properties:
+            issues.append(f"Properties should be in alphabetical order (excluding req/cmd). Expected: {sorted_other_properties}, Found: {other_properties}")
+
+    return issues
+
 def get_all_schema_files():
     """Get all schema files in the project."""
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
@@ -138,8 +157,9 @@ def test_schema_field_hierarchy():
 
         issues = check_hierarchy(keys)
         properties_issues = check_req_cmd_at_end(properties_keys)
+        alphabetical_issues = check_properties_alphabetical_order(properties_keys)
 
-        all_issues = issues + properties_issues
+        all_issues = issues + properties_issues + alphabetical_issues
 
         if all_issues:
             failed_files.append({
@@ -152,7 +172,7 @@ def test_schema_field_hierarchy():
     if failed_files:
         error_message = "Schema field hierarchy violations found:\n\n"
         error_message += f"Expected top-level hierarchy: {' -> '.join(EXPECTED_HIERARCHY)}\n"
-        error_message += "Expected properties hierarchy: [other properties] -> req/cmd (at end)\n\n"
+        error_message += "Expected properties hierarchy: [alphabetical order] -> req/cmd (at end)\n\n"
 
         for failed_file in failed_files:
             error_message += f"❌ {failed_file['file']}:\n"
@@ -174,13 +194,14 @@ def test_individual_schema_hierarchy(schema_file):
 
     issues = check_hierarchy(keys)
     properties_issues = check_req_cmd_at_end(properties_keys)
+    alphabetical_issues = check_properties_alphabetical_order(properties_keys)
 
-    all_issues = issues + properties_issues
+    all_issues = issues + properties_issues + alphabetical_issues
 
     if all_issues:
         error_message = f"Schema field hierarchy violations in {file_name}:\n"
         error_message += f"Expected top-level hierarchy: {' -> '.join(EXPECTED_HIERARCHY)}\n"
-        error_message += "Expected properties hierarchy: [other properties] -> req/cmd (at end)\n"
+        error_message += "Expected properties hierarchy: [alphabetical order] -> req/cmd (at end)\n"
         for issue in all_issues:
             error_message += f"   - {issue}\n"
         error_message += f"Current top-level order: {' -> '.join(keys)}\n"

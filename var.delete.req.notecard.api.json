@@ -6,6 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "minApiVersion": "7.3.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
@@ -13,14 +14,13 @@
         "WIFI"
     ],
     "properties": {
+        "file": {
+            "description": "The name of the DB Notefile that contains the Note to delete. Default value is `vars.db`.",
+            "type": "string"
+        },
         "name": {
             "description": "The unique Note ID.",
             "type": "string"
-        },
-        "file": {
-            "description": "The name of the DB Notefile that contains the Note to delete. Default value is `vars.db`.",
-            "type": "string",
-            "minApiVersion": "7.3.1"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -71,12 +71,12 @@
     "samples": [
         {
             "title": "Delete Variable with Default File",
-            "description": "Delete a variable named 'status' from the default 'vars.db' DB Notefile.",
+            "description": "Delete a variable named `\"status\"` from the default `vars.db` DB Notefile.",
             "json": "{\"req\": \"var.delete\", \"name\": \"status\"}"
         },
         {
             "title": "Delete Variable with Specific File",
-            "description": "Delete a variable named 'temperature' from the 'sensors.db' DB Notefile.",
+            "description": "Delete a variable named `\"temperature\"` from the `\"sensors.db\"` DB Notefile.",
             "json": "{\"req\": \"var.delete\", \"name\": \"temperature\", \"file\": \"sensors.db\"}"
         }
     ]
