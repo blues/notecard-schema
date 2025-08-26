@@ -13,8 +13,31 @@
         "WIFI"
     ],
     "properties": {
+        "delete": {
+            "description": "Set to `true` to delete the last known location stored in the Notecard.",
+            "type": "boolean"
+        },
+        "lat": {
+            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the latitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the latitude location of the device itself, in degrees.",
+            "type": "number",
+            "default": "last known latitude"
+        },
+        "lon": {
+            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the longitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the longitude location of the device itself, in degrees.",
+            "type": "number",
+            "default": "last known longitude"
+        },
+        "max": {
+            "description": "Meters from a geofence center. Used to enable geofence location tracking.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "When geofence is enabled, the number of minutes the device should be outside the geofence before the Notecard location is tracked.",
+            "type": "integer",
+            "default": 5
+        },
         "mode": {
-            "description": "Must be one of: `\"\"` to retrieve the current mode. `\"off\"` to turn location mode off. Approximate location may still be [ascertained from Notehub](/notecard/notecard-walkthrough/time-and-location-requests#ascertaining-an-approximate-device-location). `\"periodic\"` to sample location at a specified interval, if the device has moved. `\"continuous\"` to enable the Notecard's GPS/GNSS module for continuous sampling. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note. `\"fixed\"` to report the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa.",
+            "description": "Sets the location mode.",
             "type": "string",
             "enum": [
                 "",
@@ -22,6 +45,28 @@
                 "periodic",
                 "continuous",
                 "fixed"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "",
+                    "description": "Retrieves the current mode."
+                },
+                {
+                    "const": "off",
+                    "description": "Turns location mode off. Approximate location may still be [ascertained from Notehub](/notecard/notecard-walkthrough/time-and-location-requests#ascertaining-an-approximate-device-location)."
+                },
+                {
+                    "const": "periodic",
+                    "description": "Samples location at a specified interval, if the device has moved."
+                },
+                {
+                    "const": "continuous",
+                    "description": "Enables the Notecard's GPS/GNSS module for continuous sampling. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note."
+                },
+                {
+                    "const": "fixed",
+                    "description": "Reports the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa."
+                }
             ]
         },
         "seconds": {
@@ -29,43 +74,22 @@
             "type": "integer",
             "minimum": 0
         },
-        "vseconds": {
-            "description": "In `periodic` mode, overrides `seconds` with a voltage-variable value.",
-            "type": "string"
-        },
-        "lat": {
-            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the latitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the latitude location of the device itself, in degrees.",
-            "type": "number"
-        },
-        "lon": {
-            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the longitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the longitude location of the device itself, in degrees.",
-            "type": "number"
-        },
-        "max": {
-            "description": "Meters from a geofence center. Used to enable geofence location tracking.",
-            "type": "integer"
-        },
-        "delete": {
-            "description": "Set to `true` to delete the last known location stored in the Notecard.",
-            "type": "boolean"
-        },
-        "minutes": {
-            "description": "When geofence is enabled, the number of minutes the device should be outside the geofence before the Notecard location is tracked.",
-            "type": "integer",
-            "default": 5
-        },
         "threshold": {
             "description": "When in `periodic` mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
             "type": "integer",
             "default": 0,
             "minApiVersion": "3.4.1"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.location.mode"
+        "vseconds": {
+            "description": "In `periodic` mode, overrides `seconds` with a voltage-variable value.",
+            "type": "string"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.location.mode"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.location.mode"
         }
     },

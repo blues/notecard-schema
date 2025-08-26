@@ -12,18 +12,26 @@
         "WIFI"
     ],
     "properties": {
+        "delete": {
+            "description": "`true` to delete the Notes returned by the request.",
+            "type": "boolean"
+        },
+        "deleted": {
+            "description": "`true` to return deleted Notes with this request. Deleted Notes are only persisted in a database notefile (`.db/.dbs`) between the time of Note deletion on the Notecard and the time that a sync with Notehub takes place. As such, this boolean will have no effect after a sync or on queue notefiles (`.q*`).",
+            "type": "boolean"
+        },
         "file": {
             "description": "The Notefile ID.",
-            "type": "string"
-        },
-        "tracker": {
-            "description": "The change tracker ID. This value is developer-defined and can be used across both the `note.changes` and `file.changes` requests.",
             "type": "string"
         },
         "max": {
             "description": "The maximum number of Notes to return in the request.",
             "type": "integer",
             "minimum": 1
+        },
+        "reset": {
+            "description": "`true` to reset a change tracker.",
+            "type": "boolean"
         },
         "start": {
             "description": "`true` to reset the tracker to the beginning.",
@@ -33,17 +41,9 @@
             "description": "`true` to delete the tracker.",
             "type": "boolean"
         },
-        "deleted": {
-            "description": "`true` to return deleted Notes with this request. Deleted notes are only persisted in a database notefile (`.db/.dbs`) between the time of note deletion on the Notecard and the time that a sync with notehub takes place. As such, this boolean will have no effect after a sync or on queue notefiles (`.q*`).",
-            "type": "boolean"
-        },
-        "delete": {
-            "description": "`true` to delete the Notes returned by the request.",
-            "type": "boolean"
-        },
-        "reset": {
-            "description": "`true` to reset a change tracker.",
-            "type": "boolean"
+        "tracker": {
+            "description": "The change tracker ID. This value is developer-defined and can be used across both the `note.changes` and `file.changes` requests.",
+            "type": "string"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -83,7 +83,7 @@
     "samples": [
         {
             "title": "Peek at Changes",
-            "description": "Check changes in a Notefile with tracker starting from beginning.",
+            "description": "Check changes in a Notefile with a tracker starting from the beginning.",
             "json": "{\"req\": \"note.changes\", \"file\": \"my-settings.db\", \"tracker\": \"inbound-tracker\", \"start\": true}"
         },
         {
@@ -93,12 +93,12 @@
         },
         {
             "title": "Basic File Changes",
-            "description": "Get changes from a Notefile without tracker.",
+            "description": "Get changes from a Notefile without a tracker.",
             "json": "{\"req\": \"note.changes\", \"file\": \"data.db\"}"
         },
         {
             "title": "Reset Tracker",
-            "description": "Reset a change tracker to start from beginning.",
+            "description": "Reset a change tracker to start from the beginning.",
             "json": "{\"req\": \"note.changes\", \"file\": \"events.db\", \"tracker\": \"event-tracker\", \"reset\": true}"
         },
         {

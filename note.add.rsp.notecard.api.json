@@ -13,17 +13,17 @@
         "WIFI"
     ],
     "properties": {
-        "total": {
-            "description": "The total number of Notes in the Notefile.",
-            "type": "integer"
+        "note": {
+            "description": "The generated unique Note ID when `note` parameter was set to \"?\".",
+            "type": "string"
         },
         "template": {
             "description": "`true` when a template is active on the Notefile.",
             "type": "boolean"
         },
-        "note": {
-            "description": "The generated unique Note ID when `note` parameter was set to \"?\".",
-            "type": "string"
+        "total": {
+            "description": "The total number of Notes in the Notefile.",
+            "type": "integer"
         }
     },
     "required": [

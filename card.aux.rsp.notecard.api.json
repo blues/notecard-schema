@@ -16,6 +16,15 @@
             "description": "The current AUX `mode`, or `off` if not set.",
             "type": "string"
         },
+        "power": {
+            "description": "If `true`, indicates the Notecard has USB (main) power. This parameter only appears in the body of the Note in Notehub if using `\"sync\":true`.",
+            "type": "boolean",
+            "minApiVersion": "3.3.1"
+        },
+        "seconds": {
+            "description": "When in AUX `gpio` mode, and if `count` is enabled on an AUX pin, the number of seconds per sample.",
+            "type": "integer"
+        },
         "state": {
             "description": "When in AUX `gpio` mode, the state of each AUX pin.",
             "type": "array",
@@ -39,20 +48,63 @@
                     }
                 },
                 "additionalProperties": false
-            }
+            },
+            "sub-descriptions": [
+                {
+                    "const": "",
+                    "description": "`{}` when the pin is off.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "high",
+                    "description": "`{\"high\": true}` when the pin is high.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "low",
+                    "description": "`{\"low\": true}` when the pin is low.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "input",
+                    "description": "`{\"input\": true}` when the pin is input.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "count",
+                    "description": "`{\"count\": [4]}` where each item in the array is the count per sample.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
+                }
+            ]
         },
         "time": {
             "description": "When in AUX `gpio` mode, and if `count` is enabled on an AUX pin, the time that counting started.",
-            "type": "integer"
-        },
-        "seconds": {
-            "description": "When in AUX `gpio` mode, and if `count` is enabled on an AUX pin, the number of seconds per sample.",
-            "type": "integer"
-        },
-        "power": {
-            "description": "If `true`, indicates the Notecard has USB (main) power. This parameter only appears in the body of the Note in Notehub if using `\"sync\":true`.",
-            "type": "boolean",
-            "minApiVersion": "3.3.1"
+            "type": "integer",
+            "format": "unix-time"
         }
     },
     "samples": [

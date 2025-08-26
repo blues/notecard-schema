@@ -13,12 +13,12 @@
         "WIFI"
     ],
     "properties": {
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.status"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.status"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.status"
         }
     },

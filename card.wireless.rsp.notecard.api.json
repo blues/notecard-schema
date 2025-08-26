@@ -12,10 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "status": {
-            "description": "The current status of the wireless connection and modem.",
-            "type": "string"
-        },
         "count": {
             "description": "Number of bars of signal quality.",
             "type": "integer"
@@ -94,6 +90,10 @@
                 }
             },
             "additionalProperties": false
+        },
+        "status": {
+            "description": "The current status of the wireless connection and modem.",
+            "type": "string"
         }
     },
     "additionalProperties": false,

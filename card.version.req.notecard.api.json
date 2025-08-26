@@ -18,12 +18,12 @@
             "type": "integer",
             "deprecated": true
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.version"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.version"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.version"
         }
     },

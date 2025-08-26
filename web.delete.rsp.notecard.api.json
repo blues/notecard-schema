@@ -12,10 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "result": {
-            "description": "The HTTP Status Code",
-            "type": "integer"
-        },
         "body": {
             "description": "The JSON response body from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "object"
@@ -24,6 +20,10 @@
             "description": "A base64-encoded binary payload from the external service, if any. The maximum response size from the service is 8192 bytes.",
             "type": "string",
             "contentEncoding": "base64"
+        },
+        "result": {
+            "description": "The HTTP Status Code",
+            "type": "integer"
         },
         "status": {
             "description": "If a `payload` is returned in the response, this is a 32-character hex-encoded MD5 sum of the payload or payload fragment. Useful for the host to check for any I2C/UART corruption.",

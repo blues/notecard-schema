@@ -303,7 +303,7 @@
         },
         {
             "title": "Web Transaction Control",
-            "description": "Temporarily switch to continuous mode for web transaction.",
+            "description": "Temporarily switch to continuous mode for web transactions.",
             "json": "{\"req\": \"hub.set\", \"on\": true, \"seconds\": 300}"
         }
     ]

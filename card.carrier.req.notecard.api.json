@@ -21,12 +21,12 @@
                 "off"
             ]
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.carrier"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.carrier"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.carrier"
         }
     },

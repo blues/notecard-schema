@@ -11,20 +11,20 @@
         "WIFI"
     ],
     "properties": {
-        "ssid": {
-            "description": "The SSID of the Wi-Fi access point. Alternatively, use `-` to clear an already set SSID.",
-            "type": "string"
-        },
-        "password": {
-            "description": "The network password of the Wi-Fi access point. Alternatively, use `-` to clear an already set password or to connect to an open access point.",
-            "type": "string"
-        },
         "name": {
             "description": "By default, the Notecard creates a SoftAP (software enabled access point) under the name \"Notecard\". You can use the `name` argument to change the name of the SoftAP to a custom name.\n\nIf you include a `-` at the end of the `name` (for example `\"name\": \"acme-\"`), the Notecard will append the last four digits of the network's MAC address (for example `acme-025c`). This allows you to distinguish between multiple Notecards in SoftAP mode.",
             "type": "string"
         },
         "org": {
             "description": "If specified, replaces the Blues logo on the SoftAP page with the provided name.",
+            "type": "string"
+        },
+        "password": {
+            "description": "The network password of the Wi-Fi access point. Alternatively, use `-` to clear an already set password or to connect to an open access point.",
+            "type": "string"
+        },
+        "ssid": {
+            "description": "The SSID of the Wi-Fi access point. Alternatively, use `-` to clear an already set SSID.",
             "type": "string"
         },
         "start": {
@@ -36,12 +36,12 @@
             "type": "string",
             "minApiVersion": "7.5.1"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.wifi"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.wifi"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.wifi"
         }
     },

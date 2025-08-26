@@ -12,6 +12,10 @@
         "WIFI"
     ],
     "properties": {
+        "err": {
+            "description": "If `err` text is provided along with `\"stop\":true`, this sets the host DFU to an error state with the specified string.",
+            "type": "string"
+        },
         "name": {
             "description": "Determines which type of firmware update status to view. The value can be `\"user\"` (default), which gets the status of MCU host firmware updates, or `\"card\"`, which gets the status of Notecard firmware updates.",
             "type": "string",
@@ -30,13 +34,21 @@
                 }
             ]
         },
-        "stop": {
-            "description": "`true` to clear DFU state and delete the local firmware image from the Notecard.",
+        "off": {
+            "description": "`true` to disable firmware downloads from Notehub.",
+            "type": "boolean"
+        },
+        "on": {
+            "description": "`true` to allow firmware downloads from Notehub.",
             "type": "boolean"
         },
         "status": {
             "description": "When setting `stop` to `true`, an optional string synchronized to Notehub, which can be used for informational or diagnostic purposes.",
             "type": "string"
+        },
+        "stop": {
+            "description": "`true` to clear DFU state and delete the local firmware image from the Notecard.",
+            "type": "boolean"
         },
         "version": {
             "description": "Version information on the host firmware to pass to Notehub. You may pass a simple version number string (e.g. `\"1.0.0.0\"`), or an object with detailed information about the firmware image (recommended).\n\nIf you provide an object it must take the following form.\n\n`{\"org\":\"my-organization\",\"product\":\"My Product\",\"description\":\"A description of the image\",\"version\":\"1.2.4\",\"built\":\"Jan 01 2025 01:02:03\",\"ver_major\":1,\"ver_minor\":2,\"ver_patch\":4,\"ver_build\": 5,\"builder\":\"The Builder\"}`\n\nCode to help you generate a version with the correct formatting is available in [Enabling Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update/#enabling-notecard-outboard-firmware-update).",
@@ -49,24 +61,12 @@
             "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled. Use a boolean `1` (on) or `0` (off) for each source/voltage level: `usb:<1/0>;high:<1/0>;normal:<1/0>;low:<1/0>;dead:0`.",
             "type": "string"
         },
-        "on": {
-            "description": "`true` to allow firmware downloads from Notehub.",
-            "type": "boolean"
-        },
-        "off": {
-            "description": "`true` to disable firmware downloads from Notehub.",
-            "type": "boolean"
-        },
-        "err": {
-            "description": "If `err` text is provided along with `\"stop\":true`, this sets the host DFU to an error state with the specified string.",
-            "type": "string"
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "dfu.status"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
-            "const": "dfu.status"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
             "const": "dfu.status"
         }
     },

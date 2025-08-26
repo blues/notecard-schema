@@ -20,12 +20,12 @@
             "description": "The offset to use before performing a read of firmware data.",
             "type": "integer"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "dfu.get"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "dfu.get"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "dfu.get"
         }
     },

@@ -11,6 +11,22 @@
         "WIFI"
     ],
     "properties": {
+        "file": {
+            "description": "The tracking Notefile, if provided.",
+            "type": "string"
+        },
+        "heartbeat": {
+            "description": "`true` if heartbeat is enabled.",
+            "type": "boolean"
+        },
+        "minutes": {
+            "description": "The `heartbeat` interval in minutes, if provided.",
+            "type": "integer"
+        },
+        "seconds": {
+            "description": "If tracking is enabled and a heartbeat `hours` value is not set, the tracking interval set in `card.location.mode`.",
+            "type": "integer"
+        },
         "start": {
             "description": "`true` if tracking is enabled.",
             "type": "boolean"
@@ -18,22 +34,6 @@
         "stop": {
             "description": "`true` if tracking is disabled.",
             "type": "boolean"
-        },
-        "heartbeat": {
-            "description": "`true` if heartbeat is enabled.",
-            "type": "boolean"
-        },
-        "seconds": {
-            "description": "If tracking is enabled and a heartbeat `hours` value is not set, the tracking interval set in `card.location.mode`.",
-            "type": "integer"
-        },
-        "minutes": {
-            "description": "The `heartbeat` interval in minutes, if provided.",
-            "type": "integer"
-        },
-        "file": {
-            "description": "The tracking Notefile, if provided.",
-            "type": "string"
         }
     },
     "samples": [

@@ -12,13 +12,8 @@
         "WIFI"
     ],
     "properties": {
-        "motion": {
-            "description": "Time of last detected Notecard movement.",
-            "type": "integer",
-            "minimum": 0
-        },
-        "time": {
-            "description": "Time of last triangulation scan.",
+        "length": {
+            "description": "The length of the `text` buffer provided in the current or a previous request.",
             "type": "integer",
             "minimum": 0
         },
@@ -26,18 +21,23 @@
             "description": "A comma-separated list indicating the active triangulation modes.",
             "type": "string"
         },
+        "motion": {
+            "description": "Time of last detected Notecard movement.",
+            "type": "integer",
+            "minimum": 0
+        },
         "on": {
             "description": "`true` if triangulation scans will be performed even if the device has not moved.",
             "type": "boolean"
         },
+        "time": {
+            "description": "Time of last triangulation scan.",
+            "type": "integer",
+            "minimum": 0
+        },
         "usb": {
             "description": "`true` if triangulation scans will be performed only when the device is USB-powered.",
             "type": "boolean"
-        },
-        "length": {
-            "description": "The length of the `text` buffer provided in the current or a previous request.",
-            "type": "integer",
-            "minimum": 0
         }
     },
     "additionalProperties": false,

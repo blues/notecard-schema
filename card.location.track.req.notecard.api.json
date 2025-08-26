@@ -12,9 +12,10 @@
         "WIFI"
     ],
     "properties": {
-        "start": {
-            "description": "Set to `true` to start Notefile tracking.",
-            "type": "boolean"
+        "file": {
+            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's documentation for details on the format of the data captured.",
+            "type": "string",
+            "default": "_track.qo"
         },
         "heartbeat": {
             "description": "When `start` is `true`, set to `true` to enable tracking even when motion is not detected. If using `heartbeat`, also set the `hours` below.",
@@ -24,31 +25,30 @@
             "description": "If `heartbeat` is true, add a heartbeat entry at this hourly interval. Use a negative integer to specify a heartbeat in minutes instead of hours.",
             "type": "integer"
         },
-        "sync": {
-            "description": "Set to `true` to perform an immediate sync to the Notehub each time a new Note is added.",
-            "type": "boolean"
-        },
-        "stop": {
-            "description": "Set to `true` to stop Notefile tracking.",
-            "type": "boolean"
-        },
-        "file": {
-            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's documentation for details on the format of the data captured.",
-            "type": "string",
-            "default": "_track.qo"
-        },
         "payload": {
             "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
             "type": "string",
             "contentEncoding": "base64",
             "minApiVersion": "7.5.2"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.location.track"
+        "start": {
+            "description": "Set to `true` to start Notefile tracking.",
+            "type": "boolean"
+        },
+        "stop": {
+            "description": "Set to `true` to stop Notefile tracking.",
+            "type": "boolean"
+        },
+        "sync": {
+            "description": "Set to `true` to perform an immediate sync to the Notehub each time a new Note is added.",
+            "type": "boolean"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.location.track"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.location.track"
         }
     },

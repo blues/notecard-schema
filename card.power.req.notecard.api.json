@@ -22,12 +22,12 @@
             "description": "Set to `true` to reset the power consumption counters back to 0.",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.power"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.power"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.power"
         }
     },

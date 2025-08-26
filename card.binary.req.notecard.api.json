@@ -17,12 +17,12 @@
             "description": "Clear the COBS area on the Notecard and reset all related arguments previously set by a card.binary request.",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.binary"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.binary"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.binary"
         }
     },

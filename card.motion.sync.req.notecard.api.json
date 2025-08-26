@@ -12,6 +12,14 @@
         "WIFI"
     ],
     "properties": {
+        "count": {
+            "description": "The number of most recent motion buckets to examine.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "The maximum frequency at which sync will be triggered. Even if a `threshold` is set and exceeded, there will only be a single sync for this amount of time.",
+            "type": "integer"
+        },
         "start": {
             "description": "`true` to start motion-triggered syncing.",
             "type": "boolean"
@@ -20,24 +28,16 @@
             "description": "`true` to stop motion-triggered syncing.",
             "type": "boolean"
         },
-        "minutes": {
-            "description": "The maximum frequency at which sync will be triggered. Even if a `threshold` is set and exceeded, there will only be a single sync for this amount of time.",
-            "type": "integer"
-        },
-        "count": {
-            "description": "The number of most recent motion buckets to examine.",
-            "type": "integer"
-        },
         "threshold": {
             "description": "The number of buckets that must indicate motion in order to trigger a sync. If set to `0`, the Notecard will only perform a sync when its orientation changes.",
             "type": "integer"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.motion.sync"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.motion.sync"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.motion.sync"
         }
     },

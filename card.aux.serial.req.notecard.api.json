@@ -12,6 +12,23 @@
         "WIFI"
     ],
     "properties": {
+        "duration": {
+            "description": "If using `\"mode\": \"accel\"`, specify a sampling duration for the Notecard accelerometer.",
+            "type": "integer"
+        },
+        "limit": {
+            "description": "If `true`, along with `\"mode\":\"gps\"` the Notecard will disable concurrent modem use during GPS tracking.",
+            "type": "boolean"
+        },
+        "max": {
+            "description": "The maximum amount of data to send per session, in bytes. This is typically set to the size of the receive buffer on the host minus `1`. For example, `note-arduino` uses a buffer size of `(SERIAL_RX_BUFFER_SIZE - 1)`.",
+            "type": "integer"
+        },
+        "minutes": {
+            "description": "When using `\"mode\": \"notify,dfu\"`, specify an interval for notifying the host.",
+            "type": "integer",
+            "minApiVersion": "5.1.1"
+        },
         "mode": {
             "description": "The AUX mode. Must be one of the following:",
             "type": "string",
@@ -23,11 +40,11 @@
                 },
                 {
                     "const": "gps",
-                    "description": "Use an external GPS/GNSS module on the AUX pins."
+                    "description": "Use an external GPS/GNSS module on the AUX pins. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-serial-gps-mode)."
                 },
                 {
                     "const": "notify",
-                    "description": "Used along with one or more of the options below to send streaming data or notification data over the AUX pins. When used alone, preserves existing notification settings."
+                    "description": "Used along with one or more of the `notify` options to send streaming data or notification data over the AUX pins. When used alone, preserves existing notification settings."
                 },
                 {
                     "const": "notify,accel",
@@ -47,8 +64,8 @@
                 }
             ]
         },
-        "duration": {
-            "description": "If using `\"mode\": \"accel\"`, specify a sampling duration for the Notecard accelerometer.",
+        "ms": {
+            "description": "The delay in milliseconds before sending a buffer of `max` size.",
             "type": "integer"
         },
         "rate": {
@@ -56,31 +73,14 @@
             "type": "integer",
             "minApiVersion": "4.1.1"
         },
-        "limit": {
-            "description": "If `true`, along with `\"mode\":\"gps\"` the Notecard will disable concurrent modem use during GPS tracking.",
-            "type": "boolean"
-        },
-        "max": {
-            "description": "The maximum amount of data to send per session, in bytes. This is typically set to the size of the receive buffer on the host minus `1`. For example, `note-arduino` uses a buffer size of `(SERIAL_RX_BUFFER_SIZE - 1)`.",
-            "type": "integer"
-        },
-        "ms": {
-            "description": "The delay in milliseconds before sending a buffer of `max` size.",
-            "type": "integer"
-        },
-        "minutes": {
-            "description": "When using `\"mode\": \"notify,dfu\"`, specify an interval for notifying the host.",
-            "type": "integer",
-            "minApiVersion": "5.1.1"
-        },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.aux.serial"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "card.aux.serial",
             "minApiVersion": "3.4.1"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "card.aux.serial"
         }
     },
     "oneOf": [
@@ -110,16 +110,12 @@
         {
             "title": "note",
             "description": "Utilizing these pins requires a physical connection to each pin, separate from a connection to the Notecard's serial data interfaces. See [this guide](/guides-and-tutorials/notecard-guides/debugging-with-the-ftdi-debug-cable/) for an example of connecting to the Notecard AUX pins using an FTDI cable."
-        },
-        {
-            "title": "info",
-            "description": "Use an external GPS/GNSS module connected to the AUX pins. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-serial-gps-mode)."
         }
     ],
     "samples": [
         {
             "title": "Enable GPS Mode",
-            "description": "Configure AUX serial for external GPS communication.",
+            "description": "Configure AUX serial for external GPS communication. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-serial-gps-mode).",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"gps\"}"
         },
         {

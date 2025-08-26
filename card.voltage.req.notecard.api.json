@@ -13,6 +13,17 @@
         "WIFI"
     ],
     "properties": {
+        "alert": {
+            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `health.qo` Notefile when USB power is connected or disconnected.",
+            "type": "boolean",
+            "default": false
+        },
+        "calibration": {
+            "description": "The offset, in volts, to account for the forward voltage drop of the diode used between the battery and Notecard in either Blues- or customer-designed Notecarriers.",
+            "type": "number",
+            "default": 0.35,
+            "minApiVersion": "7.2.2"
+        },
         "hours": {
             "description": "The number of hours to analyze, up to 720 (30 days).",
             "type": "integer",
@@ -20,7 +31,7 @@
             "maximum": 720
         },
         "mode": {
-            "description": "Used to set voltage thresholds based on how the Notecard will be powered.\n\n**NOTE:** Setting voltage thresholds is not supported on the Notecard XP.",
+            "description": "Used to set voltage thresholds based on how the Notecard will be powered, and which can be used to [configure voltage-variable Notecard behavior](/notecard/notecard-walkthrough/low-power-design#low-power-design). Each value is shorthand that assigns a battery voltage reading to a given device state like `high`, `normal`, `low`, and `dead`.\n\n**NOTE:** Setting voltage thresholds is not supported on the Notecard XP.",
             "type": "string",
             "enum": [
                 "default",
@@ -31,6 +42,7 @@
                 "lic",
                 "?"
             ],
+            "default": "default",
             "sub-descriptions": [
                 {
                     "const": "default",
@@ -62,10 +74,30 @@
                 }
             ]
         },
+        "name": {
+            "description": "Specifies an environment variable to override application default timing values.",
+            "type": "string"
+        },
         "offset": {
             "description": "Number of hours to move into the past before starting analysis.",
             "type": "integer",
             "default": 0
+        },
+        "set": {
+            "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",
+            "type": "boolean",
+            "default": false
+        },
+        "sync": {
+            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will perform a sync when USB power is connected or disconnected.",
+            "type": "boolean",
+            "default": false
+        },
+        "usb": {
+            "description": "When enabled, the Notecard will monitor for changes to USB power state.",
+            "type": "boolean",
+            "default": false,
+            "minApiVersion": "3.5.1"
         },
         "vmax": {
             "description": "Ignore voltage readings above this level when performing calculations.",
@@ -77,43 +109,12 @@
             "type": "number",
             "default": 2.5
         },
-        "name": {
-            "description": "Specifies an environment variable to override application default timing values.",
-            "type": "string"
-        },
-        "usb": {
-            "description": "When enabled, the Notecard will monitor for changes to USB power state.",
-            "type": "boolean",
-            "default": false,
-            "minApiVersion": "3.5.1"
-        },
-        "alert": {
-            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `health.qo` Notefile when USB power is connected or disconnected.",
-            "type": "boolean",
-            "default": false
-        },
-        "sync": {
-            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will perform a sync when USB power is connected or disconnected.",
-            "type": "boolean",
-            "default": false
-        },
-        "calibration": {
-            "description": "The offset, in volts, to account for the forward voltage drop of the diode used between the battery and Notecard in either Blues- or customer-designed Notecarriers.",
-            "type": "number",
-            "default": 0.35,
-            "minApiVersion": "7.2.2"
-        },
-        "set": {
-            "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",
-            "type": "boolean",
-            "default": false
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "card.voltage"
         },
         "cmd": {
             "description": "Command for the Notecard (no response)",
-            "const": "card.voltage"
-        },
-        "req": {
-            "description": "Request for the Notecard (expects response)",
             "const": "card.voltage"
         }
     },

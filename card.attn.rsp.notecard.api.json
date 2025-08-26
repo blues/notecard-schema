@@ -6,10 +6,6 @@
     "version": "0.2.1",
     "apiVersion": "9.1.1",
     "properties": {
-        "set": {
-            "description": "Reflects the state of the attention pin. The `set` field is `true` when the attention pin is `HIGH`, otherwise the `set` field will not be present when the attention pin is `LOW`.",
-            "type": "boolean"
-        },
         "files": {
             "description": "A list of files changed since `file` attention mode was set. In addition, this field will include keywords to signify the occurrence of other attention mode triggers:",
             "type": "array",
@@ -41,19 +37,23 @@
             ],
             "minItems": 1
         },
+        "off": {
+            "description": "This field is present and set to `true` if ATTN processing has been disabled with the `off` argument.",
+            "type": "boolean",
+            "minApiVersion": "7.2.1"
+        },
         "payload": {
             "description": "When using `sleep` mode with a `payload`, the payload provided by the host to the Notecard.",
             "type": "string",
             "contentEncoding": "base64"
         },
+        "set": {
+            "description": "Reflects the state of the attention pin. The `set` field is `true` when the attention pin is `HIGH`, otherwise the `set` field will not be present when the attention pin is `LOW`.",
+            "type": "boolean"
+        },
         "time": {
             "description": "When using `sleep` mode with a `payload`, the time (UNIX Epoch time) that the payload was stored by the Notecard.",
             "type": "integer"
-        },
-        "off": {
-            "description": "This field is present and set to `true` if ATTN processing has been disabled with the `off` argument.",
-            "type": "boolean",
-            "minApiVersion": "7.2.1"
         }
     },
     "samples": [

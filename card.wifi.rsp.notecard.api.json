@@ -15,16 +15,16 @@
             "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",
             "type": "boolean"
         },
-        "version": {
-            "description": "The Silicon Labs WF200 Wi-Fi Transceiver binary version.",
+        "security": {
+            "description": "The security protocol the Wi-Fi access point uses.",
             "type": "string"
         },
         "ssid": {
             "description": "The SSID of the Wi-Fi access point.",
             "type": "string"
         },
-        "security": {
-            "description": "The security protocol the Wi-Fi access point uses.",
+        "version": {
+            "description": "The Silicon Labs WF200 Wi-Fi Transceiver binary version.",
             "type": "string"
         }
     },

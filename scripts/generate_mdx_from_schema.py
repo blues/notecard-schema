@@ -191,11 +191,15 @@ def generate_arguments_mdx(properties, schema_data):
         # Add default value if present
         default_value = prop_details.get("default")
         if default_value is not None:
-            # Format default value with backticks for strings
-            if isinstance(default_value, str):
+            # Format all default values with backticks
+            if isinstance(default_value, bool):
+                # Use lowercase boolean values in backticks
+                formatted_default = f"`{str(default_value).lower()}`"
+            elif isinstance(default_value, str):
                 formatted_default = f"`{default_value}`"
             else:
-                formatted_default = str(default_value)
+                # All other types (int, float, etc.) in backticks
+                formatted_default = f"`{str(default_value)}`"
 
             if optional_tag:
                 # Replace " (optional)" with " (optional, default X)"
@@ -266,11 +270,20 @@ def generate_mode_sub_descriptions(sub_descriptions):
     sub_desc_parts = []
 
     for sub_desc in sub_descriptions:
-        const_value = sub_desc.get("const", "")
+        const_value = sub_desc.get("const")
+        pattern_value = sub_desc.get("pattern")
         description = sub_desc.get("description", "")
         skus = sub_desc.get("skus", [])
         min_version = sub_desc.get("minApiVersion")
         is_deprecated = sub_desc.get("deprecated", False)
+
+        # Skip sub-descriptions that have pattern fields - these are handled differently in the main description
+        if pattern_value and not const_value:
+            continue
+
+        # Skip if we don't have a const value to display
+        if const_value is None:
+            continue
 
         badges = generate_argument_badges(skus)
 

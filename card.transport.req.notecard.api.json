@@ -12,6 +12,12 @@
         "WIFI"
     ],
     "properties": {
+        "allow": {
+            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "type": "boolean",
+            "default": false,
+            "minApiVersion": "7.2.1"
+        },
         "method": {
             "description": "The connectivity method to enable on the Notecard.",
             "type": "string",
@@ -108,24 +114,18 @@
             "default": 3600,
             "minApiVersion": "5.3.1"
         },
-        "allow": {
-            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
-            "type": "boolean",
-            "default": false,
-            "minApiVersion": "7.2.1"
-        },
         "umin": {
             "description": "Set to `true` to force a longer network transport timeout when using Wideband Notecards.",
             "type": "boolean",
             "default": false,
             "minApiVersion": "9.1.1"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.transport"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.transport"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.transport"
         }
     },

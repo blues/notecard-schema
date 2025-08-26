@@ -29,12 +29,12 @@
             "description": "If set to `true`, the Notecard will immediately sync any pending `_temp.qo` Notes created with the `minutes` parameter (see above).",
             "type": "boolean"
         },
-        "cmd": {
-            "description": "Command for the Notecard (no response)",
-            "const": "card.temp"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
+            "const": "card.temp"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
             "const": "card.temp"
         }
     },

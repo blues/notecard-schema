@@ -9,6 +9,7 @@ jsonschema = "*"
 requests = "*"
 mkdocs = "*"
 mkdocs-llmstxt = "*"
+referencing = "*"
 
 [requires]
 python_version = "3.13"

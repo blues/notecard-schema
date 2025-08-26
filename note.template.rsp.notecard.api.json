@@ -12,27 +12,27 @@
         "WIFI"
     ],
     "properties": {
-        "bytes": {
-            "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
-            "type": "integer"
-        },
-        "template": {
-            "description": "`true` if an active template exists on the Notefile.",
-            "type": "boolean",
-            "minApiVersion": "3.2.1"
-        },
         "body": {
             "description": "If the `verify` argument is provided and the Notefile has an active template, the template `body`.",
             "type": "object"
         },
-        "length": {
-            "description": "If the `verify` argument is provided and the Notefile has an active template with a payload, the payload length.",
+        "bytes": {
+            "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
             "type": "integer"
         },
         "format": {
             "description": "If the `format` argument is provided, this represents the format applied to the template.",
             "type": "string",
             "minApiVersion": "6.2.3"
+        },
+        "length": {
+            "description": "If the `verify` argument is provided and the Notefile has an active template with a payload, the payload length.",
+            "type": "integer"
+        },
+        "template": {
+            "description": "`true` if an active template exists on the Notefile.",
+            "type": "boolean",
+            "minApiVersion": "3.2.1"
         }
     },
     "additionalProperties": false,

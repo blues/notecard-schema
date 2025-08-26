@@ -64,17 +64,17 @@
     "samples": [
         {
             "title": "Delete Note from DB Notefile",
-            "description": "Delete a specific note by ID from a database Notefile.",
+            "description": "Delete a specific Note by ID from a database Notefile.",
             "json": "{\"req\": \"note.delete\", \"file\": \"my-settings.db\", \"note\": \"measurements\"}"
         },
         {
             "title": "Delete Note with Verification",
-            "description": "Delete a note and write to flash immediately for templated Notefile.",
+            "description": "Delete a Note and write to flash immediately for a templated Notefile.",
             "json": "{\"req\": \"note.delete\", \"file\": \"config.db\", \"note\": \"display-settings\", \"verify\": true}"
         },
         {
             "title": "Delete Note with Command",
-            "description": "Delete a note using command syntax (no response expected).",
+            "description": "Delete a Note using command syntax (no response expected).",
             "json": "{\"cmd\": \"note.delete\", \"file\": \"temp-data.db\", \"note\": \"sensor-reading\"}"
         }
     ]
