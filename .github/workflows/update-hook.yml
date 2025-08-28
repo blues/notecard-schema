@@ -1,0 +1,27 @@
+name: Trigger update schema workflow for downstream repos
+on:
+  release:
+    types: [published, created]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: 'Reason for manual trigger'
+        required: false
+        default: 'Manual trigger'
+
+jobs:
+  trigger-downstream:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        downstream_repo:
+          - blues/note-python
+      fail-fast: false
+    steps:
+      - name: Trigger update schema workflow for ${{ matrix.downstream_repo }}
+        run: |
+          echo "${{ secrets.DOWNSTREAM_REPO_TOKEN }}" | gh auth login --with-token
+
+          gh workflow run update-notecard-schema.yml \
+            --repo ${{ matrix.downstream_repo }} \
+            --field upstream_commit="${{ github.sha }}" \
