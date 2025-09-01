@@ -26,16 +26,22 @@ def create_request_schema_template(api_name: str) -> Dict[str, Any]:
         "title": f"{api_name} Request Application Programming Interface (API) Schema",
         "description": f"Request schema for {api_name} API command.",
         "type": "object",
-        "skus": ["CELL","CELL+WIFI","WIFI","LORA"],
-        "version": "0.1.1",
+        "version": "0.2.1",
         "apiVersion": "9.1.1",
+        "skus": [
+            "CELL",
+            "CELL+WIFI",
+            "WIFI",
+            "LORA"
+        ],
         "properties": {
-            "cmd": {
-                "description": "Command for the Notecard (no response)",
-                "const": api_name
-            },
+            # Add API-specific properties here - customize as needed
             "req": {
                 "description": "Request for the Notecard (expects response)",
+                "const": api_name
+            },
+            "cmd": {
+                "description": "Command for the Notecard (no response)",
                 "const": api_name
             }
         },
@@ -60,6 +66,7 @@ def create_request_schema_template(api_name: str) -> Dict[str, Any]:
         "additionalProperties": False,
         "samples": [
             {
+                "title": f"Basic {api_name} Request",
                 "description": f"Basic {api_name} request.",
                 "json": f'{{\"req\":\"{api_name}\"}}'
             }
@@ -80,10 +87,16 @@ def create_response_schema_template(api_name: str) -> Dict[str, Any]:
         "$id": f"https://raw.githubusercontent.com/blues/notecard-schema/master/{api_name}.rsp.notecard.api.json",
         "title": f"{api_name} Response Application Programming Interface (API) Schema",
         "type": "object",
-        "version": "0.1.1",
+        "version": "0.2.1",
         "apiVersion": "9.1.1",
+        "skus": [
+            "CELL",
+            "CELL+WIFI",
+            "WIFI",
+            "LORA"
+        ],
         "properties": {
-            # Add sample properties - users can customize these
+            # Add API-specific properties here - customize as needed
             "status": {
                 "description": "Status of the operation",
                 "type": "string"
@@ -91,6 +104,7 @@ def create_response_schema_template(api_name: str) -> Dict[str, Any]:
         },
         "samples": [
             {
+                "title": f"Basic {api_name} Response",
                 "description": f"Basic {api_name} response.",
                 "json": '{"status": "success"}'
             }
@@ -276,9 +290,18 @@ def create_files(api_name: str) -> None:
     print(f"\n✅ Successfully created API templates for '{api_name}'!")
     print(f"\nNext steps:")
     print(f"1. Edit {api_name}.req.notecard.api.json to add specific request properties")
+    print(f"   - Follow field order: $schema, $id, title, description, type, version, apiVersion, skus, properties, oneOf, additionalProperties, allOf (if needed), annotations, samples")
+    print(f"   - Add minApiVersion to properties that require specific API versions")
+    print(f"   - Add sub-descriptions for enum values")
+    print(f"   - Add parameter-level SKUs where applicable")
+    print(f"   - Add deprecated: true for deprecated parameters")
     print(f"2. Edit {api_name}.rsp.notecard.api.json to add specific response properties")
+    print(f"   - Follow same field ordering conventions")
+    print(f"   - Include sub-descriptions for complex response structures")
     print(f"3. Update the test files to match your schema properties")
-    print(f"4. Run 'pytest tests/test_{test_name}_*.py' to verify your schemas")
+    print(f"4. Run 'pipenv run pytest tests/test_{test_name}_*.py -v' to verify your schemas")
+    print(f"5. Ensure all sample JSON in schemas validates against the schema")
+    print(f"6. Verify descriptions match official API documentation exactly")
 
 
 def main():
