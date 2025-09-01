@@ -6,6 +6,7 @@
     "type": "object",
     "version": "0.2.1",
     "apiVersion": "9.1.1",
+    "minApiVersion": "3.4.1",
     "skus": [
         "CELL",
         "CELL+WIFI",
