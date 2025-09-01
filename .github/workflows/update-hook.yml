@@ -16,6 +16,7 @@ jobs:
       matrix:
         downstream_repo:
           - blues/note-python
+          - blues/blues.dev
       fail-fast: false
     steps:
       - name: Trigger update schema workflow for ${{ matrix.downstream_repo }}
