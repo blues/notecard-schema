@@ -2,14 +2,48 @@
 
 This repository contains the JSON schemas for the Notecard API.
 
+## Table of Contents
+
+- [Notecard API Schema](#notecard-api-schema)
+  - [Table of Contents](#table-of-contents)
+  - [Development](#development)
+  - [Adding a new schema](#adding-a-new-schema)
+    - [Custom Fields](#custom-fields)
+      - [`annotations`](#annotations)
+      - [`deprecated`](#deprecated)
+      - [`minApiVersion`](#minapiversion)
+      - [`samples`](#samples)
+      - [`skus`](#skus)
+      - [`sub-descriptions`](#sub-descriptions)
+  - [Updating the schema version](#updating-the-schema-version)
+  - [Running the tests](#running-the-tests)
+
+## Development
+
+- Python 3.12+
+- `pipenv`
+
+```bash
+pipenv install --dev
+pipenv run pytest
+```
+
 ## Adding a new schema
 
-1. Create a new `.json` file in this directory. This should follow the Notecard
-API naming convention, e.g. `card.aux.req.notecard.api.json`.
+Use the `scripts/create_api.py` script to create a new schema.
 
-2. Add a test suite for the schema in the `tests` directory.
+```bash
+# Example for card.example
+pipenv run python scripts/create_api.py card.example
+```
 
-3. Add the schema to the `notecard.api.json` index file.
+This will create a new schema file with the necessary metadata and a basic structure that you can then fill in with the specific details of the API request or response.
+
+1. This will create the `card.example.req.notecard.api.json` and `card.example.rsp.notecard.api.json` schemas.
+
+2. Additionally, the script will create a test suite for both the request and response schemas in the `tests` directory.
+
+3. Update these schemas with the specific details of the new API request or response.
 
 ### Custom Fields
 
@@ -39,9 +73,43 @@ Example shown from `hub.signal`:
 ]
 ```
 
+#### `deprecated`
+
+A boolean indicating if the API is deprecated.
+
+Example shown from `card.attn`:
+
+```json
+"deprecated": true
+```
+
+#### `minApiVersion`
+
+A string indicating the minimum API version that the API is compatible with.
+This can be applied at the top level of the schema, at the level of a specific property, or at the level of a specific sub-description.
+When this generates blues.dev documentation, the version dropdown will hide any content that is below the specified version.
+
+Example shown from `auxgpio` in `card.attn`:
+
+```json
+{
+    "const": "auxgpio",
+    "description": "When armed, causes ATTN to fire if an AUX GPIO input changes. Disable by using `-auxgpio`.",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
+    "minApiVersion": "3.4.1"
+},
+```
+
 #### `samples`
 
 An array of objects representing each of the JSON examples provided.
+All `req` schemas must have a sample.
+For `rsp` schemas, samples are optional if there is no response body.
 
 Example shown from `card.attn`:
 
@@ -76,7 +144,8 @@ An array indicating Notecard compatibility at both the API and parameter level.
 
 Some APIs and parameters are reserved for specific Notecard SKUs (e.g.
 `card.wifi` is used to configure the Wi-Fi connectivity of Wi-Fi compatible
-Notecards). All APIs and parameters are considered valid by ALL Notecards,
+Notecards).
+All APIs and parameters are considered valid by ALL Notecards,
 however, they will be discarded when provided to an incompatible SKU.
 
 Example shown from `card.transport`:
@@ -144,7 +213,8 @@ An array of objects providing a detailed description of enumerated or pattern
 matching values.
 
 It can be difficult, or even impossible, to provide a description for enumerated
-or pattern matching values. In such cases, an additional object can be useful to
+or pattern matching values.
+In such cases, an additional object can be useful to
 provide a description and other details for each of the valid values.
 
 Example shown from `card.attn`:
