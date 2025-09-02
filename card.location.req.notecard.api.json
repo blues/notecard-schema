@@ -4,7 +4,7 @@
     "title": "card.location Request Application Programming Interface (API) Schema",
     "description": "Retrieves the last known location of the Notecard and the time at which it was acquired. Use [card.location.mode](/api-reference/notecard-api/card-requests#card-location-mode) to configure location settings.\n\nThis request will return the cell tower location or triangulated location of the most recent session if a GPS/GNSS location is not available.\n\nOn Notecard LoRa this request can only return a location set through the [card.location.mode](/api-reference/notecard-api/card-requests#card-location-mode) request's `\"fixed\"` mode.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -4,7 +4,7 @@
     "title": "var.set Request Application Programming Interface (API) Schema",
     "description": "Adds or updates a Note in a **DB Notefile**, replacing the existing body with the specified key-value pair where text, value, or flag is the key. Provides a simpler interface to the [note.update](/api-reference/notecard-api/note-requests/latest/#note-update) API.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

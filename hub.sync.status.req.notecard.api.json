@@ -4,7 +4,7 @@
     "title": "hub.sync.status Request Application Programming Interface (API) Schema",
     "description": "Check on the status of a recently triggered or previous sync.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

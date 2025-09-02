@@ -4,7 +4,7 @@
     "title": "file.stats Request Application Programming Interface (API) Schema",
     "description": "Gets resource statistics about local Notefiles.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

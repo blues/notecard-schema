@@ -4,7 +4,7 @@
     "title": "card.location.mode Request Application Programming Interface (API) Schema",
     "description": "Sets location-related configuration settings. Retrieves the current location mode when passed with no argument.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

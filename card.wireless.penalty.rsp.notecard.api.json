@@ -4,7 +4,7 @@
     "title": "card.wireless.penalty Response Application Programming Interface (API) Schema",
     "description": "Response containing penalty box status information, including failure counts, duration, and current penalty conditions from the Notecard.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",
