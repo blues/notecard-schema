@@ -4,7 +4,7 @@
     "title": "card.io Request Application Programming Interface (API) Schema",
     "description": "Can be used to override the Notecard's I2C address from its default of `0x17` and change behaviors of the onboard LED and USB port.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "7.4.1",
     "skus": [

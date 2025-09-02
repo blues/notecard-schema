@@ -4,7 +4,7 @@
     "title": "file.clear Response Application Programming Interface (API) Schema",
     "description": "Response confirming the clearing of the specified Notefile.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "8.2.1",
     "skus": [

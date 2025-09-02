@@ -4,7 +4,7 @@
     "title": "web.delete Request Application Programming Interface (API) Schema",
     "description": "Performs a simple HTTP or HTTPS `DELETE` request against an external endpoint, and returns the response to the Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

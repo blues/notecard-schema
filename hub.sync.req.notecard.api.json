@@ -4,7 +4,7 @@
     "title": "hub.sync Request Application Programming Interface (API) Schema",
     "description": "Manually initiates a sync with Notehub.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

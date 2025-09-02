@@ -4,7 +4,7 @@
     "title": "card.contact Request Application Programming Interface (API) Schema",
     "description": "Used to set or retrieve information about the Notecard maintainer. Once set, this information is synced to Notehub.",
     "type": "object",
-    "version": "0.2.2",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

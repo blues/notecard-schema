@@ -4,7 +4,7 @@
     "title": "note.add Response Application Programming Interface (API) Schema",
     "description": "Response containing information about the added Note.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

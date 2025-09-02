@@ -4,7 +4,7 @@
     "title": "ntn.gps Response Application Programming Interface (API) Schema",
     "description": "Response indicating current Starnote GPS/GNSS location configuration.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [

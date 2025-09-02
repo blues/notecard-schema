@@ -4,7 +4,7 @@
     "title": "card.restore Response Application Programming Interface (API) Schema",
     "description": "Response from the Notecard factory reset command. The response is typically empty as the reset and restart occur immediately.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

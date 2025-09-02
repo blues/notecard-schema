@@ -4,7 +4,7 @@
     "title": "card.power Response Application Programming Interface (API) Schema",
     "description": "Response containing power consumption readings and environmental data from the Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "8.1.3",
     "skus": [

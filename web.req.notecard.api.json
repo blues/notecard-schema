@@ -4,7 +4,7 @@
     "title": "web Request Application Programming Interface (API) Schema",
     "description": "Performs an HTTP or HTTPS request against an external endpoint, with the ability to specify any valid HTTP method.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",
