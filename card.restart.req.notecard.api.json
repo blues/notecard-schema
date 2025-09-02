@@ -4,7 +4,7 @@
     "title": "card.restart Request Application Programming Interface (API) Schema",
     "description": "Performs a firmware restart of the Notecard.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

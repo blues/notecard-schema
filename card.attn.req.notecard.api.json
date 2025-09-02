@@ -4,7 +4,7 @@
     "title": "card.attn Request Application Programming Interface (API) Schema",
     "description": "Configure hardware notifications from a Notecard to a host MCU.\n\n_**NOTE:** Requires a connection between the Notecard ATTN pin and a GPIO pin on the host MCU._",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

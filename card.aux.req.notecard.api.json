@@ -4,7 +4,7 @@
     "title": "card.aux Request Application Programming Interface (API) Schema",
     "description": "Configure various uses of the general-purpose I/O (GPIO) pins `AUX1`-`AUX4` on the Notecard edge connector for tracking applications and simple GPIO sensing and counting tasks.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

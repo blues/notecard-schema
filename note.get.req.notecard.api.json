@@ -4,7 +4,7 @@
     "title": "note.get Request Application Programming Interface (API) Schema",
     "description": "Retrieves a Note from a Notefile. The file must either be a DB Notefile or inbound queue file (see `file` argument below).\n\n`.qo`/`.qos` Notes must be read from the Notehub event table using the [Notehub Event API](/api-reference/notehub-api/event-api/).",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

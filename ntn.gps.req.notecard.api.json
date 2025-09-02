@@ -4,7 +4,7 @@
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
     "description": "Determines whether a Notecard should override a paired Starnote's GPS/GNSS location with its own GPS/GNSS location. The paired Starnote uses its own GPS/GNSS location by default.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [

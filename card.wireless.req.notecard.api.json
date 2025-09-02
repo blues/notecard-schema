@@ -4,7 +4,7 @@
     "title": "card.wireless Request Application Programming Interface (API) Schema",
     "description": "View the last known network state, or customize the behavior of the modem. _Note: Be careful when using this mode with hardware not on hand as a mistake may cause loss of network and Notehub access._",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

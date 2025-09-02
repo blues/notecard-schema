@@ -4,7 +4,7 @@
     "title": "card.illumination Request Application Programming Interface (API) Schema",
     "description": "This request returns an illumination reading (in lux) from an OPT3001 ambient light sensor connected to Notecard's I2C bus. If no OPT3001 sensor is detected, this request returns an \u201cillumination sensor is not available\u201d error.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "minApiVersion": "9.1.1",
     "skus": [

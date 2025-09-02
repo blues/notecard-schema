@@ -4,7 +4,7 @@
     "title": "card.sleep Response Application Programming Interface (API) Schema",
     "description": "Response containing current sleep mode configuration for Notecard WiFi v2.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "WIFI"

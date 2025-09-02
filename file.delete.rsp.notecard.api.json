@@ -4,7 +4,7 @@
     "title": "file.delete Response Application Programming Interface (API) Schema",
     "description": "Response confirming the deletion of the specified Notefiles.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

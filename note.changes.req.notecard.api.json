@@ -4,7 +4,7 @@
     "title": "note.changes Request Application Programming Interface (API) Schema",
     "description": "Used to incrementally retrieve changes within a specific Notefile.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

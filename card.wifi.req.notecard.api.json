@@ -4,7 +4,7 @@
     "title": "card.wifi Request Application Programming Interface (API) Schema",
     "description": "Sets up a Notecard WiFi to connect to a Wi-Fi access point.",
     "type": "object",
-    "version": "1.0.0",
+    "version": "1.1.1",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL+WIFI",
