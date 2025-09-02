@@ -3,7 +3,7 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.binary.put.rsp.notecard.api.json",
     "title": "card.binary.put Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "5.3.1",
     "skus": [

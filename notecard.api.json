@@ -3,7 +3,7 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/notecard.api.json",
     "title": "Notecard API Schema",
     "description": "JSON description of the Notecard API",
-    "version": "0.1.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "oneOf": [
         {

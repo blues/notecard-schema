@@ -4,7 +4,7 @@
     "title": "ntn.status Request Application Programming Interface (API) Schema",
     "description": "Displays the current status of a Notecard's connection to a paired Starnote.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [

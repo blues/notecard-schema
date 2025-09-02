@@ -3,7 +3,7 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.template.rsp.notecard.api.json",
     "title": "note.template Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

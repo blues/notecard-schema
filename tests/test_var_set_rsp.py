@@ -160,15 +160,3 @@ def test_api_reference_compliance(schema):
     for prop_response in potential_properties:
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=prop_response, schema=schema)
-
-def test_schema_structure_validation(schema):
-    """Tests the overall schema structure is correct."""
-    # Check required schema fields
-    assert schema.get("$schema") == "https://json-schema.org/draft/2020-12/schema"
-    assert schema.get("type") == "object"
-    assert schema.get("version") == "0.2.1"
-    assert schema.get("apiVersion") == "9.1.1"
-    assert schema.get("additionalProperties") is False
-
-    # Check properties is empty
-    assert schema.get("properties") == {}

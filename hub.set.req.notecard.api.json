@@ -4,7 +4,7 @@
     "title": "hub.set Request Application Programming Interface (API) Schema",
     "description": "The hub.set request is the primary method for controlling the Notecard's Notehub connection and sync behavior.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -4,7 +4,7 @@
     "title": "card.usage.get Request Application Programming Interface (API) Schema",
     "description": "Returns the card's network usage statistics.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

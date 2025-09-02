@@ -4,7 +4,7 @@
     "title": "web.post Response Application Programming Interface (API) Schema",
     "description": "Response containing the result of an HTTP or HTTPS POST request to an external endpoint.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

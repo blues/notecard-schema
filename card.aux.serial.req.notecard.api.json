@@ -4,7 +4,7 @@
     "title": "card.aux.serial Request Application Programming Interface (API) Schema",
     "description": "Configure various uses of the AUXTX and AUXRX pins on the Notecard's edge connector.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "minApiVersion": "3.4.1",
     "skus": [

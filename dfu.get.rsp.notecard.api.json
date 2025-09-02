@@ -4,7 +4,7 @@
     "title": "dfu.get Response Application Programming Interface (API) Schema",
     "description": "Response containing base64-encoded firmware data retrieved from the Notecard for use with host MCU firmware updates.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

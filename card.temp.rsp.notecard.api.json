@@ -4,7 +4,7 @@
     "title": "card.temp Response Application Programming Interface (API) Schema",
     "description": "Response containing temperature readings from the Notecard's onboard sensor and any connected I2C sensors.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

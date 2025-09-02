@@ -4,7 +4,7 @@
     "title": "card.transport Response Application Programming Interface (API) Schema",
     "description": "Response containing the current connectivity method configuration of the Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

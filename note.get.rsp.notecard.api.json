@@ -4,7 +4,7 @@
     "title": "note.get Response Application Programming Interface (API) Schema",
     "description": "Response containing a Note retrieved from a Notefile.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

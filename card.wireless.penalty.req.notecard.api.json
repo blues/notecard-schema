@@ -4,7 +4,7 @@
     "title": "card.wireless.penalty Request Application Programming Interface (API) Schema",
     "description": "View the current state of a [Notecard Penalty Box](https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes/), manually remove the Notecard from a penalty box, or override penalty box defaults.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

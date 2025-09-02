@@ -4,7 +4,7 @@
     "title": "card.location.track Request Application Programming Interface (API) Schema",
     "description": "Store location data in a Notefile at the `periodic` interval, or using a specified `heartbeat`.\n\nThis request is only available when the `card.location.mode` request has been set to `periodic`\u2014e.g. `{\"req\":\"card.location.mode\",\"mode\":\"periodic\",\"seconds\":300}`. If you want to track and transmit data simultaneously consider using an [external GPS/GNSS module with the Notecard](/blog/using-an-external-gps-with-the-notecard/).\n\nIf you connect a BME280 sensor on the I2C bus, Notecard will include a temperature, humidity, and pressure reading with each captured Note. If you connect an ENS210 sensor on the I2C bus, Notecard will include a temperature and pressure reading with each captured Note. Learn more in [_track.qo](/api-reference/system-notefiles/#track-qo).",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

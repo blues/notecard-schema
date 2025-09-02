@@ -4,7 +4,7 @@
     "title": "card.wireless Response Application Programming Interface (API) Schema",
     "description": "Response containing wireless connection status, signal quality information, and detailed modem/network data from the Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

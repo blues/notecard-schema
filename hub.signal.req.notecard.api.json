@@ -4,7 +4,7 @@
     "title": "hub.signal Request Application Programming Interface (API) Schema",
     "description": "Receive a [Signal](/api-reference/glossary/#signal) (a near-real-time Note) from Notehub.\n\nThis request checks for an inbound signal from Notehub. If it finds a signal, this request returns the signal's body and deletes the signal. If there are multiple signals to receive, this request reads and deletes signals in FIFO (first in first out) order.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

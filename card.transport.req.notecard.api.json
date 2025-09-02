@@ -4,7 +4,7 @@
     "title": "card.transport Request Application Programming Interface (API) Schema",
     "description": "Specifies the connectivity protocol to prioritize on the Notecard Cell+WiFi, or when using NTN mode with Starnote and a compatible Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

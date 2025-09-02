@@ -4,7 +4,7 @@
     "title": "card.usage.test Request Application Programming Interface (API) Schema",
     "description": "Calculates a projection of how long the available data quota will last based on the observed usage patterns.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.0.0",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",
