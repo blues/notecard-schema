@@ -1,7 +1,7 @@
 name: Trigger update schema workflow for downstream repos
 on:
   release:
-    types: [published, created]
+    types: [published]
   workflow_dispatch:
     inputs:
       reason:
