@@ -24,11 +24,11 @@ jobs:
           # Get the tag name from the release event
           TAG_NAME="${{ github.event.release.tag_name }}"
 
-          # Generate a release-specific version of notecard.api.json with tag-specific URLs
-          sed "s|https://raw.githubusercontent.com/blues/notecard-schema/master/|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/|g" notecard.api.json > notecard.api.release.json
+          # Update API schemas to point to the tagged version
+          sed -i "s|https://raw.githubusercontent.com/blues/notecard-schema/master/|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/|g" notecard.api.json
 
           # Also update the $id field to reference the tagged version
-          sed -i "s|https://raw.githubusercontent.com/blues/notecard-schema/master/notecard.api.json|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/notecard.api.json|g" notecard.api.release.json
+          sed -i "s|https://raw.githubusercontent.com/blues/notecard-schema/master/notecard.api.json|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/notecard.api.json|g" notecard.api.json
 
       - name: Upload release asset
         uses: actions/upload-release-asset@v1
@@ -36,6 +36,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./notecard.api.release.json
+          asset_path: ./notecard.api.json
           asset_name: notecard.api.json
           asset_content_type: application/json
