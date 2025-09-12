@@ -13,7 +13,7 @@
     ],
     "properties": {
         "file": {
-            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's documentation for details on the format of the data captured.",
+            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's [documentation](/api-reference/system-notefiles/#track-qo) for details on the format of the data captured.",
             "type": "string",
             "default": "_track.qo"
         },
@@ -26,7 +26,7 @@
             "type": "integer"
         },
         "payload": {
-            "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on Sampling at Predefined Intervals for more details.",
+            "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on [Sampling at Predefined Intervals](/notecard/notecard-walkthrough/time-and-location-requests/#sampling-at-predefined-intervals) for more details.",
             "type": "string",
             "contentEncoding": "base64",
             "minApiVersion": "7.5.2"
