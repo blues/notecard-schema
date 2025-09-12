@@ -13,7 +13,7 @@
     ],
     "properties": {
         "file": {
-            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's documentation for details on the format of the data captured.",
+            "description": "The Notefile in which to store tracked location data. See the `_track.qo` Notefile's [documentation](/api-reference/system-notefiles/#track-qo) for details on the format of the data captured.",
             "type": "string",
             "default": "_track.qo"
         },
