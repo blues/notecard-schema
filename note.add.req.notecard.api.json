@@ -80,7 +80,7 @@
             "type": "string"
         },
         "payload": {
-            "description": "A base64-encoded binary payload. A Note must have either a `body` or a `payload`, and can have both. If a [Note template](/notecard/notecard-walkthrough/low-bandwidth-design/) is not in use, payloads are limited to 250 bytes.",
+            "description": "A base64-encoded binary payload. A Note must have either a `body` or a `payload`, and can have both. Payloads are limited to 256 bytes.",
             "type": "string"
         },
         "sync": {
