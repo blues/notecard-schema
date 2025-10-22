@@ -351,6 +351,17 @@ def generate_cpp_for_sample(parsed_json_data_list):
                 cpp_lines.append(f'JAddBoolToObject(req, "{key}", {"true" if value else "false"});')
             elif isinstance(value, (int, float)):
                 cpp_lines.append(f'JAddNumberToObject(req, "{key}", {value});')
+            elif isinstance(value, dict):
+                # Handle objects
+                cpp_lines.append(f'J *{key} = JAddObjectToObject(req, "{key}");')
+                for obj_key, obj_value in value.items():
+                    if isinstance(obj_value, str):
+                        escaped_obj_value = obj_value.replace('"', '\\"')
+                        cpp_lines.append(f'JAddStringToObject({key}, "{obj_key}", "{escaped_obj_value}");')
+                    elif isinstance(obj_value, bool):
+                        cpp_lines.append(f'JAddBoolToObject({key}, "{obj_key}", {"true" if obj_value else "false"});')
+                    elif isinstance(obj_value, (int, float)):
+                        cpp_lines.append(f'JAddNumberToObject({key}, "{obj_key}", {obj_value});')
             elif isinstance(value, list):
                 # Handle arrays
                 cpp_lines.append(f'J *{key} = JAddArrayToObject(req, "{key}");')
@@ -407,6 +418,9 @@ def generate_python_for_sample(parsed_json_data_list):
                 python_lines.append(f'req["{key}"] = {True if value else False}')
             elif isinstance(value, (int, float)):
                 python_lines.append(f'req["{key}"] = {value}')
+            elif isinstance(value, dict):
+                # Handle objects
+                python_lines.append(f'req["{key}"] = {json.dumps(value)}')
             elif isinstance(value, list):
                 # Handle arrays
                 python_lines.append(f'req["{key}"] = {json.dumps(value)}')
