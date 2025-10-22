@@ -4,7 +4,7 @@
     "title": "card.binary.put Request Application Programming Interface (API) Schema",
     "description": "Adds binary data to the binary storage area of the Notecard. The Notecard expects to receive binary data immediately following the usage of this API command.\n\nSee the guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects) for best practices when using `card.binary`.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "minApiVersion": "5.3.1",
     "skus": [

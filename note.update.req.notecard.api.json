@@ -4,7 +4,7 @@
     "title": "note.update Request Application Programming Interface (API) Schema",
     "description": "Updates a Note in a **DB Notefile** by its ID, replacing the existing `body` and/or `payload`.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

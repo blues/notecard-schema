@@ -4,7 +4,7 @@
     "title": "card.time Response Application Programming Interface (API) Schema",
     "description": "Response containing current date and time information in UTC along with location data if available.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -4,7 +4,7 @@
     "title": "dfu.get Request Application Programming Interface (API) Schema",
     "description": "Retrieves downloaded firmware data from the Notecard for use with [IAP host MCU firmware updates](https://dev.blues.io/notehub/host-firmware-updates/iap-firmware-update/).",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -3,7 +3,7 @@
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.attn.rsp.notecard.api.json",
     "title": "card.attn Response Application Programming Interface (API) Schema",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "properties": {
         "files": {

@@ -4,7 +4,7 @@
     "title": "card.io Response Application Programming Interface (API) Schema",
     "description": "Response schema for card.io request.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

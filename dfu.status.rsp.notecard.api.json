@@ -4,7 +4,7 @@
     "title": "dfu.status Response Application Programming Interface (API) Schema",
     "description": "Response containing the current DFU mode and status information for firmware downloads.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

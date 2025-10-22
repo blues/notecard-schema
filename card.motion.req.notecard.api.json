@@ -4,7 +4,7 @@
     "title": "card.motion Request Application Programming Interface (API) Schema",
     "description": "Returns information about the Notecard accelerometer's motion and orientation. Motion tracking must be enabled first with `card.motion.mode`. Otherwise, this request will return `{}`.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",
