@@ -4,7 +4,7 @@
     "title": "card.usage.test Response Application Programming Interface (API) Schema",
     "description": "Response containing data usage projection and analysis results.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

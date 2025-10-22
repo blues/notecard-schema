@@ -4,7 +4,7 @@
     "title": "note.delete Request Application Programming Interface (API) Schema",
     "description": "Deletes a Note from a **DB Notefile** by its Note ID. To delete Notes from a `.qi` Notefile, use `note.get` or `note.changes` with `delete:true`.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -4,7 +4,7 @@
     "title": "card.monitor Request Application Programming Interface (API) Schema",
     "description": "When a Notecard is in [monitor mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode), this API is used to configure the general-purpose `AUX1`-`AUX4` pins to test and monitor Notecard activity.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

@@ -4,7 +4,7 @@
     "title": "var.set Response Application Programming Interface (API) Schema",
     "description": "Response confirming successful addition or update of a Note in a DB Notefile.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "skus": [
         "CELL",

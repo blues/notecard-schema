@@ -4,7 +4,7 @@
     "title": "ntn.reset Response Application Programming Interface (API) Schema",
     "description": "Empty response confirming Starnote configuration reset.",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [

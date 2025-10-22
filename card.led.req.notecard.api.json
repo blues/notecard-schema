@@ -4,7 +4,7 @@
     "title": "card.led Request Application Programming Interface (API) Schema",
     "description": "Used along with the [card.aux API](/api-reference/notecard-api/card-requests/latest#card-aux) to turn connected LEDs on/off or to manage a single connected NeoPixel.\n\nIf using monochromatic LEDs, they must be wired according to the instructions provided in the guide on [Using Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-monitor-mode). Please note that the use of monochromatic LEDs is not supported by Notecard for LoRa.\n\nIf using NeoPixels, the NeoPixel (or strip of NeoPixels) must be wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
     "type": "object",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
     "minApiVersion": "3.5.1",
     "skus": [
