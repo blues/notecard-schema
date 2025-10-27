@@ -78,10 +78,18 @@
             "description": "Specifies an environment variable to override application default timing values.",
             "type": "string"
         },
+        "off": {
+            "description": "Disable historic voltage trend calculations.",
+            "type": "boolean"
+        },
         "offset": {
             "description": "Number of hours to move into the past before starting analysis.",
             "type": "integer",
             "default": 0
+        },
+        "on": {
+            "description": "Enable historic voltage trend calculations.",
+            "type": "boolean"
         },
         "set": {
             "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",
