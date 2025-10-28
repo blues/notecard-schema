@@ -110,6 +110,8 @@ def test_valid_all_fields(schema):
         "hours": 48,
         "mode": "lipo",
         "offset": 12,
+        "on": True,
+        "off": False,
         "vmax": 4.5,
         "vmin": 2.5,
         "name": "voltage_config",
@@ -138,17 +140,45 @@ def test_valid_usb_monitoring_fields(schema):
     """Tests valid USB monitoring fields."""
     instance = {"req": "card.voltage", "usb": True, "alert": True, "sync": True}
     jsonschema.validate(instance=instance, schema=schema)
-    
+
 def test_valid_calibration_fields(schema):
     """Tests valid calibration fields."""
     instance = {"req": "card.voltage", "calibration": 0.35, "set": True}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_on_field(schema):
+    """Tests valid on field."""
+    instance = {"req": "card.voltage", "on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "on": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_off_field(schema):
+    """Tests valid off field."""
+    instance = {"req": "card.voltage", "off": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "off": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_on_invalid_type(schema):
+    """Tests invalid type for on field."""
+    instance = {"req": "card.voltage", "on": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_off_invalid_type(schema):
+    """Tests invalid type for off field."""
+    instance = {"req": "card.voltage", "off": "false"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'false' is not of type 'boolean'" in str(excinfo.value)
+
 def test_hours_maximum_constraint(schema):
     """Tests hours maximum constraint."""
     instance = {"req": "card.voltage", "hours": 720}
     jsonschema.validate(instance=instance, schema=schema)
-    
+
     # Test exceeding maximum
     instance = {"req": "card.voltage", "hours": 721}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
