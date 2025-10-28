@@ -160,7 +160,7 @@ def test_valid_mode(schema):
     """Tests valid mode field."""
     instance = {"req": "card.dfu", "mode": "altdfu"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"req": "card.dfu", "mode": "alt"}
+    instance = {"req": "card.dfu", "mode": "aux"}
     jsonschema.validate(instance=instance, schema=schema)
 
 
@@ -169,7 +169,7 @@ def test_mode_invalid_enum(schema):
     instance = {"req": "card.dfu", "mode": "invalid"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not one of ['altdfu', 'alt']" in str(excinfo.value)
+    assert "'invalid' is not one of ['altdfu', 'aux']" in str(excinfo.value)
 
 
 def test_mode_invalid_type(schema):
