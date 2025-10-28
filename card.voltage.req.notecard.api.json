@@ -169,6 +169,11 @@
             "title": "Enable USB Power Monitoring",
             "description": "Enable USB power state monitoring with alerts and sync.",
             "json": "{\"req\": \"card.voltage\", \"usb\": true, \"alert\": true, \"sync\": true}"
+        },
+        {
+            "title": "Enable Historic Voltage Trends",
+            "description": "Enable historic voltage trends tracking.",
+            "json": "{\"req\": \"card.voltage\", \"on\": true}"
         }
     ]
 }
