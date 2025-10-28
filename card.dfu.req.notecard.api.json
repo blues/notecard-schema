@@ -17,7 +17,7 @@
             "type": "string",
             "enum": [
                 "altdfu",
-                "off"
+                "aux"
             ],
             "sub-descriptions": [
                 {
@@ -25,8 +25,8 @@
                     "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update."
                 },
                 {
-                    "const": "off",
-                    "description": "Return the Notecard's `ALT_DFU` pins to their default state."
+                    "const": "aux",
+                    "description": "Return the Notecard's `ALT_DFU` pins to their default state of `AUX`."
                 }
             ]
         },
