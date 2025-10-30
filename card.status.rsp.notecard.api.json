@@ -39,7 +39,7 @@
             "type": "string"
         },
         "storage": {
-            "description": "The percentage of storage in use on the Notecard.",
+            "description": "Indicates the percentage of total Notecard storage in use. Note that users can utilize approximately 80% of this total capacity.",
             "type": "integer"
         },
         "sync": {
