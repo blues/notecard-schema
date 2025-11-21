@@ -60,7 +60,7 @@
             "type": "string"
         },
         "limit": {
-            "description": "If set to `true`, the Note will not be created if Notecard is in a [penalty box](/guides-and-tutorials/notecard-guides/understanding-notecard-penalty-boxes).",
+            "description": "If set to `true`, the Note will not be created if Notecard is in a [penalty box](/notecard-walkthrough/understanding-notecard-penalty-boxes).",
             "type": "boolean",
             "minApiVersion": "9.1.1"
         },
