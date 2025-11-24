@@ -7,21 +7,6 @@ on:
     branches: [ "master" ]
 
 jobs:
-  pre-commit:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Set up Python 3.13
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.13
-
-    - name: Run pre-commit checks
-      uses: pre-commit/action@v3.0.1
-
   validate_schemas:
     runs-on: ubuntu-latest
 
@@ -41,6 +26,9 @@ jobs:
 
     - name: Install dependencies
       run: pipenv install --dev
+
+    - name: Run pre-commit checks
+      uses: pre-commit/action@v3.0.1
 
     - name: Run tests with pytest
       run: pipenv run pytest
