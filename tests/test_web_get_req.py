@@ -120,4 +120,3 @@ def test_validate_samples_from_schema(schema, schema_samples):
         except json.JSONDecodeError as e:
             pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
         jsonschema.validate(instance=instance, schema=schema)
-
