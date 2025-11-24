@@ -10,9 +10,12 @@ requests = "*"
 mkdocs = "*"
 mkdocs-llmstxt = "*"
 referencing = "*"
+pre-commit = "*"
 
 [requires]
 python_version = "3.13"
 
 [packages]
-pre-commit = "*"
+
+[scripts]
+setup-hooks = "pre-commit install"

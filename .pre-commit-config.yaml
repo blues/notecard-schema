@@ -9,7 +9,7 @@ repos:
       - id: end-of-file-fixer
         name: Fix End of Files
         description: Ensures that a file is either empty or ends with one newline
-        files: '^[^/]+\.api\.json$'
+        types_or: [python, json]
 
       # Remove trailing whitespace
       - id: trailing-whitespace
