@@ -36,11 +36,11 @@
                 },
                 {
                     "const": "cyan",
-                    "description": "Supports **NeoPixel**"
+                    "description": "Supports **RGB** & **NeoPixel**"
                 },
                 {
                     "const": "magenta",
-                    "description": "Supports **NeoPixel**"
+                    "description": "Supports **RGB** & **NeoPixel**"
                 },
                 {
                     "const": "orange",
