@@ -28,7 +28,7 @@
                 },
                 {
                     "const": "yellow",
-                    "description": "Supports **LED** & **NeoPixel**"
+                    "description": "Supports **LED**, **RGB**, & **NeoPixel**"
                 },
                 {
                     "const": "blue",
@@ -48,7 +48,7 @@
                 },
                 {
                     "const": "white",
-                    "description": "Supports **NeoPixel**"
+                    "description": "Supports **RGB** & **NeoPixel**"
                 },
                 {
                     "const": "gray",
