@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.led.req.notecard.api.json",
     "title": "card.led Request Application Programming Interface (API) Schema",
-    "description": "Used along with the [card.aux API](/api-reference/notecard-api/card-requests/latest#card-aux) to turn connected LEDs on/off or to manage a single connected NeoPixel.\n\nIf using monochromatic LEDs, they must be wired according to the instructions provided in the guide on [Using Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-monitor-mode). Please note that the use of monochromatic LEDs is not supported by Notecard for LoRa.\n\nIf using NeoPixels, the NeoPixel (or strip of NeoPixels) must be wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
+    "description": "Used along with the [card.aux API](/api-reference/notecard-api/card-requests/latest#card-aux) to turn connected LEDs on/off, to enable a specific color on an RGB LED, or to manage a single connected NeoPixel.\n\nIf using monochromatic LEDs, they must be wired according to the instructions provided in the guide on [Using Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-monitor-mode). Please note that the use of monochromatic LEDs is not supported by Notecard for LoRa.\n\nIf using an RGB LED, it must be wired according to the instructions provided in the guide on [Using RGB Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-rgb-monitor-mode). Please note that the use of RGB LEDs is not supported by Notecard for LoRa.\n\nIf using NeoPixels, the NeoPixel (or strip of NeoPixels) must be wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -15,16 +15,16 @@
     ],
     "properties": {
         "mode": {
-            "description": "Used to specify the color of the LED to turn on or off.\n\n**Note:** Notecard LoRa does not support monochromatic **LED** modes, only **NeoPixels**.",
+            "description": "Used to specify the color of the LED to turn on or off.\n\n**Note:** Notecard LoRa does not support monochromatic **LED** or **RGB** modes, only **NeoPixels**.",
             "type": "string",
             "sub-descriptions": [
                 {
                     "const": "red",
-                    "description": "Supports **LED** & **NeoPixel**"
+                    "description": "Supports **LED**, **RGB**, & **NeoPixel**"
                 },
                 {
                     "const": "green",
-                    "description": "Supports **LED** & **NeoPixel**"
+                    "description": "Supports **LED**, **RGB**, & **NeoPixel**"
                 },
                 {
                     "const": "yellow",
@@ -32,7 +32,7 @@
                 },
                 {
                     "const": "blue",
-                    "description": "Supports **NeoPixel**"
+                    "description": "Supports **RGB** & **NeoPixel**"
                 },
                 {
                     "const": "cyan",
@@ -123,6 +123,11 @@
             "title": "Turn Blue NeoPixel On",
             "description": "As shown above, the Notecard must also be in `neo`, `neo-monitor`, or `track-neo-monitor` mode and the NeoPixel(s) wired according to the instructions provided in the guide on [Using Neo-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-neo-monitor-mode).",
             "json": "[{\"req\": \"card.aux\", \"mode\": \"neo\"},{\"req\": \"card.led\", \"mode\": \"blue\", \"on\": true}]"
+        },
+        {
+            "title": "Turn Green RGB LED On",
+            "description": "As shown above, the Notecard must also be in `rgb`, `rgb-monitor`, or `track-rgb-monitor` mode and the RGB LED wired according to the instructions provided in the guide on [Using RGB Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-rgb-monitor-mode).",
+            "json": "[{\"req\": \"card.aux\", \"mode\": \"rgb\"},{\"req\": \"card.led\", \"mode\": \"green\", \"on\": true}]"
         }
     ]
 }
