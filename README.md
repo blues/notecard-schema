@@ -25,8 +25,11 @@ This repository contains the JSON schemas for the Notecard API.
 
 ```bash
 pipenv install --dev
+pipenv run setup-hooks  # Install pre-commit hooks
 pipenv run pytest
 ```
+
+Pre-commit hooks will automatically validate and format files before each commit.
 
 ## Adding a new schema
 

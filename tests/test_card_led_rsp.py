@@ -7,4 +7,3 @@ def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response (empty object)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
-
