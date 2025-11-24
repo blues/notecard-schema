@@ -75,9 +75,12 @@
                 "neo",
                 "neo-monitor",
                 "off",
+                "rgb",
+                "rgb-monitor",
                 "track",
                 "track-monitor",
                 "track-neo-monitor",
+                "track-rgb-monitor",
                 "-"
             ],
             "sub-descriptions": [
@@ -160,6 +163,26 @@
                     ]
                 },
                 {
+                    "const": "rgb",
+                    "description": "When wiring an RGB LED to the Notecard's AUX2-4 pins, you may use this mode along with the card.led API to manually enable/disable colors in a single RGB LED.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "9.3.1"
+                },
+                {
+                    "const": "rgb-monitor",
+                    "description": "Similar to monitor mode, `rgb-monitor` mode supports a single RGB LED that can be used to configure inputs and outputs typically placed on the faceplate of a device in order for a technician to test and monitor Notecard activity.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "9.3.1"
+                },
+                {
                     "const": "track",
                     "description": "Enhance Notes in the `_track.qo` Notefile with temperature, pressure, and humidity readings from a connected BME280 sensor.",
                     "skus": [
@@ -187,6 +210,16 @@
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
+                },
+                {
+                    "const": "track-rgb-monitor",
+                    "description": "Combines `track` and `monitor` modes while also supporting a single RGB LED that allows for monitoring Notecard activity.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ],
+                    "minApiVersion": "9.3.1"
                 },
                 {
                     "const": "-",
