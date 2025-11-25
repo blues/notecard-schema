@@ -225,7 +225,7 @@ def test_rate_invalid_enum(schema):
     instance = {"req": "card.aux", "rate": 14400}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "14400 is not one of [300, 600," in str(excinfo.value)
+    assert "14400 is not one of [-1, 300, 600," in str(excinfo.value)
 
 
 def test_rate_invalid_type(schema):
@@ -234,7 +234,7 @@ def test_rate_invalid_type(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     # enum checks both type and value, so error might be about enum first
-    assert "'9600' is not one of [300, 600," in str(
+    assert "'9600' is not one of [-1, 300, 600," in str(
         excinfo.value
     ) or "'9600' is not of type" in str(excinfo.value)
 
