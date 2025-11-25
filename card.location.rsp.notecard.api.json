@@ -46,7 +46,7 @@
             "type": "string"
         },
         "time": {
-            "description": "UNIX Epoch time. The time of location capture.",
+            "description": "The time of the location capture.",
             "type": "integer"
         }
     },
