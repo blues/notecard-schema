@@ -60,7 +60,14 @@
         "duration": {
             "description": "When in `continuous` mode, the amount of time, in minutes, of each session (the minimum allowed value is `15`). When this time elapses, the Notecard gracefully ends the current session and starts a new one in order to sync session-specific data to Notehub.",
             "type": "integer",
-            "minimum": 15
+            "anyOf": [
+                {
+                    "const": -1
+                },
+                {
+                    "minimum": 15
+                }
+            ]
         },
         "host": {
             "description": "The URL of the Notehub service. Use `\"-\"` to reset to the default value.",
@@ -126,7 +133,8 @@
         "seconds": {
             "description": "If in `periodic` mode and using `on` above, the number of seconds to run in continuous mode before switching back to periodic mode. If not set, a default of 300 seconds is used. Ignored if the Notecard is already in continuous mode.",
             "type": "integer",
-            "minApiVersion": "3.4.1"
+            "minApiVersion": "3.4.1",
+            "minimum": -1
         },
         "sn": {
             "description": "The end product's serial number.",
