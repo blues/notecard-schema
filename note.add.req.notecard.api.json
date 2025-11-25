@@ -72,7 +72,7 @@
         "max": {
             "description": "Defines the maximum number of queued Notes permitted in the specified Notefile (`\"file\"`). Any Notes added after this value will be rejected. When used with `\"sync\":true`, a sync will be triggered when the number of pending Notes matches the `max` value.",
             "type": "integer",
-            "minimum": 1,
+            "minimum": -1,
             "minApiVersion": "8.2.1"
         },
         "note": {
