@@ -76,7 +76,7 @@ def test_seconds_invalid_minimum(schema):
     instance = {"req": "card.location.mode", "seconds": -2}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-2 is less than the minimum of 5" in str(excinfo.value)
+    assert "-2 is not valid under any of the given schemas" in str(excinfo.value)
 
 
 def test_valid_vseconds(schema):
