@@ -61,7 +61,7 @@
                 },
                 {
                     "const": "continuous",
-                    "description": "Enables the Notecard's GPS/GNSS module for continuous sampling. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note."
+                    "description": "Enables the Notecard's onboard GPS/GNSS module for continuous sampling, at a maximum frequency of one fix every 5 seconds. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note."
                 },
                 {
                     "const": "fixed",
@@ -72,7 +72,14 @@
         "seconds": {
             "description": "When in `periodic` mode, location will be sampled at this interval, if the Notecard detects motion. If seconds is < 300, during periods of sustained movement the Notecard will leave its onboard GPS/GNSS on continuously to avoid powering the module on and off repeatedly.",
             "type": "integer",
-            "minimum": 0
+            "anyOf": [
+                {
+                    "const": -1
+                },
+                {
+                    "minimum": 5
+                }
+            ]
         },
         "threshold": {
             "description": "When in `periodic` mode, the number of motion events (registered by the built-in accelerometer) required to trigger GPS to turn on.",
