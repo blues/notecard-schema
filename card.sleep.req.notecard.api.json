@@ -39,7 +39,14 @@
         "seconds": {
             "description": "The number of seconds the Notecard will wait before entering sleep mode (minimum value is 30).",
             "type": "integer",
-            "minimum": 30
+            "anyOf": [
+                {
+                    "const": -1
+                },
+                {
+                    "minimum": 30
+                }
+            ]
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
