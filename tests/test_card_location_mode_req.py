@@ -61,6 +61,8 @@ def test_valid_seconds(schema):
     """Tests valid seconds field."""
     instance = {"req": "card.location.mode", "seconds": 3600}
     jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.location.mode", "seconds": -1}
+    jsonschema.validate(instance=instance, schema=schema)
 
 
 def test_seconds_invalid_type(schema):
