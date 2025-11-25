@@ -27,6 +27,7 @@
             "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this controls the number of NeoPixels to use in a strip. Possible values are `1`, `2`, or `5`.",
             "type": "integer",
             "enum": [
+                -1,
                 1,
                 2,
                 5
@@ -61,7 +62,7 @@
         "max": {
             "description": "When in `gpio` mode, if an `AUX` pin is configured as a `count` type, the maximum number of samples of duration `seconds`, after which all subsequent counts are added to the final sample. Passing `0` or omitting this value will provide a single incrementing count of rising edges on the pin.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "mode": {
             "description": "The AUX mode. Must be one of the following keywords. Some keywords are only supported on certain types of Notecards.",
@@ -236,7 +237,7 @@
         "ms": {
             "description": "When in `gpio` mode, this argument configures a debouncing interval. With a debouncing interval in place, the Notecard excludes all transitions with a shorter duration than the provided debounce time, in milliseconds. This interval only applies to GPIOs configured with a `usage` of `count`, `count-pulldown`, or `count-pullup`.",
             "type": "integer",
-            "minimum": 0,
+            "minimum": -1,
             "skus": [
                 "CELL",
                 "CELL+WIFI",
@@ -247,7 +248,14 @@
         "offset": {
             "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this is the 1-based index in a strip of NeoPixels that determines which single NeoPixel the host can command.",
             "type": "integer",
-            "minimum": 1,
+            "anyOf": [
+                {
+                    "const": -1
+                },
+                {
+                    "minimum": 1
+                }
+            ],
             "skus": [
                 "CELL",
                 "CELL+WIFI",
@@ -257,6 +265,7 @@
         "rate": {
             "description": "The AUX UART baud rate for debug communication over the AUXRX and AUXTX pins.",
             "enum": [
+                -1,
                 300,
                 600,
                 1200,
@@ -278,12 +287,12 @@
         "seconds": {
             "description": "When in `gpio` mode, if an `AUX` pin is configured as a `count` type, the count of rising edges can be broken into samples of this duration. Passing `0` or omitting this field will total into a single sample.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "sensitivity": {
             "description": "When used with `\"mode\":\"neo-monitor\"` or `\"mode\":\"track-neo-monitor\"`, this controls the brightness of NeoPixel lights, where `100` is the maximum brightness and `1` is the minimum.",
             "type": "integer",
-            "minimum": 1,
+            "minimum": -1,
             "maximum": 100,
             "skus": [
                 "CELL",

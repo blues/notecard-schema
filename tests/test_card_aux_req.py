@@ -116,8 +116,8 @@ def test_usage_invalid_item_enum(schema):
 
 
 def test_seconds_valid(schema):
-    """Tests valid seconds values (integer >= 0)."""
-    instance = {"req": "card.aux", "seconds": 0}
+    """Tests valid seconds values (integer >= -1)."""
+    instance = {"req": "card.aux", "seconds": -1}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "seconds": 3600}
     jsonschema.validate(instance=instance, schema=schema)
@@ -132,15 +132,17 @@ def test_seconds_invalid_type(schema):
 
 
 def test_seconds_invalid_minimum(schema):
-    """Tests invalid seconds value (< 0)."""
-    instance = {"req": "card.aux", "seconds": -1}
+    """Tests invalid seconds value (< -1)."""
+    instance = {"req": "card.aux", "seconds": -10}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-1 is less than the minimum of 0" in str(excinfo.value)
+    assert "-10 is less than the minimum of -1" in str(excinfo.value)
 
 
 def test_max_valid(schema):
-    """Tests valid max values (integer >= 0)."""
+    """Tests valid max values (integer >= -1)."""
+    instance = {"req": "card.aux", "max": -1}
+    jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "max": 0}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "max": 100}
@@ -160,7 +162,7 @@ def test_max_invalid_minimum(schema):
     instance = {"req": "card.aux", "max": -5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-5 is less than the minimum of 0" in str(excinfo.value)
+    assert "-5 is less than the minimum of -1" in str(excinfo.value)
 
 
 def test_start_valid(schema):
@@ -198,6 +200,7 @@ def test_gps_invalid_type(schema):
 def test_rate_valid(schema):
     """Tests valid rate enum values."""
     valid_rates = [
+        -1,
         300,
         600,
         1200,
@@ -301,8 +304,8 @@ def test_limit_invalid_type(schema):
 
 
 def test_sensitivity_valid(schema):
-    """Tests valid sensitivity values (integer 1-100)."""
-    instance = {"req": "card.aux", "sensitivity": 1}
+    """Tests valid sensitivity values (integer -1-100)."""
+    instance = {"req": "card.aux", "sensitivity": -1}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "sensitivity": 50}
     jsonschema.validate(instance=instance, schema=schema)
@@ -319,11 +322,11 @@ def test_sensitivity_invalid_type(schema):
 
 
 def test_sensitivity_invalid_minimum(schema):
-    """Tests invalid sensitivity value (< 1)."""
-    instance = {"req": "card.aux", "sensitivity": 0}
+    """Tests invalid sensitivity value (< -1)."""
+    instance = {"req": "card.aux", "sensitivity": -10}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "0 is less than the minimum of 1" in str(excinfo.value)
+    assert "-10 is less than the minimum of -1" in str(excinfo.value)
 
 
 def test_sensitivity_invalid_maximum(schema):
@@ -335,7 +338,9 @@ def test_sensitivity_invalid_maximum(schema):
 
 
 def test_ms_valid(schema):
-    """Tests valid ms values (integer >= 0)."""
+    """Tests valid ms values (integer >= -1)."""
+    instance = {"req": "card.aux", "ms": -1}
+    jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "ms": 0}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.aux", "ms": 100}
@@ -355,7 +360,7 @@ def test_ms_invalid_minimum(schema):
     instance = {"req": "card.aux", "ms": -10}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-10 is less than the minimum of 0" in str(excinfo.value)
+    assert "-10 is less than the minimum of -1" in str(excinfo.value)
 
 
 def test_count_valid(schema):
@@ -386,10 +391,10 @@ def test_count_invalid_type(schema):
 
 
 def test_offset_valid(schema):
-    """Tests valid offset values (integer >= 1)."""
-    instance = {"req": "card.aux", "offset": 1}
+    """Tests valid offset values (integer >= -1)."""
+    instance = {"req": "card.aux", "offset": -1}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"req": "card.aux", "offset": 10}
+    instance = {"req": "card.aux", "offset": 3}
     jsonschema.validate(instance=instance, schema=schema)
 
 
