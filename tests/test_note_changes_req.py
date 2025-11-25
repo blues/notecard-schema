@@ -241,7 +241,7 @@ def test_max_invalid_minimum_zero(schema):
     instance = {"req": "note.changes", "file": "data.db", "max": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "0 is less than the minimum of 1" in str(excinfo.value)
+    assert "0 is not valid under any of the given schemas" in str(excinfo.value)
 
 
 def test_max_invalid_minimum_negative(schema):
@@ -249,7 +249,7 @@ def test_max_invalid_minimum_negative(schema):
     instance = {"req": "note.changes", "file": "data.db", "max": -5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-5 is less than the minimum of 1" in str(excinfo.value)
+    assert "-5 is not valid under any of the given schemas" in str(excinfo.value)
 
 
 def test_max_valid_minimum_one(schema):

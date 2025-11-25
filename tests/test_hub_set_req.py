@@ -280,7 +280,7 @@ def test_invalid_duration_below_minimum(schema):
     instance = {"req": "hub.set", "duration": 10}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "10 is less than the minimum of 15" in str(excinfo.value)
+    assert "10 is not valid under any of the given schemas" in str(excinfo.value)
 
 
 def test_invalid_outbound_below_minimum(schema):
