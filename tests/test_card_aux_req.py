@@ -407,11 +407,11 @@ def test_offset_invalid_type(schema):
 
 
 def test_offset_invalid_minimum(schema):
-    """Tests invalid offset value (< 1)."""
+    """Tests invalid offset value (< -1 or 0)."""
     instance = {"req": "card.aux", "offset": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "0 is less than the minimum of 1" in str(excinfo.value)
+    assert "0 is not valid under any of the given schemas" in str(excinfo.value)
 
 
 def test_valid_multiple_fields(schema):
