@@ -19,7 +19,7 @@
         "hours": {
             "description": "When using the `method` argument with `\"dual-primary-secondary\"` or `\"dual-secondary-primary\"`, this is the number of hours after which the Notecard will attempt to switch back to the preferred SIM.",
             "type": "integer",
-            "minimum": 1
+            "minimum": -1
         },
         "method": {
             "description": "Used when configuring a [Notecard to failover to a different SIM](/guides-and-tutorials/notecard-guides/using-external-sim-cards/#failing-over-to-a-different-sim).",
