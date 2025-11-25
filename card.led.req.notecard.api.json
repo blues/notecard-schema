@@ -110,7 +110,7 @@
     "annotations": [
         {
             "title": "note",
-            "description": "The Notecard must first be configured for the appropriate LED type using `card.aux`. For monochromatic LEDs, use `{\"req\": \"card.aux\", \"mode\": \"led\"}`. For NeoPixels, use `{\"req\": \"card.aux\", \"mode\": \"neo\"}`."
+            "description": "The Notecard must first be configured for the appropriate LED type using `card.aux`.\n\nFor monochromatic LEDs, use `{\"req\": \"card.aux\", \"mode\": \"led\"}`.\n\nFor RGB LEDs, use `{\"req\": \"card.aux\", \"mode\": \"rgb\"}`.\n\nFor NeoPixels, use `{\"req\": \"card.aux\", \"mode\": \"neo\"}`."
         }
     ],
     "samples": [
