@@ -27,7 +27,14 @@
         "max": {
             "description": "The maximum number of Notes to return in the request.",
             "type": "integer",
-            "minimum": 1
+            "anyOf": [
+                {
+                    "const": -1
+                },
+                {
+                    "minimum": 1
+                }
+            ]
         },
         "reset": {
             "description": "`true` to reset a change tracker.",
