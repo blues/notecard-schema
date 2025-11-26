@@ -15,7 +15,7 @@
         "count": {
             "description": "The number of pulses to send to the overridden AUX pin LED. Set this value to `0` to return the LED to its default behavior.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "mode": {
             "description": "Can be set to one of `green`, `red` or `yellow` to temporarily override the behavior of an AUX pin LED.\n\nSee [Using Monitor Mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode) for additional details.",

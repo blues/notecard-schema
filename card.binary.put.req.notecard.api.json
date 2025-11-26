@@ -15,12 +15,13 @@
     "properties": {
         "cobs": {
             "description": "The size of the COBS-encoded data (in bytes).",
-            "type": "integer"
+            "type": "integer",
+            "minimum": -1
         },
         "offset": {
             "description": "The number of bytes to offset the binary payload from 0 when appending the binary data to the binary storage area of the Notecard. Primarily used when sending multiple fragments of one binary payload to the Notecard.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "status": {
             "description": "The MD5 checksum of the data, before it has been encoded.",

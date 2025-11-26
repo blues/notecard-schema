@@ -15,17 +15,18 @@
     "properties": {
         "cobs": {
             "description": "The size of the COBS-encoded data you are expecting to be returned (in bytes).",
-            "type": "integer"
+            "type": "integer",
+            "minimum": -1
         },
         "length": {
             "description": "Used along with `offset`, the number of bytes to retrieve from the binary storage area of the Notecard.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "offset": {
             "description": "Used along with `length`, the number of bytes to offset the binary payload from 0 when retrieving binary data from the binary storage area of the Notecard. Primarily used when retrieving multiple fragments of a binary payload from the Notecard.",
             "type": "integer",
-            "minimum": 0
+            "minimum": -1
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
