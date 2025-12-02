@@ -12,7 +12,7 @@ def test_minimal_valid_rsp(schema):
 
 def test_missing_required_field(schema):
     """Tests invalid response missing the required 'version' field."""
-    instance = {"version": "notecard-5.3.1"}  # Missing 'version'
+    instance = {"sku": "NOTE-NBGL"}  # Missing 'version'
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'version' is a required property" in str(excinfo.value)
