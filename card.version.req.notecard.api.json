@@ -13,11 +13,6 @@
         "WIFI"
     ],
     "properties": {
-        "api": {
-            "description": "Specify a major version of the Notecard firmware that a host expects to use.",
-            "type": "integer",
-            "deprecated": true
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "card.version"

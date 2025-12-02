@@ -13,10 +13,6 @@
         "WIFI"
     ],
     "properties": {
-        "api": {
-            "description": "The current Notecard API major version in use.",
-            "type": "integer"
-        },
         "board": {
             "description": "The Notecard board version number.",
             "type": "string"
@@ -102,7 +98,7 @@
         {
             "title": "Complete Version Response",
             "description": "Example response showing comprehensive version and device information.",
-            "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:000000000000000\", \"name\": \"Blues Wireless Notecard\", \"sku\": \"NOTE-NBGL\", \"board\": \"1.11\", \"cell\": true, \"gps\": true, \"api\": 5, \"body\": {\"org\": \"Blues Wireless\", \"product\": \"Notecard\", \"target\": \"r5\", \"version\": \"notecard-5.3.1\", \"ver_major\": 5, \"ver_minor\": 3, \"ver_patch\": 1, \"ver_build\": 371, \"built\": \"Sep  5 2023 12:21:30\"}}"
+            "json": "{\"version\": \"notecard-5.3.1\", \"device\": \"dev:000000000000000\", \"name\": \"Blues Wireless Notecard\", \"sku\": \"NOTE-NBGL\", \"board\": \"1.11\", \"cell\": true, \"gps\": true, \"body\": {\"org\": \"Blues Wireless\", \"product\": \"Notecard\", \"target\": \"r5\", \"version\": \"notecard-5.3.1\", \"ver_major\": 5, \"ver_minor\": 3, \"ver_patch\": 1, \"ver_build\": 371, \"built\": \"Sep  5 2023 12:21:30\"}}"
         }
     ]
 }
