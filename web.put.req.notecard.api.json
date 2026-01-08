@@ -17,6 +17,11 @@
             "type": "boolean",
             "minApiVersion": "5.1.1"
         },
+        "binary": {
+            "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
+            "type": "boolean",
+            "minApiVersion": "5.3.1"
+        },
         "body": {
             "description": "The JSON body to send with the request.",
             "type": "object"

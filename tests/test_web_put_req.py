@@ -146,6 +146,18 @@ def test_invalid_async_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
+def test_valid_with_binary(schema):
+    """Tests valid request with binary flag."""
+    instance = {"req": "web.put", "route": "SensorService", "binary": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_invalid_binary_type(schema):
+    """Tests invalid type for binary."""
+    instance = {"req": "web.put", "route": "SensorService", "binary": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_with_file_and_note(schema):
     """Tests valid request with file and note parameters."""
     instance = {"req": "web.put", "route": "SensorService", "file": "response.dbx", "note": "response1"}
