@@ -21,6 +21,7 @@
             "sub-descriptions": [
                 {
                     "const": "connected",
+                    "description": "Indicates that the ATTN pin fired due to the Notecard connecting to the network.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -29,6 +30,7 @@
                 },
                 {
                     "const": "env",
+                    "description": "Indicates that the ATTN pin fired due to an environment variable change on the Notecard.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -38,6 +40,7 @@
                 },
                 {
                     "const": "files",
+                    "description": "Indicates that the ATTN pin fired due to a change in one or more monitored Notefiles.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -47,6 +50,7 @@
                 },
                 {
                     "const": "location",
+                    "description": "Indicates that the ATTN pin fired due to the GPS module making a position fix.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -55,6 +59,7 @@
                 },
                 {
                     "const": "motion",
+                    "description": "Indicates that the ATTN pin fired due to the accelerometer detecting motion.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -63,6 +68,7 @@
                 },
                 {
                     "const": "timeout",
+                    "description": "Indicates that the ATTN pin fired due to the timeout period specified in `seconds` elapsing.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -72,6 +78,7 @@
                 },
                 {
                     "const": "watchdog",
+                    "description": "Indicates that the ATTN pin fired due to the watchdog timer expiring.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -110,6 +117,7 @@
             ]
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Example Response",
