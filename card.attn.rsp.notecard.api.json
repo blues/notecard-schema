@@ -5,6 +5,12 @@
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "files": {
             "description": "A list of files changed since `file` attention mode was set. In addition, this field will include keywords to signify the occurrence of other attention mode triggers:",
@@ -14,25 +20,63 @@
             },
             "sub-descriptions": [
                 {
-                    "const": "connected"
+                    "const": "connected",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "env"
+                    "const": "env",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "files"
+                    "const": "files",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "location"
+                    "const": "location",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "motion"
+                    "const": "motion",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "timeout"
+                    "const": "timeout",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "watchdog"
+                    "const": "watchdog",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 }
             ],
             "minItems": 1
@@ -45,7 +89,12 @@
         "payload": {
             "description": "When using `sleep` mode with a `payload`, the payload provided by the host to the Notecard.",
             "type": "string",
-            "contentEncoding": "base64"
+            "contentEncoding": "base64",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ]
         },
         "set": {
             "description": "Reflects the state of the attention pin. The `set` field is `true` when the attention pin is `HIGH`, otherwise the `set` field will not be present when the attention pin is `LOW`.",
@@ -53,7 +102,12 @@
         },
         "time": {
             "description": "When using `sleep` mode with a `payload`, the time (UNIX Epoch time) that the payload was stored by the Notecard.",
-            "type": "integer"
+            "type": "integer",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ]
         }
     },
     "samples": [
