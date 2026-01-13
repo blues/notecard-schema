@@ -48,7 +48,7 @@
     "annotations": [
         {
             "title": "warning",
-            "description": "Calls to `card.restart` are not supported for use in production applications as they can cause increased cellular data and consumption credit usage."
+            "description": "Calls to `card.restart` are not supported for use in production applications as they can cause increased cellular data and event credit usage."
         }
     ],
     "samples": [
