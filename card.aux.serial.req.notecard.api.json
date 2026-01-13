@@ -22,7 +22,7 @@
             "type": "boolean"
         },
         "max": {
-            "description": "The maximum amount of data to send per session, in bytes. This is typically set to the size of the receive buffer on the host minus `1`. For example, `note-arduino` uses a buffer size of `(SERIAL_RX_BUFFER_SIZE - 1)`.",
+            "description": "The maximum amount of data, in bytes, that can be sent in a single transmission before the Notecard pauses to allow the host to process incoming data. This value should be set to the size of the host's serial receive buffer minus `1`, which represents the number of bytes the host can absorb before the sender must delay due to the absence of flow control. For example, `note-arduino`` uses a buffer size of `(SERIAL_RX_BUFFER_SIZE - 1)`.",
             "type": "integer"
         },
         "minutes": {
