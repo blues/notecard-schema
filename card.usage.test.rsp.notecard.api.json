@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.rsp.notecard.api.json",
     "title": "card.usage.test Response Application Programming Interface (API) Schema",
-    "description": "Response containing data usage projection and analysis results.",
+    "description": "Response containing cellular data usage projection and analysis results.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
