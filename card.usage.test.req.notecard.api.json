@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.test.req.notecard.api.json",
     "title": "card.usage.test Request Application Programming Interface (API) Schema",
-    "description": "Calculates a projection of how long the available data quota will last based on the observed usage patterns.",
+    "description": "Calculates a projection of how long the available cellular data quota will last based on the observed usage patterns.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -21,7 +21,7 @@
             "type": "integer"
         },
         "megabytes": {
-            "description": "The Notecard lifetime data quota (in megabytes) to use for the test.",
+            "description": "The Notecard lifetime cellular data quota (in megabytes) to use for the test.",
             "type": "integer",
             "default": 1024
         },
@@ -57,6 +57,12 @@
         }
     ],
     "additionalProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "The `card.usage.test` API only applies to cellular and Wi-Fi data, not LoRa or satellite (NTN)."
+        }
+    ],
     "samples": [
         {
             "title": "Test 7-Day Usage Projection",
