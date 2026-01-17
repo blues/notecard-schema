@@ -5,6 +5,12 @@
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "LORA",
+        "WIFI"
+    ],
     "properties": {
         "files": {
             "description": "A list of files changed since `file` attention mode was set. In addition, this field will include keywords to signify the occurrence of other attention mode triggers:",
@@ -14,25 +20,70 @@
             },
             "sub-descriptions": [
                 {
-                    "const": "connected"
+                    "const": "connected",
+                    "description": "Indicates that the ATTN pin fired due to the Notecard connecting to the network.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "env"
+                    "const": "env",
+                    "description": "Indicates that the ATTN pin fired due to an environment variable change on the Notecard.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "files"
+                    "const": "files",
+                    "description": "Indicates that the ATTN pin fired due to a change in one or more monitored Notefiles.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "location"
+                    "const": "location",
+                    "description": "Indicates that the ATTN pin fired due to the GPS module making a position fix.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "motion"
+                    "const": "motion",
+                    "description": "Indicates that the ATTN pin fired due to the accelerometer detecting motion.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "timeout"
+                    "const": "timeout",
+                    "description": "Indicates that the ATTN pin fired due to the timeout period specified in `seconds` elapsing.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "WIFI"
+                    ]
                 },
                 {
-                    "const": "watchdog"
+                    "const": "watchdog",
+                    "description": "Indicates that the ATTN pin fired due to the watchdog timer expiring.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
                 }
             ],
             "minItems": 1
@@ -45,7 +96,12 @@
         "payload": {
             "description": "When using `sleep` mode with a `payload`, the payload provided by the host to the Notecard.",
             "type": "string",
-            "contentEncoding": "base64"
+            "contentEncoding": "base64",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ]
         },
         "set": {
             "description": "Reflects the state of the attention pin. The `set` field is `true` when the attention pin is `HIGH`, otherwise the `set` field will not be present when the attention pin is `LOW`.",
@@ -53,9 +109,15 @@
         },
         "time": {
             "description": "When using `sleep` mode with a `payload`, the time (UNIX Epoch time) that the payload was stored by the Notecard.",
-            "type": "integer"
+            "type": "integer",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "WIFI"
+            ]
         }
     },
+    "additionalProperties": false,
     "samples": [
         {
             "description": "Example Response",
