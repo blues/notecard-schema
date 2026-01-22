@@ -79,7 +79,7 @@
             "minimum": -1
         },
         "mode": {
-            "description": "The Notecard's synchronization mode.",
+            "description": "The Notecard's synchronization mode.\n\n**NOTE:** The Notecard must be in `periodic` or `continuous` mode to use the onboard GPS module.",
             "type": "string",
             "enum": [
                 "periodic",
