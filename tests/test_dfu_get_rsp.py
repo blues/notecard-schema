@@ -47,6 +47,47 @@ def test_invalid_additional_property(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
+def test_valid_rsp_with_binary_fields(schema):
+    """Tests a valid response with binary mode fields (cobs, length, status)."""
+    instance = {"cobs": 10240, "length": 8192, "status": "5d41402abc4b2a76b9719d911017c592"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_rsp_with_cobs_only(schema):
+    """Tests a valid response with only cobs field."""
+    instance = {"cobs": 1024}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_rsp_with_length_only(schema):
+    """Tests a valid response with only length field."""
+    instance = {"length": 8192}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_rsp_with_status_only(schema):
+    """Tests a valid response with only status field."""
+    instance = {"status": "5d41402abc4b2a76b9719d911017c592"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_cobs_invalid_type(schema):
+    """Tests invalid type for cobs field."""
+    instance = {"cobs": "10240"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'integer'" in str(excinfo.value)
+
+def test_length_invalid_type_in_response(schema):
+    """Tests invalid type for length field in response."""
+    instance = {"length": "8192"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'integer'" in str(excinfo.value)
+
+def test_status_invalid_type(schema):
+    """Tests invalid type for status field."""
+    instance = {"status": 123}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'string'" in str(excinfo.value)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

@@ -12,6 +12,10 @@
         "WIFI"
     ],
     "properties": {
+        "binary": {
+            "description": "If `true`, the Notecard will return firmware data in the binary I/O buffer instead of the response `payload` field. This allows for larger data transfers and more efficient processing. When `true`, the response will include `cobs`, `length`, and `status` (MD5 hash) fields instead of `payload`.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
+            "type": "boolean"
+        },
         "length": {
             "description": "The number of bytes of firmware data to read and return to the host. Set to `0` to verify that the Notecard is in DFU mode without attempting to retrieve data.",
             "type": "integer"
@@ -73,6 +77,11 @@
             "title": "Read First Block",
             "description": "Read the first 1024 bytes of firmware data from the beginning.",
             "json": "{\"req\": \"dfu.get\", \"length\": 1024, \"offset\": 0}"
+        },
+        {
+            "title": "Retrieve Large Firmware Data with Binary Buffer",
+            "description": "Retrieve 8192 bytes of firmware data using the binary I/O buffer for efficient large data transfers.",
+            "json": "{\"req\": \"dfu.get\", \"length\": 8192, \"offset\": 0, \"binary\": true}"
         }
     ]
 }

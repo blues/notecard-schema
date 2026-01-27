@@ -12,8 +12,20 @@
         "WIFI"
     ],
     "properties": {
+        "cobs": {
+            "description": "When `binary` is `true` in the request, this field contains the COBS encoded length of the firmware data in the binary I/O buffer.",
+            "type": "integer"
+        },
+        "length": {
+            "description": "When `binary` is `true` in the request, this field contains the actual length of the firmware data in bytes in the binary I/O buffer.",
+            "type": "integer"
+        },
         "payload": {
-            "description": "A base64 string containing firmware data of the provided `length`.",
+            "description": "A base64 string containing firmware data of the provided `length`. This field is only present when `binary` is not used or is `false` in the request.",
+            "type": "string"
+        },
+        "status": {
+            "description": "When `binary` is `true` in the request, this field contains a 32-character hex-encoded MD5 hash of the firmware data. Useful for the host to verify data integrity.",
             "type": "string"
         }
     },
@@ -33,6 +45,11 @@
             "title": "Small Data Block",
             "description": "Example response with a small firmware data block.",
             "json": "{\"payload\": \"dGVzdGZpcm13YXJlZGF0YQ==\"}"
+        },
+        {
+            "title": "Binary Mode Response",
+            "description": "Example response when using binary mode with firmware data in the I/O buffer.",
+            "json": "{\"cobs\": 10240, \"length\": 8192, \"status\": \"5d41402abc4b2a76b9719d911017c592\"}"
         }
     ]
 }

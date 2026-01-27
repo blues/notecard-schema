@@ -71,6 +71,23 @@ def test_invalid_additional_property(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
+def test_valid_binary_true(schema):
+    """Tests valid binary parameter set to true."""
+    instance = {"req": "dfu.get", "binary": True, "length": 8192, "offset": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_binary_false(schema):
+    """Tests valid binary parameter set to false."""
+    instance = {"req": "dfu.get", "binary": False, "length": 1024, "offset": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_binary_invalid_type(schema):
+    """Tests invalid type for binary parameter."""
+    instance = {"req": "dfu.get", "binary": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'boolean'" in str(excinfo.value)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
