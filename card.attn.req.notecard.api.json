@@ -29,7 +29,7 @@
             "sub-descriptions": [
                 {
                     "const": "",
-                    "description": "Fetches currently pending events in the \"files\" collection.",
+                    "description": "Queries the current ATTN pin state.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
