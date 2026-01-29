@@ -146,7 +146,7 @@ value appears as the tab header when multiple examples are present, and
 An array indicating Notecard compatibility at both the API and parameter level.
 
 Some APIs and parameters are reserved for specific Notecard SKUs (e.g.
-`card.wifi` is used to configure the Wi-Fi connectivity of Wi-Fi compatible
+`card.wifi` is used to configure the WiFi connectivity of WiFi compatible
 Notecards).
 All APIs and parameters are considered valid by ALL Notecards,
 however, they will be discarded when provided to an incompatible SKU.

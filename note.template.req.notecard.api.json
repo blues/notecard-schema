@@ -18,7 +18,7 @@
             "type": "object"
         },
         "delete": {
-            "description": "Set to `true` to delete all pending Notes using the template if one of the following scenarios is also true:\n\nConnecting via non-NTN (e.g. cellular or Wi-Fi) communications, but attempting to sync NTN-compatible Notefiles.\n\nor\n\nConnecting via NTN (e.g. satellite) communications, but attempting to sync non-NTN-compatible Notefiles.\n\nRead more about this feature in [Starnote Best Practices](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "description": "Set to `true` to delete all pending Notes using the template if one of the following scenarios is also true:\n\nConnecting via non-NTN (e.g. cellular or WiFi) communications, but attempting to sync NTN-compatible Notefiles.\n\nor\n\nConnecting via NTN (e.g. satellite) communications, but attempting to sync non-NTN-compatible Notefiles.\n\nRead more about this feature in [Starnote Best Practices](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
             "type": "boolean"
         },
         "file": {

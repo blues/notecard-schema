@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json",
     "title": "card.wifi Request Application Programming Interface (API) Schema",
-    "description": "Sets up a Notecard WiFi to connect to a Wi-Fi access point.",
+    "description": "Sets up a Notecard WiFi to connect to a WiFi access point.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -20,11 +20,11 @@
             "type": "string"
         },
         "password": {
-            "description": "The network password of the Wi-Fi access point. Alternatively, use `-` to clear an already set password or to connect to an open access point.",
+            "description": "The network password of the WiFi access point. Alternatively, use `-` to clear an already set password or to connect to an open access point.",
             "type": "string"
         },
         "ssid": {
-            "description": "The SSID of the Wi-Fi access point. Alternatively, use `-` to clear an already set SSID.",
+            "description": "The SSID of the WiFi access point. Alternatively, use `-` to clear an already set SSID.",
             "type": "string"
         },
         "start": {
@@ -77,12 +77,12 @@
     "samples": [
         {
             "title": "Create a Connection",
-            "description": "Set Wi-Fi SSID and password to connect to an access point.",
+            "description": "Set WiFi SSID and password to connect to an access point.",
             "json": "{\"req\":\"card.wifi\",\"ssid\":\"<ssid name>\",\"password\":\"<password>\"}"
         },
         {
             "title": "Clear a Connection",
-            "description": "Clear existing Wi-Fi credentials to disconnect.",
+            "description": "Clear existing WiFi credentials to disconnect.",
             "json": "{\"req\":\"card.wifi\",\"ssid\":\"-\",\"password\":\"-\"}"
         },
         {
@@ -97,7 +97,7 @@
         },
         {
             "title": "Configure Multiple Access Points",
-            "description": "Set up multiple Wi-Fi access points for fallback connectivity.",
+            "description": "Set up multiple WiFi access points for fallback connectivity.",
             "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
         }
     ]

@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.reset.req.notecard.api.json",
     "title": "ntn.reset Request Application Programming Interface (API) Schema",
-    "description": "Once a Notecard is connected to a Starnote device, the presence of a physical Starnote is stored in a permanent configuration that is not affected by a `card.restore` request. This request clears this configuration and allows you to return to testing NTN mode over cellular or Wi-Fi.",
+    "description": "Once a Notecard is connected to a Starnote device, the presence of a physical Starnote is stored in a permanent configuration that is not affected by a `card.restore` request. This request clears this configuration and allows you to return to testing NTN mode over cellular or WiFi.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -48,7 +48,7 @@
     "samples": [
         {
             "title": "Reset Starnote Configuration",
-            "description": "Clear Starnote configuration to return to testing NTN mode over cellular or Wi-Fi.",
+            "description": "Clear Starnote configuration to return to testing NTN mode over cellular or WiFi.",
             "json": "{\"req\": \"ntn.reset\"}"
         }
     ]
