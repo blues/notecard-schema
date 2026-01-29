@@ -85,7 +85,7 @@
             "type": "string"
         },
         "wifi": {
-            "description": "If `true`, indicates the Notecard supports Wi-Fi connectivity.",
+            "description": "If `true`, indicates the Notecard supports WiFi connectivity.",
             "type": "boolean",
             "minApiVersion": "5.3.1"
         }

@@ -77,7 +77,7 @@
                 },
                 {
                     "const": "wifi",
-                    "description": "Enables **Wi-Fi only** on the device.",
+                    "description": "Enables **WiFi only** on the device.",
                     "skus": [
                         "CELL+WIFI",
                         "WIFI"
@@ -85,21 +85,21 @@
                 },
                 {
                     "const": "wifi-cell",
-                    "description": "Prioritizes Wi-Fi connectivity while falling back to cellular if a Wi-Fi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
+                    "description": "Prioritizes WiFi connectivity while falling back to cellular if a WiFi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
                     "skus": [
                         "CELL+WIFI"
                     ]
                 },
                 {
                     "const": "wifi-cell-ntn",
-                    "description": "Prioritizes Wi-Fi connectivity while falling back to cellular, and lastly to NTN.",
+                    "description": "Prioritizes WiFi connectivity while falling back to cellular, and lastly to NTN.",
                     "skus": [
                         "CELL+WIFI"
                     ]
                 },
                 {
                     "const": "wifi-ntn",
-                    "description": "Prioritizes Wi-Fi connectivity while falling back to NTN if a Wi-Fi connection cannot be established.",
+                    "description": "Prioritizes WiFi connectivity while falling back to NTN if a WiFi connection cannot be established.",
                     "skus": [
                         "CELL+WIFI",
                         "WIFI"

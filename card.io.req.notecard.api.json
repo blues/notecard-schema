@@ -53,12 +53,12 @@
                 },
                 {
                     "const": "+fallback",
-                    "description": "Setting `\"+fallback\"` while Notecard is paired with a Starnote device forces fallback mode: Wi-Fi and cellular are automatically failed over, and all traffic goes through NTN. This state persists across reboots and therefore is discouraged for use in production deployments because it can incur unexpectedly high satellite data costs.",
+                    "description": "Setting `\"+fallback\"` while Notecard is paired with a Starnote device forces fallback mode: WiFi and cellular are automatically failed over, and all traffic goes through NTN. This state persists across reboots and therefore is discouraged for use in production deployments because it can incur unexpectedly high satellite data costs.",
                     "minApiVersion": "8.2.1"
                 },
                 {
                     "const": "-fallback",
-                    "description": "Resets `\"+fallback\"` to its default state, ensuring fallback mode is only enabled if cellular/Wi-Fi are not available."
+                    "description": "Resets `\"+fallback\"` to its default state, ensuring fallback mode is only enabled if cellular/WiFi are not available."
                 }
             ]
         },
@@ -112,7 +112,7 @@
         },
         {
             "title": "Force Fallback Mode For Starnote.",
-            "description": "Force the Notecard to enter fallback mode (cellular/Wi-Fi automatically failed over to NTN).",
+            "description": "Force the Notecard to enter fallback mode (cellular/WiFi automatically failed over to NTN).",
             "json": "{\"req\": \"card.io\", \"mode\": \"+fallback\"}"
         }
     ]

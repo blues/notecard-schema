@@ -60,7 +60,7 @@
     "annotations": [
         {
             "title": "note",
-            "description": "The `card.usage.test` API only applies to cellular and Wi-Fi data, not LoRa or satellite (NTN)."
+            "description": "The `card.usage.test` API only applies to cellular and WiFi data, not LoRa or satellite (NTN)."
         }
     ],
     "samples": [

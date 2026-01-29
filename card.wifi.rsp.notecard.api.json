@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.rsp.notecard.api.json",
     "title": "card.wifi Response Application Programming Interface (API) Schema",
-    "description": "Response containing Wi-Fi connection status and configuration information from the Notecard.",
+    "description": "Response containing WiFi connection status and configuration information from the Notecard.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -12,37 +12,37 @@
     ],
     "properties": {
         "secure": {
-            "description": "`true` means that the Wi-Fi access point is using Management Frame Protection.",
+            "description": "`true` means that the WiFi access point is using Management Frame Protection.",
             "type": "boolean"
         },
         "security": {
-            "description": "The security protocol the Wi-Fi access point uses.",
+            "description": "The security protocol the WiFi access point uses.",
             "type": "string"
         },
         "ssid": {
-            "description": "The SSID of the Wi-Fi access point.",
+            "description": "The SSID of the WiFi access point.",
             "type": "string"
         },
         "version": {
-            "description": "The Silicon Labs WF200 Wi-Fi Transceiver binary version.",
+            "description": "The Silicon Labs WF200 WiFi Transceiver binary version.",
             "type": "string"
         }
     },
     "additionalProperties": false,
     "samples": [
         {
-            "title": "Complete Wi-Fi Status Response",
-            "description": "Example response showing comprehensive Wi-Fi connection information.",
+            "title": "Complete WiFi Status Response",
+            "description": "Example response showing comprehensive WiFi connection information.",
             "json": "{\"secure\":true, \"version\":\"3.12.3\", \"ssid\":\"<ssid name>\", \"security\":\"wpa2-psk\"}"
         },
         {
             "title": "Basic Connection Response",
-            "description": "Example response with basic Wi-Fi access point information.",
+            "description": "Example response with basic WiFi access point information.",
             "json": "{\"ssid\":\"HomeNetwork\", \"security\":\"wpa3\"}"
         },
         {
             "title": "Version Information Response",
-            "description": "Example response showing Wi-Fi transceiver version.",
+            "description": "Example response showing WiFi transceiver version.",
             "json": "{\"version\":\"3.12.3\"}"
         }
     ]

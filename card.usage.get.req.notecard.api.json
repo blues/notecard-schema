@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.req.notecard.api.json",
     "title": "card.usage.get Request Application Programming Interface (API) Schema",
-    "description": "Returns the Notecard's network usage statistics for cellular and Wi-Fi transmissions.",
+    "description": "Returns the Notecard's network usage statistics for cellular and WiFi transmissions.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -80,13 +80,13 @@
     "annotations": [
         {
             "title": "note",
-            "description": "Usage data is updated by the Notecard at the end of each session. When operating in `continuous` mode, usage data is updated only after the interval specified by the [hub.set/duration argument](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) elapses.\n\nPlease note that the `card.usage.get` API only applies to cellular and Wi-Fi data, not LoRa or satellite (NTN)."
+            "description": "Usage data is updated by the Notecard at the end of each session. When operating in `continuous` mode, usage data is updated only after the interval specified by the [hub.set/duration argument](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) elapses.\n\nPlease note that the `card.usage.get` API only applies to cellular and WiFi data, not LoRa or satellite (NTN)."
         }
     ],
     "samples": [
         {
             "title": "Get Total Usage",
-            "description": "Retrieve all cellular and Wi-Fi usage statistics since Notecard activation.",
+            "description": "Retrieve all cellular and WiFi usage statistics since Notecard activation.",
             "json": "{\"req\": \"card.usage.get\"}"
         },
         {

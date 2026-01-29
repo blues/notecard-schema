@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.usage.get.rsp.notecard.api.json",
     "title": "card.usage.get Response Application Programming Interface (API) Schema",
-    "description": "Response containing cellular and Wi-Fi network usage statistics for the specified time period.",
+    "description": "Response containing cellular and WiFi network usage statistics for the specified time period.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -49,12 +49,12 @@
     "samples": [
         {
             "title": "Complete Usage Statistics",
-            "description": "Example response showing comprehensive cellular and Wi-Fi network usage data.",
+            "description": "Example response showing comprehensive cellular and WiFi network usage data.",
             "json": "{\"seconds\":1291377, \"time\":1598479763, \"bytes_sent\":163577, \"bytes_received\":454565, \"notes_sent\":114, \"notes_received\":26, \"sessions_standard\":143, \"sessions_secure\":31}"
         },
         {
             "title": "Partial Usage Statistics",
-            "description": "Example response with basic cellular and Wi-Fi usage metrics.",
+            "description": "Example response with basic cellular and WiFi usage metrics.",
             "json": "{\"seconds\":3600, \"time\":1700000000, \"bytes_sent\":1024, \"bytes_received\":2048}"
         }
     ]

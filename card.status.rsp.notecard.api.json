@@ -56,7 +56,7 @@
             "type": "boolean"
         },
         "wifi": {
-            "description": "`true` if the Notecard's Wi-Fi radio is currently powered on.",
+            "description": "`true` if the Notecard's WiFi radio is currently powered on.",
             "type": "boolean"
         }
     },
