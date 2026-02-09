@@ -36,7 +36,7 @@
         },
         "value": {
             "description": "The numeric value to be stored in the DB Notefile.",
-            "type": "integer"
+            "type": "number"
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -67,7 +67,7 @@
                     "type": "string"
                 },
                 "value": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "flag": {
                     "type": "boolean"
@@ -113,7 +113,7 @@
                     "type": "string"
                 },
                 "value": {
-                    "type": "integer"
+                    "type": "number"
                 },
                 "flag": {
                     "type": "boolean"
@@ -151,7 +151,7 @@
         {
             "title": "Set Numeric Variable",
             "description": "Set a numeric variable named `\"temperature\"` to `23` in a specific DB Notefile.",
-            "json": "{\"req\": \"var.set\", \"name\": \"temperature\", \"value\": 23, \"file\": \"sensors.db\"}"
+            "json": "{\"req\": \"var.set\", \"name\": \"temperature\", \"value\": 23.5, \"file\": \"sensors.db\"}"
         },
         {
             "title": "Set Boolean Variable with Sync",

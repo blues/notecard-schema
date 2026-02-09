@@ -77,6 +77,25 @@ def test_text_optional(schema):
     instance = {"req": "env.default", "name": "test-var"}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_sync(schema):
+    """Tests valid sync field."""
+    instance = {"req": "env.default", "name": "test-var", "text": "on", "sync": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"cmd": "env.default", "name": "test-var", "sync": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_sync_invalid_type(schema):
+    """Tests invalid type for sync."""
+    instance = {"req": "env.default", "name": "test-var", "sync": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_sync_optional(schema):
+    """Tests that sync field is optional."""
+    instance = {"req": "env.default", "name": "test-var", "text": "value"}
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_invalid_additional_property(schema):
     """Tests invalid request with an additional property."""
     instance = {"req": "env.default", "name": "test-var", "extra": 123}
