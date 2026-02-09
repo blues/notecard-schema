@@ -22,7 +22,9 @@ def test_valid_value_requests(schema):
         {"req": "var.set", "name": "temperature", "value": 23},
         {"cmd": "var.set", "name": "count", "value": 0},
         {"req": "var.set", "name": "humidity", "value": 65, "file": "sensors.db"},
-        {"cmd": "var.set", "name": "reading", "value": -10, "sync": True}
+        {"cmd": "var.set", "name": "reading", "value": -10, "sync": True},
+        {"req": "var.set", "name": "temperature", "value": 23.5},
+        {"req": "var.set", "name": "pressure", "value": -0.75, "file": "sensors.db"}
     ]
     
     for request in valid_requests:
@@ -153,8 +155,7 @@ def test_invalid_value_type(schema):
         {"req": "var.set", "name": "test", "value": True},
         {"req": "var.set", "name": "test", "value": []},
         {"req": "var.set", "name": "test", "value": {}},
-        {"cmd": "var.set", "name": "test", "value": None},
-        {"req": "var.set", "name": "test", "value": 12.34}  # Should be integer
+        {"cmd": "var.set", "name": "test", "value": None}
     ]
     
     for instance in invalid_value_types:
