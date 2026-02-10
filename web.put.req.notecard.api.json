@@ -71,7 +71,7 @@
             "type": "string"
         },
         "total": {
-            "description": "When sending large payloads to Notehub in fragments across several `web.put` requests, the total size, in bytes, of the binary payload across all fragments.",
+            "description": "When using the `application/octet-stream` content type, you may send large payloads to Notehub in fragments spanning several `web.put` requests by using `offset` (see above) and `total`. The `total` field indicates the total size, in bytes (10MB max), of the payload across all fragments.",
             "type": "integer",
             "minApiVersion": "3.2.1"
         },
