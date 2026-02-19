@@ -35,7 +35,7 @@
             "minApiVersion": "6.1.1"
         },
         "seconds": {
-            "description": "If the Notecard is in a [Penalty Box](/notecard/notecard-walkthrough/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
+            "description": "If the Notecard is in a [Penalty Box](/support/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
             "type": "integer",
             "minApiVersion": "4.1.1"
         },
