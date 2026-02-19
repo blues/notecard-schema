@@ -14,7 +14,7 @@
     ],
     "properties": {
         "allow": {
-            "description": "Set to `true` to remove the Notecard from certain types of [penalty boxes](/notecard/notecard-walkthrough/understanding-notecard-penalty-boxes/) (the default is `false`).",
+            "description": "Set to `true` to remove the Notecard from certain types of [penalty boxes](/support/understanding-notecard-penalty-boxes/) (the default is `false`).",
             "type": "boolean"
         },
         "in": {
