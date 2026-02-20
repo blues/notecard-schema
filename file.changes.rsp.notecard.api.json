@@ -44,9 +44,6 @@
             "type": "integer"
         }
     },
-    "required": [
-        "total"
-    ],
     "additionalProperties": false,
     "samples": [
         {

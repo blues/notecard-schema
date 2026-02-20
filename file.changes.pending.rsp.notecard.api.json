@@ -44,9 +44,6 @@
             "type": "integer"
         }
     },
-    "required": [
-        "total"
-    ],
     "additionalProperties": false,
     "samples": [
         {
@@ -57,7 +54,7 @@
         {
             "title": "No Pending Changes",
             "description": "Response when no changes are pending upload.",
-            "json": "{\"total\": 0, \"changes\": 0, \"pending\": false}"
+            "json": "{}"
         },
         {
             "title": "Multiple Files with Changes",

@@ -53,8 +53,7 @@
         }
     },
     "required": [
-        "status",
-        "sync"
+        "status"
     ],
     "additionalProperties": false,
     "samples": [
@@ -66,12 +65,12 @@
         {
             "title": "Sync Status with Penalty Box",
             "description": "Response when Notecard is in penalty box.",
-            "json": "{\"status\": \"waiting {network-down}\", \"mode\": \"{modem-off}\", \"sync\": false, \"seconds\": 300}"
+            "json": "{\"status\": \"waiting {network-down}\", \"mode\": \"{modem-off}\", \"seconds\": 300}"
         },
         {
             "title": "Recent Sync with Triangulation",
             "description": "Response showing recent sync with scan data.",
-            "json": "{\"status\": \"completed {sync-end}\", \"mode\": \"{modem-off}\", \"time\": 1598367163, \"sync\": false, \"completed\": 45, \"scan\": true}"
+            "json": "{\"status\": \"completed {sync-end}\", \"mode\": \"{modem-off}\", \"time\": 1598367163, \"completed\": 45, \"scan\": true}"
         }
     ]
 }

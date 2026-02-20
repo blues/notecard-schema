@@ -32,7 +32,7 @@
         {
             "title": "Sleep Mode Status",
             "description": "Example response showing current sleep configuration.",
-            "json": "{\"seconds\": 10, \"mode\": \"accel\", \"on\": true, \"off\": false}"
+            "json": "{\"seconds\": 10, \"mode\": \"accel\", \"on\": true}"
         }
     ]
 }

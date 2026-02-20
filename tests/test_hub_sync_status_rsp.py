@@ -4,11 +4,11 @@ import json
 
 SCHEMA_FILE = "hub.sync.status.rsp.notecard.api.json"
 
-REQUIRED_FIELDS = {"status": "completed {sync-end}", "sync": True}
+REQUIRED_FIELDS = {"status": "completed {sync-end}"}
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with required fields."""
-    instance = {"status": "completed {sync-end}", "sync": True}
+    instance = {"status": "completed {sync-end}"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_missing_required_status(schema):
@@ -17,13 +17,6 @@ def test_missing_required_status(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'status' is a required property" in str(excinfo.value)
-
-def test_missing_required_sync(schema):
-    """Tests that 'sync' is a required property."""
-    instance = {"status": "completed {sync-end}"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'sync' is a required property" in str(excinfo.value)
 
 def test_valid_status_field(schema):
     """Tests valid status field."""
@@ -89,7 +82,7 @@ def test_valid_complete_response(schema):
         "sync": True,
         "completed": 1648,
         "requested": 3600,
-        "seconds": 0,
+        "seconds": 300,
         "scan": True
     }
     jsonschema.validate(instance=instance, schema=schema)
@@ -99,7 +92,6 @@ def test_valid_partial_response(schema):
     instance = {
         "status": "waiting {network-down}",
         "mode": "{modem-off}",
-        "sync": False,
         "seconds": 300
     }
     jsonschema.validate(instance=instance, schema=schema)
@@ -109,7 +101,6 @@ def test_valid_penalty_box_response(schema):
     instance = {
         "status": "waiting {network-down}",
         "mode": "{modem-off}",
-        "sync": False,
         "seconds": 300
     }
     jsonschema.validate(instance=instance, schema=schema)
@@ -120,7 +111,6 @@ def test_valid_recent_sync_response(schema):
         "status": "completed {sync-end}",
         "mode": "{modem-off}",
         "time": 1598367163,
-        "sync": False,
         "completed": 45,
         "scan": True
     }
@@ -486,12 +476,8 @@ def test_common_mode_values(schema):
 def test_edge_case_combinations(schema):
     """Tests edge case field combinations."""
     edge_cases = [
-        # All boolean fields False
-        {**REQUIRED_FIELDS, "alert": False, "sync": False, "scan": False},
         # All boolean fields True
         {**REQUIRED_FIELDS, "alert": True, "sync": True, "scan": True},
-        # Mixed booleans with zero integers
-        {**REQUIRED_FIELDS, "alert": True, "sync": False, "time": 0, "completed": 0, "requested": 0, "seconds": 0},
         # Only required fields with different status
         {**REQUIRED_FIELDS, "status": "completed {sync-end}"},
         # Only required fields with different mode
