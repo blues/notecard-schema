@@ -24,6 +24,20 @@
                 "green",
                 "red",
                 "yellow"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "green",
+                    "description": "Temporarily override the behavior of the green AUX pin LED."
+                },
+                {
+                    "const": "red",
+                    "description": "Temporarily override the behavior of the red AUX pin LED."
+                },
+                {
+                    "const": "yellow",
+                    "description": "Temporarily override the behavior of the yellow AUX pin LED."
+                }
             ]
         },
         "usb": {

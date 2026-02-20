@@ -76,6 +76,29 @@ def test_invalid_additional_property(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
+def test_mode_sub_descriptions_exist(schema):
+    """Tests that the mode property has sub-descriptions."""
+    mode_prop = schema["properties"]["mode"]
+    assert "sub-descriptions" in mode_prop, "mode property is missing sub-descriptions"
+
+def test_mode_sub_descriptions_match_enum(schema):
+    """Tests that every enum value has a corresponding sub-description and vice versa."""
+    mode_prop = schema["properties"]["mode"]
+    enum_values = set(mode_prop["enum"])
+    sub_desc_values = {sd["const"] for sd in mode_prop["sub-descriptions"]}
+    assert enum_values == sub_desc_values, (
+        f"Mismatch between enum values and sub-description consts. "
+        f"Missing sub-descriptions: {enum_values - sub_desc_values}. "
+        f"Extra sub-descriptions: {sub_desc_values - enum_values}."
+    )
+
+def test_mode_sub_descriptions_have_description(schema):
+    """Tests that each sub-description entry has a non-empty description."""
+    mode_prop = schema["properties"]["mode"]
+    for sd in mode_prop["sub-descriptions"]:
+        assert "description" in sd, f"Sub-description for '{sd['const']}' is missing 'description'"
+        assert len(sd["description"]) > 0, f"Sub-description for '{sd['const']}' has empty description"
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

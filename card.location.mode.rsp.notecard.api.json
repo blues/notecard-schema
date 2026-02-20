@@ -36,6 +36,24 @@
                 "periodic",
                 "off",
                 "fixed"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "continuous",
+                    "description": "Enables the Notecard's onboard GPS/GNSS module for continuous sampling, at a maximum frequency of one fix every 5 seconds. When in continuous mode the Notecard samples a new GPS/GNSS reading for every new Note."
+                },
+                {
+                    "const": "periodic",
+                    "description": "Samples location at a specified interval, if the device has moved."
+                },
+                {
+                    "const": "off",
+                    "description": "Turns location mode off. Approximate location may still be ascertained from Notehub."
+                },
+                {
+                    "const": "fixed",
+                    "description": "Reports the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa."
+                }
             ]
         },
         "seconds": {

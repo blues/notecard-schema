@@ -38,6 +38,14 @@
                     "description": "Set to `\"-usb\"` to disable the Notecard's USB port. Re-enable the USB port with `\"usb\"` or `\"+usb\"`."
                 },
                 {
+                    "const": "usb",
+                    "description": "Re-enable the Notecard's USB port after it has been disabled with `\"-usb\"`."
+                },
+                {
+                    "const": "+usb",
+                    "description": "Re-enable the Notecard's USB port after it has been disabled with `\"-usb\"`."
+                },
+                {
                     "const": "+busy",
                     "description": "If set to `\"+busy\"`, the Notecard's LED will be on when the Notecard is awake, and off when the Notecard goes to sleep.",
                     "minApiVersion": "7.4.1"
@@ -49,6 +57,11 @@
                 {
                     "const": "i2c-master-disable",
                     "description": "Disables Notecard acting as an I2C master. Re-enable by using `\"i2c-master-enable\"`.",
+                    "minApiVersion": "9.1.1"
+                },
+                {
+                    "const": "i2c-master-enable",
+                    "description": "Re-enables the Notecard to act as an I2C master after it has been disabled with `\"i2c-master-disable\"`.",
                     "minApiVersion": "9.1.1"
                 },
                 {
