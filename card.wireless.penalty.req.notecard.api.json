@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wireless.penalty.req.notecard.api.json",
     "title": "card.wireless.penalty Request Application Programming Interface (API) Schema",
-    "description": "View the current state of a [Notecard Penalty Box](/support/understanding-notecard-penalty-boxes), manually remove the Notecard from a penalty box, or override penalty box defaults.",
+    "description": "View the current state of a [Notecard Penalty Box](/support/understanding-notecard-penalty-boxes/), manually remove the Notecard from a penalty box, or override penalty box defaults.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",

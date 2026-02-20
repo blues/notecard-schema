@@ -21,12 +21,12 @@
             "type": "integer"
         },
         "seconds": {
-            "description": "If the Notecard is in a [Penalty Box](https://dev.blues.io/notecard/notecard-walkthrough/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
+            "description": "If the Notecard is in a [Penalty Box](/support/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
             "type": "integer",
             "minApiVersion": "4.1.1"
         },
         "status": {
-            "description": "If the Notecard is in a [Penalty Box](https://dev.blues.io/notecard/notecard-walkthrough/understanding-notecard-penalty-boxes/), this field provides the associated [Error and Status Codes](https://dev.blues.io/notecard/notecard-walkthrough/notecard-error-and-status-codes/).",
+            "description": "If the Notecard is in a [Penalty Box](/support/understanding-notecard-penalty-boxes/), this field provides the associated [Error and Status Codes](/support/notecard-error-and-status-codes/).",
             "type": "string"
         }
     },
