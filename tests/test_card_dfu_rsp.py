@@ -17,6 +17,16 @@ def test_valid_name_field(schema):
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"name": "mcuboot"}
     jsonschema.validate(instance=instance, schema=schema)
+    instance = {"name": "stm32-bi"}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"name": ""}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_name_invalid_enum(schema):
+    """Tests an invalid name enum value."""
+    instance = {"name": "invalid-mcu"}
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance=instance, schema=schema)
 
 def test_name_invalid_type(schema):
     """Tests invalid type for name field."""

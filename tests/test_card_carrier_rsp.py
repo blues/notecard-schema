@@ -14,8 +14,12 @@ def test_valid_rsp_with_mode(schema):
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"mode": "off"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"mode": ""}
-    jsonschema.validate(instance=instance, schema=schema)
+
+def test_mode_invalid_enum(schema):
+    """Tests an invalid mode enum value."""
+    instance = {"mode": "invalid"}
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance=instance, schema=schema)
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""

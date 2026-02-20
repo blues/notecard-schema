@@ -17,7 +17,11 @@
         },
         "mode": {
             "description": "The current `AUX_CHARGING` `mode`, or `off` if not set.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "charging",
+                "off"
+            ]
         }
     },
     "samples": [
