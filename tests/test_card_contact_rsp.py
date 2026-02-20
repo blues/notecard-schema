@@ -1,16 +1,17 @@
 import pytest
 import jsonschema
 import json
+
 SCHEMA_FILE = "card.contact.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (empty object, no required fields)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_name(schema):
     """Tests a valid response with the name field."""
-    instance = {"name": "John Doe"}
+    instance = {"name": "Jane Smith"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_name_invalid_type(schema):
@@ -22,7 +23,7 @@ def test_name_invalid_type(schema):
 
 def test_valid_org(schema):
     """Tests a valid response with the org field."""
-    instance = {"org": "Blues Wireless"}
+    instance = {"org": "Example Inc."}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_org_invalid_type(schema):
@@ -34,7 +35,7 @@ def test_org_invalid_type(schema):
 
 def test_valid_role(schema):
     """Tests a valid response with the role field."""
-    instance = {"role": "Developer"}
+    instance = {"role": "Manager"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_role_invalid_type(schema):
@@ -69,9 +70,26 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_all_fields_optional(schema):
+    """Tests that all fields are optional."""
+    instance = {}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance_name = {"name": "John Doe"}
+    jsonschema.validate(instance=instance_name, schema=schema)
+
+    instance_org = {"org": "Blues Wireless"}
+    jsonschema.validate(instance=instance_org, schema=schema)
+
+    instance_role = {"role": "Developer"}
+    jsonschema.validate(instance=instance_role, schema=schema)
+
+    instance_email = {"email": "john@blues.com"}
+    jsonschema.validate(instance=instance_email, schema=schema)
+
 def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
-    instance = {"name": "Test", "extra": True}
+    instance = {"extra": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):

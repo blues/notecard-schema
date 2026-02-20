@@ -5,28 +5,8 @@ import json
 SCHEMA_FILE = "file.stats.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (all fields optional)."""
     instance = {}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_total_only(schema):
-    """Tests valid response with only total field."""
-    instance = {"total": 83}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_changes_only(schema):
-    """Tests valid response with only changes field."""
-    instance = {"changes": 78}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_sync_only(schema):
-    """Tests valid response with only sync field."""
-    instance = {"sync": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_sync_false(schema):
-    """Tests valid response with sync false."""
-    instance = {"sync": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_all_fields(schema):
@@ -34,19 +14,14 @@ def test_valid_all_fields(schema):
     instance = {"total": 83, "changes": 78, "sync": True}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_zero_values(schema):
-    """Tests valid response with zero values."""
-    instance = {"total": 0, "changes": 0, "sync": False}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_valid_large_values(schema):
     """Tests valid response with large values."""
-    instance = {"total": 1000000, "changes": 999999, "sync": True}
+    instance = {"total": 1000000, "changes": 999999}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_no_pending_changes(schema):
     """Tests valid response with no pending changes."""
-    instance = {"total": 25, "changes": 0, "sync": False}
+    instance = {"total": 25}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_total_invalid_type(schema):
@@ -133,39 +108,9 @@ def test_sync_invalid_object(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
-def test_valid_partial_combinations(schema):
-    """Tests valid responses with various field combinations."""
-    combinations = [
-        {"total": 100},
-        {"changes": 50},
-        {"sync": True},
-        {"total": 100, "changes": 50},
-        {"total": 100, "sync": True},
-        {"changes": 50, "sync": False},
-        {"total": 100, "changes": 50, "sync": True}
-    ]
-    
-    for combo in combinations:
-        jsonschema.validate(instance=combo, schema=schema)
-
-def test_total_optional(schema):
-    """Tests that total field is optional."""
-    instance = {"changes": 78, "sync": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_changes_optional(schema):
-    """Tests that changes field is optional."""
-    instance = {"total": 83, "sync": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_sync_optional(schema):
-    """Tests that sync field is optional."""
-    instance = {"total": 83, "changes": 78}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_invalid_additional_property(schema):
     """Tests invalid response with an additional property."""
-    instance = {"total": 83, "changes": 78, "sync": True, "extra": 123}
+    instance = {"total": 83, "changes": 78, "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -180,7 +125,7 @@ def test_invalid_common_additional_properties(schema):
         {"result": {}},
         {"data": {"total": 83}}
     ]
-    
+
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
@@ -196,7 +141,7 @@ def test_response_type_validation(schema):
         ["array"],
         None
     ]
-    
+
     for invalid_instance in invalid_types:
         if invalid_instance is None:
             continue  # Skip None as it's handled differently

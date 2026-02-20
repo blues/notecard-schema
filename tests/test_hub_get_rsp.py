@@ -5,22 +5,29 @@ import json
 SCHEMA_FILE = "hub.get.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response (mode is required)."""
+    instance = {"mode": "periodic"}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_missing_required_mode(schema):
+    """Tests that an empty object fails validation because mode is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'mode' is a required property" in str(excinfo.value)
+
 def test_valid_device_only(schema):
-    """Tests valid response with only device field."""
-    instance = {"device": "dev:000000000000000"}
+    """Tests valid response with device and required mode fields."""
+    instance = {"mode": "periodic", "device": "dev:000000000000000"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_product_only(schema):
-    """Tests valid response with only product field."""
-    instance = {"product": "com.company.user:product"}
+    """Tests valid response with product and required mode fields."""
+    instance = {"mode": "periodic", "product": "com.company.user:product"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_mode_only(schema):
-    """Tests valid response with only mode field."""
+    """Tests valid response with only the required mode field."""
     instance = {"mode": "periodic"}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -49,34 +56,34 @@ def test_valid_mode_values(schema):
 
 def test_valid_sync_true(schema):
     """Tests valid response with sync true."""
-    instance = {"sync": True}
+    instance = {"mode": "continuous", "sync": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_sync_false(schema):
     """Tests valid response with sync false."""
-    instance = {"sync": False}
+    instance = {"mode": "periodic", "sync": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_zero_timing_values(schema):
     """Tests valid response with zero timing values."""
-    instance = {"outbound": 0, "inbound": 0}
+    instance = {"mode": "periodic", "outbound": 0, "inbound": 0}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_large_timing_values(schema):
     """Tests valid response with large timing values."""
-    instance = {"outbound": 86400, "inbound": 43200}
+    instance = {"mode": "periodic", "outbound": 86400, "inbound": 43200}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_device_invalid_type(schema):
     """Tests invalid type for device."""
-    instance = {"device": 123}
+    instance = {"mode": "periodic", "device": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'string'" in str(excinfo.value)
 
 def test_product_invalid_type(schema):
     """Tests invalid type for product."""
-    instance = {"product": True}
+    instance = {"mode": "periodic", "product": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'string'" in str(excinfo.value)
@@ -90,70 +97,70 @@ def test_mode_invalid_type(schema):
 
 def test_outbound_invalid_type(schema):
     """Tests invalid type for outbound."""
-    instance = {"outbound": "not-integer"}
+    instance = {"mode": "periodic", "outbound": "not-integer"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_outbound_invalid_float(schema):
     """Tests invalid float type for outbound."""
-    instance = {"outbound": 60.5}
+    instance = {"mode": "periodic", "outbound": 60.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "60.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_inbound_invalid_type(schema):
     """Tests invalid type for inbound."""
-    instance = {"inbound": "not-integer"}
+    instance = {"mode": "periodic", "inbound": "not-integer"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_inbound_invalid_float(schema):
     """Tests invalid float type for inbound."""
-    instance = {"inbound": 240.5}
+    instance = {"mode": "periodic", "inbound": 240.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "240.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_voutbound_invalid_type(schema):
     """Tests invalid type for voutbound."""
-    instance = {"voutbound": 123}
+    instance = {"mode": "periodic", "voutbound": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'string'" in str(excinfo.value)
 
 def test_vinbound_invalid_type(schema):
     """Tests invalid type for vinbound."""
-    instance = {"vinbound": 456}
+    instance = {"mode": "periodic", "vinbound": 456}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "456 is not of type 'string'" in str(excinfo.value)
 
 def test_host_invalid_type(schema):
     """Tests invalid type for host."""
-    instance = {"host": {"url": "a.notefile.net"}}
+    instance = {"mode": "periodic", "host": {"url": "a.notefile.net"}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'string'" in str(excinfo.value)
 
 def test_sn_invalid_type(schema):
     """Tests invalid type for sn."""
-    instance = {"sn": 789}
+    instance = {"mode": "periodic", "sn": 789}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "789 is not of type 'string'" in str(excinfo.value)
 
 def test_sync_invalid_type(schema):
     """Tests invalid type for sync."""
-    instance = {"sync": "not-boolean"}
+    instance = {"mode": "periodic", "sync": "not-boolean"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-boolean' is not of type 'boolean'" in str(excinfo.value)
 
 def test_sync_invalid_integer(schema):
     """Tests invalid integer type for sync."""
-    instance = {"sync": 1}
+    instance = {"mode": "periodic", "sync": 1}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
@@ -161,39 +168,42 @@ def test_sync_invalid_integer(schema):
 def test_valid_partial_combinations(schema):
     """Tests valid responses with various field combinations."""
     combinations = [
-        {"device": "dev:123", "product": "com.test:app"},
+        {"mode": "periodic", "device": "dev:123", "product": "com.test:app"},
         {"mode": "continuous", "sync": True},
-        {"outbound": 30, "inbound": 120},
-        {"host": "custom.notefile.net"},
-        {"sn": "SN123456789"},
-        {"voutbound": "5:10", "vinbound": "8:12"}
+        {"mode": "periodic", "outbound": 30, "inbound": 120},
+        {"mode": "periodic", "host": "custom.notefile.net"},
+        {"mode": "periodic", "sn": "SN123456789"},
+        {"mode": "periodic", "voutbound": "5:10", "vinbound": "8:12"}
     ]
-    
+
     for combo in combinations:
         jsonschema.validate(instance=combo, schema=schema)
 
-def test_all_fields_optional(schema):
-    """Tests that all fields are optional."""
-    # Test each field individually
+def test_all_non_required_fields_optional(schema):
+    """Tests that all non-required fields are optional by providing just mode."""
+    # mode is required, all other fields are optional
+    instance = {"mode": "periodic"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    # Test each optional field individually alongside mode
     fields = [
-        {"device": "dev:000000000000000"},
-        {"product": "com.company.user:product"},
-        {"mode": "periodic"},
-        {"outbound": 60},
-        {"inbound": 240},
-        {"host": "a.notefile.net"},
-        {"sn": "serial123"},
-        {"sync": True},
-        {"voutbound": "5:10"},
-        {"vinbound": "10:15"}
+        {"mode": "periodic", "device": "dev:000000000000000"},
+        {"mode": "periodic", "product": "com.company.user:product"},
+        {"mode": "periodic", "outbound": 60},
+        {"mode": "periodic", "inbound": 240},
+        {"mode": "periodic", "host": "a.notefile.net"},
+        {"mode": "periodic", "sn": "serial123"},
+        {"mode": "periodic", "sync": True},
+        {"mode": "periodic", "voutbound": "5:10"},
+        {"mode": "periodic", "vinbound": "10:15"}
     ]
-    
+
     for field_dict in fields:
         jsonschema.validate(instance=field_dict, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with an additional property."""
-    instance = {"device": "dev:123", "extra": 123}
+    instance = {"mode": "periodic", "device": "dev:123", "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -201,13 +211,13 @@ def test_invalid_additional_property(schema):
 def test_invalid_common_additional_properties(schema):
     """Tests that common additional properties are not allowed."""
     invalid_fields = [
-        {"status": "ok"},
-        {"message": "success"},
-        {"time": 1234567890},
-        {"version": "1.0"},
-        {"result": {}}
+        {"mode": "periodic", "status": "ok"},
+        {"mode": "periodic", "message": "success"},
+        {"mode": "periodic", "time": 1234567890},
+        {"mode": "periodic", "version": "1.0"},
+        {"mode": "periodic", "result": {}}
     ]
-    
+
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
@@ -223,7 +233,7 @@ def test_response_type_validation(schema):
         ["array"],
         None
     ]
-    
+
     for invalid_instance in invalid_types:
         if invalid_instance is None:
             continue  # Skip None as it's handled differently

@@ -36,7 +36,7 @@
         {
             "title": "No Pending Changes",
             "description": "Response when no changes are pending sync.",
-            "json": "{\"total\": 25, \"changes\": 0, \"sync\": false}"
+            "json": "{\"total\": 25}"
         }
     ]
 }

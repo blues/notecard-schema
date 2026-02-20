@@ -5,7 +5,7 @@ import json
 SCHEMA_FILE = "card.location.mode.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (empty object, all fields optional)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -97,10 +97,11 @@ def test_valid_all_fields(schema):
     """Tests a valid response with all fields."""
     instance = {
         "mode": "fixed",
-        "seconds": 0, # Often present even if not periodic
+        "seconds": 0,
         "lat": 40.7128,
         "lon": -74.0060,
-        "max": 120
+        "max": 120,
+        "threshold": 4
     }
     jsonschema.validate(instance=instance, schema=schema)
 

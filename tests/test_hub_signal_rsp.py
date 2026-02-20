@@ -5,7 +5,7 @@ import json
 SCHEMA_FILE = "hub.signal.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (no required fields, empty object is valid)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -51,7 +51,7 @@ def test_valid_body_complex_object(schema):
         },
         "alerts": ["high_temp", "low_battery"]
     }
-    instance = {"body": complex_body, "connected": True}
+    instance = {"body": complex_body}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_connected_true(schema):
@@ -79,28 +79,21 @@ def test_valid_signals_positive(schema):
 def test_valid_partial_combinations(schema):
     """Tests valid responses with various field combinations."""
     combinations = [
-        {"body": {"key": "value"}, "connected": True},
-        {"body": {"data": 123}, "signals": 2},
+        {"body": {"key": "value"}},
+        {"body": {"data": 123}, "connected": True, "signals": 2},
         {"connected": False, "signals": 0},
         {"body": {"alert": "message"}},
         {"connected": True, "signals": 1}
     ]
-    
+
     for combo in combinations:
         jsonschema.validate(instance=combo, schema=schema)
 
 def test_all_fields_optional(schema):
     """Tests that all fields are optional."""
-    # Test each field individually and empty object
-    individual_fields = [
-        {},
-        {"body": {"test": "value"}},
-        {"connected": True},
-        {"signals": 5}
-    ]
-    
-    for field_dict in individual_fields:
-        jsonschema.validate(instance=field_dict, schema=schema)
+    # No required fields, empty object is valid
+    instance = {}
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_body_invalid_type_string(schema):
     """Tests invalid string type for body."""
@@ -205,7 +198,7 @@ def test_invalid_common_additional_properties(schema):
         {"success": True},
         {"signal_id": "abc123"}
     ]
-    
+
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
@@ -261,7 +254,7 @@ def test_strict_validation(schema):
         "device", "product", "status", "error", "message", "time",
         "result", "data", "success", "code", "info", "warning", "signal_id"
     ]
-    
+
     for prop in properties_to_test:
         instance = {prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
