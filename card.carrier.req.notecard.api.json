@@ -19,6 +19,20 @@
                 "charging",
                 "-",
                 "off"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "charging",
+                    "description": "Tell the Notecard that `AUX_CHARGING` is connected to a Notecarrier that supports charging on `AUX_CHARGING`."
+                },
+                {
+                    "const": "-",
+                    "description": "Turn off `AUX_CHARGING` detection."
+                },
+                {
+                    "const": "off",
+                    "description": "Turn off `AUX_CHARGING` detection."
+                }
             ]
         },
         "req": {

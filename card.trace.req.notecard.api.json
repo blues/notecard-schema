@@ -19,6 +19,16 @@
             "enum": [
                 "on",
                 "off"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "on",
+                    "description": "Enable trace mode on the Notecard for debugging."
+                },
+                {
+                    "const": "off",
+                    "description": "Disable trace mode on the Notecard."
+                }
             ]
         },
         "req": {

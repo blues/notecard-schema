@@ -39,6 +39,20 @@
                 "continuous",
                 "periodic",
                 "off"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "continuous",
+                    "description": "The Notecard's onboard GPS/GNSS module is enabled for continuous sampling."
+                },
+                {
+                    "const": "periodic",
+                    "description": "The Notecard samples location at a specified interval, if the device has moved."
+                },
+                {
+                    "const": "off",
+                    "description": "Location mode is off."
+                }
             ]
         },
         "status": {

@@ -25,6 +25,80 @@
                 "wifi-cell",
                 "wifi-cell-ntn",
                 "wifi-ntn"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "-",
+                    "description": "The transport mode is set to the device default.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "cell",
+                    "description": "Cellular only is enabled on the device.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI"
+                    ]
+                },
+                {
+                    "const": "cell-ntn",
+                    "description": "Prioritizes cellular connectivity while falling back to NTN if a cellular connection cannot be established.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI"
+                    ]
+                },
+                {
+                    "const": "dual-wifi-cell",
+                    "description": "Deprecated form of `\"wifi-cell\"`.",
+                    "skus": [
+                        "CELL+WIFI"
+                    ],
+                    "deprecated": true
+                },
+                {
+                    "const": "ntn",
+                    "description": "NTN (Non-Terrestrial Network) mode is enabled on the device for use with Starnote.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "wifi",
+                    "description": "WiFi only is enabled on the device.",
+                    "skus": [
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "wifi-cell",
+                    "description": "Prioritizes WiFi connectivity while falling back to cellular if a WiFi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
+                    "skus": [
+                        "CELL+WIFI"
+                    ]
+                },
+                {
+                    "const": "wifi-cell-ntn",
+                    "description": "Prioritizes WiFi connectivity while falling back to cellular, and lastly to NTN.",
+                    "skus": [
+                        "CELL+WIFI"
+                    ]
+                },
+                {
+                    "const": "wifi-ntn",
+                    "description": "Prioritizes WiFi connectivity while falling back to NTN if a WiFi connection cannot be established.",
+                    "skus": [
+                        "CELL+WIFI",
+                        "WIFI"
+                    ]
+                }
             ]
         }
     },
