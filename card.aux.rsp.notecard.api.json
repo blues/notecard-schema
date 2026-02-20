@@ -16,10 +16,8 @@
             "description": "The current AUX `mode`, or `off` if not set.",
             "type": "string",
             "enum": [
-                "air",
                 "busy-monitor",
                 "dfu",
-                "dfu-starnote",
                 "gpio",
                 "led",
                 "led-monitor",
@@ -32,8 +30,7 @@
                 "track",
                 "track-led-monitor",
                 "track-neo-monitor",
-                "track-rgb-monitor",
-                "wifinet"
+                "track-rgb-monitor"
             ]
         },
         "power": {
