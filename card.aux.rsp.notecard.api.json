@@ -17,6 +17,7 @@
             "type": "string",
             "enum": [
                 "air",
+                "busy-monitor",
                 "dfu",
                 "dfu-starnote",
                 "gpio",
