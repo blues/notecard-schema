@@ -23,8 +23,7 @@
         }
     },
     "required": [
-        "status",
-        "connected"
+        "status"
     ],
     "additionalProperties": false,
     "samples": [

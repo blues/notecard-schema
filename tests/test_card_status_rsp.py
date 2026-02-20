@@ -6,19 +6,12 @@ SCHEMA_FILE = "card.status.rsp.notecard.api.json"
 
 REQUIRED_FIELDS = {
     "status": "{normal}",
-    "time": 1598367163,
-    "storage": 8,
-    "usb": True,
-    "connected": True,
-    "gps": True,
-    "sync": True,
-    "inbound": 12,
-    "outbound": 34
+    "usb": True
 }
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with all required fields."""
-    instance = {**REQUIRED_FIELDS}
+    instance = {"status": "{normal}", "usb": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_status(schema):
@@ -41,22 +34,6 @@ def test_missing_required_status(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'status' is a required property" in str(excinfo.value)
 
-def test_missing_required_time(schema):
-    """Tests that 'time' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["time"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'time' is a required property" in str(excinfo.value)
-
-def test_missing_required_storage(schema):
-    """Tests that 'storage' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["storage"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'storage' is a required property" in str(excinfo.value)
-
 def test_missing_required_usb(schema):
     """Tests that 'usb' is required."""
     instance = {**REQUIRED_FIELDS}
@@ -64,46 +41,6 @@ def test_missing_required_usb(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'usb' is a required property" in str(excinfo.value)
-
-def test_missing_required_connected(schema):
-    """Tests that 'connected' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["connected"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'connected' is a required property" in str(excinfo.value)
-
-def test_missing_required_gps(schema):
-    """Tests that 'gps' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["gps"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'gps' is a required property" in str(excinfo.value)
-
-def test_missing_required_sync(schema):
-    """Tests that 'sync' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["sync"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'sync' is a required property" in str(excinfo.value)
-
-def test_missing_required_inbound(schema):
-    """Tests that 'inbound' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["inbound"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'inbound' is a required property" in str(excinfo.value)
-
-def test_missing_required_outbound(schema):
-    """Tests that 'outbound' is required."""
-    instance = {**REQUIRED_FIELDS}
-    del instance["outbound"]
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'outbound' is a required property" in str(excinfo.value)
 
 @pytest.mark.parametrize(
     "field_name",
@@ -180,7 +117,7 @@ def test_valid_all_fields(schema):
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_all_non_required_fields_optional(schema):
-    """Tests that non-required fields (cell, wifi) are optional."""
+    """Tests that non-required fields are optional."""
     instance = {**REQUIRED_FIELDS}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -189,6 +126,27 @@ def test_all_non_required_fields_optional(schema):
 
     instance_with_wifi = {**REQUIRED_FIELDS, "wifi": True}
     jsonschema.validate(instance=instance_with_wifi, schema=schema)
+
+    instance_with_time = {**REQUIRED_FIELDS, "time": 1598367163}
+    jsonschema.validate(instance=instance_with_time, schema=schema)
+
+    instance_with_storage = {**REQUIRED_FIELDS, "storage": 8}
+    jsonschema.validate(instance=instance_with_storage, schema=schema)
+
+    instance_with_connected = {**REQUIRED_FIELDS, "connected": True}
+    jsonschema.validate(instance=instance_with_connected, schema=schema)
+
+    instance_with_gps = {**REQUIRED_FIELDS, "gps": True}
+    jsonschema.validate(instance=instance_with_gps, schema=schema)
+
+    instance_with_sync = {**REQUIRED_FIELDS, "sync": True}
+    jsonschema.validate(instance=instance_with_sync, schema=schema)
+
+    instance_with_inbound = {**REQUIRED_FIELDS, "inbound": 12}
+    jsonschema.validate(instance=instance_with_inbound, schema=schema)
+
+    instance_with_outbound = {**REQUIRED_FIELDS, "outbound": 34}
+    jsonschema.validate(instance=instance_with_outbound, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""

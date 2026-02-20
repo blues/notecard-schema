@@ -4,110 +4,87 @@ import json
 
 SCHEMA_FILE = "card.sleep.rsp.notecard.api.json"
 
-REQUIRED_FIELDS = {"on": True, "off": False, "seconds": 60}
-
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response with only required fields."""
-    instance = {"on": True, "off": False, "seconds": 60}
+    """Tests a minimal valid response (empty object, no required fields)."""
+    instance = {}
     jsonschema.validate(instance=instance, schema=schema)
-
-def test_missing_required_on(schema):
-    """Tests that on is required."""
-    instance = {"off": False, "seconds": 60}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'on' is a required property" in str(excinfo.value)
-
-def test_missing_required_off(schema):
-    """Tests that off is required."""
-    instance = {"on": True, "seconds": 60}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'off' is a required property" in str(excinfo.value)
-
-def test_missing_required_seconds(schema):
-    """Tests that seconds is required."""
-    instance = {"on": True, "off": False}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'seconds' is a required property" in str(excinfo.value)
 
 def test_valid_on_field(schema):
     """Tests valid on field."""
-    instance = {**REQUIRED_FIELDS, "on": True}
+    instance = {"on": True}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "on": False}
+    instance = {"on": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_on_invalid_type(schema):
     """Tests invalid type for on."""
-    instance = {**REQUIRED_FIELDS, "on": "true"}
+    instance = {"on": "true"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'true' is not of type 'boolean'" in str(excinfo.value)
 
 def test_valid_off_field(schema):
     """Tests valid off field."""
-    instance = {**REQUIRED_FIELDS, "off": True}
+    instance = {"off": True}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "off": False}
+    instance = {"off": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_off_invalid_type(schema):
     """Tests invalid type for off."""
-    instance = {**REQUIRED_FIELDS, "off": "false"}
+    instance = {"off": "false"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'false' is not of type 'boolean'" in str(excinfo.value)
 
 def test_valid_seconds_field(schema):
     """Tests valid seconds field."""
-    instance = {**REQUIRED_FIELDS, "seconds": 30}
+    instance = {"seconds": 30}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "seconds": 60}
+    instance = {"seconds": 60}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "seconds": 3600}
+    instance = {"seconds": 3600}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "seconds": 0}
+    instance = {"seconds": 0}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "seconds": -1}
+    instance = {"seconds": -1}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_seconds_invalid_type(schema):
     """Tests invalid type for seconds."""
-    instance = {**REQUIRED_FIELDS, "seconds": "60"}
+    instance = {"seconds": "60"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'60' is not of type 'integer'" in str(excinfo.value)
 
 def test_seconds_invalid_float(schema):
     """Tests invalid float type for seconds."""
-    instance = {**REQUIRED_FIELDS, "seconds": 60.5}
+    instance = {"seconds": 60.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "60.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_valid_mode_field(schema):
     """Tests valid mode field."""
-    instance = {**REQUIRED_FIELDS, "mode": "accel"}
+    instance = {"mode": "accel"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "mode": "-accel"}
+    instance = {"mode": "-accel"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "mode": "custom_mode"}
+    instance = {"mode": "custom_mode"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "mode": ""}
+    instance = {"mode": ""}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""
-    instance = {**REQUIRED_FIELDS, "mode": True}
+    instance = {"mode": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'string'" in str(excinfo.value)
 
 def test_mode_invalid_number(schema):
     """Tests invalid number type for mode."""
-    instance = {**REQUIRED_FIELDS, "mode": 123}
+    instance = {"mode": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'string'" in str(excinfo.value)
@@ -124,7 +101,7 @@ def test_mode_invalid_number(schema):
 def test_valid_field_types(schema, field_name, field_type, valid_values):
     """Tests valid field types for various response fields."""
     for value in valid_values:
-        instance = {**REQUIRED_FIELDS, field_name: value}
+        instance = {field_name: value}
         jsonschema.validate(instance=instance, schema=schema)
 
 @pytest.mark.parametrize(
@@ -139,7 +116,7 @@ def test_valid_field_types(schema, field_name, field_type, valid_values):
 def test_invalid_field_types(schema, field_name, invalid_values):
     """Tests invalid field types for various response fields."""
     for value in invalid_values:
-        instance = {**REQUIRED_FIELDS, field_name: value}
+        instance = {field_name: value}
         with pytest.raises(jsonschema.ValidationError):
             jsonschema.validate(instance=instance, schema=schema)
 
@@ -153,14 +130,26 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_all_non_required_fields_optional(schema):
-    """Tests valid response with only required fields (non-required fields are optional)."""
-    instance = {"on": True, "off": False, "seconds": 30}
+def test_all_fields_optional(schema):
+    """Tests that all fields are optional."""
+    instance = {}
     jsonschema.validate(instance=instance, schema=schema)
+
+    instance_on = {"on": True}
+    jsonschema.validate(instance=instance_on, schema=schema)
+
+    instance_off = {"off": False}
+    jsonschema.validate(instance=instance_off, schema=schema)
+
+    instance_seconds = {"seconds": 30}
+    jsonschema.validate(instance=instance_seconds, schema=schema)
+
+    instance_mode = {"mode": "accel"}
+    jsonschema.validate(instance=instance_mode, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
-    instance = {"on": True, "off": False, "seconds": 30, "status": "enabled"}
+    instance = {"status": "enabled"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)

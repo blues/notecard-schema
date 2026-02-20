@@ -54,7 +54,6 @@
     },
     "required": [
         "status",
-        "mode",
         "sync"
     ],
     "additionalProperties": false,

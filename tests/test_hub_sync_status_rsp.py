@@ -4,30 +4,23 @@ import json
 
 SCHEMA_FILE = "hub.sync.status.rsp.notecard.api.json"
 
-REQUIRED_FIELDS = {"status": "completed {sync-end}", "mode": "{modem-off}", "sync": True}
+REQUIRED_FIELDS = {"status": "completed {sync-end}", "sync": True}
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with required fields."""
-    instance = {"status": "completed {sync-end}", "mode": "{modem-off}", "sync": True}
+    instance = {"status": "completed {sync-end}", "sync": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_missing_required_status(schema):
     """Tests that 'status' is a required property."""
-    instance = {"mode": "{modem-off}", "sync": True}
+    instance = {"sync": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'status' is a required property" in str(excinfo.value)
 
-def test_missing_required_mode(schema):
-    """Tests that 'mode' is a required property."""
-    instance = {"status": "completed {sync-end}", "sync": True}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'mode' is a required property" in str(excinfo.value)
-
 def test_missing_required_sync(schema):
     """Tests that 'sync' is a required property."""
-    instance = {"status": "completed {sync-end}", "mode": "{modem-off}"}
+    instance = {"status": "completed {sync-end}"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'sync' is a required property" in str(excinfo.value)

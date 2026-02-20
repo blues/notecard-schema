@@ -62,14 +62,7 @@
     },
     "required": [
         "status",
-        "time",
-        "storage",
-        "usb",
-        "connected",
-        "gps",
-        "sync",
-        "inbound",
-        "outbound"
+        "usb"
     ],
     "additionalProperties": false,
     "samples": [

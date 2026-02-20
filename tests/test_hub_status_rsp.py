@@ -6,7 +6,7 @@ SCHEMA_FILE = "hub.status.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with only required fields."""
-    instance = {"status": "connected", "connected": True}
+    instance = {"status": "connected"}
     jsonschema.validate(instance=instance, schema=schema)
 
 
@@ -17,13 +17,6 @@ def test_missing_required_status(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'status' is a required property" in str(excinfo.value)
 
-
-def test_missing_required_connected(schema):
-    """Tests invalid response missing the required 'connected' field."""
-    instance = {"status": "connected"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'connected' is a required property" in str(excinfo.value)
 
 def test_valid_both_fields(schema):
     """Tests valid response with both fields."""
@@ -87,9 +80,9 @@ def test_valid_combinations(schema):
         jsonschema.validate(instance=combo, schema=schema)
 
 def test_all_non_required_fields_optional(schema):
-    """Tests that non-required fields are optional (only status and connected are required)."""
+    """Tests that non-required fields are optional (only status is required)."""
     # Minimal valid with just required fields
-    instance = {"status": "connected", "connected": True}
+    instance = {"status": "connected"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_status_invalid_type_integer(schema):

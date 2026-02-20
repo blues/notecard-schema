@@ -4,30 +4,23 @@ import json
 
 SCHEMA_FILE = "dfu.status.rsp.notecard.api.json"
 
-REQUIRED_FIELDS = {"status": "no download in progress", "mode": "idle", "on": True}
+REQUIRED_FIELDS = {"mode": "idle", "on": True}
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with required fields."""
-    instance = {"status": "no download in progress", "mode": "idle", "on": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_missing_required_status(schema):
-    """Tests that status is required."""
     instance = {"mode": "idle", "on": True}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'status' is a required property" in str(excinfo.value)
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_missing_required_mode(schema):
     """Tests that mode is required."""
-    instance = {"status": "no download in progress", "on": True}
+    instance = {"on": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'mode' is a required property" in str(excinfo.value)
 
 def test_missing_required_on(schema):
     """Tests that on is required."""
-    instance = {"status": "no download in progress", "mode": "idle"}
+    instance = {"mode": "idle"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'on' is a required property" in str(excinfo.value)

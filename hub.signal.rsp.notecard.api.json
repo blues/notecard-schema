@@ -25,9 +25,6 @@
             "type": "integer"
         }
     },
-    "required": [
-        "connected"
-    ],
     "additionalProperties": false,
     "samples": [
         {

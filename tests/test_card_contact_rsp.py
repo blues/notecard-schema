@@ -4,98 +4,58 @@ import json
 
 SCHEMA_FILE = "card.contact.rsp.notecard.api.json"
 
-REQUIRED_FIELDS = {
-    "name": "John Doe",
-    "org": "Blues Wireless",
-    "role": "Developer",
-    "email": "john@blues.com"
-}
-
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response with only the required fields."""
-    instance = {
-        "name": "John Doe",
-        "org": "Blues Wireless",
-        "role": "Developer",
-        "email": "john@blues.com"
-    }
+    """Tests a minimal valid response (empty object, no required fields)."""
+    instance = {}
     jsonschema.validate(instance=instance, schema=schema)
-
-def test_missing_required_name(schema):
-    """Tests that 'name' is a required property."""
-    instance = {"org": "Blues", "role": "Developer", "email": "test@blues.com"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'name' is a required property" in str(excinfo.value)
-
-def test_missing_required_org(schema):
-    """Tests that 'org' is a required property."""
-    instance = {"name": "John Doe", "role": "Developer", "email": "test@blues.com"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'org' is a required property" in str(excinfo.value)
-
-def test_missing_required_role(schema):
-    """Tests that 'role' is a required property."""
-    instance = {"name": "John Doe", "org": "Blues", "email": "test@blues.com"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'role' is a required property" in str(excinfo.value)
-
-def test_missing_required_email(schema):
-    """Tests that 'email' is a required property."""
-    instance = {"name": "John Doe", "org": "Blues", "role": "Developer"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'email' is a required property" in str(excinfo.value)
 
 def test_valid_name(schema):
     """Tests a valid response with the name field."""
-    instance = {**REQUIRED_FIELDS, "name": "Jane Smith"}
+    instance = {"name": "Jane Smith"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_name_invalid_type(schema):
     """Tests invalid type for name."""
-    instance = {**REQUIRED_FIELDS, "name": 123}
+    instance = {"name": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'string'" in str(excinfo.value)
 
 def test_valid_org(schema):
     """Tests a valid response with the org field."""
-    instance = {**REQUIRED_FIELDS, "org": "Example Inc."}
+    instance = {"org": "Example Inc."}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_org_invalid_type(schema):
     """Tests invalid type for org."""
-    instance = {**REQUIRED_FIELDS, "org": True}
+    instance = {"org": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'string'" in str(excinfo.value)
 
 def test_valid_role(schema):
     """Tests a valid response with the role field."""
-    instance = {**REQUIRED_FIELDS, "role": "Manager"}
+    instance = {"role": "Manager"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_role_invalid_type(schema):
     """Tests invalid type for role."""
-    instance = {**REQUIRED_FIELDS, "role": ["Manager"]}
+    instance = {"role": ["Manager"]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "['Manager'] is not of type 'string'" in str(excinfo.value)
 
 def test_valid_email(schema):
     """Tests a valid response with the email field."""
-    instance = {**REQUIRED_FIELDS, "email": "test@example.com"}
+    instance = {"email": "test@example.com"}
     jsonschema.validate(instance=instance, schema=schema)
     # No format validation in response schema, so any string is fine
-    instance = {**REQUIRED_FIELDS, "email": "not-an-email"}
+    instance = {"email": "not-an-email"}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_email_invalid_type(schema):
     """Tests invalid type for email."""
-    instance = {**REQUIRED_FIELDS, "email": 12345}
+    instance = {"email": 12345}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "12345 is not of type 'string'" in str(excinfo.value)
@@ -110,9 +70,26 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_all_fields_optional(schema):
+    """Tests that all fields are optional."""
+    instance = {}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance_name = {"name": "John Doe"}
+    jsonschema.validate(instance=instance_name, schema=schema)
+
+    instance_org = {"org": "Blues Wireless"}
+    jsonschema.validate(instance=instance_org, schema=schema)
+
+    instance_role = {"role": "Developer"}
+    jsonschema.validate(instance=instance_role, schema=schema)
+
+    instance_email = {"email": "john@blues.com"}
+    jsonschema.validate(instance=instance_email, schema=schema)
+
 def test_valid_additional_property(schema):
     """Tests valid response with an additional property."""
-    instance = {**REQUIRED_FIELDS, "extra": True}
+    instance = {"extra": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_validate_samples_from_schema(schema, schema_samples):

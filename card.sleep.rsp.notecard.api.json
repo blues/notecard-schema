@@ -27,11 +27,6 @@
             "type": "integer"
         }
     },
-    "required": [
-        "on",
-        "off",
-        "seconds"
-    ],
     "additionalProperties": false,
     "samples": [
         {

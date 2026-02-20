@@ -28,8 +28,7 @@
     },
     "required": [
         "changes",
-        "total",
-        "sync"
+        "total"
     ],
     "additionalProperties": false,
     "samples": [

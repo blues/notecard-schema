@@ -6,29 +6,22 @@ SCHEMA_FILE = "file.stats.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with all required fields."""
-    instance = {"changes": 0, "total": 0, "sync": False}
+    instance = {"changes": 0, "total": 0}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_missing_required_changes(schema):
     """Tests that changes field is required."""
-    instance = {"total": 83, "sync": True}
+    instance = {"total": 83}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'changes' is a required property" in str(excinfo.value)
 
 def test_missing_required_total(schema):
     """Tests that total field is required."""
-    instance = {"changes": 78, "sync": True}
+    instance = {"changes": 78}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'total' is a required property" in str(excinfo.value)
-
-def test_missing_required_sync(schema):
-    """Tests that sync field is required."""
-    instance = {"changes": 78, "total": 83}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'sync' is a required property" in str(excinfo.value)
 
 def test_valid_all_fields(schema):
     """Tests valid response with all fields."""
@@ -37,71 +30,71 @@ def test_valid_all_fields(schema):
 
 def test_valid_zero_values(schema):
     """Tests valid response with zero values."""
-    instance = {"total": 0, "changes": 0, "sync": False}
+    instance = {"total": 0, "changes": 0}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_large_values(schema):
     """Tests valid response with large values."""
-    instance = {"total": 1000000, "changes": 999999, "sync": True}
+    instance = {"total": 1000000, "changes": 999999}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_no_pending_changes(schema):
     """Tests valid response with no pending changes."""
-    instance = {"total": 25, "changes": 0, "sync": False}
+    instance = {"total": 25, "changes": 0}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_total_invalid_type(schema):
     """Tests invalid type for total."""
-    instance = {"total": "not-integer", "changes": 0, "sync": False}
+    instance = {"total": "not-integer", "changes": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_total_invalid_float(schema):
     """Tests invalid float type for total."""
-    instance = {"total": 83.5, "changes": 0, "sync": False}
+    instance = {"total": 83.5, "changes": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "83.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_total_invalid_boolean(schema):
     """Tests invalid boolean type for total."""
-    instance = {"total": True, "changes": 0, "sync": False}
+    instance = {"total": True, "changes": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'integer'" in str(excinfo.value)
 
 def test_total_invalid_array(schema):
     """Tests invalid array type for total."""
-    instance = {"total": [83], "changes": 0, "sync": False}
+    instance = {"total": [83], "changes": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_type(schema):
     """Tests invalid type for changes."""
-    instance = {"total": 0, "changes": "not-integer", "sync": False}
+    instance = {"total": 0, "changes": "not-integer"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_float(schema):
     """Tests invalid float type for changes."""
-    instance = {"total": 0, "changes": 78.5, "sync": False}
+    instance = {"total": 0, "changes": 78.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "78.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_boolean(schema):
     """Tests invalid boolean type for changes."""
-    instance = {"total": 0, "changes": True, "sync": False}
+    instance = {"total": 0, "changes": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_array(schema):
     """Tests invalid array type for changes."""
-    instance = {"total": 0, "changes": [78], "sync": False}
+    instance = {"total": 0, "changes": [78]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
@@ -136,7 +129,7 @@ def test_sync_invalid_object(schema):
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with an additional property."""
-    instance = {"total": 83, "changes": 78, "sync": True, "extra": 123}
+    instance = {"total": 83, "changes": 78, "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -144,12 +137,12 @@ def test_invalid_additional_property(schema):
 def test_invalid_common_additional_properties(schema):
     """Tests that common additional properties are not allowed."""
     invalid_fields = [
-        {"total": 0, "changes": 0, "sync": False, "status": "ok"},
-        {"total": 0, "changes": 0, "sync": False, "message": "success"},
-        {"total": 0, "changes": 0, "sync": False, "count": 5},
-        {"total": 0, "changes": 0, "sync": False, "files": []},
-        {"total": 0, "changes": 0, "sync": False, "result": {}},
-        {"total": 0, "changes": 0, "sync": False, "data": {"total": 83}}
+        {"total": 0, "changes": 0, "status": "ok"},
+        {"total": 0, "changes": 0, "message": "success"},
+        {"total": 0, "changes": 0, "count": 5},
+        {"total": 0, "changes": 0, "files": []},
+        {"total": 0, "changes": 0, "result": {}},
+        {"total": 0, "changes": 0, "data": {"total": 83}}
     ]
 
     for field_dict in invalid_fields:
