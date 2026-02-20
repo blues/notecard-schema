@@ -26,6 +26,11 @@
             "type": "integer"
         }
     },
+    "required": [
+        "changes",
+        "total",
+        "sync"
+    ],
     "additionalProperties": false,
     "samples": [
         {

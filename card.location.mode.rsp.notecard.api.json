@@ -53,6 +53,9 @@
             "type": "string"
         }
     },
+    "required": [
+        "threshold"
+    ],
     "samples": [
         {
             "title": "Location Mode Response",

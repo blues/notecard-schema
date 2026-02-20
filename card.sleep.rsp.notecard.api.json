@@ -27,12 +27,17 @@
             "type": "integer"
         }
     },
+    "required": [
+        "on",
+        "off",
+        "seconds"
+    ],
     "additionalProperties": false,
     "samples": [
         {
             "title": "Sleep Mode Status",
             "description": "Example response showing current sleep configuration.",
-            "json": "{\"seconds\": 10, \"mode\": \"accel\", \"on\": true}"
+            "json": "{\"seconds\": 10, \"mode\": \"accel\", \"on\": true, \"off\": false}"
         }
     ]
 }

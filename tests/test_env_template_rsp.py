@@ -5,9 +5,16 @@ import json
 SCHEMA_FILE = "env.template.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with required fields."""
+    instance = {"bytes": 22}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_missing_required_bytes(schema):
+    """Tests that bytes is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'bytes' is a required property" in str(excinfo.value)
 
 def test_valid_bytes_response(schema):
     """Tests valid response with bytes field."""

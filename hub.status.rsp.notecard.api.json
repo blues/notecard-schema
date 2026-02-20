@@ -22,6 +22,10 @@
             "type": "string"
         }
     },
+    "required": [
+        "status",
+        "connected"
+    ],
     "additionalProperties": false,
     "samples": [
         {

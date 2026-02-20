@@ -20,6 +20,9 @@
             "type": "string"
         }
     },
+    "required": [
+        "mode"
+    ],
     "samples": [
         {
             "title": "Charging Status Response",

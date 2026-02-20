@@ -60,12 +60,23 @@
             "type": "boolean"
         }
     },
+    "required": [
+        "status",
+        "time",
+        "storage",
+        "usb",
+        "connected",
+        "gps",
+        "sync",
+        "inbound",
+        "outbound"
+    ],
     "additionalProperties": false,
     "samples": [
         {
             "title": "Notecard Status Response",
             "description": "Example response showing Notecard operating status information.",
-            "json": "{\"status\": \"{normal}\", \"usb\": true, \"storage\": 8, \"time\": 1599684765, \"connected\": true, \"cell\": true, \"sync\": true, \"inbound\": 60, \"outbound\": 360}"
+            "json": "{\"status\": \"{normal}\", \"usb\": true, \"storage\": 8, \"time\": 1599684765, \"connected\": true, \"cell\": true, \"gps\": true, \"sync\": true, \"inbound\": 60, \"outbound\": 360}"
         }
     ]
 }

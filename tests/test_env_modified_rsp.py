@@ -5,9 +5,16 @@ import json
 SCHEMA_FILE = "env.modified.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with required fields."""
+    instance = {"time": 1605814493}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_missing_required_time(schema):
+    """Tests that time is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'time' is a required property" in str(excinfo.value)
 
 def test_valid_time_response(schema):
     """Tests valid response with time field."""

@@ -29,6 +29,12 @@
             "type": "string"
         }
     },
+    "required": [
+        "name",
+        "org",
+        "role",
+        "email"
+    ],
     "samples": [
         {
             "title": "Get Contact Information",

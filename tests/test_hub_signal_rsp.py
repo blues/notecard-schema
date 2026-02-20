@@ -5,13 +5,20 @@ import json
 SCHEMA_FILE = "hub.signal.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response (only required connected field)."""
+    instance = {"connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_missing_required_connected(schema):
+    """Tests that missing required connected field fails validation."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'connected' is a required property" in str(excinfo.value)
+
 def test_valid_body_only(schema):
-    """Tests valid response with only body field."""
-    instance = {"body": {"example-key": "example-value"}}
+    """Tests valid response with body and required connected field."""
+    instance = {"body": {"example-key": "example-value"}, "connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_connected_only(schema):
@@ -20,8 +27,8 @@ def test_valid_connected_only(schema):
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_signals_only(schema):
-    """Tests valid response with only signals field."""
-    instance = {"signals": 3}
+    """Tests valid response with signals and required connected field."""
+    instance = {"signals": 3, "connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_all_fields(schema):
@@ -35,7 +42,7 @@ def test_valid_all_fields(schema):
 
 def test_valid_body_empty_object(schema):
     """Tests valid response with empty body object."""
-    instance = {"body": {}}
+    instance = {"body": {}, "connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_body_complex_object(schema):
@@ -66,66 +73,59 @@ def test_valid_connected_false(schema):
 
 def test_valid_signals_zero(schema):
     """Tests valid response with signals zero."""
-    instance = {"signals": 0}
+    instance = {"signals": 0, "connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_signals_positive(schema):
     """Tests valid response with positive signals count."""
     valid_counts = [1, 5, 10, 100]
     for count in valid_counts:
-        instance = {"signals": count}
+        instance = {"signals": count, "connected": True}
         jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_partial_combinations(schema):
     """Tests valid responses with various field combinations."""
     combinations = [
         {"body": {"key": "value"}, "connected": True},
-        {"body": {"data": 123}, "signals": 2},
+        {"body": {"data": 123}, "connected": True, "signals": 2},
         {"connected": False, "signals": 0},
-        {"body": {"alert": "message"}},
+        {"body": {"alert": "message"}, "connected": True},
         {"connected": True, "signals": 1}
     ]
-    
+
     for combo in combinations:
         jsonschema.validate(instance=combo, schema=schema)
 
-def test_all_fields_optional(schema):
-    """Tests that all fields are optional."""
-    # Test each field individually and empty object
-    individual_fields = [
-        {},
-        {"body": {"test": "value"}},
-        {"connected": True},
-        {"signals": 5}
-    ]
-    
-    for field_dict in individual_fields:
-        jsonschema.validate(instance=field_dict, schema=schema)
+def test_all_non_required_fields_optional(schema):
+    """Tests that all non-required fields are optional."""
+    # connected is required, body and signals are optional
+    instance = {"connected": True}
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_body_invalid_type_string(schema):
     """Tests invalid string type for body."""
-    instance = {"body": "not an object"}
+    instance = {"body": "not an object", "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not an object' is not of type 'object'" in str(excinfo.value)
 
 def test_body_invalid_type_array(schema):
     """Tests invalid array type for body."""
-    instance = {"body": ["array", "not", "object"]}
+    instance = {"body": ["array", "not", "object"], "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'object'" in str(excinfo.value)
 
 def test_body_invalid_type_integer(schema):
     """Tests invalid integer type for body."""
-    instance = {"body": 123}
+    instance = {"body": 123, "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'object'" in str(excinfo.value)
 
 def test_body_invalid_type_boolean(schema):
     """Tests invalid boolean type for body."""
-    instance = {"body": True}
+    instance = {"body": True, "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'object'" in str(excinfo.value)
@@ -153,28 +153,28 @@ def test_connected_invalid_type_object(schema):
 
 def test_signals_invalid_type_string(schema):
     """Tests invalid string type for signals."""
-    instance = {"signals": "5"}
+    instance = {"signals": "5", "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'5' is not of type 'integer'" in str(excinfo.value)
 
 def test_signals_invalid_type_float(schema):
     """Tests invalid float type for signals."""
-    instance = {"signals": 3.5}
+    instance = {"signals": 3.5, "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "3.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_signals_invalid_type_boolean(schema):
     """Tests invalid boolean type for signals."""
-    instance = {"signals": False}
+    instance = {"signals": False, "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "False is not of type 'integer'" in str(excinfo.value)
 
 def test_signals_invalid_type_array(schema):
     """Tests invalid array type for signals."""
-    instance = {"signals": [1, 2, 3]}
+    instance = {"signals": [1, 2, 3], "connected": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
@@ -182,12 +182,12 @@ def test_signals_invalid_type_array(schema):
 def test_signals_negative_value(schema):
     """Tests that negative signals values are allowed."""
     # JSON Schema doesn't restrict negative values by default
-    instance = {"signals": -1}
+    instance = {"signals": -1, "connected": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
-    instance = {"body": {"key": "value"}, "extra": 123}
+    instance = {"body": {"key": "value"}, "connected": True, "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -195,17 +195,17 @@ def test_invalid_additional_property(schema):
 def test_invalid_common_additional_properties(schema):
     """Tests that common additional properties are not allowed."""
     invalid_fields = [
-        {"status": "ok"},
-        {"message": "received"},
-        {"time": 1234567890},
-        {"version": "1.0"},
-        {"result": {}},
-        {"error": "none"},
-        {"data": "signal"},
-        {"success": True},
-        {"signal_id": "abc123"}
+        {"connected": True, "status": "ok"},
+        {"connected": True, "message": "received"},
+        {"connected": True, "time": 1234567890},
+        {"connected": True, "version": "1.0"},
+        {"connected": True, "result": {}},
+        {"connected": True, "error": "none"},
+        {"connected": True, "data": "signal"},
+        {"connected": True, "success": True},
+        {"connected": True, "signal_id": "abc123"}
     ]
-    
+
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
@@ -213,7 +213,7 @@ def test_invalid_common_additional_properties(schema):
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests that multiple additional properties are not allowed."""
-    instance = {"body": {}, "status": "ok", "message": "received"}
+    instance = {"body": {}, "connected": True, "status": "ok", "message": "received"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
@@ -261,9 +261,9 @@ def test_strict_validation(schema):
         "device", "product", "status", "error", "message", "time",
         "result", "data", "success", "code", "info", "warning", "signal_id"
     ]
-    
+
     for prop in properties_to_test:
-        instance = {prop: "test"}
+        instance = {"connected": True, prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=instance, schema=schema)
         assert "Additional properties are not allowed" in str(excinfo.value)

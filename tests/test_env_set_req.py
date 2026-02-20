@@ -21,6 +21,13 @@ def test_invalid_no_req_or_cmd(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not valid under any of the given schemas" in str(excinfo.value)
 
+def test_missing_required_name(schema):
+    """Tests that name is required at the top level."""
+    instance = {"req": "env.set"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'name' is a required property" in str(excinfo.value)
+
 def test_invalid_both_req_and_cmd(schema):
     """Tests invalid request with both req and cmd."""
     instance = {"req": "env.set", "cmd": "env.set", "name": "test-var"}

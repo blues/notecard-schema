@@ -28,6 +28,9 @@
             ]
         }
     },
+    "required": [
+        "method"
+    ],
     "additionalProperties": false,
     "samples": [
         {

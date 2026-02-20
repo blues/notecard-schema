@@ -52,6 +52,11 @@
             "type": "integer"
         }
     },
+    "required": [
+        "status",
+        "mode",
+        "sync"
+    ],
     "additionalProperties": false,
     "samples": [
         {
