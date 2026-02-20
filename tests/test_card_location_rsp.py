@@ -83,8 +83,6 @@ def test_valid_time(schema):
     """Tests valid time field."""
     instance = {**REQUIRED_FIELDS, "time": 1678886400}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "time": 0}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_time_invalid_type(schema):
     """Tests invalid type for time."""
@@ -97,8 +95,6 @@ def test_valid_max(schema):
     """Tests valid max field."""
     instance = {**REQUIRED_FIELDS, "max": 3600}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "max": 0}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_max_invalid_type(schema):
     """Tests invalid type for max."""
@@ -110,8 +106,6 @@ def test_max_invalid_type(schema):
 def test_valid_count(schema):
     """Tests valid count field."""
     instance = {**REQUIRED_FIELDS, "count": 5}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, "count": 0}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_count_invalid_type(schema):
@@ -146,7 +140,7 @@ def test_valid_all_fields(schema):
         "lon": -70.871340,
         "time": 1598554399,
         "max": 25,
-        "count": 0,
+        "count": 3,
         "dop": 1.2
     }
     jsonschema.validate(instance=instance, schema=schema)

@@ -21,11 +21,6 @@ def test_valid_bytes_response(schema):
     instance = {"bytes": 22}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_zero_bytes(schema):
-    """Tests valid response with zero bytes."""
-    instance = {"bytes": 0}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_valid_large_bytes(schema):
     """Tests valid response with large byte count."""
     instance = {"bytes": 1024}

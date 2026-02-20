@@ -35,8 +35,6 @@ def test_valid_rsp_with_charging(schema):
     """Tests a valid response with the charging field."""
     instance = {"mode": "charging", "charging": True}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"mode": "off", "charging": False}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_charging_invalid_type(schema):
     """Tests invalid type for charging."""

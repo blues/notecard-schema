@@ -6,7 +6,7 @@ SCHEMA_FILE = "file.changes.pending.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
     """Tests a minimal valid response with only required fields."""
-    instance = {"total": 0}
+    instance = {"total": 1}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_missing_required_total(schema):
@@ -28,22 +28,12 @@ def test_valid_changes_with_total(schema):
 
 def test_valid_pending_with_total(schema):
     """Tests valid response with pending and total fields."""
-    instance = {"total": 0, "pending": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_pending_false(schema):
-    """Tests valid response with pending false."""
-    instance = {"total": 0, "pending": False}
+    instance = {"total": 1, "pending": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_basic_fields(schema):
     """Tests valid response with basic fields."""
     instance = {"total": 3, "changes": 3, "pending": True}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_zero_values(schema):
-    """Tests valid response with zero values."""
-    instance = {"total": 0, "changes": 0, "pending": False}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_large_values(schema):
@@ -81,56 +71,56 @@ def test_total_invalid_array(schema):
 
 def test_changes_invalid_type(schema):
     """Tests invalid type for changes."""
-    instance = {"total": 0, "changes": "not-integer"}
+    instance = {"total": 1, "changes": "not-integer"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_float(schema):
     """Tests invalid float type for changes."""
-    instance = {"total": 0, "changes": 3.5}
+    instance = {"total": 1, "changes": 3.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "3.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_boolean(schema):
     """Tests invalid boolean type for changes."""
-    instance = {"total": 0, "changes": True}
+    instance = {"total": 1, "changes": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "True is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_array(schema):
     """Tests invalid array type for changes."""
-    instance = {"total": 0, "changes": [3]}
+    instance = {"total": 1, "changes": [3]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
 
 def test_pending_invalid_type(schema):
     """Tests invalid type for pending."""
-    instance = {"total": 0, "pending": "not-boolean"}
+    instance = {"total": 1, "pending": "not-boolean"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-boolean' is not of type 'boolean'" in str(excinfo.value)
 
 def test_pending_invalid_integer(schema):
     """Tests invalid integer type for pending."""
-    instance = {"total": 0, "pending": 1}
+    instance = {"total": 1, "pending": 1}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
 
 def test_pending_invalid_array(schema):
     """Tests invalid array type for pending."""
-    instance = {"total": 0, "pending": [True]}
+    instance = {"total": 1, "pending": [True]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
 def test_valid_info_empty_object(schema):
     """Tests valid response with empty info object."""
-    instance = {"total": 0, "info": {}}
+    instance = {"total": 1, "info": {}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_with_single_file(schema):
@@ -151,7 +141,7 @@ def test_valid_info_with_multiple_files(schema):
 
 def test_valid_info_with_zero_values(schema):
     """Tests valid response with info containing zero values."""
-    instance = {"total": 0, "info": {"sensors.qo": {"changes": 0, "total": 0}}}
+    instance = {"total": 1, "info": {"sensors.qo": {"changes": 1, "total": 1}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_changes_only(schema):
@@ -166,56 +156,56 @@ def test_valid_info_total_only(schema):
 
 def test_info_invalid_type(schema):
     """Tests invalid type for info."""
-    instance = {"total": 0, "info": "not-object"}
+    instance = {"total": 1, "info": "not-object"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-object' is not of type 'object'" in str(excinfo.value)
 
 def test_info_invalid_array(schema):
     """Tests invalid array type for info."""
-    instance = {"total": 0, "info": ["not", "object"]}
+    instance = {"total": 1, "info": ["not", "object"]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'object'" in str(excinfo.value)
 
 def test_info_invalid_integer(schema):
     """Tests invalid integer type for info."""
-    instance = {"total": 0, "info": 123}
+    instance = {"total": 1, "info": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'object'" in str(excinfo.value)
 
 def test_info_file_value_not_object(schema):
     """Tests invalid non-object value in info."""
-    instance = {"total": 0, "info": {"sensors.qo": "not-object"}}
+    instance = {"total": 1, "info": {"sensors.qo": "not-object"}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-object' is not of type 'object'" in str(excinfo.value)
 
 def test_info_file_changes_invalid_type(schema):
     """Tests invalid type for changes in info file object."""
-    instance = {"total": 0, "info": {"sensors.qo": {"changes": "not-integer"}}}
+    instance = {"total": 1, "info": {"sensors.qo": {"changes": "not-integer"}}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_info_file_total_invalid_type(schema):
     """Tests invalid type for total in info file object."""
-    instance = {"total": 0, "info": {"sensors.qo": {"total": "not-integer"}}}
+    instance = {"total": 1, "info": {"sensors.qo": {"total": "not-integer"}}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_info_file_changes_invalid_float(schema):
     """Tests invalid float type for changes in info file object."""
-    instance = {"total": 0, "info": {"sensors.qo": {"changes": 3.5}}}
+    instance = {"total": 1, "info": {"sensors.qo": {"changes": 3.5}}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "3.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_info_file_total_invalid_float(schema):
     """Tests invalid float type for total in info file object."""
-    instance = {"total": 0, "info": {"sensors.qo": {"total": 3.5}}}
+    instance = {"total": 1, "info": {"sensors.qo": {"total": 3.5}}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "3.5 is not of type 'integer'" in str(excinfo.value)

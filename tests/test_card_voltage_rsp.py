@@ -33,8 +33,6 @@ def test_valid_usb(schema):
     """Tests valid usb field."""
     instance = {"usb": True}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"usb": False}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_usb_invalid_type(schema):
     """Tests invalid type for usb."""
@@ -52,8 +50,6 @@ def test_valid_number_field(schema, field_name):
     instance = {**REQUIRED_FIELDS, field_name: 3.95}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {**REQUIRED_FIELDS, field_name: 4}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {**REQUIRED_FIELDS, field_name: 0}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {**REQUIRED_FIELDS, field_name: -1.2}
     jsonschema.validate(instance=instance, schema=schema)

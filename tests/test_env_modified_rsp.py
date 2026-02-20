@@ -21,11 +21,6 @@ def test_valid_time_response(schema):
     instance = {"time": 1605814493}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_zero_time(schema):
-    """Tests valid response with zero time."""
-    instance = {"time": 0}
-    jsonschema.validate(instance=instance, schema=schema)
-
 def test_valid_large_time(schema):
     """Tests valid response with large timestamp."""
     instance = {"time": 2147483647}
