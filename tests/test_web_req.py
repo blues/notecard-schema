@@ -199,6 +199,29 @@ def test_invalid_additional_property(schema):
         excinfo.value
     )
 
+def test_method_sub_descriptions_exist(schema):
+    """Tests that the method property has sub-descriptions."""
+    method_prop = schema["properties"]["method"]
+    assert "sub-descriptions" in method_prop, "method property is missing sub-descriptions"
+
+def test_method_sub_descriptions_match_enum(schema):
+    """Tests that every enum value has a corresponding sub-description and vice versa."""
+    method_prop = schema["properties"]["method"]
+    enum_values = set(method_prop["enum"])
+    sub_desc_values = {sd["const"] for sd in method_prop["sub-descriptions"]}
+    assert enum_values == sub_desc_values, (
+        f"Mismatch between enum values and sub-description consts. "
+        f"Missing sub-descriptions: {enum_values - sub_desc_values}. "
+        f"Extra sub-descriptions: {sub_desc_values - enum_values}."
+    )
+
+def test_method_sub_descriptions_have_description(schema):
+    """Tests that each sub-description entry has a non-empty description."""
+    method_prop = schema["properties"]["method"]
+    for sd in method_prop["sub-descriptions"]:
+        assert "description" in sd, f"Sub-description for '{sd['const']}' is missing 'description'"
+        assert len(sd["description"]) > 0, f"Sub-description for '{sd['const']}' has empty description"
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
