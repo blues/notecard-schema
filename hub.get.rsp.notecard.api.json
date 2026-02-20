@@ -27,7 +27,36 @@
         },
         "mode": {
             "description": "The current operating `mode` of the Notecard, as defined in `hub.set`.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "periodic",
+                "continuous",
+                "minimum",
+                "off",
+                "dfu"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "periodic",
+                    "description": "Periodically connect to the Notehub. This is the default value set on each Notecard after a factory reset."
+                },
+                {
+                    "const": "continuous",
+                    "description": "Enables an always-on network connection, for high power devices. Outbound data still syncs periodically, unless specified in a Note or File request."
+                },
+                {
+                    "const": "minimum",
+                    "description": "Disables periodic connection. The Notecard will not sync until it receives an explicit `hub.sync` request. OTA DFU updates are not available when using this mode."
+                },
+                {
+                    "const": "off",
+                    "description": "Disables automatic and manual syncs. `hub.sync` requests will be ignored in this mode. OTA DFU updates are not available when using this mode."
+                },
+                {
+                    "const": "dfu",
+                    "description": "Puts the Notecard in DFU mode for IAP host MCU firmware updates. This mode is effectively the same as `off` in terms of the Notecard's network and Notehub connections."
+                }
+            ]
         },
         "outbound": {
             "description": "The max wait time, in minutes, to sync outbound data from the Notecard.",

@@ -14,7 +14,26 @@
     "properties": {
         "mode": {
             "description": "The current AUX `mode`, or `off` if not set.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "air",
+                "dfu",
+                "dfu-starnote",
+                "gpio",
+                "led",
+                "led-monitor",
+                "motion",
+                "neo",
+                "neo-monitor",
+                "off",
+                "rgb",
+                "rgb-monitor",
+                "track",
+                "track-led-monitor",
+                "track-neo-monitor",
+                "track-rgb-monitor",
+                "wifinet"
+            ]
         },
         "power": {
             "description": "If `true`, indicates the Notecard has USB (main) power. This parameter only appears in the body of the Note in Notehub if using `\"sync\":true`.",

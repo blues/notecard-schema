@@ -13,7 +13,14 @@
     "properties": {
         "name": {
             "description": "The class of MCU that the Notecard is currently configured to support for Outboard DFU.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+                "",
+                "esp32",
+                "stm32",
+                "stm32-bi",
+                "mcuboot"
+            ]
         }
     },
     "samples": [
