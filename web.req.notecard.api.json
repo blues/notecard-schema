@@ -29,6 +29,44 @@
                 "POST",
                 "PUT",
                 "TRACE"
+            ],
+            "sub-descriptions": [
+                {
+                    "const": "CONNECT",
+                    "description": "Establishes a tunnel to the server identified by the target resource."
+                },
+                {
+                    "const": "DELETE",
+                    "description": "Performs a simple HTTP or HTTPS `DELETE` request against an external endpoint, and returns the response to the Notecard."
+                },
+                {
+                    "const": "GET",
+                    "description": "Performs a simple HTTP or HTTPS `GET` request against an external endpoint, and returns the response to the Notecard."
+                },
+                {
+                    "const": "HEAD",
+                    "description": "Requests the headers that would be returned if the URL was requested with a `GET` method."
+                },
+                {
+                    "const": "OPTIONS",
+                    "description": "Requests the communication options available for the target resource."
+                },
+                {
+                    "const": "PATCH",
+                    "description": "Applies partial modifications to a resource at the target endpoint."
+                },
+                {
+                    "const": "POST",
+                    "description": "Performs a simple HTTP or HTTPS `POST` request against an external endpoint, and returns the response to the Notecard."
+                },
+                {
+                    "const": "PUT",
+                    "description": "Performs a simple HTTP or HTTPS `PUT` request against an external endpoint, and returns the response to the Notecard."
+                },
+                {
+                    "const": "TRACE",
+                    "description": "Performs a message loop-back test along the path to the target resource."
+                }
             ]
         },
         "name": {
