@@ -40,7 +40,7 @@
             "minApiVersion": "4.1.1"
         },
         "status": {
-            "description": "The status of the current or previous sync. Refer to [this listing](/notecard/notecard-walkthrough/notecard-error-and-status-codes/) for the meaning of the various status codes returned (e.g. `{sync-end}`).",
+            "description": "The status of the current or previous sync. Refer to [this listing](/support/notecard-error-and-status-codes/) for the meaning of the various status codes returned (e.g. `{sync-end}`).",
             "type": "string"
         },
         "sync": {
