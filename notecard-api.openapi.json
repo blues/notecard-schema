@@ -1595,6 +1595,11 @@
             "x-api-version": "9.1.1",
             "x-min-api-version": "5.3.1"
           }
+        },
+        "x-binary-transfer": {
+          "direction": "receive",
+          "encoding": "cobs",
+          "follows": "response"
         }
       }
     },
@@ -1673,6 +1678,11 @@
             "x-api-version": "9.1.1",
             "x-min-api-version": "5.3.1"
           }
+        },
+        "x-binary-transfer": {
+          "direction": "send",
+          "encoding": "cobs",
+          "follows": "response"
         }
       }
     },
@@ -7500,6 +7510,14 @@
             ],
             "x-schema-version": "1.1.2",
             "x-api-version": "9.1.1"
+          }
+        },
+        "x-binary-transfer": {
+          "direction": "receive",
+          "encoding": "cobs",
+          "follows": "response",
+          "when": {
+            "binary": true
           }
         }
       }

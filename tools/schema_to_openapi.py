@@ -6,7 +6,7 @@ notecard-schema repo, combines them with safety_semantics.json, and emits a
 single notecard-api.openapi.json.
 
 Usage:
-    python3 schema_to_openapi.py <schema_dir> [--safety safety_semantics.json] [-o output.json]
+    python3 schema_to_openapi.py <schema_dir> [--safety safety_semantics.json] [--binary binary_transfer.json] [-o output.json]
 """
 
 import argparse
@@ -171,6 +171,9 @@ def build_operation(
     if constraints:
         operation["x-dispatch"] = constraints
 
+    # Binary transfer annotation (set by caller)
+    # Handled after build_operation returns
+
     # Preserve top-level metadata (use original key names, not yet prefixed)
     if "skus" in req_schema:
         operation["x-skus"] = req_schema["skus"]
@@ -277,10 +280,22 @@ def load_safety(safety_path: Path) -> dict:
     return data
 
 
-def convert(schema_dir: Path, safety_path: Path) -> dict:
+def load_binary_transfer(binary_path: Path) -> dict:
+    """Load binary transfer metadata JSON."""
+    if not binary_path.exists():
+        return {}
+    with open(binary_path) as f:
+        data = json.load(f)
+    data.pop("$comment", None)
+    return data
+
+
+def convert(schema_dir: Path, safety_path: Path,
+            binary_path: Path | None = None) -> dict:
     """Main conversion: JSON Schema files + safety semantics -> OpenAPI 3.1."""
     requests, responses = load_schemas(schema_dir)
     safety = load_safety(safety_path)
+    binary = load_binary_transfer(binary_path) if binary_path else {}
 
     openapi = {
         "openapi": "3.1.0",
@@ -322,6 +337,8 @@ def convert(schema_dir: Path, safety_path: Path) -> dict:
                 endpoint, semantics, req_cleaned, rsp_schema,
                 supports_cmd, None,
             )
+            if endpoint in binary:
+                op["x-binary-transfer"] = binary[endpoint]
             path_item[method] = op
 
         elif isinstance(semantics, dict):
@@ -334,6 +351,8 @@ def convert(schema_dir: Path, safety_path: Path) -> dict:
                 suffix = {"GET": "query", "PUT": "set", "POST": "create",
                           "DELETE": "delete"}.get(http_method, method)
                 op["operationId"] = f"{endpoint.replace('.', '_')}_{suffix}"
+                if endpoint in binary:
+                    op["x-binary-transfer"] = binary[endpoint]
                 path_item[method] = op
 
         openapi["paths"][path] = path_item
@@ -354,12 +373,15 @@ def main():
     parser.add_argument("--safety", type=Path,
                         default=Path(__file__).parent / "safety_semantics.json",
                         help="Path to safety_semantics.json")
+    parser.add_argument("--binary", type=Path,
+                        default=Path(__file__).parent / "binary_transfer.json",
+                        help="Path to binary_transfer.json")
     parser.add_argument("-o", "--output", type=Path,
                         default=None,
                         help="Output file (default: stdout)")
     args = parser.parse_args()
 
-    openapi = convert(args.schema_dir, args.safety)
+    openapi = convert(args.schema_dir, args.safety, args.binary)
 
     output = json.dumps(openapi, indent=2)
     if args.output:
