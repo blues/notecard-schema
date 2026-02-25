@@ -202,6 +202,119 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
 
 ---
 
+### 6. `schema_to_openapi.py` - Convert JSON Schemas to OpenAPI
+
+Converts all Notecard JSON Schema files into a single OpenAPI 3.1 specification. This enables interoperability with the broad OpenAPI tooling ecosystem (code generators, documentation tools, API clients).
+
+**Usage:**
+
+```bash
+python3 scripts/schema_to_openapi.py [options]
+```
+
+**Key Options:**
+
+```bash
+--schema-dir DIR         # Directory containing .notecard.api.json files (default: current)
+--output FILE            # Output OpenAPI file (default: notecard-api.openapi.json)
+--title TITLE            # API title (default: "Notecard API")
+```
+
+**Examples:**
+
+```bash
+# Convert all schemas to OpenAPI
+python3 scripts/schema_to_openapi.py
+
+# Custom output path
+python3 scripts/schema_to_openapi.py --output /path/to/output.json
+
+# From specific schema directory
+python3 scripts/schema_to_openapi.py --schema-dir /path/to/schemas
+```
+
+**Features:**
+
+- Generates OpenAPI 3.1 specification from individual JSON Schema files
+- Maps safety semantics to HTTP methods (GET → readonly, PUT → idempotent, POST → non-idempotent, DELETE → destructive)
+- Preserves custom Notecard metadata as `x-` extensions (annotations, samples, sub-descriptions, SKU info)
+- Handles polymorphic endpoints (req/cmd discrimination via oneOf)
+- Includes binary transfer annotations from supplementary data
+- Requires `safety_semantics.json` and `binary_transfer.json` data files in the same directory
+
+---
+
+### 7. `openapi_to_schema.py` - Convert OpenAPI to JSON Schemas
+
+Reverses the OpenAPI conversion, producing individual JSON Schema files from an OpenAPI 3.1 specification.
+
+**Usage:**
+
+```bash
+python3 scripts/openapi_to_schema.py [options]
+```
+
+**Key Options:**
+
+```bash
+--input FILE             # Input OpenAPI file (default: notecard-api.openapi.json)
+--output-dir DIR         # Output directory for schema files (default: current)
+```
+
+**Examples:**
+
+```bash
+# Convert OpenAPI back to individual schemas
+python3 scripts/openapi_to_schema.py
+
+# Custom input/output
+python3 scripts/openapi_to_schema.py --input api.json --output-dir /path/to/schemas
+```
+
+**Features:**
+
+- Produces individual `*.notecard.api.json` schema files
+- Rebuilds req/cmd properties and oneOf discrimination
+- Restores `$schema` and `$id` envelope structure
+- Reverse-maps `x-` extensions back to native Notecard metadata keys
+
+---
+
+### 8. `verify_roundtrip.py` - Round-Trip Verification
+
+Verifies that converting JSON Schema → OpenAPI → JSON Schema produces identical output, ensuring no information is lost in the conversion process.
+
+**Usage:**
+
+```bash
+python3 scripts/verify_roundtrip.py [options]
+```
+
+**Key Options:**
+
+```bash
+--schema-dir DIR         # Directory containing original schemas (default: current)
+```
+
+**Examples:**
+
+```bash
+# Verify round-trip fidelity for all schemas
+python3 scripts/verify_roundtrip.py
+
+# Verify schemas in specific directory
+python3 scripts/verify_roundtrip.py --schema-dir /path/to/schemas
+```
+
+**Features:**
+
+- Converts all schemas to OpenAPI and back, then compares with originals
+- Validates properties, types, descriptions, metadata, allOf, and samples
+- Reports per-endpoint pass/fail with detailed diff on failure
+- Currently passes 74/74 Notecard API endpoints
+
+---
+
 ## Common Workflows
 
 ### Creating a New API
@@ -238,6 +351,26 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
 
    ```bash
    python3 scripts/update_docs.py --existing-repo /path/to/blues.dev --commit --push
+   ```
+
+### OpenAPI Conversion
+
+1. **Convert schemas to OpenAPI:**
+
+   ```bash
+   python3 scripts/schema_to_openapi.py --output notecard-api.openapi.json
+   ```
+
+2. **Convert back to individual schemas:**
+
+   ```bash
+   python3 scripts/openapi_to_schema.py --input notecard-api.openapi.json --output-dir ./rebuilt
+   ```
+
+3. **Verify round-trip fidelity:**
+
+   ```bash
+   python3 scripts/verify_roundtrip.py
    ```
 
 ### Version Management
