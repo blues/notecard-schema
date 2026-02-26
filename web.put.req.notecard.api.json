@@ -13,7 +13,7 @@
     ],
     "properties": {
         "async": {
-            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
+            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub. This argument only applies when the Notecard is in `continuous` mode and currently online.",
             "type": "boolean",
             "minApiVersion": "5.1.1"
         },
