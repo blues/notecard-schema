@@ -12,11 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "async": {
-            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
-            "type": "boolean",
-            "minApiVersion": "5.1.1"
-        },
         "binary": {
             "description": "If `true`, the Notecard will return the response stored in its binary buffer.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects).",
             "type": "boolean",
