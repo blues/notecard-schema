@@ -26,7 +26,7 @@
             "type": "string"
         },
         "file": {
-            "description": "The name of a local-only Database Notefile (.dbx) where the response will be stored when the web request is executed as a queued web transaction (e.g. if the request is made when Notecard is not in continuous mode and not online). If `file` is not specified, queued transaction responses are discarded. This argument is not used when the Notecard is in `continuous` mode and online, as responses in that case are returned directly to the host.",
+            "description": "The name of a local-only Database Notefile (.dbx) where the response will be stored when the web request is executed as a queued web transaction (e.g. if the request is made when Notecard is not in continuous mode and not online). If `file` is not specified, queued web transaction responses are discarded. This argument is not used when the Notecard is in `continuous` mode and online, as responses in that case are returned directly to the host.",
             "type": "string"
         },
         "max": {
