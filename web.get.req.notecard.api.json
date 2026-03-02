@@ -12,11 +12,6 @@
         "WIFI"
     ],
     "properties": {
-        "async": {
-            "description": "If `true`, the Notecard performs the web request asynchronously, and returns control to the host without waiting for a response from Notehub.",
-            "type": "boolean",
-            "minApiVersion": "5.1.1"
-        },
         "binary": {
             "description": "If `true`, the Notecard will return the response stored in its binary buffer.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects).",
             "type": "boolean",
@@ -31,7 +26,7 @@
             "type": "string"
         },
         "file": {
-            "description": "The name of the local-only Database Notefile (`.dbx`) to be used if the web request is issued asynchronously and you wish to store the response.",
+            "description": "The name of a local-only Database Notefile (.dbx) where the response will be stored when the web request is executed as a queued web transaction (e.g. if the request is made when Notecard is not in continuous mode and not online). If `file` is not specified, queued web transaction responses are discarded. This argument is not used when the Notecard is in `continuous` mode and online, as responses in that case are returned directly to the host.",
             "type": "string"
         },
         "max": {
@@ -43,7 +38,7 @@
             "type": "string"
         },
         "note": {
-            "description": "The unique Note ID for the local-only Database Notefile (`.dbx`). Only used with asynchronous web requests (see `file` argument above).",
+            "description": "The unique Note ID within the local-only Database Notefile (.dbx) specified by the `file` argument (see above). Used with queued web transactions to identify a specific Note where the response will be stored.",
             "type": "string"
         },
         "offset": {
