@@ -15,13 +15,14 @@
     ],
     "properties": {
         "i2c": {
-            "description": "The alternate address to use for I2C communication. Pass `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default address",
+            "description": "The alternate address to use for I2C communication.",
             "type": "integer"
         },
         "mode": {
             "description": "Used to control the Notecard's IO behavior, including USB port, LED, I2C master, NTN fallback.",
             "type": "string",
             "enum": [
+                "-1",
                 "-usb",
                 "usb",
                 "+usb",
@@ -33,6 +34,10 @@
                 "-fallback"
             ],
             "sub-descriptions": [
+                {
+                    "const": "-1",
+                    "description": "Send `-1` to [reset](https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#resetting-request-argument-values) to the default I2C address."
+                },
                 {
                     "const": "-usb",
                     "description": "Set to `\"-usb\"` to disable the Notecard's USB port. Re-enable the USB port with `\"usb\"` or `\"+usb\"`."
