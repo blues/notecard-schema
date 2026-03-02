@@ -14,7 +14,6 @@
     ],
     "properties": {
         "mode": {
-            "description": "Set to `\"on\"` to enable trace mode on a Notecard, or `\"off\"` to disable it.",
             "type": "string",
             "enum": [
                 "on",
