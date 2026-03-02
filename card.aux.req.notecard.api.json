@@ -20,6 +20,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "3.3.1"
@@ -36,6 +37,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "3.5.1"
@@ -46,6 +48,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "3.3.1"
@@ -92,6 +95,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
@@ -103,6 +107,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -112,6 +117,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
@@ -122,6 +128,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -131,6 +138,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -140,6 +148,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
@@ -151,6 +160,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -161,6 +171,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -170,6 +181,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "9.3.1"
@@ -180,6 +192,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "9.3.1"
@@ -190,6 +203,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -199,6 +213,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
@@ -209,6 +224,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.5.1"
@@ -219,6 +235,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "9.3.1"
@@ -230,6 +247,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }
@@ -242,6 +260,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "5.1.1"
@@ -260,6 +279,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ]
         },
@@ -298,6 +318,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "3.5.1"
@@ -312,6 +333,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "minApiVersion": "3.4.1"
@@ -342,6 +364,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -352,6 +375,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -362,6 +386,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -372,6 +397,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -382,6 +408,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -392,6 +419,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.3.1"
@@ -403,6 +431,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ],
                     "minApiVersion": "3.3.1"
@@ -413,6 +442,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -422,6 +452,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -431,6 +462,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }
