@@ -83,6 +83,9 @@
             "type": "string"
         }
     },
+    "required": [
+        "mode"
+    ],
     "additionalProperties": false,
     "samples": [
         {

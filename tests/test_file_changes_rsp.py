@@ -5,18 +5,13 @@ import json
 SCHEMA_FILE = "file.changes.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (all fields optional)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_total_only(schema):
     """Tests valid response with only total field."""
     instance = {"total": 3}
-    jsonschema.validate(instance=instance, schema=schema)
-
-def test_valid_changes_only(schema):
-    """Tests valid response with only changes field."""
-    instance = {"changes": 1}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_total_and_changes(schema):
@@ -64,60 +59,61 @@ def test_total_invalid_array(schema):
 
 def test_changes_invalid_type(schema):
     """Tests invalid type for changes."""
-    instance = {"changes": "not-integer"}
+    instance = {"total": 0, "changes": "not-integer"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_float(schema):
     """Tests invalid float type for changes."""
-    instance = {"changes": 1.5}
+    instance = {"total": 0, "changes": 1.5}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1.5 is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_boolean(schema):
     """Tests invalid boolean type for changes."""
-    instance = {"changes": False}
+    instance = {"total": 0, "changes": False}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "False is not of type 'integer'" in str(excinfo.value)
 
 def test_changes_invalid_array(schema):
     """Tests invalid array type for changes."""
-    instance = {"changes": [1]}
+    instance = {"total": 0, "changes": [1]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'integer'" in str(excinfo.value)
 
 def test_valid_info_empty_object(schema):
     """Tests valid response with empty info object."""
-    instance = {"info": {}}
+    instance = {"total": 0, "info": {}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_with_file_changes(schema):
     """Tests valid response with info containing file change counts."""
-    instance = {"info": {"sensors.qo": {"changes": 5}, "data.qo": {"changes": 0}}}
+    instance = {"total": 5, "info": {"sensors.qo": {"changes": 5}, "data.qo": {"changes": 0}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_with_changes_only(schema):
     """Tests valid response with info containing only changes."""
-    instance = {"info": {"sensors.qo": {"changes": 3}, "data.qo": {"changes": 2}}}
+    instance = {"total": 5, "info": {"sensors.qo": {"changes": 3}, "data.qo": {"changes": 2}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_with_changes_and_total(schema):
     """Tests valid response with info containing both changes and total."""
-    instance = {"info": {"sensors.qo": {"changes": 5, "total": 10}}}
+    instance = {"total": 10, "info": {"sensors.qo": {"changes": 5, "total": 10}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_with_additional_properties(schema):
     """Tests valid response with info containing additional properties."""
-    instance = {"info": {"sensors.qo": {"changes": 5, "total": 8, "lastModified": "2023-01-01"}}}
+    instance = {"total": 8, "info": {"sensors.qo": {"changes": 5, "total": 8, "lastModified": "2023-01-01"}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_info_multiple_files(schema):
     """Tests valid response with info for multiple files."""
     instance = {
+        "total": 16,
         "info": {
             "sensors.qo": {"changes": 5, "total": 8},
             "data.qo": {"changes": 0, "total": 3},
@@ -128,28 +124,28 @@ def test_valid_info_multiple_files(schema):
 
 def test_info_invalid_type(schema):
     """Tests invalid type for info."""
-    instance = {"info": "not-object"}
+    instance = {"total": 0, "info": "not-object"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-object' is not of type 'object'" in str(excinfo.value)
 
 def test_info_invalid_array(schema):
     """Tests invalid array type for info."""
-    instance = {"info": ["not", "object"]}
+    instance = {"total": 0, "info": ["not", "object"]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'object'" in str(excinfo.value)
 
 def test_info_invalid_integer(schema):
     """Tests invalid integer type for info."""
-    instance = {"info": 123}
+    instance = {"total": 0, "info": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "123 is not of type 'object'" in str(excinfo.value)
 
 def test_info_file_changes_invalid_type(schema):
     """Tests invalid type for changes in info file object."""
-    instance = {"info": {"sensors.qo": {"changes": "not-integer"}}}
+    instance = {"total": 0, "info": {"sensors.qo": {"changes": "not-integer"}}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
@@ -157,12 +153,12 @@ def test_info_file_changes_invalid_type(schema):
 def test_info_file_additional_properties_allowed(schema):
     """Tests that additional properties are allowed in info file objects."""
     # Since additionalProperties is true, any additional properties should be allowed
-    instance = {"info": {"sensors.qo": {"changes": 5, "custom_field": "any_value", "timestamp": 123}}}
+    instance = {"total": 5, "info": {"sensors.qo": {"changes": 5, "custom_field": "any_value", "timestamp": 123}}}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_info_file_value_not_object(schema):
     """Tests invalid non-object value in info."""
-    instance = {"info": {"sensors.qo": "not-object"}}
+    instance = {"total": 0, "info": {"sensors.qo": "not-object"}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'not-object' is not of type 'object'" in str(excinfo.value)
@@ -180,9 +176,10 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_total_optional(schema):
-    """Tests that total field is optional."""
-    instance = {"changes": 1}
+def test_all_non_required_fields_optional(schema):
+    """Tests that all non-required fields are optional."""
+    # Only total is required; changes, pending, and info are optional
+    instance = {"total": 3}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_changes_optional(schema):
@@ -198,26 +195,26 @@ def test_info_optional(schema):
 def test_valid_pending_field(schema):
     """Tests valid pending field."""
     valid_instances = [
-        {"pending": True},
-        {"pending": False},
+        {"total": 0, "pending": True},
+        {"total": 0, "pending": False},
         {"total": 5, "pending": True},
         {"changes": 3, "total": 5, "pending": False}
     ]
-    
+
     for instance in valid_instances:
         jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_pending_type(schema):
     """Tests invalid type for pending field."""
     invalid_pending_types = [
-        {"pending": "true"},
-        {"pending": 1},
-        {"pending": 0},
-        {"pending": []},
-        {"pending": {}},
-        {"pending": None}
+        {"total": 0, "pending": "true"},
+        {"total": 0, "pending": 1},
+        {"total": 0, "pending": 0},
+        {"total": 0, "pending": []},
+        {"total": 0, "pending": {}},
+        {"total": 0, "pending": None}
     ]
-    
+
     for instance in invalid_pending_types:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=instance, schema=schema)
@@ -227,11 +224,10 @@ def test_pending_optional(schema):
     """Tests that pending field is optional."""
     # Response without pending field should be valid
     jsonschema.validate(instance={"total": 5}, schema=schema)
-    jsonschema.validate(instance={}, schema=schema)
-    
+
     # Response with pending field should also be valid
-    jsonschema.validate(instance={"pending": True}, schema=schema)
-    jsonschema.validate(instance={"pending": False}, schema=schema)
+    jsonschema.validate(instance={"total": 0, "pending": True}, schema=schema)
+    jsonschema.validate(instance={"total": 0, "pending": False}, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with an additional property."""

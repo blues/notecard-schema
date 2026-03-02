@@ -5,9 +5,16 @@ import json
 SCHEMA_FILE = "card.transport.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with only required fields."""
+    instance = {"method": "cell"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_missing_required_method(schema):
+    """Tests that method is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'method' is a required property" in str(excinfo.value)
 
 @pytest.mark.parametrize(
     "method",

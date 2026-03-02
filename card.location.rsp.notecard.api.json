@@ -64,6 +64,9 @@
             "type": "integer"
         }
     },
+    "required": [
+        "mode"
+    ],
     "additionalProperties": false,
     "samples": [
         {

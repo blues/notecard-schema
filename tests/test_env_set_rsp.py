@@ -5,9 +5,16 @@ import json
 SCHEMA_FILE = "env.set.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with required fields."""
+    instance = {"time": 1605814493}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_missing_required_time(schema):
+    """Tests that time is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'time' is a required property" in str(excinfo.value)
 
 def test_valid_time_response(schema):
     """Tests valid response with time field."""
@@ -61,14 +68,14 @@ def test_invalid_additional_property(schema):
 
 def test_invalid_name_property(schema):
     """Tests that name property is not allowed in response."""
-    instance = {"name": "test-var"}
+    instance = {"time": 1605814493, "name": "test-var"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)
 
 def test_invalid_text_property(schema):
     """Tests that text property is not allowed in response."""
-    instance = {"text": "value"}
+    instance = {"time": 1605814493, "text": "value"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed" in str(excinfo.value)

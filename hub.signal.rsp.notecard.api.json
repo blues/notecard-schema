@@ -35,7 +35,7 @@
         {
             "title": "No Signals Available",
             "description": "Response when no signals are available.",
-            "json": "{\"connected\": true, \"signals\": 0}"
+            "json": "{\"connected\": true}"
         },
         {
             "title": "Multiple Signals Queued",

@@ -66,6 +66,10 @@
             "type": "string"
         }
     },
+    "required": [
+        "mode",
+        "on"
+    ],
     "additionalProperties": false,
     "samples": [
         {

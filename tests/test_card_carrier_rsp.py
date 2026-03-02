@@ -4,9 +4,16 @@ import json
 SCHEMA_FILE = "card.carrier.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
-    instance = {}
+    """Tests a minimal valid response with only required fields."""
+    instance = {"mode": "off"}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_missing_required_mode(schema):
+    """Tests that mode is required."""
+    instance = {}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'mode' is a required property" in str(excinfo.value)
 
 def test_valid_rsp_with_mode(schema):
     """Tests a valid response with the mode field."""
@@ -30,14 +37,12 @@ def test_mode_invalid_type(schema):
 
 def test_valid_rsp_with_charging(schema):
     """Tests a valid response with the charging field."""
-    instance = {"charging": True}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {"charging": False}
+    instance = {"mode": "charging", "charging": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_charging_invalid_type(schema):
     """Tests invalid type for charging."""
-    instance = {"charging": "true"}
+    instance = {"mode": "off", "charging": "true"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'true' is not of type 'boolean'" in str(excinfo.value)

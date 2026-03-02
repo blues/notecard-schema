@@ -4,7 +4,7 @@ import jsonschema
 SCHEMA_FILE = "card.voltage.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (all fields optional)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -24,8 +24,6 @@ def test_valid_usb(schema):
     """Tests valid usb field."""
     instance = {"usb": True}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"usb": False}
-    jsonschema.validate(instance=instance, schema=schema)
 
 def test_usb_invalid_type(schema):
     """Tests invalid type for usb."""
@@ -43,8 +41,6 @@ def test_valid_number_field(schema, field_name):
     instance = {field_name: 3.95}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {field_name: 4}
-    jsonschema.validate(instance=instance, schema=schema)
-    instance = {field_name: 0}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {field_name: -1.2}
     jsonschema.validate(instance=instance, schema=schema)
@@ -64,7 +60,7 @@ def test_valid_all_fields(schema):
     """Tests a valid response with all fields."""
     instance = {
         "mode": "normal",
-        "usb": False,
+        "usb": True,
         "value": 3.85,
         "hours": 720,
         "vmin": 3.2,

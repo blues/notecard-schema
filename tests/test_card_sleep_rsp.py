@@ -5,7 +5,7 @@ import json
 SCHEMA_FILE = "card.sleep.rsp.notecard.api.json"
 
 def test_minimal_valid_rsp(schema):
-    """Tests a minimal valid response (empty object)."""
+    """Tests a minimal valid response (empty object, no required fields)."""
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -130,20 +130,26 @@ def test_valid_all_fields(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_valid_partial_fields(schema):
-    """Tests valid response with partial fields."""
-    instance = {"on": True, "seconds": 30}
+def test_all_fields_optional(schema):
+    """Tests that all fields are optional."""
+    instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
-    instance = {"mode": "accel", "seconds": 60}
-    jsonschema.validate(instance=instance, schema=schema)
+    instance_on = {"on": True}
+    jsonschema.validate(instance=instance_on, schema=schema)
 
-    instance = {"off": True}
-    jsonschema.validate(instance=instance, schema=schema)
+    instance_off = {"off": False}
+    jsonschema.validate(instance=instance_off, schema=schema)
+
+    instance_seconds = {"seconds": 30}
+    jsonschema.validate(instance=instance_seconds, schema=schema)
+
+    instance_mode = {"mode": "accel"}
+    jsonschema.validate(instance=instance_mode, schema=schema)
 
 def test_invalid_additional_property(schema):
     """Tests invalid response with additional property."""
-    instance = {"on": True, "seconds": 30, "status": "enabled"}
+    instance = {"status": "enabled"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
@@ -152,6 +158,8 @@ def test_invalid_multiple_additional_properties(schema):
     """Tests response with multiple additional properties (should fail)."""
     instance = {
         "on": True,
+        "off": False,
+        "seconds": 60,
         "status": "enabled",
         "extra": "field"
     }
