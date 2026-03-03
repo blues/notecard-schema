@@ -14,7 +14,7 @@
     ],
     "properties": {
         "allow": {
-            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/satellite-best-practices/#define-ntn-vs-non-ntn-templates).",
             "type": "boolean",
             "default": false,
             "minApiVersion": "7.2.1"
