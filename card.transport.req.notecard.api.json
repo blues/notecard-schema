@@ -9,11 +9,12 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
         "allow": {
-            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/starnote-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/satellite-best-practices/#define-ntn-vs-non-ntn-templates).",
             "type": "boolean",
             "default": false,
             "minApiVersion": "7.2.1"
@@ -39,6 +40,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -47,7 +49,8 @@
                     "description": "Enables **cellular only** on the device.",
                     "skus": [
                         "CELL",
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -55,7 +58,8 @@
                     "description": "Prioritizes cellular connectivity while falling back to NTN if a cellular connection cannot be established.",
                     "skus": [
                         "CELL",
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -63,7 +67,8 @@
                     "deprecated": true,
                     "description": "Deprecated form of `\"wifi-cell\"`",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -72,6 +77,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -80,6 +86,7 @@
                     "description": "Enables **WiFi only** on the device.",
                     "skus": [
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -87,14 +94,16 @@
                     "const": "wifi-cell",
                     "description": "Prioritizes WiFi connectivity while falling back to cellular if a WiFi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
                     "const": "wifi-cell-ntn",
                     "description": "Prioritizes WiFi connectivity while falling back to cellular, and lastly to NTN.",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -102,6 +111,7 @@
                     "description": "Prioritizes WiFi connectivity while falling back to NTN if a WiFi connection cannot be established.",
                     "skus": [
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }

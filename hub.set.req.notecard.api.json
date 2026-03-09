@@ -10,6 +10,7 @@
         "CELL",
         "CELL+WIFI",
         "LORA",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
@@ -145,6 +146,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "type": "boolean"
@@ -218,6 +220,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "type": "string"
@@ -227,6 +230,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ],
             "type": "string"
