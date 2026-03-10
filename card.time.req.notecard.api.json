@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.time.req.notecard.api.json",
     "title": "card.time Request Application Programming Interface (API) Schema",
-    "description": "Retrieves current date and time information in UTC. Upon power-up, the Notecard must complete a sync to Notehub in order to obtain time and location data. Before the time is obtained, this request will return `{\"zone\":\"UTC,Unknown\"}`.",
+    "description": "Retrieves current date and time information in UTC. Upon power-up, the Notecard must complete a sync to Notehub in order to obtain time and location data. Before the time is obtained, this request will return `{\"zone\":\"UTC,Unknown\"}`. The Notecard's stored timezone is only updated when a new Notehub session begins.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
