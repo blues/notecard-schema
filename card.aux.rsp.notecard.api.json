@@ -9,6 +9,7 @@
         "CELL",
         "CELL+WIFI",
         "LORA",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
@@ -74,6 +75,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -84,6 +86,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -94,6 +97,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -104,6 +108,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -113,6 +118,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }

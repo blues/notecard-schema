@@ -9,6 +9,7 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
@@ -33,6 +34,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -41,7 +43,8 @@
                     "description": "Cellular only is enabled on the device.",
                     "skus": [
                         "CELL",
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -49,14 +52,16 @@
                     "description": "Prioritizes cellular connectivity while falling back to NTN if a cellular connection cannot be established.",
                     "skus": [
                         "CELL",
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
                     "const": "dual-wifi-cell",
                     "description": "Deprecated form of `\"wifi-cell\"`.",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ],
                     "deprecated": true
                 },
@@ -66,6 +71,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -74,6 +80,7 @@
                     "description": "WiFi only is enabled on the device.",
                     "skus": [
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -81,14 +88,16 @@
                     "const": "wifi-cell",
                     "description": "Prioritizes WiFi connectivity while falling back to cellular if a WiFi connection cannot be established. This is the default behavior on Notecard Cell+WiFi.",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
                     "const": "wifi-cell-ntn",
                     "description": "Prioritizes WiFi connectivity while falling back to cellular, and lastly to NTN.",
                     "skus": [
-                        "CELL+WIFI"
+                        "CELL+WIFI",
+                        "SKYLO"
                     ]
                 },
                 {
@@ -96,6 +105,7 @@
                     "description": "Prioritizes WiFi connectivity while falling back to NTN if a WiFi connection cannot be established.",
                     "skus": [
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }

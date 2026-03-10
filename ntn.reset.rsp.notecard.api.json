@@ -10,6 +10,7 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {},
