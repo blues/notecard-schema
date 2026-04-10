@@ -19,9 +19,18 @@ jobs:
           - blues/blues.dev
       fail-fast: false
     steps:
+      - name: Generate App Token                                                                                                                                    
+        id: app-token                                                                                                                                               
+        uses: actions/create-github-app-token@v1                                                                                                                    
+        with:                                                                                                                                                       
+          app-id: ${{ secrets.SCHEMA_SYNC_APP_ID }}                                                                                                                 
+          private-key: ${{ secrets.SCHEMA_SYNC_PRIVATE_KEY }}                                                                                                       
+          owner: blues                                                                                                                                              
+          repositories: blues.dev,note-python
+
       - name: Trigger update schema workflow for ${{ matrix.downstream_repo }}
         run: |
-          echo "${{ secrets.DOWNSTREAM_REPO_TOKEN }}" | gh auth login --with-token
+          echo "${{ steps.app-token.outputs.token }}" | gh auth login --with-token
 
           gh workflow run update-notecard-schema.yml \
             --repo ${{ matrix.downstream_repo }} \
