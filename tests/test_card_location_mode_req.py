@@ -35,7 +35,7 @@ def test_invalid_both_req_and_cmd(schema):
 
 def test_valid_mode_enums(schema):
     """Tests valid mode enum values."""
-    valid_modes = ["", "off", "periodic", "continuous", "fixed"]
+    valid_modes = ["", "off", "periodic", "continuous", "fixed", "-"]
     for mode in valid_modes:
         instance = {"req": "card.location.mode", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)

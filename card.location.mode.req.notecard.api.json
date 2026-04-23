@@ -45,7 +45,8 @@
                 "off",
                 "periodic",
                 "continuous",
-                "fixed"
+                "fixed",
+                "-"
             ],
             "sub-descriptions": [
                 {
@@ -67,6 +68,10 @@
                 {
                     "const": "fixed",
                     "description": "Reports the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa."
+                },
+                {
+                    "const": "-",
+                    "description": "Resets the mode to the default value (`off`)."
                 }
             ]
         },
