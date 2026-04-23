@@ -25,7 +25,7 @@ def test_valid_product_only(schema):
 
 def test_valid_mode_values(schema):
     """Tests all valid mode values."""
-    modes = ["periodic", "continuous", "minimum", "off", "dfu"]
+    modes = ["periodic", "continuous", "minimum", "off", "dfu", "-"]
     for mode in modes:
         instance = {"req": "hub.set", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
