@@ -87,7 +87,8 @@
                 "continuous",
                 "minimum",
                 "off",
-                "dfu"
+                "dfu",
+                "-"
             ],
             "sub-descriptions": [
                 {
@@ -109,6 +110,10 @@
                 {
                     "const": "dfu",
                     "description": "Puts the Notecard in DFU mode for IAP host MCU firmware updates. This mode is effectively the same as `off` in terms of the Notecard's network and Notehub connections."
+                },
+                {
+                    "const": "-",
+                    "description": "Resets the mode to the default value (`periodic`)."
                 }
             ]
         },
