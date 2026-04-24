@@ -19,7 +19,7 @@
             "type": "integer"
         },
         "status": {
-            "description": "Overrides `minutes` with a voltage-variable value. For example: `\"usb:15;high:30;normal:60;720\"`. See [Voltage-Variable Sync Behavior](/notecard/notecard-walkthrough/low-power-design#voltage-variable-sync-behavior) for more information on configuring these values.",
+            "description": "Overrides `minutes` with a voltage-variable value. For example: `\"usb:15;high:30;normal:60;720\"`. See [Voltage-Variable Sync Behavior](/notecard/notecard-walkthrough/low-power-firmware-design#voltage-variable-sync-behavior) for more information on configuring these values.",
             "type": "string"
         },
         "stop": {
