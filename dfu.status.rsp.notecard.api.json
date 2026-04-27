@@ -24,6 +24,7 @@
                 "error",
                 "downloading",
                 "ready",
+                "outboard-ready",
                 "completed"
             ],
             "sub-descriptions": [
@@ -42,6 +43,10 @@
                 {
                     "const": "ready",
                     "description": "The firmware data is fully downloaded."
+                },
+                {
+                    "const": "outboard-ready",
+                    "description": "The firmware data is fully downloaded and ready for an outboard DFU operation, where the Notecard will flash the firmware to the host MCU via the AUX or ALT_DFU pins."
                 },
                 {
                     "const": "completed",
@@ -87,6 +92,11 @@
             "title": "DFU Error Status",
             "description": "Example response showing download error.",
             "json": "{\"mode\": \"error\", \"status\": \"download failed: checksum mismatch\", \"on\": true}"
+        },
+        {
+            "title": "DFU Outboard Ready Status",
+            "description": "Example response showing firmware is ready for an outboard DFU operation.",
+            "json": "{\"mode\": \"outboard-ready\", \"status\": \"successfully downloaded\", \"on\": true}"
         }
     ]
 }

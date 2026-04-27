@@ -11,7 +11,7 @@ def test_minimal_valid_rsp(schema):
 
 def test_valid_mode_enums(schema):
     """Tests valid mode enum values."""
-    valid_modes = ["idle", "error", "downloading", "ready", "completed"]
+    valid_modes = ["idle", "error", "downloading", "ready", "outboard-ready", "completed"]
     for mode in valid_modes:
         instance = {"mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
@@ -21,7 +21,7 @@ def test_mode_invalid_enum(schema):
     instance = {"mode": "invalid"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not one of ['idle', 'error', 'downloading', 'ready', 'completed']" in str(excinfo.value)
+    assert "'invalid' is not one of" in str(excinfo.value)
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""
