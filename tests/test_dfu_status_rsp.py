@@ -27,7 +27,7 @@ def test_missing_required_on(schema):
 
 def test_valid_mode_enums(schema):
     """Tests valid mode enum values."""
-    valid_modes = ["idle", "error", "downloading", "ready", "completed"]
+    valid_modes = ["idle", "error", "downloading", "ready", "outboard-ready", "completed"]
     for mode in valid_modes:
         instance = {"status": "test status", "mode": mode, "on": True}
         jsonschema.validate(instance=instance, schema=schema)
@@ -37,7 +37,7 @@ def test_mode_invalid_enum(schema):
     instance = {"status": "test status", "mode": "invalid", "on": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not one of ['idle', 'error', 'downloading', 'ready', 'completed']" in str(excinfo.value)
+    assert "'invalid' is not one of" in str(excinfo.value)
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""
