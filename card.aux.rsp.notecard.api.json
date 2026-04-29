@@ -43,7 +43,7 @@
             "type": "integer"
         },
         "state": {
-            "description": "When in AUX `gpio` mode, the state of each AUX pin.",
+            "description": "When in AUX `gpio` mode, the array element for each pin reflects its current configuration. The label below each example object identifies the corresponding `usage` value the pin was configured with.",
             "type": "array",
             "items": {
                 "type": "object",
@@ -74,6 +74,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -84,6 +85,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -94,6 +96,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -104,6 +107,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -113,6 +117,7 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }
