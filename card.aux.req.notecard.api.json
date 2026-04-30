@@ -91,7 +91,7 @@
             "sub-descriptions": [
                 {
                     "const": "dfu",
-                    "description": "Enable the Notecard's `AUX1` pin for [Outboard Firmware Updates](/notehub/host-firmware-updates/notecard-outboard-firmware-update). When enabled, `AUX1` is active `LOW` when a DFU is in progress, and `HIGH` otherwise. See [Using DFU Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-dfu-mode) for more information.",
+                    "description": "Reserve the Notecard's `AUX1`, `AUX3`, and `AUX4` pins for [Outboard Firmware Updates](/notehub/host-firmware-updates/notecard-outboard-firmware-update). See [Using DFU Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-dfu-mode) for more information.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -509,7 +509,7 @@
     "samples": [
         {
             "title": "DFU Mode",
-            "description": "Enable the Notecard's `AUX1` pin for [Outboard Firmware Updates](/notehub/host-firmware-updates/notecard-outboard-firmware-update). When enabled, `AUX1` is active `LOW` when a DFU is in progress, and `HIGH` otherwise.",
+            "description": "Reserve `AUX1`, `AUX3`, and `AUX4` for [Outboard Firmware Updates](/notehub/host-firmware-updates/notecard-outboard-firmware-update). `AUX1` reports whether a DFU is in progress (active `LOW`), `AUX3` drives the host's `BOOT` pin, and `AUX4` drives the host's `RESET` pin during the flash. `AUX2` is reserved. See [Using DFU Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-dfu-mode) for more information.",
             "json": "{\"req\": \"card.aux\", \"mode\": \"dfu\"}"
         },
         {
