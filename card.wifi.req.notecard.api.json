@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.wifi.req.notecard.api.json",
     "title": "card.wifi Request Application Programming Interface (API) Schema",
-    "description": "Sets up a Notecard WiFi to connect to a WiFi access point.",
+    "description": "Sets up a Notecard's connection to a WiFi access point.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -73,6 +73,10 @@
         {
             "title": "note",
             "description": "Updates to Notecard WiFi credentials cannot occur while Notecard is in `continuous` mode, as a new session is required to change the credentials. If you have a Notecard WiFi in `continuous` mode, you must change to another mode such as `periodic` or `off`, using [a hub.set request](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) before calling `card.wifi`."
+        },
+        {
+            "title": "note",
+            "description": "WiFi credentials set via `card.wifi` (including multiple-network lists set with the `text` argument) are saved to non-volatile flash storage on the Notecard and persist across power cycles and reboots."
         }
     ],
     "samples": [
