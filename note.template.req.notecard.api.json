@@ -109,6 +109,11 @@
             "title": "Request Current Template",
             "description": "Retrieve the current template configuration for the readings.qo Notefile.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\",\"verify\":true}"
+        },
+        {
+            "title": "Clear Template",
+            "description": "Clear the template from readings.qo. Omitting `body` and `payload` removes the template schema; subsequent Notes added to the Notefile will be stored as regular JSON objects.",
+            "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\"}"
         }
     ]
 }
