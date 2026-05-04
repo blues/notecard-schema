@@ -32,16 +32,23 @@
             "maximum": 720
         },
         "mode": {
-            "description": "Used to set voltage thresholds based on how the Notecard will be powered, and which can be used to [configure voltage-variable Notecard behavior](/notecard/notecard-walkthrough/low-power-firmware-design). Each value is shorthand that assigns a battery voltage reading to a given device state like `high`, `normal`, `low`, and `dead`.\n\n**NOTE:** Setting voltage thresholds is not supported on the Notecard XP.",
+            "description": "Used to set voltage thresholds based on how the Notecard will be powered, and which can be used to [configure voltage-variable Notecard behavior](/notecard/notecard-walkthrough/low-power-firmware-design). Each value is shorthand that assigns a battery voltage reading to a given device state like `high`, `normal`, `low`, and `dead`.\n\nIn addition to the named presets below, a custom semicolon-separated shorthand string may be provided using any combination of the `usb`, `high`, `normal`, `low`, and `dead` states (e.g. `\"usb:4.6;high:4.2;normal:3.6;low:0\"`).\n\n**NOTE:** Setting voltage thresholds is not supported on the Notecard XP.",
             "type": "string",
-            "enum": [
-                "default",
-                "lipo",
-                "l91",
-                "alkaline",
-                "tad",
-                "lic",
-                "?"
+            "anyOf": [
+                {
+                    "enum": [
+                        "default",
+                        "lipo",
+                        "l91",
+                        "alkaline",
+                        "tad",
+                        "lic",
+                        "?"
+                    ]
+                },
+                {
+                    "pattern": "^(usb|high|normal|low|dead):\\d+(\\.\\d+)?(;(usb|high|normal|low|dead):\\d+(\\.\\d+)?)*$"
+                }
             ],
             "default": "default",
             "sub-descriptions": [
@@ -165,6 +172,11 @@
             "title": "Query Current Thresholds",
             "description": "Query the Notecard for its currently-set voltage thresholds.",
             "json": "{\"req\": \"card.voltage\", \"mode\": \"?\"}"
+        },
+        {
+            "title": "Set Custom Voltage Thresholds",
+            "description": "Configure voltage thresholds using a custom semicolon-separated shorthand string.",
+            "json": "{\"req\": \"card.voltage\", \"mode\": \"usb:4.6;high:4.2;normal:3.6;low:0\"}"
         },
         {
             "title": "Enable USB Power Monitoring",

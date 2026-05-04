@@ -52,12 +52,11 @@ def test_valid_mode_enums(schema):
         instance = {"req": "card.voltage", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
 
-def test_mode_invalid_enum(schema):
-    """Tests invalid mode enum value."""
+def test_mode_invalid_value(schema):
+    """Tests an arbitrary mode value that matches neither the enum nor the shorthand pattern."""
     instance = {"req": "card.voltage", "mode": "nimh"}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
+    with pytest.raises(jsonschema.ValidationError):
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'nimh' is not one of ['default'," in str(excinfo.value)
 
 def test_mode_invalid_type(schema):
     """Tests invalid type for mode."""
@@ -65,6 +64,41 @@ def test_mode_invalid_type(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'string'" in str(excinfo.value)
+
+def test_valid_mode_custom_shorthand(schema):
+    """Tests valid custom shorthand mode strings with various state combinations."""
+    valid_modes = [
+        "usb:4;low:0",
+        "usb:4.6;high:4.2;normal:3.6;low:0",
+        "usb:4.6;high:4.0;normal:3.5;low:3.2;dead:0",
+        "dead:0",
+        "high:5",
+        "normal:3.5",
+        "low:0;dead:0",
+        "high:4.2;dead:0"
+    ]
+    for mode in valid_modes:
+        instance = {"req": "card.voltage", "mode": mode}
+        jsonschema.validate(instance=instance, schema=schema)
+
+def test_mode_invalid_shorthand(schema):
+    """Tests invalid shorthand mode strings."""
+    invalid_modes = [
+        "usb:",                  # missing value
+        ":4.6",                  # missing key
+        "foo:4.6",               # unknown state
+        "usb:4.6;",              # trailing semicolon
+        ";usb:4.6",              # leading semicolon
+        "usb:4.6,high:4.2",      # comma instead of semicolon
+        "usb 4.6",               # space instead of colon
+        "usb:4.6;high",          # missing value in second pair
+        "usb:-4.6",              # negative value
+        "usb:4.6.2"              # malformed number
+    ]
+    for mode in invalid_modes:
+        instance = {"req": "card.voltage", "mode": mode}
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_vmax(schema):
     """Tests valid vmax field."""
