@@ -19,11 +19,11 @@
             "default": "_track.qo"
         },
         "heartbeat": {
-            "description": "When `start` is `true`, set to `true` to enable tracking even when motion is not detected. If using `heartbeat`, also set the `hours` below.",
+            "description": "When `start` is `true`, set to `true` to capture a tracking Note on a fixed interval even when no motion has been detected. The interval is configured with the `hours` field below.",
             "type": "boolean"
         },
         "hours": {
-            "description": "If `heartbeat` is true, add a heartbeat entry at this hourly interval. Use a negative integer to specify a heartbeat in minutes instead of hours.",
+            "description": "When `heartbeat` is `true`, the interval at which to capture a heartbeat tracking Note. A positive value sets the interval in hours (e.g. `2` captures a Note every two hours). To configure an interval shorter than one hour, pass a negative integer whose absolute value is the number of minutes (e.g. `-30` captures a Note every 30 minutes).",
             "type": "integer"
         },
         "payload": {
