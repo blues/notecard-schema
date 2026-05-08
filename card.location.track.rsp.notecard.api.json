@@ -19,12 +19,20 @@
             "description": "`true` if heartbeat is enabled.",
             "type": "boolean"
         },
+        "hours": {
+            "description": "The configured heartbeat interval in hours. Only returned when the heartbeat interval is a whole number of hours; otherwise, the interval is returned in `minutes` instead. `hours` and `minutes` are never returned together.",
+            "type": "integer"
+        },
+        "journey": {
+            "description": "`true` if a journey is currently in progress (i.e., the Notecard has detected motion and is actively tracking a journey). The Notecard tracks journeys when `card.location.mode` is set to `continuous` or to `periodic` with `seconds` less than 300. See [`_track.qo`](/api-reference/system-notefiles/#track-qo) for details on the `journey` and `jcount` fields included in tracking Notes.",
+            "type": "boolean"
+        },
         "minutes": {
-            "description": "The `heartbeat` interval in minutes, if provided.",
+            "description": "The configured heartbeat interval in minutes. Only returned when the heartbeat interval is not a whole number of hours; when the interval is a whole number of hours, it is returned in `hours` instead. `hours` and `minutes` are never returned together.",
             "type": "integer"
         },
         "seconds": {
-            "description": "If tracking is enabled and a heartbeat `hours` value is not set, the tracking interval set in `card.location.mode`.",
+            "description": "If tracking is enabled and no heartbeat interval is configured, the periodic tracking interval set via `card.location.mode`.",
             "type": "integer"
         },
         "start": {
@@ -39,8 +47,8 @@
     "samples": [
         {
             "title": "Location Track Response",
-            "description": "Example response showing tracking configuration with heartbeat enabled.",
-            "json": "{\"start\": true, \"heartbeat\": true, \"file\": \"locations.qo\", \"minutes\": 120}"
+            "description": "Example response showing tracking configuration with a 2-hour heartbeat enabled. When the configured heartbeat interval is a whole number of hours, the interval is returned in `hours`; for sub-hour intervals it is returned in `minutes` instead.",
+            "json": "{\"start\": true, \"heartbeat\": true, \"file\": \"locations.qo\", \"hours\": 2}"
         }
     ]
 }

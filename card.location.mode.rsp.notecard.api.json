@@ -12,6 +12,10 @@
         "WIFI"
     ],
     "properties": {
+        "journey": {
+            "description": "`true` if a journey is currently in progress (i.e., the Notecard has detected motion and is actively tracking a journey). The Notecard tracks journeys when `mode` is set to `continuous` or to `periodic` with `seconds` less than 300. See [`_track.qo`](/api-reference/system-notefiles/#track-qo) for details on the `journey` and `jcount` fields included in tracking Notes.",
+            "type": "boolean"
+        },
         "lat": {
             "description": "If geofence is enabled, the geofence center latitude in degrees.",
             "type": "number"
