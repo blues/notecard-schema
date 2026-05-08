@@ -147,9 +147,24 @@ def test_threshold_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'0' is not of type 'integer'" in str(excinfo.value)
 
+def test_journey_valid(schema):
+    """Tests valid journey field."""
+    instance = {"journey": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"journey": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_journey_invalid_type(schema):
+    """Tests invalid type for journey."""
+    instance = {"journey": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_all_fields_updated(schema):
     """Tests a valid response with all fields including new ones."""
     instance = {
+        "journey": True,
         "mode": "continuous",
         "seconds": 0,
         "vseconds": "usb:60;high:300;normal:3600;low:14400;dead:0",
