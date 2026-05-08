@@ -12,9 +12,17 @@
         "WIFI"
     ],
     "properties": {
+        "max": {
+            "description": "The currently configured `max` transmission size, in bytes. Returned only when a non-zero value has been configured.",
+            "type": "integer"
+        },
         "mode": {
             "description": "The current AUX `mode`.",
             "type": "string"
+        },
+        "ms": {
+            "description": "The currently configured `ms` delay between transmissions, in milliseconds. Returned only when a non-zero value has been configured.",
+            "type": "integer"
         },
         "rate": {
             "description": "The baud rate or speed at which information is transmitted over AUX serial.",

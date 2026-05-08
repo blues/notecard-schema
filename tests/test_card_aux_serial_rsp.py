@@ -75,6 +75,34 @@ def test_rate_invalid_float(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "115200.5 is not of type 'integer'" in str(excinfo.value)
 
+def test_max_valid(schema):
+    """Tests valid max field."""
+    instance = {"max": 1024}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"max": 255}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_max_invalid_type(schema):
+    """Tests invalid type for max."""
+    instance = {"max": "1024"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'1024' is not of type 'integer'" in str(excinfo.value)
+
+def test_ms_valid(schema):
+    """Tests valid ms field."""
+    instance = {"ms": 1000}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"ms": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_ms_invalid_type(schema):
+    """Tests invalid type for ms."""
+    instance = {"ms": "1000"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'1000' is not of type 'integer'" in str(excinfo.value)
+
 def test_valid_with_mode_and_rate(schema):
     """Tests a valid response with both mode and rate."""
     instance = {"mode": "req", "rate": 115200}
