@@ -1,3 +1,4 @@
+import json
 import pytest
 import jsonschema
 
@@ -110,3 +111,51 @@ def test_valid_multiple_fields(schema):
         "off": False
     }
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_auxgpio(schema):
+    """Tests that auxgpio is a valid keyword in the files array."""
+    instance = {"files": ["auxgpio"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_journey(schema):
+    """Tests that journey is a valid keyword in the files array."""
+    instance = {"files": ["journey"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_modified(schema):
+    """Tests that modified is a valid keyword in the files array."""
+    instance = {"files": ["data.qi", "modified"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_motionchange(schema):
+    """Tests that motionchange is a valid keyword in the files array."""
+    instance = {"files": ["motionchange"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_signal(schema):
+    """Tests that signal is a valid keyword in the files array."""
+    instance = {"files": ["signal"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_usb(schema):
+    """Tests that usb is a valid keyword in the files array."""
+    instance = {"files": ["usb"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_files_keyword_wireless(schema):
+    """Tests that wireless is a valid keyword in the files array."""
+    instance = {"files": ["wireless"]}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_validate_samples_from_schema(schema, schema_samples):
+    """Tests that samples in the schema definition are valid."""
+    for sample in schema_samples:
+        sample_json_str = sample.get("json")
+        if not sample_json_str:
+            pytest.fail(f"Sample missing 'json' field: {sample.get('description', 'Unnamed sample')}")
+        try:
+            instance = json.loads(sample_json_str)
+        except json.JSONDecodeError as e:
+            pytest.fail(f"Failed to parse sample JSON: {sample_json_str}\nError: {e}")
+
+        jsonschema.validate(instance=instance, schema=schema)

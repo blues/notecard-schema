@@ -9,6 +9,7 @@
         "CELL",
         "CELL+WIFI",
         "LORA",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
@@ -20,11 +21,23 @@
             },
             "sub-descriptions": [
                 {
+                    "const": "auxgpio",
+                    "description": "Indicates that the ATTN pin fired due to an AUX GPIO input change.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
                     "const": "connected",
                     "description": "Indicates that the ATTN pin fired due to the Notecard connecting to the network.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -35,6 +48,7 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -45,6 +59,17 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "journey",
+                    "description": "Indicates that the ATTN pin fired due to the start or end of a journey (a period of sustained motion).",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -54,6 +79,18 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "modified",
+                    "description": "Indicates that the ATTN pin fired because one or more monitored Notefiles were modified. This keyword accompanies the names of the files that changed.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -63,6 +100,27 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "motionchange",
+                    "description": "Indicates that the ATTN pin fired due to a transition between \"moving\" and \"stopped\" detected by `card.motion.mode`.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "signal",
+                    "description": "Indicates that the ATTN pin fired due to the Notecard receiving an inbound [signal](/api-reference/glossary/#signal).",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -73,6 +131,18 @@
                         "CELL",
                         "CELL+WIFI",
                         "LORA",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "usb",
+                    "description": "Indicates that the ATTN pin fired due to a USB power state change.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "LORA",
+                        "SKYLO",
                         "WIFI"
                     ]
                 },
@@ -82,6 +152,17 @@
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
+                        "SKYLO",
+                        "WIFI"
+                    ]
+                },
+                {
+                    "const": "wireless",
+                    "description": "Indicates that the ATTN pin fired due to a change in the `card.wireless` status.",
+                    "skus": [
+                        "CELL",
+                        "CELL+WIFI",
+                        "SKYLO",
                         "WIFI"
                     ]
                 }
@@ -100,6 +181,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ]
         },
@@ -113,6 +195,7 @@
             "skus": [
                 "CELL",
                 "CELL+WIFI",
+                "SKYLO",
                 "WIFI"
             ]
         }
