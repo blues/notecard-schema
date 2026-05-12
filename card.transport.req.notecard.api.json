@@ -118,7 +118,7 @@
             ]
         },
         "seconds": {
-            "description": "The amount of time a Notecard will spend on any fallback transport before retrying the first transport specified in the `method`. The default is `3600` or 60 minutes.",
+            "description": "The amount of time (in seconds) a Notecard will spend on any fallback transport before retrying the first transport specified in the `method`. The default is `3600` or 60 minutes.",
             "type": "integer",
             "minimum": -1,
             "default": 3600,
