@@ -12,6 +12,14 @@
         "WIFI"
     ],
     "properties": {
+        "motion": {
+            "description": "The motion threshold (number of motion events in a single bucket) above which the Notecard state is considered `moving` and below which the state is considered `stopped`.",
+            "type": "integer"
+        },
+        "seconds": {
+            "description": "The period (in seconds) of each bucket of movements being accumulated when `minutes` is used with `card.motion`.",
+            "type": "integer"
+        },
         "start": {
             "description": "`true` if the Notecard accelerometer is enabled and motion tracking is active.",
             "type": "boolean"
@@ -19,14 +27,6 @@
         "stop": {
             "description": "`true` if the Notecard accelerometer is disabled and motion tracking is stopped.",
             "type": "boolean"
-        },
-        "seconds": {
-            "description": "The period (in seconds) of each bucket of movements being accumulated when `minutes` is used with `card.motion`.",
-            "type": "integer"
-        },
-        "motion": {
-            "description": "The motion threshold (number of motion events in a single bucket) above which the Notecard state is considered `moving` and below which the state is considered `stopped`.",
-            "type": "integer"
         }
     },
     "additionalProperties": false,
