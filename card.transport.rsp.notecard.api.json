@@ -12,6 +12,11 @@
         "WIFI"
     ],
     "properties": {
+        "allow": {
+            "description": "When `true`, the Notecard is configured to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network. See [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/satellite-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "type": "boolean",
+            "minApiVersion": "7.2.1"
+        },
         "method": {
             "description": "The connectivity method currently enabled on the device.",
             "type": "string",
@@ -106,11 +111,6 @@
             "type": "integer",
             "minimum": 0,
             "minApiVersion": "5.3.1"
-        },
-        "allow": {
-            "description": "When `true`, the Notecard is configured to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network. See [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/satellite-best-practices/#define-ntn-vs-non-ntn-templates).",
-            "type": "boolean",
-            "minApiVersion": "7.2.1"
         },
         "umin": {
             "description": "When `true`, the Notecard is configured to force a longer network transport timeout when using Wideband Notecards.",
