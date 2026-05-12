@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.motion.mode.rsp.notecard.api.json",
     "title": "card.motion.mode Response Application Programming Interface (API) Schema",
-    "description": "Response from configuring accelerometer motion monitoring parameters.",
+    "description": "Response from configuring accelerometer motion monitoring parameters. The response reflects the Notecard's current accelerometer configuration.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -11,6 +11,35 @@
         "CELL+WIFI",
         "WIFI"
     ],
-    "properties": {},
-    "additionalProperties": false
+    "properties": {
+        "motion": {
+            "description": "The motion threshold (number of motion events in a single bucket) above which the Notecard state is considered `moving` and below which the state is considered `stopped`.",
+            "type": "integer"
+        },
+        "seconds": {
+            "description": "The period (in seconds) of each bucket of movements being accumulated when `minutes` is used with `card.motion`.",
+            "type": "integer"
+        },
+        "start": {
+            "description": "`true` if the Notecard accelerometer is enabled and motion tracking is active.",
+            "type": "boolean"
+        },
+        "stop": {
+            "description": "`true` if the Notecard accelerometer is disabled and motion tracking is stopped.",
+            "type": "boolean"
+        }
+    },
+    "additionalProperties": false,
+    "samples": [
+        {
+            "title": "Motion Tracking Enabled Response",
+            "description": "Response showing motion tracking is enabled with the active bucket period.",
+            "json": "{\"start\": true, \"seconds\": 5}"
+        },
+        {
+            "title": "Motion Tracking Stopped Response",
+            "description": "Response showing motion tracking has been disabled.",
+            "json": "{\"stop\": true}"
+        }
+    ]
 }
