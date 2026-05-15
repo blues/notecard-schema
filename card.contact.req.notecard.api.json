@@ -67,6 +67,11 @@
             "title": "Set Contact Information",
             "description": "Set contact information for the Notecard maintainer.",
             "json": "{\"req\": \"card.contact\", \"name\": \"Tom Turkey\", \"org\": \"Blues\", \"role\": \"Head of Security\", \"email\": \"tom@blues.com\"}"
+        },
+        {
+            "title": "Retrieve Contact Information",
+            "description": "Retrieve the currently stored contact information by issuing the request with no arguments.",
+            "json": "{\"req\": \"card.contact\"}"
         }
     ]
 }
