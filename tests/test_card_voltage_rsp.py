@@ -56,20 +56,72 @@ def test_invalid_type_for_number_field(schema, field_name):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'3.9' is not of type 'number'" in str(excinfo.value)
 
+def test_valid_alert(schema):
+    """Tests valid alert field."""
+    instance = {"alert": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_alert_invalid_type(schema):
+    """Tests invalid type for alert."""
+    instance = {"alert": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_calibration(schema):
+    """Tests valid calibration field."""
+    instance = {"calibration": 3.3}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_calibration_invalid_type(schema):
+    """Tests invalid type for calibration."""
+    instance = {"calibration": "3.3"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'3.3' is not of type 'number'" in str(excinfo.value)
+
+def test_valid_on(schema):
+    """Tests valid on field."""
+    instance = {"on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_on_invalid_type(schema):
+    """Tests invalid type for on."""
+    instance = {"on": 1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "1 is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_sync(schema):
+    """Tests valid sync field."""
+    instance = {"sync": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_sync_invalid_type(schema):
+    """Tests invalid type for sync."""
+    instance = {"sync": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_all_fields(schema):
     """Tests a valid response with all fields."""
     instance = {
+        "alert": True,
+        "calibration": 3.3,
+        "daily": -0.05,
+        "hours": 720,
+        "minutes": 43200,
         "mode": "normal",
+        "monthly": -0.8,
+        "on": True,
+        "sync": False,
         "usb": True,
         "value": 3.85,
-        "hours": 720,
-        "vmin": 3.2,
-        "vmax": 4.1,
         "vavg": 3.75,
-        "daily": -0.05,
-        "weekly": -0.3,
-        "monthly": -0.8,
-        "minutes": 43200
+        "vmax": 4.1,
+        "vmin": 3.2,
+        "weekly": -0.3
     }
     jsonschema.validate(instance=instance, schema=schema)
 

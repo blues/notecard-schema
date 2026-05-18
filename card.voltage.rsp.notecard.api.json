@@ -10,19 +10,28 @@
         "CELL",
         "CELL+WIFI",
         "LORA",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
+        "alert": {
+            "description": "`true` if the Notecard is configured to add an entry to the `health.qo` Notefile on USB connect/disconnect (enabled by sending `card.voltage` with `\"usb\": true, \"alert\": true`).",
+            "type": "boolean"
+        },
+        "calibration": {
+            "description": "If a user calibration value has been saved (via `\"set\": true`), this is that value; otherwise it is the hardware-supplied default.",
+            "type": "number"
+        },
         "daily": {
-            "description": "Change of moving average in the last 24 hours, if relevant to the time period analyzed.",
+            "description": "Change in the 24-hour moving average over the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true` and the analyzed window includes at least 24 hours of history.",
             "type": "number"
         },
         "hours": {
-            "description": "The number of hours used for trend analysis.",
+            "description": "The number of hours of voltage history actually used in the analysis. Only present when historic voltage trend calculations have been enabled with `\"on\": true`.",
             "type": "integer"
         },
         "minutes": {
-            "description": "Represents the Notecard's uptime in minutes. This field is not present when the device is powered via USB.",
+            "description": "The number of minutes since the Notecard was last on USB power. Not present when the Notecard is currently connected to USB power.",
             "type": "integer"
         },
         "mode": {
@@ -30,8 +39,16 @@
             "type": "string"
         },
         "monthly": {
-            "description": "Change of moving average in the last 30 days, if relevant to the time period analyzed.",
+            "description": "Change in the 30-day moving average over the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true` and the analyzed window includes at least 30 days of history.",
             "type": "number"
+        },
+        "on": {
+            "description": "`true` if the request that produced this response set `\"on\": true`.",
+            "type": "boolean"
+        },
+        "sync": {
+            "description": "`true` if the Notecard is configured to perform a sync on USB connect/disconnect (enabled by sending `card.voltage` with `\"usb\": true, \"sync\": true`).",
+            "type": "boolean"
         },
         "usb": {
             "description": "`true` if the Notecard is connected to USB power.",
@@ -43,33 +60,43 @@
             "type": "number"
         },
         "vavg": {
-            "description": "The average voltage value during the measured period.",
+            "description": "The average voltage during the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true`.",
             "type": "number"
         },
         "vmax": {
-            "description": "The highest voltage value captured during the measurement period.",
+            "description": "The highest voltage during the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true`.",
             "type": "number"
         },
         "vmin": {
-            "description": "The lowest voltage value captured during the measurement period.",
+            "description": "The lowest voltage during the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true`.",
             "type": "number"
         },
         "weekly": {
-            "description": "Change of moving average in the last 7 days, if relevant to the time period analyzed.",
+            "description": "Change in the 7-day moving average over the analyzed window. Only present when historic voltage trend calculations have been enabled with `\"on\": true` and the analyzed window includes at least 7 days of history.",
             "type": "number"
         }
     },
     "additionalProperties": false,
     "samples": [
         {
-            "title": "USB-Powered Voltage Response",
-            "description": "Example response when Notecard is powered via USB.",
+            "title": "Bare Request (USB-Powered, History Disabled)",
+            "description": "Minimal response from a bare `card.voltage` request on a USB-powered Notecard. No historical fields are present because trend analysis has not been enabled with `\"on\": true`.",
+            "json": "{\"usb\": true, \"mode\": \"usb\", \"value\": 5.112190219747135}"
+        },
+        {
+            "title": "USB-Powered with Trends",
+            "description": "Response when Notecard is powered via USB and historic voltage trend calculations have been enabled with `\"on\": true`.",
             "json": "{\"usb\": true, \"hours\": 120, \"mode\": \"usb\", \"value\": 5.112190219747135, \"vmin\": 4, \"vmax\": 4, \"vavg\": 4}"
         },
         {
             "title": "Battery-Powered with Trends",
-            "description": "Example response showing battery voltage with trend analysis.",
+            "description": "Response when Notecard is on battery and historic voltage trend calculations have been enabled with `\"on\": true`.",
             "json": "{\"mode\": \"normal\", \"value\": 3.85, \"hours\": 720, \"vmin\": 3.2, \"vmax\": 4.1, \"vavg\": 3.75, \"daily\": -0.05, \"weekly\": -0.3, \"monthly\": -0.8, \"minutes\": 43200}"
+        },
+        {
+            "title": "Query Current Thresholds",
+            "description": "Response to a `card.voltage` request that includes `\"mode\": \"?\"`. The `mode` field carries the configured threshold definition string, not a bucket label.",
+            "json": "{\"usb\": true, \"mode\": \"usb:4.6;high:4.0;normal:3.5;low:3.2;dead:0\", \"value\": 5.112190219747135}"
         }
     ]
 }
