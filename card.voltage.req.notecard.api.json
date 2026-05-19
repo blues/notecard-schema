@@ -15,7 +15,7 @@
     ],
     "properties": {
         "alert": {
-            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `health.qo` Notefile when USB power is connected or disconnected.",
+            "description": "When enabled and the `usb` argument is set to `true`, the Notecard will add an entry to the `_health.qo` Notefile when USB power is connected or disconnected.",
             "type": "boolean",
             "default": false
         },
