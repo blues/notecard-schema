@@ -15,7 +15,7 @@
     ],
     "properties": {
         "alert": {
-            "description": "`true` if the Notecard is configured to add an entry to the `health.qo` Notefile on USB connect/disconnect (enabled by sending `card.voltage` with `\"usb\": true, \"alert\": true`).",
+            "description": "`true` if the Notecard is configured to add an entry to the `_health.qo` Notefile on USB connect/disconnect (enabled by sending `card.voltage` with `\"usb\": true, \"alert\": true`).",
             "type": "boolean"
         },
         "calibration": {
