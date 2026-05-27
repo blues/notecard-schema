@@ -87,7 +87,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Peek at Changes",

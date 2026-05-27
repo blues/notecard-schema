@@ -196,7 +196,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "description": "Performs a simple HTTP or HTTPS POST request and returns the response.",

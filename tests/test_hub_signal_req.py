@@ -135,21 +135,21 @@ def test_invalid_additional_property(schema):
     instance = {"req": "hub.signal", "extra": "value"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_additional_property_with_cmd(schema):
     """Tests invalid command with additional property."""
     instance = {"cmd": "hub.signal", "timeout": 30}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid request with multiple additional properties."""
     instance = {"req": "hub.signal", "extra1": 123, "extra2": "value"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_common_additional_properties(schema):
     """Tests that common additional properties are not allowed."""
@@ -166,7 +166,7 @@ def test_invalid_common_additional_properties(schema):
         field_dict["req"] = "hub.signal"
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_seconds_optional_parameter(schema):
     """Tests that seconds parameter is optional."""

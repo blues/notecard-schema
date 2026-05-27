@@ -22,7 +22,7 @@ EXPECTED_HIERARCHY = [
     "skus",
     "properties",
     "oneOf",
-    "additionalProperties",
+    "unevaluatedProperties",
     "annotations",
     "samples"
 ]

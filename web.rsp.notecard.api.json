@@ -34,7 +34,7 @@
             "type": "integer"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "description": "Response from a web request",

@@ -139,14 +139,14 @@ def test_invalid_additional_property(schema):
     instance = {"status": "ok", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_net_invalid_additional_property(schema):
     """Tests invalid net object with an additional property."""
     instance = {"net": {"rssi": -70, "extra": "field"}}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

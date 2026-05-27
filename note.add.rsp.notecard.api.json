@@ -29,7 +29,7 @@
     "required": [
         "total"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Basic Add Response",

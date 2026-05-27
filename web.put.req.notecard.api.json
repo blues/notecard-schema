@@ -147,7 +147,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Web PUT Transaction",

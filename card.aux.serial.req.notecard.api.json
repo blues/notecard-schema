@@ -107,7 +107,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "annotations": [
         {
             "title": "note",

@@ -42,7 +42,7 @@
             "type": "number"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Basic Temperature Response",

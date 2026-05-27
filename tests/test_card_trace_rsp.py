@@ -19,7 +19,7 @@ def test_invalid_additional_property(schema):
     instance = {"status": "enabled"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('status' was unexpected)" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests response with multiple additional properties (should fail)."""
@@ -30,28 +30,28 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_string_property(schema):
     """Tests invalid response with string property."""
     instance = {"message": "trace enabled"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('message' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('message' was unexpected)" in str(excinfo.value)
 
 def test_invalid_boolean_property(schema):
     """Tests invalid response with boolean property."""
     instance = {"success": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('success' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('success' was unexpected)" in str(excinfo.value)
 
 def test_invalid_number_property(schema):
     """Tests invalid response with number property."""
     instance = {"code": 200}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('code' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('code' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

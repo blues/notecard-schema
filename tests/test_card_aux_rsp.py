@@ -93,7 +93,7 @@ def test_state_additional_properties_not_allowed(schema):
     instance = {"state": [{"invalid_prop": True}]}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_time_valid(schema):
     """Tests valid time values (UNIX Epoch time)."""

@@ -93,7 +93,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Web GET Transaction",

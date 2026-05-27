@@ -25,7 +25,7 @@
             "type": "integer"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Signal Received",

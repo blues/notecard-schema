@@ -33,7 +33,7 @@
             "type": "integer"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "description": "Response body from HTTP GET request to the external service.",

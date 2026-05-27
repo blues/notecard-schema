@@ -200,7 +200,7 @@
             ]
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "description": "Example Response",

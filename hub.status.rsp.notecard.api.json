@@ -25,7 +25,7 @@
     "required": [
         "status"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Connected Status",

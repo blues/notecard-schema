@@ -260,7 +260,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "allOf": [
         {
             "if": {

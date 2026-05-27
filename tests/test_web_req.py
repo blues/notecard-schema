@@ -189,13 +189,13 @@ def test_invalid_additional_property(schema):
     instance = {"req": "web", "method": "GET", "route": "weatherInfo", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(
         excinfo.value
     )
     instance = {"cmd": "web", "method": "GET", "route": "weatherInfo", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(
         excinfo.value
     )
 

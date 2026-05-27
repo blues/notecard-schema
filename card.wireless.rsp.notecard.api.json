@@ -89,14 +89,14 @@
                     "type": "integer"
                 }
             },
-            "additionalProperties": false
+            "unevaluatedProperties": false
         },
         "status": {
             "description": "The current status of the wireless connection and modem.",
             "type": "string"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Complete Wireless Status Response",

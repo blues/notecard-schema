@@ -101,14 +101,14 @@ def test_invalid_additional_property(schema):
     instance = {"extra": "not allowed"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid response with multiple additional properties."""
     instance = {"extra1": 123, "extra2": "test"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_response_type_validation(schema):
     """Tests that response must be an object."""
@@ -119,8 +119,8 @@ def test_response_type_validation(schema):
             jsonschema.validate(instance=invalid_instance, schema=schema)
 
 def test_additional_properties_false(schema):
-    """Tests that additionalProperties is set to false."""
-    assert schema.get("additionalProperties") is False
+    """Tests that unevaluatedProperties is set to false."""
+    assert schema.get("unevaluatedProperties") is False
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

@@ -64,7 +64,7 @@
         "status",
         "usb"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Notecard Status Response",

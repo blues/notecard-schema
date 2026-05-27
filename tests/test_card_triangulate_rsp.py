@@ -132,7 +132,7 @@ def test_invalid_additional_property(schema):
     instance = {"mode": "wifi,cell", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests response with multiple additional properties (should fail)."""
@@ -143,7 +143,7 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_various_mode_combinations(schema):
     """Tests various valid mode combinations."""

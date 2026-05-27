@@ -220,14 +220,14 @@ def test_invalid_additional_property(schema):
     instance = {"req": "note.update", "file": "data.db", "note": "test", "body": {"data": "test"}, "extra": "not allowed"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid request with multiple additional properties."""
     instance = {"req": "note.update", "file": "data.db", "note": "test", "body": {"data": "test"}, "extra1": 123, "extra2": "test"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_database_update_scenarios(schema):
     """Tests typical database update scenarios."""

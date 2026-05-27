@@ -86,7 +86,7 @@
     "required": [
         "mode"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Notehub Configuration Response",

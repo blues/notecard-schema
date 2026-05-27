@@ -29,7 +29,7 @@
             "type": "boolean"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Motion Tracking Enabled Response",

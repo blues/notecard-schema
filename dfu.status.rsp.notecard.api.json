@@ -75,7 +75,7 @@
         "mode",
         "on"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "DFU Ready Status",

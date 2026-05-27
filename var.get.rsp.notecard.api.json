@@ -27,7 +27,7 @@
             "type": "number"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Text Value Response",

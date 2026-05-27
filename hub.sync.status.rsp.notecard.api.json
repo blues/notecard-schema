@@ -55,7 +55,7 @@
     "required": [
         "status"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Sync Status with Completion Info",

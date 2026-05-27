@@ -73,7 +73,7 @@ def test_invalid_additional_property(schema):
     instance = {"seconds": 60, "source": "live"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('source' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('source' was unexpected)" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

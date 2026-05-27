@@ -142,7 +142,7 @@
             ]
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Set Text Variable",

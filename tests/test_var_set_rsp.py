@@ -14,21 +14,21 @@ def test_invalid_additional_property_single(schema):
     instance = {"extra": "not allowed"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_additional_property_name(schema):
     """Tests invalid response with legacy name property."""
     instance = {"name": "status"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_additional_property_text(schema):
     """Tests invalid response with legacy text property."""
     instance = {"text": "open"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_common_additional_properties(schema):
     """Tests that common additional properties are not allowed."""
@@ -51,14 +51,14 @@ def test_invalid_common_additional_properties(schema):
     for field_dict in invalid_fields:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests that multiple additional properties are not allowed."""
     instance = {"status": "ok", "message": "variable set", "success": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_response_type_validation(schema):
     """Tests that response must be an object."""
@@ -69,8 +69,8 @@ def test_response_type_validation(schema):
             jsonschema.validate(instance=invalid_instance, schema=schema)
 
 def test_additional_properties_false(schema):
-    """Tests that additionalProperties is set to false."""
-    assert schema.get("additionalProperties") is False
+    """Tests that unevaluatedProperties is set to false."""
+    assert schema.get("unevaluatedProperties") is False
 
 def test_strict_validation(schema):
     """Tests that schema enforces strict validation."""
@@ -84,7 +84,7 @@ def test_strict_validation(schema):
         instance = {prop: "test"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=instance, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_empty_properties_validation(schema):
     """Tests that response schema has empty properties and strict validation."""
@@ -140,7 +140,7 @@ def test_legacy_response_properties_invalid(schema):
     for legacy_response in legacy_properties:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=legacy_response, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_api_reference_compliance(schema):
     """Tests that response schema complies with API reference (no response members)."""
