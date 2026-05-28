@@ -152,7 +152,7 @@ def test_info_file_changes_invalid_type(schema):
 
 def test_info_file_additional_properties_allowed(schema):
     """Tests that additional properties are allowed in info file objects."""
-    # Since additionalProperties is true, any additional properties should be allowed
+    # Since unevaluatedProperties is true, any additional properties should be allowed
     instance = {"total": 5, "info": {"sensors.qo": {"changes": 5, "custom_field": "any_value", "timestamp": 123}}}
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -234,7 +234,7 @@ def test_invalid_additional_property(schema):
     instance = {"total": 3, "changes": 1, "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

@@ -79,7 +79,7 @@ def test_invalid_additional_property(schema):
     instance = {"method": "wifi-cell", "status": "active"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('status' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('status' was unexpected)" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests response with multiple additional properties (should fail)."""
@@ -91,21 +91,21 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_boolean_property(schema):
     """Tests invalid response with boolean property."""
     instance = {"method": "ntn", "enabled": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('enabled' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('enabled' was unexpected)" in str(excinfo.value)
 
 def test_invalid_number_property(schema):
     """Tests invalid response with number property."""
     instance = {"method": "wifi-cell", "timeout": 3600}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('timeout' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('timeout' was unexpected)" in str(excinfo.value)
 
 def test_method_sub_descriptions_exist(schema):
     """Tests that the method property has sub-descriptions."""

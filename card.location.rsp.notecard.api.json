@@ -67,7 +67,7 @@
     "required": [
         "mode"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "GPS Location Response",

@@ -58,7 +58,7 @@
                     "type": "string"
                 }
             },
-            "additionalProperties": false
+            "unevaluatedProperties": false
         },
         "cell": {
             "description": "If `true`, indicates the Notecard supports cellular connectivity.",
@@ -93,7 +93,7 @@
     "required": [
         "version"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Complete Version Response",

@@ -89,21 +89,21 @@ def test_invalid_additional_property(schema):
     instance = {"req": "hub.get", "extra": 123}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_additional_property_with_cmd(schema):
     """Tests invalid command with an additional property."""
     instance = {"cmd": "hub.get", "invalid": "value"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid request with multiple additional properties."""
     instance = {"req": "hub.get", "extra1": 123, "extra2": "value"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_no_parameters_required(schema):
     """Tests that hub.get requires no parameters besides req/cmd."""

@@ -76,7 +76,7 @@ def test_invalid_additional_property(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid response with multiple additional properties."""
@@ -87,7 +87,7 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_response_type_validation(schema):
     """Tests that response must be an object."""
@@ -148,8 +148,8 @@ def test_status_flag_patterns(schema):
         jsonschema.validate(instance=pattern, schema=schema)
 
 def test_additional_properties_false(schema):
-    """Tests that additionalProperties is set to false."""
-    assert schema.get("additionalProperties") is False
+    """Tests that unevaluatedProperties is set to false."""
+    assert schema.get("unevaluatedProperties") is False
 
 def test_optional_fields_validation(schema):
     """Tests that all response fields are optional."""

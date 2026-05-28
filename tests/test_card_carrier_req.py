@@ -74,7 +74,7 @@ def test_invalid_additional_property(schema):
     instance = {"req": "card.carrier", "extra": "field"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed ('extra' was unexpected)" in str(excinfo.value)
 
 def test_mode_sub_descriptions_exist(schema):
     """Tests that the mode property has sub-descriptions."""

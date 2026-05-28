@@ -22,7 +22,7 @@
             "contentEncoding": "base64"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Random Number Response",

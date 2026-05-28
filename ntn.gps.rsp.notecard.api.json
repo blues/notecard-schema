@@ -22,7 +22,7 @@
             "type": "boolean"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Starnote Using Own GPS",

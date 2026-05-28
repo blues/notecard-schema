@@ -35,7 +35,7 @@
                     "body",
                     "time"
                 ],
-                "additionalProperties": false
+                "unevaluatedProperties": false
             }
         },
         "total": {
@@ -43,7 +43,7 @@
             "type": "integer"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Changes Response with Notes",

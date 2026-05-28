@@ -12,7 +12,7 @@ def test_valid_empty_response(schema):
 def test_valid_additional_properties(schema):
     """Tests that additional properties are allowed as per schema default."""
     instance = {"some_field": 123, "another": "value"}
-    # This should be valid because additionalProperties is not set to false
+    # This should be valid because unevaluatedProperties is not set to false
     jsonschema.validate(instance=instance, schema=schema)
 
 def test_invalid_type(schema):

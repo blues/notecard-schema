@@ -55,7 +55,7 @@ def test_invalid_additional_property(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_multiple_additional_properties(schema):
     """Tests invalid request with multiple additional properties."""
@@ -66,7 +66,7 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_invalid_parameters(schema):
     """Tests that no parameters are allowed beyond req/cmd."""
@@ -81,7 +81,7 @@ def test_invalid_parameters(schema):
     for invalid_request in invalid_parameters:
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=invalid_request, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 def test_starnote_status_scenarios(schema):
     """Tests realistic Starnote status request scenarios."""
@@ -118,8 +118,8 @@ def test_req_cmd_validation(schema):
         jsonschema.validate(instance={}, schema=schema)
 
 def test_additional_properties_false(schema):
-    """Tests that additionalProperties is set to false."""
-    assert schema.get("additionalProperties") is False
+    """Tests that unevaluatedProperties is set to false."""
+    assert schema.get("unevaluatedProperties") is False
 
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""

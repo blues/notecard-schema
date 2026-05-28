@@ -64,7 +64,7 @@
                         }
                     }
                 },
-                "additionalProperties": false
+                "unevaluatedProperties": false
             },
             "sub-descriptions": [
                 {

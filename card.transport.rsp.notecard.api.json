@@ -121,7 +121,7 @@
     "required": [
         "method"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "WiFi-Cell Priority Response",

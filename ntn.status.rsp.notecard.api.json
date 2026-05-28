@@ -22,7 +22,7 @@
             "type": "string"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Starnote Idle Status",

@@ -40,7 +40,7 @@
             "type": "boolean"
         }
     },
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Complete Triangulation Response",

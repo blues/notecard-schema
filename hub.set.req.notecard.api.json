@@ -54,7 +54,7 @@
                         "appeui",
                         "appkey"
                     ],
-                    "additionalProperties": false
+                    "unevaluatedProperties": false
                 }
             ]
         },
@@ -215,7 +215,7 @@
                             "type": "string"
                         }
                     },
-                    "additionalProperties": false
+                    "unevaluatedProperties": false
                 }
             ],
             "minApiVersion": "7.3.1"
@@ -271,7 +271,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Set ProductUID",

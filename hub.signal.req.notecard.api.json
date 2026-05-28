@@ -49,7 +49,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "annotations": [
         {
             "title": "warning",

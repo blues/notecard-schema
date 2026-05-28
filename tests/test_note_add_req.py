@@ -529,7 +529,7 @@ def test_invalid_additional_property(schema):
     instance = {"req": "note.add", "body": {"data": "value"}, "extra": "not allowed"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 
 def test_invalid_additional_property_with_cmd(schema):
@@ -537,7 +537,7 @@ def test_invalid_additional_property_with_cmd(schema):
     instance = {"cmd": "note.add", "body": {"data": "value"}, "unknown": True}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 
 def test_invalid_multiple_additional_properties(schema):
@@ -550,7 +550,7 @@ def test_invalid_multiple_additional_properties(schema):
     }
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "Additional properties are not allowed" in str(excinfo.value)
+    assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 
 def test_invalid_common_additional_properties(schema):
@@ -571,7 +571,7 @@ def test_invalid_common_additional_properties(schema):
         field_dict["body"] = {"data": "value"}
         with pytest.raises(jsonschema.ValidationError) as excinfo:
             jsonschema.validate(instance=field_dict, schema=schema)
-        assert "Additional properties are not allowed" in str(excinfo.value)
+        assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
 
 def test_empty_object_invalid(schema):

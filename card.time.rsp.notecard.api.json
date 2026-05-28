@@ -45,7 +45,7 @@
     "required": [
         "zone"
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Complete Time Response",

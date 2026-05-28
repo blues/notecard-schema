@@ -56,7 +56,7 @@
             }
         }
     ],
-    "additionalProperties": false,
+    "unevaluatedProperties": false,
     "samples": [
         {
             "title": "Log Health Alert with Immediate Sync",
