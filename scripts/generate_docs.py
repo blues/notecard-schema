@@ -27,6 +27,28 @@ def load_schema(path):
         print(f"Error decoding JSON from {path}")
         return None
 
+def resolve_ref(ref, workspace_root):
+    """Resolves a local $ref (e.g. 'notecard.error.json#/$defs/hub.status') and returns the schema."""
+    if not ref:
+        return None
+    parts = ref.split('#', 1)
+    filename = parts[0]
+    json_pointer = parts[1] if len(parts) > 1 else ''
+
+    filepath = os.path.join(workspace_root, filename)
+    schema = load_schema(filepath)
+    if schema is None:
+        return None
+
+    if json_pointer:
+        for part in json_pointer.lstrip('/').split('/'):
+            if isinstance(schema, dict) and part in schema:
+                schema = schema[part]
+            else:
+                return None
+
+    return schema if isinstance(schema, dict) else None
+
 def get_base_api_name(schema_ref):
     """Extracts the base API name from a schema reference."""
     # Extract filename from URL
@@ -43,7 +65,7 @@ def get_schema_type(schema_ref):
         return 'response'
     return 'unknown'
 
-def generate_markdown_for_schema(schema, schema_type):
+def generate_markdown_for_schema(schema, schema_type, workspace_root=None):
     """Generates Markdown documentation for a single Notecard API schema."""
     md_parts = []
 
@@ -86,6 +108,19 @@ def generate_markdown_for_schema(schema, schema_type):
 
             for name, details in other_props.items():
                 if isinstance(details, dict):
+                    # Resolve codeRef (string or array) into sub-descriptions
+                    if 'codeRef' in details and workspace_root:
+                        code_refs = details['codeRef']
+                        if isinstance(code_refs, str):
+                            code_refs = [code_refs]
+                        sub_descs = []
+                        for ref in code_refs:
+                            resolved = resolve_ref(ref, workspace_root)
+                            if resolved and 'const' in resolved and 'description' in resolved:
+                                sub_descs.append({'const': resolved['const'], 'description': resolved['description']})
+                        if sub_descs:
+                            details = {**details, 'sub-descriptions': sub_descs}
+
                     prop_type = details.get('type', '-')
                     prop_desc = inject_absolute_urls(details.get('description', '-'))
 
@@ -320,7 +355,7 @@ def main():
         if grouped_schemas[base_name]['request']:
             ref, schema = grouped_schemas[base_name]['request']
             try:
-                markdown_output.append(generate_markdown_for_schema(schema, 'request'))
+                markdown_output.append(generate_markdown_for_schema(schema, 'request', workspace_root))
             except Exception as e:
                 print(f"Error generating markdown for request {ref}: {e}")
 
@@ -328,7 +363,7 @@ def main():
         if grouped_schemas[base_name]['response']:
             ref, schema = grouped_schemas[base_name]['response']
             try:
-                markdown_output.append(generate_markdown_for_schema(schema, 'response'))
+                markdown_output.append(generate_markdown_for_schema(schema, 'response', workspace_root))
             except Exception as e:
                 print(f"Error generating markdown for response {ref}: {e}")
 
