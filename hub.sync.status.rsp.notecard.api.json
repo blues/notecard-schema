@@ -21,24 +21,6 @@
             "description": "Number of seconds since the last sync completion.",
             "type": "integer"
         },
-        "mode": {
-            "description": "The current state of the wireless connectivity module in use.",
-            "type": "string"
-        },
-        "requested": {
-            "description": "Number of seconds since the last explicit sync request.",
-            "type": "integer"
-        },
-        "scan": {
-            "description": "Returns `true` if triangulation data was sent to Notehub in the most recent sync.",
-            "type": "boolean",
-            "minApiVersion": "6.1.1"
-        },
-        "seconds": {
-            "description": "If the Notecard is in a [Penalty Box](/support/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
-            "type": "integer",
-            "minApiVersion": "4.1.1"
-        },
         "err": {
             "description": "If present, a string describing the error that occurred during sync, e.g. `{\"err\":\"sync error {sync-error}\"}`.",
             "type": "string",
@@ -107,6 +89,24 @@
                 "notecard.codes.json#/$defs/wifi-error",
                 "notecard.codes.json#/$defs/wifi-fatal"
             ]
+        },
+        "mode": {
+            "description": "The current state of the wireless connectivity module in use.",
+            "type": "string"
+        },
+        "requested": {
+            "description": "Number of seconds since the last explicit sync request.",
+            "type": "integer"
+        },
+        "scan": {
+            "description": "Returns `true` if triangulation data was sent to Notehub in the most recent sync.",
+            "type": "boolean",
+            "minApiVersion": "6.1.1"
+        },
+        "seconds": {
+            "description": "If the Notecard is in a [Penalty Box](/support/understanding-notecard-penalty-boxes/), the number of seconds until the penalty condition ends.",
+            "type": "integer",
+            "minApiVersion": "4.1.1"
         },
         "status": {
             "description": "The status of the current or previous sync.",
