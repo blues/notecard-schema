@@ -19,7 +19,7 @@
             "type": "boolean"
         },
         "on": {
-            "description": "When `true`, a Starnote will use the GPS/GNSS location from its paired Notecard, instead of its own GPS/GNSS location.",
+            "description": "When `true`, a Starnote will use the location known to its paired Notecard, instead of the Starnote's own GPS/GNSS module.",
             "type": "boolean"
         },
         "req": {

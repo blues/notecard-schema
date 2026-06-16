@@ -41,6 +41,17 @@ def test_valid_req_with_verify(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_req_with_sync(schema):
+    """Tests a valid request with sync parameter."""
+    instance = {
+        "req": "note.update",
+        "file": "my-settings.db",
+        "note": "measurements",
+        "body": {"interval": 60},
+        "sync": True
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_valid_api_reference_example(schema):
     """Tests the exact example from API reference."""
     instance = {
@@ -211,6 +222,20 @@ def test_verify_invalid_type_string(schema):
 def test_verify_invalid_type_integer(schema):
     """Tests invalid integer type for verify."""
     instance = {"req": "note.update", "file": "data.db", "note": "test", "body": {"data": "test"}, "verify": 1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "1 is not of type 'boolean'" in str(excinfo.value)
+
+def test_sync_invalid_type_string(schema):
+    """Tests invalid string type for sync."""
+    instance = {"req": "note.update", "file": "data.db", "note": "test", "body": {"data": "test"}, "sync": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+def test_sync_invalid_type_integer(schema):
+    """Tests invalid integer type for sync."""
+    instance = {"req": "note.update", "file": "data.db", "note": "test", "body": {"data": "test"}, "sync": 1}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
