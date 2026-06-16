@@ -14,7 +14,7 @@
     ],
     "properties": {
         "calibration": {
-            "description": "The calibration differential of the Notecard's onboard sensor.",
+            "description": "The calibration differential, in degrees centigrade, applied to the Notecard's onboard temperature sensor. This per-device offset is added to the raw sensor reading to produce `value`.",
             "type": "number"
         },
         "humidity": {

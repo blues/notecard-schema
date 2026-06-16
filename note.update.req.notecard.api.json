@@ -30,6 +30,10 @@
             "description": "A base64-encoded binary payload. A Note must have either a `body` or `payload`, and can have both.",
             "type": "string"
         },
+        "sync": {
+            "description": "Set to `true` to sync the Notefile immediately after updating the Note. Only the specified Notefile is guaranteed to sync.",
+            "type": "boolean"
+        },
         "verify": {
             "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
             "type": "boolean"
@@ -107,6 +111,11 @@
             "title": "Update with Command",
             "description": "Update a Note using command syntax (no response expected).",
             "json": "{\"cmd\": \"note.update\", \"file\": \"cache.db\", \"note\": \"temp-data\", \"body\": {\"status\": \"updated\"}}"
+        },
+        {
+            "title": "Update and Sync",
+            "description": "Update a Note and trigger an immediate sync of the Notefile.",
+            "json": "{\"req\": \"note.update\", \"file\": \"my-settings.db\", \"note\": \"measurements\", \"body\": {\"interval\": 60}, \"sync\": true}"
         }
     ]
 }
