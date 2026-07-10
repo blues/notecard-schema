@@ -46,6 +46,12 @@
         }
     ],
     "unevaluatedProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Different models of Notecard exhibit varying levels of clock drift depending on their hardware design and operating temperature. If you would like to calibrate your Notecard for your own known operating conditions, see the [Notecard Real-Time Clock application note](https://dev.blues.io/datasheets/application-notes/notecard-real-time-clock/#calibrating-the-rtc), which demonstrates how to use the Notecard CLI to perform such calibration."
+        }
+    ],
     "samples": [
         {
             "title": "Get Current Time and Date",
