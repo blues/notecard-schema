@@ -123,7 +123,7 @@
             "minApiVersion": "3.4.1"
         },
         "on": {
-            "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.\\n\\nIgnored if the Notecard is already in `continuous` mode or if the Notecard is NOT performing a web transaction.",
+            "description": "If in `periodic` mode, used to temporarily switch the Notecard to `continuous` mode to perform a web transaction.\n\nIgnored if the Notecard is already in `continuous` mode or if the Notecard is NOT performing a web transaction.",
             "type": "boolean",
             "minApiVersion": "3.4.1"
         },
