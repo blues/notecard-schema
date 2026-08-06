@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json",
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
-    "description": "On a Notecard paired with a Starnote, this controls whether the Starnote uses a location known to the paired Notecard instead of acquiring one with its own GPS/GNSS module.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS are part of the same module. This request controls whether the Notecard uses a known location (typically a fixed location set with `card.location.mode`), instead of acquiring a new location for NTN use. It does not, by default.",
+    "description": "On a Notecard paired with a Starnote, this controls whether the Starnote uses a location known to the paired Notecard instead of acquiring one with its own GPS/GNSS module. It does not, by default.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS are part of the same module. This request controls whether the Notecard uses a known location (typically a fixed location set with `card.location.mode`), instead of acquiring a new location for NTN use.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
