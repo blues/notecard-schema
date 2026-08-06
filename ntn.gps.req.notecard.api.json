@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json",
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
-    "description": "Determines whether a Notecard should override a paired Starnote's GPS/GNSS location with its own GPS/GNSS location. The paired Starnote uses its own GPS/GNSS location by default.",
+    "description": "On a Notecard paired with a Starnote, this controls whether the Starnote uses a location known to the paired Notecard instead of acquiring one with its own GPS/GNSS module. It does not, by default.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS are part of the same module. This request controls whether the Notecard uses a known location (typically a fixed location set with `card.location.mode`), instead of acquiring a new location for NTN use.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -15,11 +15,11 @@
     ],
     "properties": {
         "off": {
-            "description": "When `true`, a paired Starnote will use its own GPS/GNSS location. This is the default configuration.",
+            "description": "When `true`, the Notecard does not supply its location to the NTN module. This is the default configuration.",
             "type": "boolean"
         },
         "on": {
-            "description": "When `true`, a Starnote will use the location known to its paired Notecard, instead of the Starnote's own GPS/GNSS module.",
+            "description": "When `true`, the Notecard supplies its location to the NTN module. If the Notecard does not yet know its location, none is supplied, and this setting has no effect until a location becomes available.",
             "type": "boolean"
         },
         "req": {
@@ -57,12 +57,12 @@
     "samples": [
         {
             "title": "Enable Notecard GPS Override",
-            "description": "Configure Starnote to use the paired Notecard's GPS/GNSS location.",
+            "description": "Configure the Notecard to supply the location it already knows to the NTN module.",
             "json": "{\"req\": \"ntn.gps\", \"on\": true}"
         },
         {
-            "title": "Use Starnote's Own GPS",
-            "description": "Configure Starnote to use its own GPS/GNSS location (default).",
+            "title": "Do Not Supply the Notecard's Location",
+            "description": "Configure the Notecard to not supply its location to the NTN module (default).",
             "json": "{\"req\": \"ntn.gps\", \"off\": true}"
         },
         {
