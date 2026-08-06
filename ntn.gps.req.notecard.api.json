@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json",
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
-    "description": "On a Notecard paired with a Starnote, this controls whether the Starnote overrides its own GPS/GNSS module with the location known to the paired Notecard.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS receiver are the same module. Supplying a location the Notecard already knows, typically a fixed location set with `card.location.mode`, is the quickest way to tell that module where it is, and can significantly reduce the time required to connect.",
+    "description": "On a Notecard paired with a Starnote, this controls whether the Starnote uses a location known to the paired Notecard instead of acquiring one with its own GPS/GNSS module.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS are part of the same module. This request controls whether the Notecard uses a known location (typically a fixed location set with `card.location.mode`), instead of acquiring a new location for NTN use. It does not, by default.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -15,11 +15,11 @@
     ],
     "properties": {
         "off": {
-            "description": "When `true`, the Notecard does not supply its location to the NTN module. A paired Starnote uses its own GPS/GNSS module, and Notecard for Skylo connects without a location from the Notecard. This is the default configuration.",
+            "description": "When `true`, the Notecard does not supply its location to the NTN module. This is the default configuration.",
             "type": "boolean"
         },
         "on": {
-            "description": "When `true`, the Notecard supplies the location it already knows to the NTN module. That location may be a fixed location set with `card.location.mode`, or one the Notecard acquired during an earlier session. On a Starnote this replaces the location from Starnote's own GPS/GNSS module. If the Notecard does not yet know its location, none is supplied, and this setting has no effect until a location becomes available.",
+            "description": "When `true`, the Notecard supplies its location to the NTN module. If the Notecard does not yet know its location, none is supplied, and this setting has no effect until a location becomes available.",
             "type": "boolean"
         },
         "req": {
