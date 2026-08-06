@@ -90,6 +90,11 @@
     "unevaluatedProperties": false,
     "samples": [
         {
+            "title": "Basic File Changes",
+            "description": "Get changes from a Notefile without a tracker.",
+            "json": "{\"req\": \"note.changes\", \"file\": \"data.db\"}"
+        },
+        {
             "title": "Peek at Changes",
             "description": "Check changes in a Notefile with a tracker starting from the beginning.",
             "json": "{\"req\": \"note.changes\", \"file\": \"my-settings.db\", \"tracker\": \"inbound-tracker\", \"start\": true}"
@@ -98,11 +103,6 @@
             "title": "Pop Changes with Limit",
             "description": "Retrieve and delete up to 2 changes from a Notefile.",
             "json": "{\"req\": \"note.changes\", \"file\": \"my-settings.db\", \"tracker\": \"inbound-tracker\", \"start\": true, \"delete\": true, \"max\": 2}"
-        },
-        {
-            "title": "Basic File Changes",
-            "description": "Get changes from a Notefile without a tracker.",
-            "json": "{\"req\": \"note.changes\", \"file\": \"data.db\"}"
         },
         {
             "title": "Reset Tracker",
