@@ -1,0 +1,17 @@
+# Prettier config for the Notecard API schema files.
+#
+# The canonical format is defined by the `pretty-format-json` pre-commit hook in
+# .pre-commit-config.yaml (`--indent=4 --no-sort-keys`), which is equivalent to
+# Python's json.dumps(indent=4). This config makes Prettier produce byte-identical
+# output so editor format-on-save agrees with the hook instead of fighting it.
+#
+# printWidth: 1 is deliberate, not a typo. json.dumps always puts one array
+# element per line; Prettier collapses short arrays onto one line unless the
+# print width makes that impossible. A width of 1 forces the expanded form.
+#
+# If you change the hook's args, change these options to match.
+overrides:
+  - files: "*.api.json"
+    options:
+      tabWidth: 4
+      printWidth: 1
