@@ -1,0 +1,5 @@
+# Prettier manages only the *.api.json schema files, whose format is pinned to
+# the pretty-format-json pre-commit hook (see .prettierrc.yaml). Everything else
+# in this repo has no Prettier-defined format, so leave it untouched.
+*
+!*.api.json

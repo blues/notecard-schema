@@ -146,8 +146,9 @@ def test_valid_all_fields(schema):
         "offset": 12,
         "on": True,
         "off": False,
-        "vmax": 4.5,
-        "vmin": 2.5,
+        "vmax": 5.4,
+        "vmin": 2.3,
+        "now": True,
         "name": "voltage_config",
         "usb": True,
         "alert": True,
@@ -193,6 +194,20 @@ def test_valid_off_field(schema):
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"req": "card.voltage", "off": False}
     jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_now_field(schema):
+    """Tests valid now field."""
+    instance = {"req": "card.voltage", "now": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "now": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_now_invalid_type(schema):
+    """Tests invalid type for now field."""
+    instance = {"req": "card.voltage", "now": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
 
 def test_on_invalid_type(schema):
     """Tests invalid type for on field."""

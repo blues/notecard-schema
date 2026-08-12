@@ -106,6 +106,21 @@ def test_umin_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
 
+def test_valid_set_field(schema):
+    """Tests valid set field."""
+    instance = {"req": "card.transport", "set": True, "allow": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance = {"req": "card.transport", "set": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_set_invalid_type(schema):
+    """Tests invalid type for set."""
+    instance = {"req": "card.transport", "set": "true", "allow": True}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
 def test_req_invalid_value(schema):
     """Tests invalid req value."""
     instance = {"req": "invalid.command"}
@@ -134,6 +149,7 @@ def test_valid_complete_request(schema):
         "method": "wifi-cell-ntn",
         "seconds": 1800,
         "allow": True,
+        "set": True,
         "umin": False
     }
     jsonschema.validate(instance=instance, schema=schema)

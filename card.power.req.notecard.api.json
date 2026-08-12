@@ -14,8 +14,12 @@
         "WIFI"
     ],
     "properties": {
+        "hours": {
+            "description": "How often, in hours, Notecard should log power consumption in a `_log.qo` Note. Provided as a convenience alternative to `minutes`. If both `hours` and `minutes` are provided, the resulting cadence is the sum of the two.",
+            "type": "integer"
+        },
         "minutes": {
-            "description": "How often, in minutes, Notecard should log power consumption in a `_log.qo` Note. The default value is `720` (12 hours).",
+            "description": "How often, in minutes, Notecard should log power consumption in a `_log.qo` Note. The default value is `720` (12 hours). May be combined with `hours`, in which case the two values are added together.",
             "default": 720,
             "type": "integer"
         },

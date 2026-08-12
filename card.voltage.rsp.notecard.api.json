@@ -56,7 +56,7 @@
             "minApiVersion": "3.5.1"
         },
         "value": {
-            "description": "The current voltage.",
+            "description": "The current voltage, in volts.",
             "type": "number"
         },
         "vavg": {
