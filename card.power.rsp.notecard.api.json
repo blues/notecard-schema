@@ -18,11 +18,11 @@
             "type": "number"
         },
         "temperature": {
-            "description": "The temperature from Notecard's onboard sensor in degrees centigrade, including the calibration offset.",
+            "description": "The temperature in degrees centigrade, as measured by the coulomb counter on the connected Mojo.",
             "type": "number"
         },
         "voltage": {
-            "description": "The current voltage.",
+            "description": "The voltage, in volts, measured by Mojo on the load side of its current-sense resistor.",
             "type": "number"
         }
     },

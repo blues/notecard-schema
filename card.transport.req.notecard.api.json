@@ -14,7 +14,7 @@
     ],
     "properties": {
         "allow": {
-            "description": "Set to `true` to allow adding Notes to non-compact Notefiles while connected over a non-terrestrial network.\n\nSee [Define NTN vs non-NTN Templates](https://dev.blues.io/starnote/satellite-best-practices/#define-ntn-vs-non-ntn-templates).",
+            "description": "Set to `true` to allow adding Notes to templated Notefiles that have no `port` while connected over a non-terrestrial network.",
             "type": "boolean",
             "default": false,
             "minApiVersion": "7.2.1"
@@ -123,6 +123,11 @@
             "minimum": -1,
             "default": 3600,
             "minApiVersion": "5.3.1"
+        },
+        "set": {
+            "description": "Set to `true` to apply the `allow` argument without also changing the transport `method`.",
+            "type": "boolean",
+            "default": false
         },
         "umin": {
             "description": "Set to `true` to force a longer network transport timeout when using Wideband Notecards.",

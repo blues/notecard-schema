@@ -47,6 +47,26 @@ def test_valid_template_with_length_response(schema):
     }
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_template_with_port_response(schema):
+    """Tests valid response with port field."""
+    instance = {
+        "template": True,
+        "body": {"temperature": 14.1, "humidity": 11},
+        "port": 50,
+        "bytes": 40
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_valid_template_with_delete_response(schema):
+    """Tests valid response with delete field."""
+    instance = {
+        "template": True,
+        "body": {"temperature": 14.1, "humidity": 11},
+        "delete": True,
+        "bytes": 40
+    }
+    jsonschema.validate(instance=instance, schema=schema)
+
 def test_valid_complete_verify_response(schema):
     """Tests complete response from verify request with all fields."""
     instance = {
@@ -56,8 +76,10 @@ def test_valid_complete_verify_response(schema):
             "temperature": 0.0,
             "humidity": 0.0
         },
+        "delete": True,
         "format": "compact",
-        "length": 100
+        "length": 100,
+        "port": 50
     }
     jsonschema.validate(instance=instance, schema=schema)
 
@@ -88,6 +110,20 @@ def test_invalid_length_type(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'250' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_port_type(schema):
+    """Tests invalid response with non-integer port."""
+    instance = {"port": "50"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'50' is not of type 'integer'" in str(excinfo.value)
+
+def test_invalid_delete_type(schema):
+    """Tests invalid response with non-boolean delete."""
+    instance = {"delete": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
 
 def test_invalid_format_type(schema):
     """Tests invalid response with non-string format."""

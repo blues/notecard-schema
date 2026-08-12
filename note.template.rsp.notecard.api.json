@@ -20,6 +20,10 @@
             "description": "The number of bytes that will be transmitted to Notehub, per Note, before compression.",
             "type": "integer"
         },
+        "delete": {
+            "description": "If the `verify` argument is provided, `true` when the template was created with `delete` set to `true`. Omitted otherwise.",
+            "type": "boolean"
+        },
         "format": {
             "description": "If the `format` argument is provided, this represents the format applied to the template.",
             "type": "string",
@@ -27,6 +31,10 @@
         },
         "length": {
             "description": "If the `verify` argument is provided and the Notefile has an active template with a payload, the payload length.",
+            "type": "integer"
+        },
+        "port": {
+            "description": "If the `verify` argument is provided and the Notefile has an active template, the `port` assigned to the template.",
             "type": "integer"
         },
         "template": {

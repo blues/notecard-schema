@@ -86,6 +86,11 @@
             "description": "Specifies an environment variable to override application default timing values.",
             "type": "string"
         },
+        "now": {
+            "description": "By default, the returned `value` is an average of the voltage readings taken over the previous 15 minutes, which smooths out momentary fluctuations. Set to `true` to return the instantaneous voltage reading instead.",
+            "type": "boolean",
+            "default": false
+        },
         "off": {
             "description": "Disable historic voltage trend calculations.",
             "type": "boolean"
@@ -116,14 +121,14 @@
             "minApiVersion": "3.5.1"
         },
         "vmax": {
-            "description": "Ignore voltage readings above this level when performing calculations.",
+            "description": "Ignore voltage readings above this level when performing calculations. Defaults to the maximum voltage the Notecard's components are rated for.",
             "type": "number",
-            "default": 4.5
+            "default": 5.4
         },
         "vmin": {
-            "description": "Ignore voltage readings below this level when performing calculations.",
+            "description": "Ignore voltage readings below this level when performing calculations. Defaults to the minimum voltage the Notecard's components are rated for.",
             "type": "number",
-            "default": 2.5
+            "default": 2.3
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
