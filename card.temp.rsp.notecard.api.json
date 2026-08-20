@@ -18,11 +18,15 @@
             "type": "number"
         },
         "humidity": {
-            "description": "If the Notecard finds a BME280 sensor on the I2C bus, this field will be set to the humidity percentage value from the connected sensor.",
+            "description": "If the Notecard finds a BME280 or ENS210 sensor on the I2C bus, this field will be set to the humidity percentage value from the connected sensor.",
             "type": "number"
         },
+        "off": {
+            "description": "`true` if the Notecard's onboard accelerometer has been disabled with a `card.motion.mode` request. In this case `value` is read from the temperature sensor built into the Notecard's MCU rather than from the accelerometer.",
+            "type": "boolean"
+        },
         "pressure": {
-            "description": "If the Notecard finds a BME280 or ENS210 sensor on the I2C bus, this field will be set to the atmospheric pressure value from the connected sensor in Pascals.",
+            "description": "If the Notecard finds a BME280 sensor on the I2C bus, this field will be set to the atmospheric pressure value from the connected sensor in Pascals.",
             "type": "number"
         },
         "temperature": {
