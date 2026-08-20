@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.temp.req.notecard.api.json",
     "title": "card.temp Request Application Programming Interface (API) Schema",
-    "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.\n\nWhen using a Notecard Cellular or Notecard Cell+WiFi, if you connect a BME280 sensor on the I2C bus the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus the Notecard will add `temperature` and `pressure` fields to the response.",
+    "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -62,6 +62,12 @@
         }
     ],
     "unevaluatedProperties": false,
+    "annotations": [
+        {
+            "title": "warning",
+            "description": "`card.temp` measures the temperature *around the Notecard* \u2014 effectively the temperature inside your electronics enclosure, which can be influenced by heat from the Notecard's own modem and nearby components. If your application needs an accurate ambient-air measurement, use a dedicated external temperature sensor with documented accuracy and response time.\n\nNotecard Cellular and Notecard Cell+WiFi have built-in support for two such sensors. If you connect a BME280 sensor on the I2C bus, the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus, the Notecard will add `temperature` and `humidity` fields to the response."
+        }
+    ],
     "samples": [
         {
             "title": "Get Card Temperature",

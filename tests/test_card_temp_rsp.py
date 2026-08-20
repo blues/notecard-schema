@@ -39,6 +39,21 @@ def test_valid_usb_field(schema):
     instance = {"usb": False}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_off_field(schema):
+    """Tests valid off field."""
+    instance = {"off": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance = {"off": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_off_invalid_type(schema):
+    """Tests invalid type for off field."""
+    instance = {"off": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_voltage_field(schema):
     """Tests valid voltage field."""
     instance = {"voltage": 4.95}
