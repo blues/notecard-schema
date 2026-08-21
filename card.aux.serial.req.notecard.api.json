@@ -150,5 +150,11 @@
             "description": "Subscribe to multiple notifications at once.",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel,env\", \"duration\": 500}"
         }
+    ],
+    "links": [
+        {
+            "title": "Working with the Notecard AUX Pins",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/"
+        }
     ]
 }

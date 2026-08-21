@@ -51,5 +51,11 @@
             "description": "Request current status of Notecard's connection to paired Starnote.",
             "json": "{\"req\": \"ntn.status\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Starnote Quickstart",
+            "url": "https://dev.blues.io/quickstart/starnote-quickstart/"
+        }
     ]
 }

@@ -130,5 +130,11 @@
             "description": "Add a Note with JSON body data and trigger immediate sync.",
             "json": "{\"req\": \"note.add\", \"file\": \"sensors.qo\", \"body\": {\"temp\": 72.22}, \"sync\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Encrypting and Decrypting Data with the Notecard",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard/"
+        }
     ]
 }

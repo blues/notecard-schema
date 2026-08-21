@@ -193,5 +193,11 @@
             "description": "Enable historic voltage trends tracking.",
             "json": "{\"req\": \"card.voltage\", \"on\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Voltage Monitoring",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#voltage-monitoring"
+        }
     ]
 }

@@ -71,5 +71,15 @@
             "description": "Check for an inbound signal with custom timeout.",
             "json": "{\"req\": \"hub.signal\", \"seconds\": 30}"
         }
+    ],
+    "links": [
+        {
+            "title": "Using Inbound Signals",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/minimizing-latency/#using-inbound-signals"
+        },
+        {
+            "title": "Notehub Configuration with `hub.set`",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#notehub-configuration"
+        }
     ]
 }

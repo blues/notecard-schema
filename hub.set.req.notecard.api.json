@@ -328,5 +328,19 @@
             "description": "Temporarily switch to continuous mode for web transactions.",
             "json": "{\"req\": \"hub.set\", \"on\": true, \"seconds\": 300}"
         }
+    ],
+    "links": [
+        {
+            "title": "Notehub Configuration with `hub.set`",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#notehub-configuration"
+        },
+        {
+            "title": "Modem Power Management with Voltage Variable Modes",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#modem-power-management"
+        },
+        {
+            "title": "Changing the Notehub Service Host",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#change-the-notehub-service-host"
+        }
     ]
 }

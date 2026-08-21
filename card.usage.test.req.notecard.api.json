@@ -80,5 +80,11 @@
             "description": "Test with default 1024MB quota using 30 days of data.",
             "json": "{\"req\": \"card.usage.test\", \"days\": 30}"
         }
+    ],
+    "links": [
+        {
+            "title": "Projecting the Lifetime of Available Data",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#projecting-the-lifetime-of-available-data"
+        }
     ]
 }

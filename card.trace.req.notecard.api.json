@@ -74,5 +74,11 @@
             "description": "Disable trace mode on the Notecard.",
             "json": "{\"cmd\": \"card.trace\", \"mode\": \"off\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Using Notecard Trace Mode",
+            "url": "https://dev.blues.io/support/using-notecard-trace-mode/"
+        }
     ]
 }

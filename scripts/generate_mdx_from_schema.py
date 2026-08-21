@@ -82,6 +82,9 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
     # Generate annotations block
     annotations_block = generate_annotations_mdx(schema_data.get("annotations", []))
 
+    # Generate the MoreInformation block of related documentation links
+    links_block = generate_links_mdx(schema_data.get("links", []))
+
     arguments_mdx_content = generate_arguments_mdx(schema_data.get("properties", {}), schema_data)
     example_requests_block = generate_examples_mdx(schema_data.get("samples", []))
 
@@ -121,7 +124,8 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
             "</Arguments>",
             example_requests_block,
             response_members_block,
-            example_response_block
+            example_response_block,
+            links_block
         ]
         content_without_title = "\n\n".join(filter(None, content_parts))
         wrapped_content = generate_version_check_wrapper(content_without_title, top_level_version, include_note=True)
@@ -136,7 +140,8 @@ def generate_mdx_content(schema_data, api_base_name, response_schema_data=None):
             "</Arguments>",
             example_requests_block,
             response_members_block,
-            example_response_block
+            example_response_block,
+            links_block
         ]
 
     mdx_content = "\n\n".join(filter(None, mdx_parts))
@@ -644,6 +649,25 @@ def generate_annotations_mdx(annotations):
         annotation_blocks.append(f"<{component}>\n\n{description}\n\n</{component}>")
 
     return "\n\n".join(annotation_blocks)
+
+def generate_links_mdx(links):
+    """Generate a MoreInformation block from the schema's `links` field."""
+    if not links:
+        return ""
+
+    link_items = []
+    for link in links:
+        title = link.get("title", "")
+        url = link.get("url", "")
+        if not title or not url:
+            continue
+        link_items.append(f"- [{title}]({url})")
+
+    if not link_items:
+        return ""
+
+    links_list = "\n".join(link_items)
+    return f"<MoreInformation>\n\n{links_list}\n\n</MoreInformation>"
 
 def generate_example_response_mdx(samples):
     """Generates MDX for example response samples in simple format."""
