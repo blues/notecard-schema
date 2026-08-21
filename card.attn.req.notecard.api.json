@@ -387,5 +387,15 @@
             "description": "Disarm all interrupts.",
             "json": "{\"req\":\"card.attn\",\"mode\":\"disarm,-all\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Handling Notecard Interrupts from a Host",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#handling-notecard-interrupts"
+        },
+        {
+            "title": "Putting a Host to Sleep",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#host-power-management"
+        }
     ]
 }

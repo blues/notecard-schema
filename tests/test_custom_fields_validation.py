@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Test validation for custom schema fields like annotations and samples.
+Test validation for custom schema fields like annotations, samples, and links.
 Ensures proper structure of these custom fields across all schema files.
 """
 
@@ -202,6 +202,39 @@ def test_samples_structure(schema_file):
                 check_property_samples(sub_schema["properties"], f"oneOf[{i}]")
 
 
+@pytest.mark.parametrize("schema_file", get_all_schema_files())
+def test_links_structure(schema_file):
+    """Test that all links have non-empty title and absolute url fields."""
+    if not os.path.exists(schema_file):
+        pytest.skip(f"Schema file {schema_file} not found")
+
+    with open(schema_file, 'r') as f:
+        schema = json.load(f)
+
+    if "links" not in schema:
+        return
+
+    assert isinstance(schema["links"], list), f"'links' in {schema_file} is not a list"
+    assert len(schema["links"]) > 0, f"'links' in {schema_file} is empty"
+
+    seen_urls = set()
+    for i, link in enumerate(schema["links"]):
+        assert isinstance(link, dict), f"Link {i} in {schema_file} is not a dictionary"
+        assert "title" in link, f"Link {i} in {schema_file} missing 'title' field"
+        assert "url" in link, f"Link {i} in {schema_file} missing 'url' field"
+        assert isinstance(link["title"], str), f"Link {i} 'title' in {schema_file} is not a string"
+        assert isinstance(link["url"], str), f"Link {i} 'url' in {schema_file} is not a string"
+        assert len(link["title"].strip()) > 0, f"Link {i} 'title' in {schema_file} is empty"
+
+        # URLs must be absolute so they remain usable outside of blues.dev.
+        assert link["url"].startswith(("http://", "https://")), \
+            f"Link {i} 'url' in {schema_file} is not an absolute URL: {link['url']}"
+
+        assert link["url"] not in seen_urls, \
+            f"Link {i} 'url' in {schema_file} is a duplicate: {link['url']}"
+        seen_urls.add(link["url"])
+
+
 if __name__ == "__main__":
     # Run tests directly
     schema_files = get_all_schema_files()
@@ -224,3 +257,9 @@ if __name__ == "__main__":
             print(f"  ✓ Samples structure valid")
         except Exception as e:
             print(f"  ✗ Samples structure failed: {e}")
+
+        try:
+            test_links_structure(schema_file)
+            print(f"  ✓ Links structure valid")
+        except Exception as e:
+            print(f"  ✗ Links structure failed: {e}")

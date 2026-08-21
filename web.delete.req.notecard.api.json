@@ -90,5 +90,11 @@
             "description": "Performs a simple HTTP or HTTPS DELETE request and returns the response.",
             "json": "{\"req\": \"web.delete\", \"route\": \"SensorService\", \"name\": \"/deleteReading?id=1\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Web Transactions Guide",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/"
+        }
     ]
 }

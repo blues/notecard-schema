@@ -11,6 +11,7 @@ This repository contains the JSON schemas for the Notecard API.
     - [Custom Fields](#custom-fields)
       - [`annotations`](#annotations)
       - [`deprecated`](#deprecated)
+      - [`links`](#links)
       - [`minApiVersion`](#minapiversion)
       - [`samples`](#samples)
       - [`skus`](#skus)
@@ -84,6 +85,32 @@ Example shown from `card.attn`:
 
 ```json
 "deprecated": true
+```
+
+#### `links`
+
+An array of objects pointing at related documentation for the API. These are
+rendered at the bottom of the generated blues.dev page as a "More information"
+block.
+
+URLs must be **absolute**, so that consumers of these schemas outside of
+blues.dev get a working link. The documentation generator rewrites
+`https://dev.blues.io` URLs to site-relative paths on its way into blues.dev, so
+there is no need to hand-write relative paths here.
+
+Example shown from `card.attn`:
+
+```json
+"links": [
+    {
+        "title": "Handling Notecard Interrupts from a Host",
+        "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#handling-notecard-interrupts"
+    },
+    {
+        "title": "Putting a Host to Sleep",
+        "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#host-power-management"
+    }
+]
 ```
 
 #### `minApiVersion`

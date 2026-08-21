@@ -84,5 +84,15 @@
             "description": "Combine change tracker with specific file monitoring.",
             "json": "{\"req\": \"file.changes\", \"files\": [\"sensors.qo\"], \"tracker\": \"sensor-tracker\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Handling Inbound Notes",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#handling-inbound-notes"
+        },
+        {
+            "title": "Using a Change Tracker Across Notefiles",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-change-trackers-across-multiple-notefiles"
+        }
     ]
 }

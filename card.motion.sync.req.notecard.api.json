@@ -86,5 +86,15 @@
             "description": "Configure sync to trigger only on orientation changes.",
             "json": "{\"req\": \"card.motion.sync\", \"start\": true, \"threshold\": 0, \"minutes\": 10}"
         }
+    ],
+    "links": [
+        {
+            "title": "Configuring Notehub Sync on Motion",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#configuring-sync-on-notecard-motion"
+        },
+        {
+            "title": "The `_motion.qo` Notefile",
+            "url": "https://dev.blues.io/api-reference/system-notefiles/#motion-qo"
+        }
     ]
 }

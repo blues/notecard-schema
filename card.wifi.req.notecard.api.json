@@ -101,5 +101,11 @@
             "description": "Set up multiple WiFi access points for fallback connectivity.",
             "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Connecting to a WiFi Access Point",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/connecting-to-a-wifi-access-point/"
+        }
     ]
 }

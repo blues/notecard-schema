@@ -61,5 +61,15 @@
             "description": "Check sync status and auto-initiate sync if there is pending outbound data.",
             "json": "{\"req\": \"hub.sync.status\", \"sync\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Initiating a Notehub Sync",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#initiating-a-notehub-sync"
+        },
+        {
+            "title": "Status Codes",
+            "url": "https://dev.blues.io/support/notecard-error-and-status-codes/"
+        }
     ]
 }

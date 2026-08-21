@@ -120,5 +120,11 @@
             "description": "Disable triangulation mode.",
             "json": "{\"req\":\"card.triangulate\",\"mode\":\"-\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Using Cell Tower & WiFi Triangulation",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#using-cell-tower-and-wifi-triangulation"
+        }
     ]
 }

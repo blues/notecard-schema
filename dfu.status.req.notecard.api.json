@@ -125,5 +125,15 @@
             "description": "Provide version information for host firmware.",
             "json": "{\"req\": \"dfu.status\", \"version\": \"1.2.4\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Notecard API Requests for DFU",
+            "url": "https://dev.blues.io/notehub/host-firmware-updates/notecard-api-requests-for-dfu/"
+        },
+        {
+            "title": "Notecard Outboard Firmware Update Guide",
+            "url": "https://dev.blues.io/notehub/host-firmware-updates/notecard-outboard-firmware-update/"
+        }
     ]
 }

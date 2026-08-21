@@ -55,5 +55,15 @@
             "description": "Request motion information with 2-minute sampling buckets.",
             "json": "{\"req\": \"card.motion\", \"minutes\": 2}"
         }
+    ],
+    "links": [
+        {
+            "title": "Motion Monitoring",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#motion-monitoring"
+        },
+        {
+            "title": "Retrieving Motion Results over a Time Period",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#retrieving-motion-results-over-a-time-period"
+        }
     ]
 }

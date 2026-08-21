@@ -70,5 +70,11 @@
             "description": "Request current GPS/GNSS location configuration.",
             "json": "{\"req\": \"ntn.gps\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Starnote Quickstart",
+            "url": "https://dev.blues.io/quickstart/starnote-quickstart/"
+        }
     ]
 }

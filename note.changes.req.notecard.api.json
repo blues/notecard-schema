@@ -119,5 +119,11 @@
             "description": "Delete a change tracker when finished.",
             "json": "{\"req\": \"note.changes\", \"file\": \"logs.db\", \"tracker\": \"log-tracker\", \"stop\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Using Change Trackers With Inbound Data",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-change-trackers-with-inbound-data"
+        }
     ]
 }

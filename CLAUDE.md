@@ -32,6 +32,7 @@ When adding a new schema (e.g., `card.sleep`):
 - **Additional Properties**: Set to `false` for strict validation
 - **Annotations**: Add INFO/WARNING sections from reference docs as annotations with `title: "note"`
 - **Samples**: Include samples for each schema
+- **Links**: Optional; placed last, after `samples`
 
 ## Custom Schema Fields
 The repository uses several custom fields for documentation generation:
@@ -76,6 +77,20 @@ Indicates Notecard compatibility at API and parameter level:
 "skus": ["WIFI"]
 ```
 
+### `links`
+Related documentation rendered as the "More information" block at the bottom of
+the generated blues.dev page. URLs must be absolute so the schemas stay useful
+outside of blues.dev; the generator rewrites `https://dev.blues.io` to a
+site-relative path when it builds the docs:
+```json
+"links": [
+    {
+        "title": "Working with the Notecard AUX Pins",
+        "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/"
+    }
+]
+```
+
 ## Schema Validation Requirements
 - All parameter descriptions must match official API documentation exactly
 - Both request and response schemas are required for each API
@@ -107,6 +122,7 @@ When reviewing or updating existing schemas, perform these validation checks:
 - **Deprecated flags**: Add `deprecated: true` for deprecated parameters
 - **Sub-descriptions**: Include detailed explanations for enum values
 - **Samples**: Ensure sample JSON validates against the schema
+- **Links**: Use absolute `https://dev.blues.io` URLs, and confirm each one resolves (no redirects, live anchors)
 
 ### 5. Test Coverage Verification
 - **Run existing tests**: `pipenv run pytest tests/test_[api]_req.py tests/test_[api]_rsp.py -v`

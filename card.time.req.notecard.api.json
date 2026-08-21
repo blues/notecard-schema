@@ -58,5 +58,11 @@
             "description": "Retrieve current date and time information in UTC with location data if available.",
             "json": "{\"req\": \"card.time\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Obtaining the Current Time and Date",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#obtaining-the-current-time-and-date"
+        }
     ]
 }

@@ -95,5 +95,11 @@
             "description": "Configure custom penalty box parameters with modified defaults.",
             "json": "{\"req\":\"card.wireless.penalty\",\"set\":true,\"rate\":2.0,\"add\":10,\"max\":720,\"min\":5}"
         }
+    ],
+    "links": [
+        {
+            "title": "Understanding Notecard Penalty Boxes",
+            "url": "https://dev.blues.io/support/understanding-notecard-penalty-boxes/"
+        }
     ]
 }
