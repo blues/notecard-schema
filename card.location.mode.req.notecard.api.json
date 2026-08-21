@@ -33,7 +33,7 @@
             "type": "integer"
         },
         "minutes": {
-            "description": "When geofence is enabled, the number of minutes the device should be outside the geofence before the Notecard location is tracked.",
+            "description": "When geofence is enabled, the debounce period in minutes for transitions across the geofence boundary. The Notecard reports a transition the first time a GPS fix lands on the opposite side of the boundary from the previous one, then ignores further transitions for this many minutes.",
             "type": "integer",
             "default": 5
         },

@@ -29,7 +29,7 @@
             "type": "integer"
         },
         "minutes": {
-            "description": "If geofence is enabled, the currently configured geofence debounce period.",
+            "description": "If geofence is enabled, the currently configured debounce period, in minutes, for transitions across the geofence boundary.",
             "type": "integer"
         },
         "mode": {

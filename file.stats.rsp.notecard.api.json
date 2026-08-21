@@ -14,15 +14,15 @@
     ],
     "properties": {
         "changes": {
-            "description": "The number of Notes across all Notefiles pending sync.",
+            "description": "The number of Notes pending sync. Reflects only the Notefile named by the `file` argument, or all Notefiles when `file` is omitted.",
             "type": "integer"
         },
         "sync": {
-            "description": "`true` if a sync is recommended based on the number of pending notes.",
+            "description": "`true` if a sync is recommended. This is set when an in-scope Notefile's in-memory footprint reaches a critical size and should be flushed, not when a particular number of Notes is pending.",
             "type": "boolean"
         },
         "total": {
-            "description": "The total number of Notes across all Notefiles.",
+            "description": "The total number of Notes, synced and unsynced. Reflects only the Notefile named by the `file` argument, or all Notefiles when `file` is omitted.",
             "type": "integer"
         }
     },

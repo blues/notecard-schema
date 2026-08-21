@@ -56,7 +56,7 @@
             "minApiVersion": "3.5.1"
         },
         "value": {
-            "description": "The current voltage, in volts.",
+            "description": "The current voltage, in volts. By default this is an average over the trailing 15-minute window; use `\"now\": true` to request an instantaneous reading.",
             "type": "number"
         },
         "vavg": {

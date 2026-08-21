@@ -15,7 +15,7 @@
     ],
     "properties": {
         "align": {
-            "description": "Use `true` to align syncs on a regular time-periodic cycle.",
+            "description": "Use `true` to align syncs on a regular time-periodic cycle. The cycle is anchored to the Notecard's boot time, not to a wall-clock time.",
             "type": "boolean"
         },
         "details": {
