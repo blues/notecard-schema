@@ -73,7 +73,7 @@
                 },
                 {
                     "const": "ntn",
-                    "description": "Enables **NTN (Non-Terrestrial Network)** mode on the device for use with Starnote.",
+                    "description": "Enables **NTN (Non-Terrestrial Network)** mode on the device, using either a paired Starnote or the integrated satellite radio on Notecard for Skylo.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
