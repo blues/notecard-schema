@@ -68,5 +68,11 @@
             "description": "Log a simple text message.",
             "json": "{\"req\": \"hub.log\", \"text\": \"System status: normal\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Sending Log Messages to Notehub",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#sending-log-messages-to-notehub"
+        }
     ]
 }

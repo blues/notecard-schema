@@ -137,5 +137,11 @@
             "description": "Disable DFU for 3600 seconds.",
             "json": "{\"req\": \"card.dfu\", \"off\": true, \"seconds\": 3600}"
         }
+    ],
+    "links": [
+        {
+            "title": "Notecard Outboard Firmware Update Guide",
+            "url": "https://dev.blues.io/notehub/host-firmware-updates/notecard-outboard-firmware-update/"
+        }
     ]
 }

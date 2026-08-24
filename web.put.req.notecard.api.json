@@ -154,5 +154,15 @@
             "description": "Performs a simple HTTP or HTTPS PUT request and returns the response.",
             "json": "{\"req\": \"web.put\", \"route\": \"SensorService\", \"name\": \"/updateReading\", \"body\": {\"id\": 1234, \"temp\": 72.32, \"humidity\": 32.2 }}"
         }
+    ],
+    "links": [
+        {
+            "title": "web.put and web.post Transactions",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#web-put-and-web-post"
+        },
+        {
+            "title": "Issuing Web Requests Asynchronously",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#issuing-web-post-web-put-and-web-delete-requests-asynchronously"
+        }
     ]
 }

@@ -164,5 +164,15 @@
             "description": "Performs a simple HTTP or HTTPS request and returns the response.",
             "json": "{\"req\": \"web\", \"method\": \"GET\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Issuing Web Transactions",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#issuing-web-transactions"
+        },
+        {
+            "title": "Requirements for Using Web Transactions",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#requirements-for-using-web-transactions"
+        }
     ]
 }

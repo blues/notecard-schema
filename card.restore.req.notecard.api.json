@@ -65,5 +65,15 @@
             "description": "Reset only the file system, forcing re-sync from Notehub.",
             "json": "{\"req\": \"card.restore\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Factory Resetting the Notecard",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#factory-resetting-the-notecard"
+        },
+        {
+            "title": "card.restore Factory Reset Reference",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#card-restore-factory-reset-reference"
+        }
     ]
 }

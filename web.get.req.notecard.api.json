@@ -100,5 +100,15 @@
             "description": "Performs a simple HTTP or HTTPS GET request and returns the response.",
             "json": "{\"req\": \"web.get\", \"route\": \"weatherInfo\", \"name\": \"/getLatest\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "web.get Transactions",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#web-get"
+        },
+        {
+            "title": "Syncing Binary Data from Notehub",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#syncing-binary-data-from-notehub"
+        }
     ]
 }

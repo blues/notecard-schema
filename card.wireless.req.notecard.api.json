@@ -146,5 +146,19 @@
             "description": "Configure dual SIM failover with external SIM priority.",
             "json": "{\"req\":\"card.wireless\",\"apn\":\"myapn.nb\",\"method\":\"dual-primary-secondary\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Diagnosing Cellular Connectivity Issues",
+            "url": "https://dev.blues.io/support/diagnosing-cellular-connectivity-issues/"
+        },
+        {
+            "title": "Viewing and Customizing Modem Behavior",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#view-and-customize-modem-behavior"
+        },
+        {
+            "title": "Using External SIM Cards",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/using-external-sim-cards/"
+        }
     ]
 }

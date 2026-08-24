@@ -90,5 +90,11 @@
             "description": "Configure the green LED to pulse 5 times.",
             "json": "{\"req\":\"card.monitor\", \"mode\":\"green\", \"count\":5}"
         }
+    ],
+    "links": [
+        {
+            "title": "Using Monitor Mode",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode"
+        }
     ]
 }

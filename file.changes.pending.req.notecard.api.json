@@ -52,5 +52,11 @@
             "description": "Query for pending file changes awaiting upload to Notehub.",
             "json": "{\"req\": \"file.changes.pending\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Miscellaneous File Requests",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#miscellaneous-file-requests"
+        }
     ]
 }

@@ -115,5 +115,15 @@
             "description": "Clear the template from readings.qo. Omitting `body` and `payload` removes the template schema; subsequent Notes added to the Notefile will be stored as regular JSON objects.",
             "json": "{\"req\":\"note.template\",\"file\":\"readings.qo\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Working With Note Templates",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#working-with-note-templates"
+        },
+        {
+            "title": "Understanding Template Data Types",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#understanding-template-data-types"
+        }
     ]
 }

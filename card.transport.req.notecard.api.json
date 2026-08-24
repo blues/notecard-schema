@@ -198,5 +198,15 @@
             "description": "Configure triple fallback: WiFi \u2192 cellular \u2192 NTN with custom timeout.",
             "json": "{\"req\": \"card.transport\", \"method\": \"wifi-cell-ntn\", \"seconds\": 1800}"
         }
+    ],
+    "links": [
+        {
+            "title": "Understanding NTN Transport Mode",
+            "url": "https://dev.blues.io/quickstart/starnote-quickstart/#understanding-ntn-transport-mode"
+        },
+        {
+            "title": "Satellite Best Practices",
+            "url": "https://dev.blues.io/starnote/satellite-best-practices/"
+        }
     ]
 }

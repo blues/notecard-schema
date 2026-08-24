@@ -89,5 +89,11 @@
             "description": "Immediately sync pending temperature notes.",
             "json": "{\"cmd\": \"card.temp\", \"sync\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Notecard Temperature Monitoring",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#temperature-monitoring"
+        }
     ]
 }

@@ -58,5 +58,11 @@
             "description": "Perform a firmware restart of the Notecard.",
             "json": "{\"cmd\": \"card.restart\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Restarting the Notecard",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#restarting-the-notecard"
+        }
     ]
 }

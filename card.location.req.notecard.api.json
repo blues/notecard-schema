@@ -52,5 +52,11 @@
             "description": "Retrieve the last known location of the Notecard.",
             "json": "{\"req\": \"card.location\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Notecard Time & Location Requests",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/"
+        }
     ]
 }

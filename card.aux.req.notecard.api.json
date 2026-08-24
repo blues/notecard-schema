@@ -552,5 +552,15 @@
             "description": "Enhance Notes with temperature, pressure, and humidity readings from a connected BME280 sensor.",
             "json": "{\"req\": \"card.aux\", \"mode\": \"track\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Working with the Notecard AUX Pins",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/"
+        },
+        {
+            "title": "Using Monitor Mode",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode"
+        }
     ]
 }

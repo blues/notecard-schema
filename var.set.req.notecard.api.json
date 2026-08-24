@@ -159,5 +159,15 @@
             "description": "Set a boolean variable named `\"active\"` to `true` and immediately sync changes.",
             "json": "{\"req\": \"var.set\", \"name\": \"active\", \"flag\": true, \"sync\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Storing Simple Values with the var API",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/storing-device-state-with-db-notefiles/#storing-simple-values-with-the-var-api"
+        },
+        {
+            "title": "Simplifying DB Notefiles with the var API",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#simplifying-db-notefiles-with-the-var-api"
+        }
     ]
 }

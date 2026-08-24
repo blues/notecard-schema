@@ -150,5 +150,23 @@
             "description": "Set a fixed location for the device.",
             "json": "{\"req\": \"card.location.mode\", \"mode\": \"fixed\", \"lat\": 42.5776, \"lon\": -70.87134}"
         }
+    ],
+    "links": [
+        {
+            "title": "Location Continuous Mode",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#always-on-gps-with-continuous-mode"
+        },
+        {
+            "title": "Location Periodic Mode",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#sampling-gps-readings-with-periodic-mode"
+        },
+        {
+            "title": "Location Sampling at Voltage Variable Intervals",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#sampling-at-voltage-variable-intervals"
+        },
+        {
+            "title": "Geofencing with the Notecard",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#geofencing-with-the-notecard"
+        }
     ]
 }

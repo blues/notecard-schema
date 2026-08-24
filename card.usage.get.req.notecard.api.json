@@ -105,5 +105,11 @@
             "description": "Get usage statistics for the last 30 days.",
             "json": "{\"req\": \"card.usage.get\", \"mode\": \"30day\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Measuring Data Usage",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-bandwidth-design/#measuring-data-usage"
+        }
     ]
 }

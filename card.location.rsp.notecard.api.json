@@ -17,7 +17,7 @@
             "type": "integer"
         },
         "dop": {
-            "description": "The \"Dilution of Precision\" value from the latest GPS/GNSS reading. The lower the value, the higher the confidence level of the reading. Values can be interpreted in [this Wikipedia table](https://en.wikipedia.org/wiki/Dilution_of_precision_(navigation)#Interpretation).",
+            "description": "The \"Dilution of Precision\" value from the latest GPS/GNSS reading. The lower the value, the higher the confidence level of the reading. Values can be interpreted in [this Wikipedia table](https://en.wikipedia.org/wiki/Dilution_of_precision_%28navigation%29#Interpretation).",
             "type": "number"
         },
         "lat": {

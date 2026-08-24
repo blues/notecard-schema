@@ -52,5 +52,15 @@
             "description": "Check the current status of the Notecard's connection to Notehub.",
             "json": "{\"req\": \"hub.status\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Getting Service Connection Status",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#getting-service-connection-status"
+        },
+        {
+            "title": "Notecard Error and Status Codes",
+            "url": "https://dev.blues.io/support/notecard-error-and-status-codes/"
+        }
     ]
 }

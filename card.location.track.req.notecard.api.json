@@ -92,5 +92,15 @@
             "description": "Start tracking with heartbeat mode and immediate sync.",
             "json": "{\"req\": \"card.location.track\", \"start\": true, \"sync\": true, \"heartbeat\": true, \"hours\": 2}"
         }
+    ],
+    "links": [
+        {
+            "title": "Tracking GPS Location Readings",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#tracking-gps-location-readings"
+        },
+        {
+            "title": "The `_track.qo` Notefile",
+            "url": "https://dev.blues.io/api-reference/system-notefiles/#track-qo"
+        }
     ]
 }

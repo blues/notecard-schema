@@ -130,5 +130,11 @@
             "description": "As shown above, the Notecard must also be in `rgb`, `rgb-monitor`, or `track-rgb-monitor` mode and the RGB LED wired according to the instructions provided in the guide on [Using RGB-Monitor Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-rgb-monitor-mode).",
             "json": "[{\"req\": \"card.aux\", \"mode\": \"rgb\"},{\"req\": \"card.led\", \"mode\": \"green\", \"on\": true}]"
         }
+    ],
+    "links": [
+        {
+            "title": "Using AUX1, AUX2, AUX3, and AUX4",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-aux1-aux2-aux3-and-aux4"
+        }
     ]
 }

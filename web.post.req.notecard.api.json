@@ -202,5 +202,15 @@
             "description": "Performs a simple HTTP or HTTPS POST request and returns the response.",
             "json": "{\"req\": \"web.post\", \"route\": \"SensorService\", \"name\": \"/addReading\", \"body\": {\"temp\": 72.32, \"humidity\": 32.2 }}"
         }
+    ],
+    "links": [
+        {
+            "title": "web.put and web.post Transactions",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/web-transactions/#web-put-and-web-post"
+        },
+        {
+            "title": "Binary Uploads with Web APIs",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#binary-uploads-with-web-apis"
+        }
     ]
 }

@@ -127,5 +127,11 @@
             "description": "Set motion threshold for status change detection.",
             "json": "{\"req\": \"card.motion.mode\", \"motion\": 5, \"seconds\": 60}"
         }
+    ],
+    "links": [
+        {
+            "title": "Configuring Motion Monitoring with `card.motion.mode`",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#configuring-motion-monitoring"
+        }
     ]
 }

@@ -52,5 +52,11 @@
             "description": "Clear Starnote configuration to return to testing NTN mode over cellular or WiFi.",
             "json": "{\"req\": \"ntn.reset\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Starnote Quickstart",
+            "url": "https://dev.blues.io/quickstart/starnote-quickstart/"
+        }
     ]
 }

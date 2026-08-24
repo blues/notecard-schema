@@ -66,5 +66,11 @@
             "description": "Send binary data with MD5 checksum.",
             "json": "{\"req\": \"card.binary.put\", \"cobs\": 5, \"status\": \"ce6fdef565eeecf14ab38d83643b922d\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Storing Binary Data with the card.binary APIs",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#storing-binary-data-with-the-card-binary-apis"
+        }
     ]
 }

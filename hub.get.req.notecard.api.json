@@ -52,5 +52,11 @@
             "description": "Retrieve the current Notehub configuration for the Notecard.",
             "json": "{\"req\": \"hub.get\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Getting Service Configuration Parameters",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#getting-service-configuration-parameters"
+        }
     ]
 }

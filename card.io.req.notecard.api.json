@@ -134,5 +134,11 @@
             "description": "Force the Notecard to enter fallback mode (cellular/WiFi automatically failed over to NTN).",
             "json": "{\"req\": \"card.io\", \"mode\": \"+fallback\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Change the Notecard I2C Address",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#change-the-notecard-i2c-address"
+        }
     ]
 }

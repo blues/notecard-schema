@@ -95,5 +95,15 @@
             "description": "Configure motion tracking with immediate orientation change capture.",
             "json": "{\"req\": \"card.motion.track\", \"start\": true, \"now\": true, \"minutes\": 15}"
         }
+    ],
+    "links": [
+        {
+            "title": "Automatic Motion Capture",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#automatic-motion-capture"
+        },
+        {
+            "title": "The `_motion.qo` Notefile",
+            "url": "https://dev.blues.io/api-reference/system-notefiles/#motion-qo"
+        }
     ]
 }

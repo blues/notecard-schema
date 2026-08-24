@@ -80,5 +80,11 @@
             "description": "Delete a variable named `\"temperature\"` from the `\"sensors.db\"` DB Notefile.",
             "json": "{\"req\": \"var.delete\", \"name\": \"temperature\", \"file\": \"sensors.db\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Storing Simple Values with the var API",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/storing-device-state-with-db-notefiles/#storing-simple-values-with-the-var-api"
+        }
     ]
 }
