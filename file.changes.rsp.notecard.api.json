@@ -14,7 +14,7 @@
     ],
     "properties": {
         "changes": {
-            "description": "If a change tracker is used, the number of changes across all files.",
+            "description": "The number of changes across all files. Omitted when the request did not supply a `tracker`, and omitted when the count is zero.",
             "type": "integer"
         },
         "info": {
@@ -24,7 +24,7 @@
                 "type": "object",
                 "properties": {
                     "changes": {
-                        "description": "The number of changes in this file.",
+                        "description": "The number of changes in this file. Omitted when the request did not supply a `tracker`.",
                         "type": "integer"
                     },
                     "total": {
@@ -36,7 +36,7 @@
             }
         },
         "pending": {
-            "description": "Set to `true` if this was a pending changes request and there are changes",
+            "description": "Set to `true` if this was a pending changes request and there are changes.",
             "type": "boolean"
         },
         "total": {

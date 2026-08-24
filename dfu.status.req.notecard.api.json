@@ -36,19 +36,19 @@
             ]
         },
         "off": {
-            "description": "`true` to disable firmware downloads from Notehub.",
+            "description": "`true` to disable firmware downloads from Notehub. This setting persists across Notecard restarts. If both `on` and `off` are provided in the same request, `off` takes precedence.",
             "type": "boolean"
         },
         "on": {
-            "description": "`true` to allow firmware downloads from Notehub.",
+            "description": "`true` to allow firmware downloads from Notehub. Downloads are enabled by default, and this setting persists across Notecard restarts.\n\nEnabling downloads here does not guarantee that a download will proceed. It can still be deferred by the `_fw_download_disabled` and `_fw_download_window_mins` environment variables, or by the `vvalue` voltage gate below.",
             "type": "boolean"
         },
         "status": {
-            "description": "When setting `stop` to `true`, an optional string synchronized to Notehub, which can be used for informational or diagnostic purposes.",
+            "description": "When setting `stop` to `true`, an optional string synchronized to Notehub, which can be used for informational or diagnostic purposes. If `stop` is `true` and no `status` is provided, the Notecard reports `successful firmware update`.",
             "type": "string"
         },
         "stop": {
-            "description": "`true` to clear DFU state and delete the local firmware image from the Notecard.",
+            "description": "`true` to end the current DFU. The Notecard exits DFU operating mode and marks the update `completed`, or `error` if an `err` string is also provided.",
             "type": "boolean"
         },
         "version": {
@@ -59,7 +59,7 @@
             ]
         },
         "vvalue": {
-            "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled. Use a boolean `1` (on) or `0` (off) for each source/voltage level: `usb:<1/0>;high:<1/0>;normal:<1/0>;low:<1/0>;dead:0`.",
+            "description": "A voltage-variable string that controls, by Notecard voltage, whether or not DFU is enabled. Use a boolean `1` (on) or `0` (off) for each source/voltage level: `usb:<1/0>;high:<1/0>;normal:<1/0>;low:<1/0>;dead:0`. The default is `usb:1;high:1;normal:1;low:0;dead:0`.",
             "type": "string"
         },
         "req": {

@@ -24,11 +24,11 @@
                 "type": "object",
                 "properties": {
                     "changes": {
-                        "description": "Number of changes in this specific file",
+                        "description": "The number of changes in this specific file.",
                         "type": "integer"
                     },
                     "total": {
-                        "description": "Total number of notes in this specific file",
+                        "description": "The total number of Notes in this specific file.",
                         "type": "integer"
                     }
                 },
@@ -40,7 +40,7 @@
             "type": "boolean"
         },
         "total": {
-            "description": "The total of unsynced notes across all Notefiles.",
+            "description": "The total number of local Notes across all Notefiles that matched the request.",
             "type": "integer"
         }
     },
