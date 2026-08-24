@@ -66,5 +66,11 @@
             "description": "Delete a single Notefile and its contents.",
             "json": "{\"req\": \"file.delete\", \"files\": [\"data.qo\"]}"
         }
+    ],
+    "links": [
+        {
+            "title": "Miscellaneous File Requests",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#miscellaneous-file-requests"
+        }
     ]
 }

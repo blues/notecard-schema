@@ -52,5 +52,15 @@
             "description": "Retrieve firmware version and device information.",
             "json": "{\"req\": \"card.version\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Getting the Notecard Version",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#getting-the-notecard-version"
+        },
+        {
+            "title": "Updating Notecard Firmware",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/updating-notecard-firmware/"
+        }
     ]
 }

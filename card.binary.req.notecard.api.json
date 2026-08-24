@@ -61,5 +61,15 @@
             "description": "Clear the COBS area and reset binary variables.",
             "json": "{\"req\": \"card.binary\", \"delete\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Storing Binary Data on Notecard",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#storing-binary-data-on-notecard"
+        },
+        {
+            "title": "Reading Binary Data from Notecard",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#reading-binary-data-from-notecard"
+        }
     ]
 }

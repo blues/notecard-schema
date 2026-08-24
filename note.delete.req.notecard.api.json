@@ -78,5 +78,15 @@
             "description": "Delete a Note using command syntax (no response expected).",
             "json": "{\"cmd\": \"note.delete\", \"file\": \"temp-data.db\", \"note\": \"sensor-reading\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Deleting Notes from a DB Notefile",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#deleting-notes-from-a-db-notefile"
+        },
+        {
+            "title": "Storing Structured State with note Requests",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/storing-device-state-with-db-notefiles/#storing-structured-state-with-note-requests"
+        }
     ]
 }

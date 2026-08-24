@@ -117,5 +117,15 @@
             "description": "Update a Note and trigger an immediate sync of the Notefile.",
             "json": "{\"req\": \"note.update\", \"file\": \"my-settings.db\", \"note\": \"measurements\", \"body\": {\"interval\": 60}, \"sync\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Storing Structured State with note Requests",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/storing-device-state-with-db-notefiles/#storing-structured-state-with-note-requests"
+        },
+        {
+            "title": "Adding and Updating Notes in DB Notefiles",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#adding-and-updating-notes-in-db-notefiles"
+        }
     ]
 }

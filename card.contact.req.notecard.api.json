@@ -73,5 +73,15 @@
             "description": "Retrieve the currently stored contact information by issuing the request with no arguments.",
             "json": "{\"req\": \"card.contact\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Setting card.contact Information",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#setting-card-contact-information"
+        },
+        {
+            "title": "Reserved Environment Variables",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/understanding-environment-variables/#reserved-environment-variables"
+        }
     ]
 }

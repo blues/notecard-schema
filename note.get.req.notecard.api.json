@@ -93,5 +93,15 @@
             "description": "Retrieve and decrypt an encrypted inbound Note.",
             "json": "{\"req\": \"note.get\", \"file\": \"secure.qis\", \"decrypt\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Handling Inbound Notes",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#handling-inbound-notes"
+        },
+        {
+            "title": "Receiving Commands on a Device",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/remote-command-and-control/#receiving-commands-on-a-device"
+        }
     ]
 }

@@ -52,5 +52,11 @@
             "description": "Request general information about the Notecard's operating status.",
             "json": "{\"req\": \"card.status\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Getting Notecard Status",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/advanced-notecard-configuration/#getting-notecard-status"
+        }
     ]
 }

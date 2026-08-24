@@ -67,5 +67,11 @@
             "description": "Retrieve all binary data from storage area.",
             "json": "{\"req\": \"card.binary.get\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Reading Binary Data with the card.binary APIs",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/#reading-binary-data-with-the-card-binary-apis"
+        }
     ]
 }

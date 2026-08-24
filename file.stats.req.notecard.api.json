@@ -61,5 +61,11 @@
             "description": "Get resource statistics for a specific Notefile.",
             "json": "{\"req\": \"file.stats\", \"file\": \"sensors.qo\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Miscellaneous File Requests",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#miscellaneous-file-requests"
+        }
     ]
 }

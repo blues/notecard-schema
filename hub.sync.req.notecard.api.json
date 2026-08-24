@@ -80,5 +80,15 @@
             "description": "Sync only pending inbound Notefiles (required for NTN mode).",
             "json": "{\"req\": \"hub.sync\", \"in\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Initiating a Notehub Sync",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#initiating-a-notehub-sync"
+        },
+        {
+            "title": "Syncing Inbound Data Immediately",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/essential-requests/#syncing-inbound-data-immediately"
+        }
     ]
 }

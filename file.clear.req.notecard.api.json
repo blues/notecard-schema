@@ -63,5 +63,11 @@
             "description": "Clear all pending Notes from an encrypted outbound Notefile.",
             "json": "{\"req\": \"file.clear\", \"file\": \"sensors.qos\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Miscellaneous File Requests",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#miscellaneous-file-requests"
+        }
     ]
 }

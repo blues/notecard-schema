@@ -74,5 +74,11 @@
             "description": "Set the `AUX_CHARGING` mode to charging.",
             "json": "{\"req\": \"card.carrier\", \"mode\": \"charging\"}"
         }
+    ],
+    "links": [
+        {
+            "title": "Detecting Charge Source on Solar and Energy Harvesting Designs",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#detecting-charge-source-on-solar-and-energy-harvesting-designs"
+        }
     ]
 }

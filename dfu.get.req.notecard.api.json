@@ -84,5 +84,15 @@
             "description": "Retrieve 8192 bytes of firmware data using the binary I/O buffer for efficient large data transfers.",
             "json": "{\"req\": \"dfu.get\", \"length\": 8192, \"offset\": 0, \"binary\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "IAP Only: Retrieving Host Firmware from the Notecard",
+            "url": "https://dev.blues.io/notehub/host-firmware-updates/notecard-api-requests-for-dfu/#iap-only-retrieving-host-firmware-from-the-notecard"
+        },
+        {
+            "title": "IAP Firmware Update",
+            "url": "https://dev.blues.io/notehub/host-firmware-updates/iap-firmware-update/"
+        }
     ]
 }

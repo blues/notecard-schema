@@ -107,5 +107,11 @@
             "description": "Disable sleep mode functionality.",
             "json": "{\"cmd\": \"card.sleep\", \"off\": true}"
         }
+    ],
+    "links": [
+        {
+            "title": "Deep Sleep Mode on Notecard WiFi v2",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#deep-sleep-mode-on-notecard-wifi-v2"
+        }
     ]
 }
