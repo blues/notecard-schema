@@ -21,7 +21,7 @@ This repository contains the JSON schemas for the Notecard API.
 
 ## Development
 
-- Python 3.12+
+- Python 3.13
 - `pipenv`
 
 ```bash
@@ -47,7 +47,9 @@ This will create a new schema file with the necessary metadata and a basic struc
 
 2. Additionally, the script will create a test suite for both the request and response schemas in the `tests` directory.
 
-3. Update these schemas with the specific details of the new API request or response.
+3. The new request schema is also registered in the `notecard.api.json` index.
+
+4. Update these schemas with the specific details of the new API request or response.
 
 ### Custom Fields
 
@@ -67,12 +69,12 @@ Example shown from `hub.signal`:
 ```json
 "annotations": [
     {
-        "title":"note",
-        "description":"See our guide to Using Inbound Signals for more information on how to set up a host microcontroller or single-board computer to receive inbound signals."
+        "title": "warning",
+        "description": "A Notecard must be in [continuous mode](/api-reference/notecard-api/hub-requests/latest/#hub-set) and have its `sync` argument set to `true` to receive signals."
     },
     {
-        "title":"warning",
-        "description":"A Notecard must be in [continuous mode](https://dev.blues.io/api-reference/notecard-api/hub-requests/latest/#hub-set) and have its `sync` argument set to `true` to receive signals."
+        "title": "note",
+        "description": "See our guide to [Using Inbound Signals](/guides-and-tutorials/notecard-guides/minimizing-latency#using-inbound-signals) for more information on how to set up a host microcontroller or single-board computer to receive inbound signals."
     }
 ]
 ```
@@ -81,7 +83,7 @@ Example shown from `hub.signal`:
 
 A boolean indicating if the API is deprecated.
 
-Example shown from `card.attn`:
+Example shown from `env.set`:
 
 ```json
 "deprecated": true
@@ -90,12 +92,12 @@ Example shown from `card.attn`:
 #### `links`
 
 An array of objects pointing at related documentation for the API. These are
-rendered at the bottom of the generated blues.dev page as a "More information"
-block.
+rendered at the bottom of the generated documentation page as a "More
+information" block.
 
-URLs must be **absolute**, so that consumers of these schemas outside of
-blues.dev get a working link. The documentation generator rewrites
-`https://dev.blues.io` URLs to site-relative paths on its way into blues.dev, so
+URLs must be **absolute**, so that consumers of these schemas outside of the
+documentation site get a working link. The documentation generator rewrites
+`https://dev.blues.io` URLs to site-relative paths when it builds the site, so
 there is no need to hand-write relative paths here.
 
 Example shown from `card.attn`:
@@ -129,6 +131,7 @@ Example shown from `auxgpio` in `card.attn`:
         "CELL",
         "CELL+WIFI",
         "LORA",
+        "SKYLO",
         "WIFI"
     ],
     "minApiVersion": "3.4.1"
@@ -187,9 +190,9 @@ Example shown from `card.transport`:
     "title": "card.transport Request Application Programming Interface (API) Schema",
     "description": "Specifies the connectivity protocol to prioritize on the Notecard Cell+WiFi, or when using NTN mode with Starnote and a compatible Notecard.",
     "type": "object",
-    "version": "0.2.1",
+    "version": "1.1.2",
     "apiVersion": "9.1.1",
-    "skus": ["CELL","CELL+WIFI","WIFI"],
+    "skus": ["CELL","CELL+WIFI","SKYLO","WIFI"],
     "properties": {
         "method": {
             "description": "The connectivity method to enable on the Notecard.",
@@ -209,23 +212,23 @@ Example shown from `card.transport`:
                 {
                     "const": "-",
                     "description": "Resets the transport mode to the device default.",
-                    "skus": ["CELL","CELL+WIFI","WIFI"]
+                    "skus": ["CELL","CELL+WIFI","SKYLO","WIFI"]
                 },
                 {
                     "const": "cell",
-                    "description": "Enables cellular only on the device.",
-                    "skus": ["CELL","CELL+WIFI"]
+                    "description": "Enables **cellular only** on the device.",
+                    "skus": ["CELL","CELL+WIFI","SKYLO"]
                 },
                 {
                     "const": "cell-ntn",
                     "description": "Prioritizes cellular connectivity while falling back to NTN if a cellular connection cannot be established.",
-                    "skus": ["CELL","CELL+WIFI"]
+                    "skus": ["CELL","CELL+WIFI","SKYLO"]
                 },
                 {
                     "const": "dual-wifi-cell",
                     "deprecated": true,
                     "description": "Deprecated form of `\"wifi-cell\"`",
-                    "skus": ["CELL+WIFI"]
+                    "skus": ["CELL+WIFI","SKYLO"]
                 },
                 ...
             ]
@@ -257,18 +260,18 @@ Example shown from `card.attn`:
     "sub-descriptions": [
         {
             "const": "",
-            "description": "Fetches currently pending events in the \"files\" collection.",
-            "skus": ["CELL","CELL+WIFI","WIFI"]
+            "description": "Queries the current ATTN pin state.",
+            "skus": ["CELL","CELL+WIFI","SKYLO","WIFI"]
         },
         {
             "const": "arm",
             "description": "Clear \"files\" events and cause the ATTN pin to go LOW. After an event occurs or \"seconds\" has elapsed, the ATTN pin will then go HIGH (a.k.a. \"fires\"). If \"seconds\" is 0, no timeout will be scheduled. If ATTN is armed, calling `arm` again will disarm (briefly pulling ATTN HIGH), then arm (non-idempotent).",
-            "skus": ["CELL","CELL+WIFI","LORA","WIFI"]
+            "skus": ["CELL","CELL+WIFI","LORA","SKYLO","WIFI"]
         },
         {
             "const": "auxgpio",
             "description": "When armed, causes ATTN to fire if an AUX GPIO input changes. Disable by using `-auxgpio`.",
-            "skus": ["CELL","CELL+WIFI","LORA","WIFI"]
+            "skus": ["CELL","CELL+WIFI","LORA","SKYLO","WIFI"]
         },
         ...
     ]

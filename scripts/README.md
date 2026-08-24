@@ -41,50 +41,7 @@ python3 scripts/create_api.py hub.sync
 
 ---
 
-### 2. `generate_mdx_from_schema.py` - Generate MDX Documentation
-
-Converts JSON schemas into MDX documentation files for the blues.dev site.
-
-**Usage:**
-
-```bash
-python3 scripts/generate_mdx_from_schema.py [options]
-```
-
-**Key Options:**
-
-```bash
---all                    # Generate docs for all APIs
---tidy                   # Clean up output formatting
---schema_dir DIR         # Schema directory (default: current)
---output_dir DIR         # Output directory (default: ./mdx_output)
---api API_NAME           # Generate docs for specific API
-```
-
-**Examples:**
-
-```bash
-# Generate docs for all APIs
-python3 scripts/generate_mdx_from_schema.py --all --tidy
-
-# Generate docs for specific API
-python3 scripts/generate_mdx_from_schema.py --api card.attn --tidy
-
-# Custom output directory
-python3 scripts/generate_mdx_from_schema.py --all --output_dir /path/to/docs
-```
-
-**Features:**
-
-- Converts JSON Schema to human-readable MDX
-- Generates parameter tables, examples, and descriptions
-- Preserves markdown formatting from schema descriptions
-- Supports custom schema fields (annotations, samples, sub-descriptions)
-- Creates organized directory structure for documentation site
-
----
-
-### 3. `generate_docs.py` - Documentation Generation Utilities
+### 2. `generate_docs.py` - Documentation Generation Utilities
 
 Contains utility functions for processing schema data and generating API reference documentation content.
 
@@ -99,65 +56,7 @@ This is primarily a utility module imported by other scripts, but can be used di
 
 ---
 
-### 4. `update_docs.py` - Update Blues Documentation Site
-
-Automatically updates the blues.dev repository with generated MDX documentation from schemas.
-
-**Usage:**
-
-```bash
-python3 scripts/update_docs.py [options]
-```
-
-**Key Options:**
-
-```bash
---schema_dir DIR         # Schema directory (default: current)
---existing-repo PATH     # Use existing blues.dev repo (skips cloning)
---branch BRANCH          # Clone specific branch
---dir DIR                # Directory to clone repo to
---commit                 # Commit changes
---push                   # Push changes (requires --commit)
---commit-message MSG     # Custom commit message
---dry-run                # Preview changes without applying
-```
-
-**Examples:**
-
-```bash
-# Dry run to preview changes
-python3 scripts/update_docs.py --dry-run
-
-# Use existing repository
-python3 scripts/update_docs.py --existing-repo /path/to/blues.dev --dry-run
-
-# Full workflow: clone, update, commit, and push
-python3 scripts/update_docs.py --commit --push --commit-message "Update API docs"
-
-# Work with specific branch
-python3 scripts/update_docs.py --branch feature-branch --commit
-```
-
-**Features:**
-
-- Clones blues.dev repository or uses existing directory
-- Preserves existing `_meta.json` files and Introduction content
-- Generates and applies new MDX documentation
-- Optional git commit and push capabilities
-- Comprehensive dry-run mode for safe testing
-
-**Workflow:**
-
-1. Clone blues.dev repository (or use existing)
-2. Preserve metadata and introduction files
-3. Generate new MDX documentation from schemas
-4. Replace documentation directory contents
-5. Restore preserved metadata files
-6. Optionally commit and push changes
-
----
-
-### 5. `update_schema_version.py` - Version Management
+### 3. `update_schema_version.py` - Version Management
 
 Updates version strings across multiple schema files.
 
@@ -220,25 +119,8 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
    pipenv run pytest tests/test_hub_newapi_req.py tests/test_hub_newapi_rsp.py -v
    ```
 
-4. **Generate documentation:**
-
-   ```bash
-   python3 scripts/generate_mdx_from_schema.py --api hub.newapi --tidy
-   ```
-
-### Updating Documentation Site
-
-1. **Dry run to preview changes:**
-
-   ```bash
-   python3 scripts/update_docs.py --dry-run
-   ```
-
-2. **Apply changes to existing repository:**
-
-   ```bash
-   python3 scripts/update_docs.py --existing-repo /path/to/blues.dev --commit --push
-   ```
+The blues.dev API reference picks the new API up on the next release; see
+[Automation](#automation) below.
 
 ### Version Management
 
@@ -258,8 +140,6 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
 
 - Python 3.6+
 - `pipenv` for dependency management
-- Git (for update_docs.py)
-- Internet connection (for cloning repositories)
 
 ## Dependencies
 
@@ -271,9 +151,7 @@ pipenv install --dev
 
 ## Automation
 
-### GitHub Workflow
-
-The repository includes an automated workflow (`.github/workflows/update-docs.yml`) that automatically updates the blues.dev documentation site when:
+update-docs.yml`) that automatically updates the blues.dev documentation site when:
 
 - **Tagged Release**: A new release is published on the notecard-schema repository
 - **Manual Trigger**: The workflow is manually dispatched via GitHub Actions
@@ -304,8 +182,5 @@ The repository includes an automated workflow (`.github/workflows/update-docs.ym
 ## Notes
 
 - All scripts support `--help` for detailed usage information
-- Use `--dry-run` options where available to preview changes
 - Test schemas thoroughly after creation or modification
 - Follow the repository's schema conventions and validation requirements
-- The automation workflow preserves all metadata and introduction files
-- Manual workflow triggers are useful for testing documentation changes before release

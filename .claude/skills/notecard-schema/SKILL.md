@@ -216,30 +216,6 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
 python3 scripts/update_schema_version.py --property version --target-version 0.2.2 --pattern "card.*"
 ```
 
-### `generate_mdx_from_schema.py` — preview documentation output
-
-Converts schemas to MDX to preview how they'll render in the docs site:
-
-```bash
-# Generate docs for a specific API
-python3 scripts/generate_mdx_from_schema.py --api card.foo --tidy
-
-# Generate docs for all APIs
-python3 scripts/generate_mdx_from_schema.py --all --tidy --output_dir ./mdx_output
-```
-
-### `update_docs.py` — push docs to blues.dev (human-only)
-
-Clones the blues.dev repo, applies generated MDX, and optionally commits and pushes. This should only be run by a human — do not invoke this autonomously:
-
-```bash
-# Dry run to preview changes
-python3 scripts/update_docs.py --dry-run
-
-# Apply to existing local repo checkout
-python3 scripts/update_docs.py --existing-repo /path/to/blues.dev --commit --push
-```
-
 ## QA Checklist Before Submitting
 
 **Scope**

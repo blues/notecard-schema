@@ -1,96 +1,64 @@
 # GitHub Workflows
 
-## `update-bluesdev.yml` - Automated Documentation Updates
+## `ci.yml` — Validation
 
-This workflow automatically updates the blues.dev documentation site with the latest Notecard API schemas.
+Runs the pre-commit hooks and `pytest` on pushes to `master` and on pull
+requests targeting `master`. All schemas must pass before merge.
 
-### Triggers
+## `publish-docs.yml` — Schema reference site
 
-1. **Release Trigger**: Automatically runs when a new release is published
-2. **Manual Trigger**: Can be manually dispatched via GitHub Actions UI
+Runs `scripts/generate_docs.py` and `mkdocs build`, then deploys the resulting
+static site to GitHub Pages. This site is aimed at LLM agents; the
+human-facing API reference is built elsewhere (see `update-hook.yml` below).
 
-### Setup Requirements
+Triggers:
 
-#### 1. GitHub Token Secret
+- a successful CI run on `master`
+- a push to `master` touching any `.json` file or `scripts/generate_docs.py`
+- manual dispatch
 
-The workflow requires a GitHub token with write access to the `blues/blues.dev` repository:
+## `release-schema.yml` — Release asset
 
-1. Create a Personal Access Token (Classic) or Fine-grained token with:
-   - `contents: write` - To create branches and commits
-   - `pull-requests: write` - To create pull requests
-   - `metadata: read` - To read repository metadata
+On a published release, stamps the release version into the `version` property
+of every schema, rewrites `notecard.api.json` so its `$ref`s and `$id` point at
+the tagged refs instead of `master`, and uploads that file as a release asset.
 
-2. Add the token as a repository secret named `BLUES_DEV_TOKEN`:
-   - Go to repository Settings → Secrets and variables → Actions
-   - Click "New repository secret"
-   - Name: `BLUES_DEV_TOKEN`
-   - Value: Your GitHub token
+## `update-hook.yml` — Downstream notification
 
-#### 2. Repository Permissions
+On a published release (or manual dispatch), notifies each repository that
+consumes these schemas so it can regenerate its own derived artifacts — client
+library code, and the
+[Notecard API Reference](https://dev.blues.io/api-reference/notecard-api/)
+documentation. Neither the documentation rendering nor the generated client code
+lives in this repository; each consumer owns its generator and opens its own
+pull request.
 
-Ensure the workflow has the necessary permissions by adding this to repository settings or the workflow file (already included):
+### Setup
 
-```yaml
-permissions:
-  contents: read
-```
+The dispatch authenticates with a GitHub App installed on the consuming
+repositories, configured through two repository secrets:
 
-### Manual Trigger Options
+- `SCHEMA_SYNC_APP_ID`
+- `SCHEMA_SYNC_PRIVATE_KEY`
 
-When manually triggering the workflow, you can customize:
-
-- **branch**: Target branch in blues.dev repository (default: `main`)
-- **pr_title**: Custom title for the pull request (optional)
-
-### Workflow Behavior
-
-#### Automatic (Release Trigger)
-- Triggered when a new release is published
-- Uses the release tag as the version identifier
-- Creates a PR with release-specific information
-- Links to the GitHub release notes
-
-#### Manual Trigger
-- Can be run on any branch/commit
-- Uses timestamp as version identifier
-- Creates a PR marked as manually triggered
-- Useful for testing changes before release
-
-### Output
-
-The workflow creates:
-
-1. **New Branch**: `update-notecard-api-docs-{version}` in blues.dev
-2. **Pull Request**: With detailed change information and validation status
-3. **Commit**: With comprehensive message including source commit reference
-
-### Error Handling
-
-- If no changes are detected, the workflow completes successfully without creating a PR
-- Failed runs will show detailed error messages in the workflow log
-- The workflow preserves all existing metadata and introduction files
-
-### Monitoring
-
-Check workflow runs in:
-- Actions tab of the notecard-schema repository
-- Workflow summary shows PR creation status
-- Failed runs will have detailed logs for troubleshooting
-
-### Testing
-
-Before enabling in production:
-
-1. Test with a fork and manual trigger
-2. Verify the `BLUES_DEV_TOKEN` has proper permissions
-3. Ensure the blues.dev repository structure hasn't changed
-4. Run the `update_docs.py` script locally first
+The App needs `contents: write` and `pull-requests: write` on those repositories
+so it can trigger workflows that branch, commit, and open PRs.
 
 ### Troubleshooting
 
-Common issues:
+- **Dispatch fails with 404** — the App is not installed on the consuming
+  repository, or the workflow it triggers is missing from that repository's
+  default branch.
+- **Dispatch succeeds but no pull request appears** — normal when the schemas
+  produce no output change; check the run on the consuming side to confirm.
+- **Token errors** — verify the App ID and private key secrets, and that the
+  App's installation still covers every consumer.
+- One consumer failing does not block the others; the matrix uses
+  `fail-fast: false`.
 
-- **Token permissions**: Ensure the token has write access to blues/blues.dev
-- **Branch conflicts**: The workflow creates unique branch names to avoid conflicts
-- **No changes**: If schemas haven't changed, no PR will be created (normal behavior)
-- **Path issues**: Verify the blues.dev repository structure matches expectations
+## `copilot-setup-steps.yml` — Copilot environment
+
+Manual dispatch only. Installs Python 3.13 and the dev dependencies, then runs
+`scripts/update_schema_version.py --help` as a smoke test, so GitHub Copilot's
+coding agent can pick up a working environment definition. The job name must
+stay `copilot-setup-steps` for Copilot to find it.
