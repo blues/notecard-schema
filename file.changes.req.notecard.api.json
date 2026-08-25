@@ -22,7 +22,7 @@
             }
         },
         "tracker": {
-            "description": "ID of a [change tracker](/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-change-trackers-with-inbound-data) to use to determine changes to Notefiles.",
+            "description": "ID of a [change tracker](/notecard/notecard-walkthrough/inbound-requests-and-shared-data/#using-change-trackers-with-inbound-data) to use to determine changes to Notefiles. Must be accompanied by a `files` argument.",
             "type": "string",
             "skus": [
                 "CELL",
@@ -75,14 +75,14 @@
             "json": "{\"req\": \"file.changes\", \"files\": [\"sensors.qo\", \"data.qo\"]}"
         },
         {
-            "title": "Use Change Tracker",
-            "description": "Use a change tracker to monitor file changes over time.",
-            "json": "{\"req\": \"file.changes\", \"tracker\": \"my-tracker\"}"
+            "title": "Tracker with Specific Files",
+            "description": "Use a change tracker to monitor an inbound Notefile over time. Each call reports only the Notes added since the previous call that used the same tracker ID.",
+            "json": "{\"req\": \"file.changes\", \"files\": [\"commands.qi\"], \"tracker\": \"command-tracker\"}"
         },
         {
-            "title": "Tracker with Specific Files",
-            "description": "Combine change tracker with specific file monitoring.",
-            "json": "{\"req\": \"file.changes\", \"files\": [\"sensors.qo\"], \"tracker\": \"sensor-tracker\"}"
+            "title": "Tracker with Multiple Files",
+            "description": "A single tracker ID can span multiple Notefiles.",
+            "json": "{\"req\": \"file.changes\", \"files\": [\"commands.qi\", \"my-settings.db\"], \"tracker\": \"my-tracker\"}"
         }
     ],
     "links": [

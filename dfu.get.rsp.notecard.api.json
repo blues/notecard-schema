@@ -9,6 +9,7 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
@@ -25,7 +26,7 @@
             "type": "string"
         },
         "status": {
-            "description": "When `binary` is `true` in the request, this field contains a 32-character hex-encoded MD5 hash of the firmware data. Useful for the host to verify data integrity.",
+            "description": "A 32-character hex-encoded MD5 hash of the firmware data returned by this request. Useful for the host to verify data integrity.",
             "type": "string"
         }
     },
@@ -49,7 +50,7 @@
         {
             "title": "Binary Mode Response",
             "description": "Example response when using binary mode with firmware data in the I/O buffer.",
-            "json": "{\"cobs\": 10240, \"length\": 8192, \"status\": \"5d41402abc4b2a76b9719d911017c592\"}"
+            "json": "{\"cobs\": 8225, \"length\": 8192, \"status\": \"5d41402abc4b2a76b9719d911017c592\"}"
         }
     ]
 }

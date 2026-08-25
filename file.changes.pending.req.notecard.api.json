@@ -14,6 +14,13 @@
         "WIFI"
     ],
     "properties": {
+        "files": {
+            "description": "One or more files to obtain pending change information from. Omit to return pending changes for all Notefiles.",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "file.changes.pending"
@@ -51,6 +58,11 @@
             "title": "Check Pending Changes",
             "description": "Query for pending file changes awaiting upload to Notehub.",
             "json": "{\"req\": \"file.changes.pending\"}"
+        },
+        {
+            "title": "Check Pending Changes for Specific Files",
+            "description": "Limit the response to the specified Notefiles.",
+            "json": "{\"req\": \"file.changes.pending\", \"files\": [\"sensors.qo\"]}"
         }
     ],
     "links": [
