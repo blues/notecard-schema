@@ -10,7 +10,7 @@ STRING_FIELDS = [
 ]
 
 INTEGER_FIELDS = [
-    "cid", "mtu", "up_mtu", "down_mtu",
+    "mtu", "up_mtu", "down_mtu",
     "ver_major", "ver_minor", "ver_patch", "ver_build"
 ]
 
@@ -27,7 +27,6 @@ def test_valid_full_response(schema):
     instance = {
         "body": {
             "device": "skylo:901980000000000",
-            "cid": 0,
             "mtu": 256,
             "modem": "CC660DLSAAR01A03_01.001.01.001",
             "policy": "10TPM",
