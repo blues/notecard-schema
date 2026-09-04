@@ -196,6 +196,9 @@
             "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/note.update.req.notecard.api.json"
         },
         {
+            "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.config.req.notecard.api.json"
+        },
+        {
             "$ref": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.req.notecard.api.json"
         },
         {
