@@ -1,0 +1,70 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.config.req.notecard.api.json",
+    "title": "ntn.config Request Application Programming Interface (API) Schema",
+    "description": "Returns the configuration and identity of the satellite (NTN) module: the network it is provisioned for, its modem, its SKU and ordering code, and the firmware it is running.",
+    "type": "object",
+    "version": "1.1.2",
+    "apiVersion": "9.1.1",
+    "minApiVersion": "6.2.3",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "SKYLO",
+        "WIFI"
+    ],
+    "properties": {
+        "req": {
+            "description": "Request for the Notecard (expects response)",
+            "const": "ntn.config"
+        },
+        "cmd": {
+            "description": "Command for the Notecard (no response)",
+            "const": "ntn.config"
+        }
+    },
+    "oneOf": [
+        {
+            "required": [
+                "req"
+            ],
+            "properties": {
+                "req": {
+                    "const": "ntn.config"
+                }
+            }
+        },
+        {
+            "required": [
+                "cmd"
+            ],
+            "properties": {
+                "cmd": {
+                    "const": "ntn.config"
+                }
+            }
+        }
+    ],
+    "unevaluatedProperties": false,
+    "samples": [
+        {
+            "title": "Get Satellite Module Configuration",
+            "description": "Request the configuration and firmware version of the paired Starnote or integrated satellite modem.",
+            "json": "{\"req\": \"ntn.config\"}"
+        }
+    ],
+    "links": [
+        {
+            "title": "Starnote Quickstart",
+            "url": "https://dev.blues.io/quickstart/starnote-quickstart/"
+        },
+        {
+            "title": "Updating Starnote for Skylo Firmware",
+            "url": "https://dev.blues.io/starnote/starnote-for-skylo/updating-starnote-for-skylo-firmware#verifying-success-of-a-starnote-firmware-update"
+        },
+        {
+            "title": "Diagnosing Satellite Connectivity Issues",
+            "url": "https://dev.blues.io/support/diagnosing-satellite-connectivity-issues"
+        }
+    ]
+}

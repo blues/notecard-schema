@@ -1,0 +1,122 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.config.rsp.notecard.api.json",
+    "title": "ntn.config Response Application Programming Interface (API) Schema",
+    "description": "Response describing the configuration and identity of the paired Starnote or integrated satellite modem. Fields the module has not reported are omitted.",
+    "type": "object",
+    "version": "1.1.2",
+    "apiVersion": "9.1.1",
+    "minApiVersion": "6.2.3",
+    "skus": [
+        "CELL",
+        "CELL+WIFI",
+        "SKYLO",
+        "WIFI"
+    ],
+    "properties": {
+        "body": {
+            "description": "The satellite module's configuration.",
+            "type": "object",
+            "properties": {
+                "device": {
+                    "description": "The identity the satellite module uses on its network, prefixed with the network's scheme (for example `skylo:` followed by the module's IMSI).",
+                    "type": "string"
+                },
+                "mtu": {
+                    "description": "The maximum packet size, in bytes, the module can send or receive. Superseded by `up_mtu` and `down_mtu` when those are reported.",
+                    "type": "integer"
+                },
+                "up_mtu": {
+                    "description": "The maximum size, in bytes, of a packet the module can send to the satellite network.",
+                    "type": "integer"
+                },
+                "down_mtu": {
+                    "description": "The maximum size, in bytes, of a packet the module can receive from the satellite network.",
+                    "type": "integer"
+                },
+                "modem": {
+                    "description": "The model and firmware revision of the satellite modem.",
+                    "type": "string"
+                },
+                "policy": {
+                    "description": "The transmission policy the module operates under, which governs how often it may send. For example, `10TPM` allows ten transmissions per minute.",
+                    "type": "string"
+                },
+                "sku": {
+                    "description": "The SKU of the satellite module.",
+                    "type": "string"
+                },
+                "ordering_code": {
+                    "description": "The ordering code of the satellite module.",
+                    "type": "string"
+                },
+                "apn": {
+                    "description": "The access point name (APN) the module uses on the satellite network.",
+                    "type": "string"
+                },
+                "band": {
+                    "description": "The radio band the module is configured to use. `0` means the network default.",
+                    "type": "string"
+                },
+                "channel": {
+                    "description": "The radio channel the module is configured to use. `0` means the network default.",
+                    "type": "string"
+                },
+                "org": {
+                    "description": "The organization that built the module's firmware.",
+                    "type": "string"
+                },
+                "product": {
+                    "description": "The product name of the module's firmware.",
+                    "type": "string"
+                },
+                "target": {
+                    "description": "The hardware target the module's firmware was built for.",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "The version of the firmware the module is currently running.",
+                    "type": "string"
+                },
+                "ver_major": {
+                    "description": "The major version number of the module's firmware.",
+                    "type": "integer"
+                },
+                "ver_minor": {
+                    "description": "The minor version number of the module's firmware.",
+                    "type": "integer"
+                },
+                "ver_patch": {
+                    "description": "The patch version number of the module's firmware.",
+                    "type": "integer"
+                },
+                "ver_build": {
+                    "description": "The build number of the module's firmware.",
+                    "type": "integer"
+                },
+                "built": {
+                    "description": "The date and time the module's firmware was built.",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "err": {
+            "description": "This member is present if an error occurred, for example when no satellite module is connected: `{\"err\":\"no NTN module is connected {no-ntn-module}\"}`",
+            "type": "string"
+        }
+    },
+    "unevaluatedProperties": false,
+    "samples": [
+        {
+            "title": "Starnote for Skylo Configuration",
+            "description": "Response from a Notecard paired with a Starnote for Skylo.",
+            "json": "{\"body\": {\"device\": \"skylo:901980000000000\", \"mtu\": 256, \"modem\": \"CC660DLSAAR01A03_01.001.01.001\", \"policy\": \"10TPM\", \"sku\": \"NTN-SKY1\", \"ordering_code\": \"AZ\", \"apn\": \"blues.prod\", \"band\": \"0\", \"channel\": \"0\", \"org\": \"Blues Inc\", \"product\": \"Starnote\", \"target\": \"Starnote\", \"version\": \"starnote-s-10.2.2.17790\", \"ver_major\": 10, \"ver_minor\": 2, \"ver_patch\": 2, \"ver_build\": 17790, \"built\": \"Sep 03 2026 12:40:29\"}}"
+        },
+        {
+            "title": "No Satellite Module Connected",
+            "description": "Response when the Notecard has no paired Starnote and no integrated satellite modem.",
+            "json": "{\"err\": \"no NTN module is connected {no-ntn-module}\"}"
+        }
+    ]
+}
