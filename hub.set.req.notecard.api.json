@@ -110,7 +110,7 @@
                 },
                 {
                     "const": "dfu",
-                    "description": "Puts the Notecard in DFU mode for IAP host MCU firmware updates. This mode is effectively the same as `off` in terms of the Notecard's network and Notehub connections. Note that all modern Notecards can serve `dfu.get` without this mode (only green Notecard Cellular (legacy) devices require it."
+                    "description": "Puts the Notecard in DFU mode for IAP host MCU firmware updates. This mode is effectively the same as `off` in terms of the Notecard's network and Notehub connections. Note that all modern Notecards can serve `dfu.get` without this mode (only green Notecard Cellular (legacy) devices require it)."
                 },
                 {
                     "const": "dfu-completed",
