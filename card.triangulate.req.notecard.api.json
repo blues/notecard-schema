@@ -34,7 +34,7 @@
                 },
                 {
                     "const": "-",
-                    "description": "Clear the currently-set triangulation mode."
+                    "description": "Clear the device-configured triangulation mode and revert to the default for the Notecard type. WiFi triangulation is enabled by default on Notecard WiFi and Notecard Cell+WiFi, so on those Notecards clearing the mode does not disable triangulation."
                 }
             ]
         },
@@ -116,8 +116,8 @@
             "json": "{\"req\":\"card.triangulate\",\"text\":\"+CWLAP:(4,\\\"Blues\\\",-51,\\\"74:ac:b9:12:12:f8\\\",1)\\n+CWLAP:(3,\\\"AAAA-62DD\\\",-70,\\\"6c:55:e8:91:62:e1\\\",11)\\n+CWLAP:(4,\\\"Blues\\\",-81,\\\"74:ac:b9:11:12:23\\\",1)\\n+CWLAP:(4,\\\"Blues\\\",-82,\\\"74:ac:a9:12:19:48\\\",11)\\n+CWLAP:(4,\\\"Free Parking\\\",-83,\\\"02:18:4a:11:60:31\\\",6)\\n+CWLAP:(5,\\\"GO\\\",-84,\\\"01:13:6a:13:90:30\\\",6)\\n+CWLAP:(4,\\\"AAAA-5C62-2.4\\\",-85,\\\"d8:97:ba:7b:fd:60\\\",1)\\n+CWLAP:(3,\\\"DIRECT-a5-HP MLP50\\\",-86,\\\"fa:da:0c:1b:16:a5\\\",6)\\n+CWLAP:(3,\\\"DIRECT-c6-HP M182 LaserJet\\\",-88,\\\"da:12:65:44:31:c6\\\",6)\\n\\n\"}"
         },
         {
-            "title": "Disable Triangulation",
-            "description": "Disable triangulation mode.",
+            "title": "Clear Triangulation Mode",
+            "description": "Clear the device-configured triangulation mode and revert to the default for the Notecard type.",
             "json": "{\"req\":\"card.triangulate\",\"mode\":\"-\"}"
         }
     ],
