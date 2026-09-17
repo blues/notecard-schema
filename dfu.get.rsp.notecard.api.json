@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/dfu.get.rsp.notecard.api.json",
     "title": "dfu.get Response Application Programming Interface (API) Schema",
-    "description": "Response containing base64-encoded firmware data retrieved from the Notecard for use with host MCU firmware updates.",
+    "description": "Response containing firmware data retrieved from the Notecard for use with host MCU firmware updates.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -14,11 +14,11 @@
     ],
     "properties": {
         "cobs": {
-            "description": "When `binary` is `true` in the request, this field contains the COBS encoded length of the firmware data in the binary I/O buffer.",
+            "description": "When `binary` is `true` in the request, this field contains the COBS-encoded length of the firmware data in the binary storage area.",
             "type": "integer"
         },
         "length": {
-            "description": "When `binary` is `true` in the request, this field contains the actual length of the firmware data in bytes in the binary I/O buffer.",
+            "description": "When `binary` is `true` in the request, this field contains the decoded length of the firmware data in bytes in the binary storage area.",
             "type": "integer"
         },
         "payload": {
@@ -26,7 +26,7 @@
             "type": "string"
         },
         "status": {
-            "description": "A 32-character hex-encoded MD5 hash of the firmware data returned by this request. Useful for the host to verify data integrity.",
+            "description": "A 32-character hex-encoded MD5 hash of the firmware data returned by this request, covering only the requested `offset` and `length`. Useful for the host to verify data integrity.",
             "type": "string"
         }
     },
@@ -39,7 +39,7 @@
         },
         {
             "title": "Empty Response",
-            "description": "Example response when verifying DFU mode with length 0.",
+            "description": "Example response when verifying readiness with length 0.",
             "json": "{\"payload\": \"\"}"
         },
         {
@@ -49,7 +49,7 @@
         },
         {
             "title": "Binary Mode Response",
-            "description": "Example response when using binary mode with firmware data in the I/O buffer.",
+            "description": "Example response when using binary mode with firmware data in the binary storage area.",
             "json": "{\"cobs\": 8225, \"length\": 8192, \"status\": \"5d41402abc4b2a76b9719d911017c592\"}"
         }
     ]

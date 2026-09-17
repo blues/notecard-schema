@@ -14,16 +14,20 @@
     ],
     "properties": {
         "binary": {
-            "description": "If `true`, the Notecard will return firmware data in the binary I/O buffer instead of the response `payload` field. This allows for larger data transfers and more efficient processing. When `true`, the response will include `cobs`, `length`, and `status` (MD5 hash) fields instead of `payload`.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
-            "type": "boolean"
+            "description": "If `true`, the Notecard places the firmware data in the binary storage area instead of the response `payload` field, and returns `cobs`, `length`, and `status` fields instead. Read it out with [card.binary.get](https://dev.blues.io/api-reference/notecard-api/card-requests/#card-binary-get), then clear the area with a `card.binary` request and `delete` set to `true`.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
+            "type": "boolean",
+            "minApiVersion": "9.1.1"
         },
         "length": {
-            "description": "The number of bytes of firmware data to read and return to the host. Set to `0` to verify that the Notecard is in DFU mode without attempting to retrieve data.",
-            "type": "integer"
+            "description": "The number of bytes of firmware data to read and return to the host, up to a maximum of 8192 per request. Set to `0` to verify that the Notecard is ready to serve firmware data without retrieving any.",
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 8192
         },
         "offset": {
             "description": "The offset to use before performing a read of firmware data.",
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
         },
         "req": {
             "description": "Request for the Notecard (expects response)",
@@ -60,7 +64,7 @@
     "annotations": [
         {
             "title": "note",
-            "description": "This request is functional only when the Notecard has been set to `dfu` mode with a `hub.set, mode:dfu` request."
+            "description": "Modern Notecards store the downloaded firmware image in onboard flash and can serve this request at any time. Green Notecard Cellular (legacy) devices stage the image in the cellular modem's file system instead, and must first be placed in DFU mode. If this request returns a `not currently in the DFU operating mode` error, issue a `hub.set, mode:dfu` request and retry."
         }
     ],
     "samples": [
@@ -71,7 +75,7 @@
         },
         {
             "title": "Verify DFU Mode",
-            "description": "Verify that the Notecard is in DFU mode without retrieving data.",
+            "description": "Verify that the Notecard is ready to serve firmware data without retrieving any.",
             "json": "{\"req\": \"dfu.get\", \"length\": 0}"
         },
         {
@@ -81,7 +85,7 @@
         },
         {
             "title": "Retrieve Large Firmware Data with Binary Buffer",
-            "description": "Retrieve 8192 bytes of firmware data using the binary I/O buffer for efficient large data transfers.",
+            "description": "Retrieve 8192 bytes of firmware data through the binary storage area, then read it out with `card.binary.get`.",
             "json": "{\"req\": \"dfu.get\", \"length\": 8192, \"offset\": 0, \"binary\": true}"
         }
     ],
@@ -93,6 +97,14 @@
         {
             "title": "IAP Firmware Update",
             "url": "https://dev.blues.io/notehub/host-firmware-updates/iap-firmware-update/"
+        },
+        {
+            "title": "card.binary.get",
+            "url": "https://dev.blues.io/api-reference/notecard-api/card-requests/#card-binary-get"
+        },
+        {
+            "title": "Sending and Receiving Large Binary Objects",
+            "url": "https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/"
         }
     ]
 }

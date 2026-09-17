@@ -88,6 +88,32 @@ def test_binary_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "is not of type 'boolean'" in str(excinfo.value)
 
+def test_length_at_maximum(schema):
+    """Tests the largest length a single request may ask for."""
+    instance = {"req": "dfu.get", "length": 8192, "offset": 0}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_length_above_maximum(schema):
+    """Tests that a length beyond the firmware's per-request cap is rejected."""
+    instance = {"req": "dfu.get", "length": 8193}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is greater than the maximum of 8192" in str(excinfo.value)
+
+def test_length_negative(schema):
+    """Tests invalid negative length."""
+    instance = {"req": "dfu.get", "length": -1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is less than the minimum of 0" in str(excinfo.value)
+
+def test_offset_negative(schema):
+    """Tests invalid negative offset."""
+    instance = {"req": "dfu.get", "offset": -1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is less than the minimum of 0" in str(excinfo.value)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
