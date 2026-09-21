@@ -674,6 +674,18 @@ def test_boolean_parameters_combinations(schema):
         jsonschema.validate(instance=combo, schema=schema)
 
 
+def test_key_not_supported_on_lora(schema):
+    """Tests that key is restricted to SKUs that support encryption."""
+    key_prop = schema["properties"]["key"]
+    assert "skus" in key_prop, "key property is missing skus"
+    assert key_prop["skus"] == ['CELL', 'CELL+WIFI', 'SKYLO', 'WIFI'], (
+        f"Unexpected skus for key: {key_prop['skus']}"
+    )
+    assert "LORA" not in key_prop["skus"], (
+        "Note body encryption is not supported on the Notecard LoRa"
+    )
+
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

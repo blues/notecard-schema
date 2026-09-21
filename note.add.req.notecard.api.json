@@ -57,8 +57,14 @@
             "minApiVersion": "5.1.1"
         },
         "key": {
-            "description": "The name of an environment variable in your Notehub.io project that contains the contents of a public key. Used when [encrypting the Note body for transport](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
-            "type": "string"
+            "description": "The name of an environment variable in your Notehub project that contains the contents of a public key. Used when [encrypting the Note body for transport](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard). Note body encryption is not supported on Notecard for LoRa.",
+            "type": "string",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "SKYLO",
+                "WIFI"
+            ]
         },
         "limit": {
             "description": "If set to `true`, the Note will not be created if Notecard is in a [penalty box](/support/understanding-notecard-penalty-boxes/).",

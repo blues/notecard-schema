@@ -15,8 +15,14 @@
     ],
     "properties": {
         "decrypt": {
-            "description": "`true` to decrypt [encrypted inbound Notefiles](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard).",
-            "type": "boolean"
+            "description": "`true` to decrypt [encrypted inbound Notefiles](/guides-and-tutorials/notecard-guides/encrypting-and-decrypting-data-with-the-notecard). Notefile decryption is not supported on Notecard for LoRa.",
+            "type": "boolean",
+            "skus": [
+                "CELL",
+                "CELL+WIFI",
+                "SKYLO",
+                "WIFI"
+            ]
         },
         "delete": {
             "description": "`true` to delete the Note after retrieving it.",
