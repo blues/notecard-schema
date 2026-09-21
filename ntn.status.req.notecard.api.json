@@ -56,6 +56,10 @@
         {
             "title": "Starnote Quickstart",
             "url": "https://dev.blues.io/quickstart/starnote-quickstart/"
+        },
+        {
+            "title": "Diagnosing Satellite Connectivity Issues",
+            "url": "https://dev.blues.io/support/diagnosing-satellite-connectivity-issues/"
         }
     ]
 }

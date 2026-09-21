@@ -18,7 +18,7 @@
             "type": "string"
         },
         "status": {
-            "description": "Details about a Notecard's connection to a paired Starnote, for example: `{\"status\":\"{ntn-idle}{ntn-unknown-location}\"}`",
+            "description": "Details about a Notecard's connection to a paired Starnote, for example: `{\"status\":\"{ntn-idle}{ntn-unknown-location}\"}`. See [Notecard Error and Status Codes](https://dev.blues.io/support/notecard-error-and-status-codes/) for a full list of status codes and their meanings.",
             "type": "string"
         }
     },
@@ -38,6 +38,11 @@
             "title": "Starnote Status with Location Info",
             "description": "Response showing detailed status including location information.",
             "json": "{\"status\": \"{ntn-idle}{ntn-unknown-location}\"}"
+        },
+        {
+            "title": "Starnote Connected with GPS/GNSS Powered",
+            "description": "Response showing a connected satellite module with its GPS/GNSS powered on.",
+            "json": "{\"status\": \"{ntn-idle}{ntn-power}{ntn-gps}{ntn-connected}\"}"
         }
     ]
 }
