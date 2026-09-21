@@ -55,7 +55,7 @@
                     "type": "string"
                 },
                 "band": {
-                    "description": "The radio band the module is configured to use. `0` means the network default.",
+                    "description": "The radio band the module is configured to use. `0` means the network default. This value is provisioned at the factory and is read-only.",
                     "type": "string"
                 },
                 "channel": {

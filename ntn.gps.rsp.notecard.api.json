@@ -14,24 +14,24 @@
     ],
     "properties": {
         "off": {
-            "description": "Returned and `true` if a paired Starnote will use its own GPS/GNSS location.",
+            "description": "Returned and `true` if the Notecard does not supply its location to a paired Starnote. Starnote relies solely on its own GPS/GNSS module.",
             "type": "boolean"
         },
         "on": {
-            "description": "Returned and `true` if a Starnote will use the GPS/GNSS location from its paired Notecard.",
+            "description": "Returned and `true` if the Notecard supplies a location it already knows to a paired Starnote.",
             "type": "boolean"
         }
     },
     "unevaluatedProperties": false,
     "samples": [
         {
-            "title": "Starnote Using Own GPS",
-            "description": "Response indicating Starnote is using its own GPS/GNSS location (default).",
+            "title": "Notecard Location Not Supplied",
+            "description": "Response indicating the Notecard does not supply its location, so Starnote relies solely on its own GPS/GNSS module (default).",
             "json": "{\"off\": true}"
         },
         {
-            "title": "Starnote Using Notecard GPS",
-            "description": "Response indicating Starnote is using paired Notecard's GPS/GNSS location.",
+            "title": "Notecard Location Supplied",
+            "description": "Response indicating the Notecard supplies a location it already knows to the paired Starnote.",
             "json": "{\"on\": true}"
         }
     ]
