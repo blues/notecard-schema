@@ -16,8 +16,26 @@
             "type": "boolean"
         },
         "security": {
-            "description": "The security protocol the WiFi access point uses.",
-            "type": "string"
+            "description": "The security protocol the WiFi access point uses. Notecard supports personal (pre-shared key) security only. Will be one of:",
+            "type": "string",
+            "sub-descriptions": [
+                {
+                    "const": "open",
+                    "description": "The access point uses no security and requires no password."
+                },
+                {
+                    "const": "wep",
+                    "description": "The access point uses WEP."
+                },
+                {
+                    "const": "wpa2-wpa1",
+                    "description": "The access point uses mixed-mode WPA/WPA2 Personal (PSK)."
+                },
+                {
+                    "const": "wpa2-psk",
+                    "description": "The access point uses WPA2 Personal (PSK)."
+                }
+            ]
         },
         "ssid": {
             "description": "The SSID of the WiFi access point.",
@@ -38,7 +56,7 @@
         {
             "title": "Basic Connection Response",
             "description": "Example response with basic WiFi access point information.",
-            "json": "{\"ssid\":\"HomeNetwork\", \"security\":\"wpa3\"}"
+            "json": "{\"ssid\":\"HomeNetwork\", \"security\":\"wpa2-wpa1\"}"
         },
         {
             "title": "Version Information Response",
