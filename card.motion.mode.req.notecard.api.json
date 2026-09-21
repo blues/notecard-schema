@@ -19,7 +19,8 @@
         },
         "seconds": {
             "description": "Period for each bucket of movements to be accumulated when `minutes` is used with `card.motion`.",
-            "type": "integer"
+            "type": "integer",
+            "default": 5
         },
         "sensitivity": {
             "description": "Used to set the accelerometer sample rate. The default sample rate of 1.6Hz could miss short-duration accelerations (e.g. bumps and jolts), and free fall detection may not work reliably with short falls. The penalty for increasing the sample rate to 25Hz is increased current consumption by ~1.5uA relative to the default `-1` setting.",
