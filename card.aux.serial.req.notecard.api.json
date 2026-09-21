@@ -42,7 +42,7 @@
                 },
                 {
                     "const": "gps",
-                    "description": "Use an external GPS/GNSS module on the AUX pins. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-serial-gps-mode)."
+                    "description": "Use an external GPS/GNSS module on the AUX pins. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-aux-serial-gps-mode). Do not use this mode on a Notecard paired with a Starnote, which already provides an external GPS. To return AUX serial to its default, use a `mode` of `\"req\"`."
                 },
                 {
                     "const": "notify",
@@ -117,7 +117,7 @@
     "samples": [
         {
             "title": "Enable GPS Mode",
-            "description": "Configure AUX serial for external GPS communication. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-serial-gps-mode).",
+            "description": "Configure AUX serial for external GPS communication. Using an external GPS/GNSS module allows you to acquire GPS/GNSS location while Notecard is connected to Notehub in `continuous` mode. Learn more at [Using AUX Serial GPS Mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-aux-serial-gps-mode).",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"gps\"}"
         },
         {
@@ -155,6 +155,10 @@
         {
             "title": "Working with the Notecard AUX Pins",
             "url": "https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/"
+        },
+        {
+            "title": "Use Starnote as an External GPS",
+            "url": "https://dev.blues.io/starnote/satellite-best-practices/#use-starnote-as-an-external-gps"
         }
     ]
 }

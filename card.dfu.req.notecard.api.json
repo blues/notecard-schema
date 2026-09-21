@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.dfu.req.notecard.api.json",
     "title": "card.dfu Request Application Programming Interface (API) Schema",
-    "description": "Used to configure a Notecard for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update).",
+    "description": "Used to configure a Notecard for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update/).",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -14,7 +14,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "The `mode` argument allows you to control whether a Notecard's `AUX` pins (default) or `ALT_DFU` pins are used for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update). This argument is only supported on Notecards that have `ALT_DFU` pins, which includes all versions of Notecard Cell+WiFi, non-legacy versions of Notecard Cellular, and Notecard WiFi v2.",
+            "description": "The `mode` argument allows you to control whether a Notecard's `AUX` pins (default) or `ALT_DFU` pins are used for [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update/). This argument is only supported on Notecards that have `ALT_DFU` pins, which includes all versions of Notecard Cell+WiFi, non-legacy versions of Notecard Cellular, and Notecard WiFi v2.",
             "type": "string",
             "enum": [
                 "altdfu",
@@ -23,7 +23,7 @@
             "sub-descriptions": [
                 {
                     "const": "altdfu",
-                    "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update."
+                    "description": "Enable the Notecard's `ALT_DFU` pins (instead of the `AUX` pins) for use with Notecard Outboard Firmware Update. Required on carriers wired to the `ALT_DFU` pins, including the [Notecarrier CX](/datasheets/notecarrier-datasheet/notecarrier-cx-v1-7/) and Notecarrier F v1.5."
                 },
                 {
                     "const": "aux",
@@ -32,7 +32,7 @@
             ]
         },
         "name": {
-            "description": "One of the supported classes of host MCU. Supported MCU classes are `\"esp32\"`, `\"stm32\"`, `\"stm32-bi\"`, `\"mcuboot\"` (added in v5.3.1), and `\"-\"`, which resets the configuration. The \"bi\" in `\"stm32-bi\"` stands for \"boot inverted\", and the `\"stm32-bi\"` option should be used on STM32 family boards where the hardware boot pin is assumed to be active low, instead of active high. Supported MCUs can be found on the [Notecarrier F datasheet](/datasheets/notecarrier-datasheet/notecarrier-f-v1-3).",
+            "description": "One of the supported classes of host MCU. Supported MCU classes are `\"esp32\"`, `\"stm32\"`, `\"stm32-bi\"`, `\"mcuboot\"` (added in v5.3.1), and `\"-\"`, which resets the configuration. The \"bi\" in `\"stm32-bi\"` stands for \"boot inverted\", and the `\"stm32-bi\"` option should be used on STM32 family boards where the hardware boot pin is assumed to be active low, instead of active high. Supported MCUs can be found on the [Notecarrier F datasheet](/datasheets/notecarrier-datasheet/notecarrier-f-v1-5/).",
             "type": "string",
             "enum": [
                 "esp32",

@@ -15,7 +15,7 @@
     ],
     "properties": {
         "align": {
-            "description": "Use `true` to align syncs on a regular time-periodic cycle. The cycle is anchored to the Notecard's boot time, not to a wall-clock time.",
+            "description": "Use `true` to align syncs on a regular time-periodic cycle. The cycle is anchored to the moment the Notecard first obtained valid time after booting, not to a wall-clock time.",
             "type": "boolean"
         },
         "details": {
@@ -114,7 +114,7 @@
                 },
                 {
                     "const": "dfu-completed",
-                    "description": "Takes the Notecard out of DFU mode and resumes its previous synchronization mode. Used by an [IAP host MCU](/notehub/host-firmware-updates/iap-firmware-update) once it has finished retrieving host firmware with `dfu.get`."
+                    "description": "Takes the Notecard out of DFU mode and resumes its previous synchronization mode. Used by an [IAP host MCU](/notehub/host-firmware-updates/iap-firmware-update/) once it has finished retrieving host firmware with `dfu.get`."
                 },
                 {
                     "const": "-",
@@ -177,7 +177,7 @@
             "minApiVersion": "4.1.1"
         },
         "version": {
-            "description": "The version of your host firmware. The value provided will appear on your device in Notehub under the \"Host Firmware\" tab.\n\nYou may pass a simple version number string (e.g. \"1.0.0.0\"), or an object with detailed information about the firmware image. If you provide an object it must take the following form.\n\n`{\"org\":\"my-organization\",\"product\":\"My Product\",\"description\":\"A description of the image\",\"version\":\"1.2.4\",\"built\":\"Jan 01 2025 01:02:03\",\"ver_major\":1,\"ver_minor\":2,\"ver_patch\":4,\"ver_build\": 5,\"builder\":\"The Builder\"}`\n\nIf your project uses [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update), you can alternatively use the [`dfu.status` request](/api-reference/notecard-api/dfu-requests/latest/#dfu-status) to set your host firmware version.",
+            "description": "The version of your host firmware. The value provided will appear on your device in Notehub under the \"Host Firmware\" tab.\n\nYou may pass a simple version number string (e.g. \"1.0.0.0\"), or an object with detailed information about the firmware image. If you provide an object it must take the following form.\n\n`{\"org\":\"my-organization\",\"product\":\"My Product\",\"description\":\"A description of the image\",\"version\":\"1.2.4\",\"built\":\"Jan 01 2025 01:02:03\",\"ver_major\":1,\"ver_minor\":2,\"ver_patch\":4,\"ver_build\": 5,\"builder\":\"The Builder\"}`\n\nIf your project uses [Notecard Outboard Firmware Update](/notehub/host-firmware-updates/notecard-outboard-firmware-update/), you can alternatively use the [`dfu.status` request](/api-reference/notecard-api/dfu-requests/latest/#dfu-status) to set your host firmware version.",
             "type": [
                 "string",
                 "object"
