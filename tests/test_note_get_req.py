@@ -255,6 +255,17 @@ def test_default_file_behavior(schema):
     for request in minimal_requests:
         jsonschema.validate(instance=request, schema=schema)
 
+def test_decrypt_not_supported_on_lora(schema):
+    """Tests that decrypt is restricted to SKUs that support encryption."""
+    decrypt_prop = schema["properties"]["decrypt"]
+    assert "skus" in decrypt_prop, "decrypt property is missing skus"
+    assert decrypt_prop["skus"] == ['CELL', 'CELL+WIFI', 'SKYLO', 'WIFI'], (
+        f"Unexpected skus for decrypt: {decrypt_prop['skus']}"
+    )
+    assert "LORA" not in decrypt_prop["skus"], (
+        "Notefile decryption is not supported on the Notecard LoRa"
+    )
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:
