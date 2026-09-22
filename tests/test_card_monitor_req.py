@@ -73,24 +73,26 @@ def test_valid_count_positive(schema):
     jsonschema.validate(instance=instance, schema=schema)
 
 
-def test_valid_count_zero(schema):
-    """Tests valid count field with zero (returns LED to default)."""
-    instance = {"req": "card.monitor", "count": 0}
-    jsonschema.validate(instance=instance, schema=schema)
-
-
 def test_valid_count_large(schema):
     """Tests valid count field with large number."""
     instance = {"req": "card.monitor", "count": 1000}
     jsonschema.validate(instance=instance, schema=schema)
 
 
-def test_count_invalid_negative(schema):
-    """Tests invalid negative count."""
-    instance = {"req": "card.monitor", "count": -2}
+def test_count_invalid_zero(schema):
+    """Tests that a count of 0 is rejected, as it does not reset an LED override."""
+    instance = {"req": "card.monitor", "mode": "green", "count": 0}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "-2 is less than the minimum of -1" in str(excinfo.value)
+    assert "0 is less than the minimum of 1" in str(excinfo.value)
+
+
+def test_count_invalid_negative(schema):
+    """Tests invalid negative count."""
+    instance = {"req": "card.monitor", "count": -1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "-1 is less than the minimum of 1" in str(excinfo.value)
 
 
 def test_count_invalid_type(schema):
@@ -99,6 +101,46 @@ def test_count_invalid_type(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'5' is not of type 'integer'" in str(excinfo.value)
+
+
+def test_valid_off_true(schema):
+    """Tests valid off field set to true."""
+    instance = {"req": "card.monitor", "mode": "green", "off": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+
+def test_valid_off_false(schema):
+    """Tests valid off field set to false."""
+    instance = {"req": "card.monitor", "mode": "green", "off": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+
+def test_off_invalid_type(schema):
+    """Tests invalid type for off."""
+    instance = {"req": "card.monitor", "mode": "green", "off": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
+
+def test_valid_on_true(schema):
+    """Tests valid on field set to true."""
+    instance = {"req": "card.monitor", "mode": "red", "on": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+
+def test_valid_on_false(schema):
+    """Tests valid on field set to false."""
+    instance = {"req": "card.monitor", "mode": "red", "on": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+
+def test_on_invalid_type(schema):
+    """Tests invalid type for on."""
+    instance = {"req": "card.monitor", "mode": "red", "on": 1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "1 is not of type 'boolean'" in str(excinfo.value)
 
 
 def test_valid_usb_true(schema):
@@ -123,7 +165,14 @@ def test_usb_invalid_type(schema):
 
 def test_valid_all_fields(schema):
     """Tests valid request with all fields."""
-    instance = {"req": "card.monitor", "mode": "green", "count": 5, "usb": True}
+    instance = {
+        "req": "card.monitor",
+        "mode": "green",
+        "count": 5,
+        "off": False,
+        "on": False,
+        "usb": True,
+    }
     jsonschema.validate(instance=instance, schema=schema)
 
 
@@ -134,8 +183,8 @@ def test_valid_mode_count_combination(schema):
 
 
 def test_valid_reset_led_behavior(schema):
-    """Tests resetting LED to default behavior with count 0."""
-    instance = {"req": "card.monitor", "mode": "yellow", "count": 0}
+    """Tests resetting an LED to its default behavior with off."""
+    instance = {"req": "card.monitor", "mode": "yellow", "off": True}
     jsonschema.validate(instance=instance, schema=schema)
 
 

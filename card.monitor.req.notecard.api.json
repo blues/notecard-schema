@@ -14,9 +14,9 @@
     ],
     "properties": {
         "count": {
-            "description": "The number of pulses to send to the overridden AUX pin LED. Set this value to `0` to return the LED to its default behavior.",
+            "description": "The number of pulses to send to the overridden AUX pin LED. To return the LED to its default behavior, use `\"off\": true` along with the `mode` of the LED.",
             "type": "integer",
-            "minimum": -1
+            "minimum": 1
         },
         "mode": {
             "description": "Can be set to one of `green`, `red` or `yellow` to temporarily override the behavior of an AUX pin LED.\n\nSee [Using Monitor Mode](https://dev.blues.io/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins/#using-monitor-mode) for additional details.",
@@ -40,6 +40,14 @@
                     "description": "Temporarily override the behavior of the yellow AUX pin LED."
                 }
             ]
+        },
+        "off": {
+            "description": "Set to `true`, along with a `mode`, to clear an override and return that AUX pin LED to its default behavior.",
+            "type": "boolean"
+        },
+        "on": {
+            "description": "Set to `true`, along with a `mode`, to turn that AUX pin LED on continuously.",
+            "type": "boolean"
         },
         "usb": {
             "description": "Set to `true` to configure LED behavior so that it is only active when the Notecard is connected to USB power.",
@@ -89,6 +97,21 @@
             "title": "Override LED Behavior",
             "description": "Configure the green LED to pulse 5 times.",
             "json": "{\"req\":\"card.monitor\", \"mode\":\"green\", \"count\":5}"
+        },
+        {
+            "title": "Turn an LED On Continuously",
+            "description": "Override the red LED and hold it on until the override is cleared.",
+            "json": "{\"req\":\"card.monitor\", \"mode\":\"red\", \"on\":true}"
+        },
+        {
+            "title": "Return an LED to its Default Behavior",
+            "description": "Clear any override on the green LED so it resumes signaling Notecard activity.",
+            "json": "{\"req\":\"card.monitor\", \"mode\":\"green\", \"off\":true}"
+        },
+        {
+            "title": "Override an LED Only on USB Power",
+            "description": "Configure the yellow LED to pulse 3 times, but only while the Notecard is connected to USB power.",
+            "json": "{\"req\":\"card.monitor\", \"mode\":\"yellow\", \"count\":3, \"usb\":true}"
         }
     ],
     "links": [
