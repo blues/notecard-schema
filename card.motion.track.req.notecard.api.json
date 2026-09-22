@@ -24,7 +24,8 @@
         },
         "minutes": {
             "description": "The maximum period to capture Notes in the Notefile.",
-            "type": "integer"
+            "type": "integer",
+            "default": 1
         },
         "now": {
             "description": "Set to `true` to trigger the immediate creation of a `_motion.qo` event if the orientation of the Notecard changes (overriding the `minutes` setting).",

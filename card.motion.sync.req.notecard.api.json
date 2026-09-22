@@ -19,7 +19,8 @@
         },
         "minutes": {
             "description": "The maximum frequency at which sync will be triggered. Even if a `threshold` is set and exceeded, there will only be a single sync for this amount of time.",
-            "type": "integer"
+            "type": "integer",
+            "default": 1
         },
         "start": {
             "description": "`true` to start motion-triggered syncing.",
