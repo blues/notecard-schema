@@ -1,29 +1,49 @@
 name: Publish API Documentation (Static Site)
 
+# Publishing is gated on CI: the site only ever deploys from a commit whose CI
+# run went green.
+#
+# A `push` trigger used to sit alongside `workflow_run`, which defeated that gate
+# -- a push deployed immediately regardless of whether CI passed. Worse, both
+# triggers fired for the same commit, so every master push deployed Pages two or
+# three times (585450b3 deployed three times, 7ffccab4/ece0d621/2bc3d344 twice
+# each). `workflow_run` is the one kept because it is the one that enforces the
+# gate.
+#
+# Note this changes which tree is published: a `workflow_run` job checks out the
+# default branch HEAD rather than the triggering commit. For a docs site that is
+# what we want -- master HEAD is always the thing to publish -- and it makes two
+# rapid pushes converge on the same content instead of racing to publish
+# different trees.
 on:
   workflow_run:
     workflows: ["CI"]
     types:
       - completed
     branches:
-      - master # Or master, depending on your CI workflow's branch
-  push:
-    branches:
       - master
-    paths:
-      - '**.json'
-      - 'scripts/generate_docs.py'
   workflow_dispatch:
+
+# GitHub Pages has exactly one live deployment, so overlapping runs race and the
+# slower one wins no matter which commit is newer. Serialize rather than cancel:
+# cancel-in-progress would abort a deploy mid-upload and can leave the site on an
+# older build.
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     # Condition to ensure the CI workflow was successful
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push') || (github.event.workflow_run.conclusion == 'success')
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     permissions:
       contents: write
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
