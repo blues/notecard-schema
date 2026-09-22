@@ -19,10 +19,8 @@ jobs:
       uses: actions/setup-python@v7
       with:
         python-version: '3.13'
-        # Caches the pipenv virtualenv, keyed on Pipfile.lock. Note the ordering:
-        # for pipenv, setup-python must run BEFORE pipenv is installed (the
-        # opposite of poetry, which must be installed first). See
-        # actions/setup-python docs/advanced-usage.md.
+        # For pipenv this must run BEFORE pipenv is installed (poetry is the
+        # opposite). See actions/setup-python docs/advanced-usage.md.
         cache: 'pipenv'
 
     - name: Install pipenv
@@ -31,8 +29,7 @@ jobs:
         pip install pipenv
 
     - name: Install dependencies
-      # --deploy: fail loudly if Pipfile.lock is out of sync with Pipfile instead
-      # of silently re-resolving. Without it CI ignored the committed lock entirely.
+      # --deploy fails on a stale lock instead of silently re-resolving.
       run: pipenv install --dev --deploy
 
     - name: Run pre-commit checks

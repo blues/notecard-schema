@@ -1,8 +1,14 @@
 # AGENTS.md
 
 Guidance for AI coding agents working in this repository. This is the single
-source of truth for agent instructions — `CLAUDE.md` imports this file, and
-there is no separate Copilot instructions file.
+source of truth for agent instructions; there is no separate `CLAUDE.md` or
+Copilot instructions file.
+
+Most agents read `AGENTS.md` directly. Claude Code does too, but only on recent
+versions — where it is unavailable (older releases, and some Bedrock or
+telemetry-disabled sessions) the documented fallback is a `CLAUDE.md` containing
+`@AGENTS.md`. Add one if you hit that, rather than forking the content:
+<https://code.claude.com/docs/en/memory#when-agentsmd-support-is-unavailable>
 
 ## Repository Overview
 
@@ -82,8 +88,9 @@ canonical ordering reference. Top-level fields in order:
 - `links` is optional and always placed last, after `samples`.
 - Use **`"unevaluatedProperties": false`**, not `additionalProperties`. Request
   schemas put `req`/`cmd` inside `oneOf`, and `additionalProperties` does not
-  see into subschemas — it would reject every valid request. All 75 request
-  schemas and 60 response schemas use `unevaluatedProperties`.
+  see into subschemas — it would reject every valid request. Every request
+  schema in the repo uses `unevaluatedProperties`, as do nearly all response
+  schemas.
 - Add `required` only when the API genuinely requires a parameter. It is not
   boilerplate; most schemas omit it entirely.
 - **Response schemas** do not use `oneOf` / `req` / `cmd`. They describe the

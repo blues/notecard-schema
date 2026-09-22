@@ -1,20 +1,7 @@
 name: Publish API Documentation (Static Site)
 
-# Publishing is gated on CI: the site only ever deploys from a commit whose CI
-# run went green.
-#
-# A `push` trigger used to sit alongside `workflow_run`, which defeated that gate
-# -- a push deployed immediately regardless of whether CI passed. Worse, both
-# triggers fired for the same commit, so every master push deployed Pages two or
-# three times (585450b3 deployed three times, 7ffccab4/ece0d621/2bc3d344 twice
-# each). `workflow_run` is the one kept because it is the one that enforces the
-# gate.
-#
-# Note this changes which tree is published: a `workflow_run` job checks out the
-# default branch HEAD rather than the triggering commit. For a docs site that is
-# what we want -- master HEAD is always the thing to publish -- and it makes two
-# rapid pushes converge on the same content instead of racing to publish
-# different trees.
+# Deploys only commits whose CI run went green. A `push` trigger alongside
+# `workflow_run` used to defeat that gate and double-fired every master push.
 on:
   workflow_run:
     workflows: ["CI"]
@@ -24,20 +11,52 @@ on:
       - master
   workflow_dispatch:
 
-# GitHub Pages has exactly one live deployment, so overlapping runs race and the
-# slower one wins no matter which commit is newer. Serialize rather than cancel:
-# cancel-in-progress would abort a deploy mid-upload and can leave the site on an
-# older build.
+# Pages has one live deployment; cancelling mid-upload can strand the site on an
+# older build, so serialize instead.
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
+  # workflow_run sets GITHUB_SHA to the default branch tip, not the commit whose
+  # CI succeeded, so the deploy job must be told explicitly which sha to build.
+  # It also has to skip shas that master has already moved past: a slow CI run can
+  # otherwise finish last and republish an older tree over a newer one.
+  resolve-commit:
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.resolve.outputs.sha }}
+      current: ${{ steps.resolve.outputs.current }}
+    steps:
+      - id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: |
+          echo "sha=${DEPLOY_SHA}" >> "$GITHUB_OUTPUT"
+          # A manual dispatch is a deliberate act; deploy the ref it was run from.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          head_sha=$(gh api "repos/${GITHUB_REPOSITORY}/commits/master" --jq .sha)
+          if [ "$DEPLOY_SHA" = "$head_sha" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping deploy of ${DEPLOY_SHA}; master is now ${head_sha}."
+          fi
+
   build-and-deploy:
+    needs: resolve-commit
+    if: needs.resolve-commit.outputs.current == 'true'
     timeout-minutes: 15
     runs-on: ubuntu-24.04
-    # Condition to ensure the CI workflow was successful
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     permissions:
       contents: write
       pages: write
@@ -49,6 +68,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.resolve-commit.outputs.sha }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
