@@ -25,7 +25,9 @@ jobs:
         pip install pipenv
 
     - name: Install dependencies
-      run: pipenv install --dev
+      # --deploy: fail loudly if Pipfile.lock is out of sync with Pipfile instead
+      # of silently re-resolving. Without it CI ignored the committed lock entirely.
+      run: pipenv install --dev --deploy
 
     - name: Run pre-commit checks
       uses: pre-commit/action@v3.0.1

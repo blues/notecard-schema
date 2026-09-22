@@ -24,7 +24,7 @@ jobs:
         pip install pipenv
 
     - name: Install dependencies
-      run: pipenv install --dev
+      run: pipenv install --dev --deploy
 
     - name: Verify environment - Test script execution
       run: pipenv run python scripts/update_schema_version.py --help
