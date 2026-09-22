@@ -17,7 +17,12 @@ jobs:
     - name: Set up Python 3.13
       uses: actions/setup-python@v5
       with:
-        python-version: 3.13
+        python-version: '3.13'
+        # Caches the pipenv virtualenv, keyed on Pipfile.lock. Note the ordering:
+        # for pipenv, setup-python must run BEFORE pipenv is installed (the
+        # opposite of poetry, which must be installed first). See
+        # actions/setup-python docs/advanced-usage.md.
+        cache: 'pipenv'
 
     - name: Install pipenv
       run: |
