@@ -1,45 +1,88 @@
 name: Publish API Documentation (Static Site)
 
+# Deploys only commits whose CI run went green. A `push` trigger alongside
+# `workflow_run` used to defeat that gate and double-fired every master push.
 on:
   workflow_run:
     workflows: ["CI"]
     types:
       - completed
     branches:
-      - master # Or master, depending on your CI workflow's branch
-  push:
-    branches:
       - master
-    paths:
-      - '**.json'
-      - 'scripts/generate_docs.py'
   workflow_dispatch:
 
+# Pages has one live deployment; cancelling mid-upload can strand the site on an
+# older build, so serialize instead.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
+  # workflow_run sets GITHUB_SHA to the default branch tip, not the commit whose
+  # CI succeeded, so the deploy job must be told explicitly which sha to build.
+  # It also has to skip shas that master has already moved past: a slow CI run can
+  # otherwise finish last and republish an older tree over a newer one.
+  resolve-commit:
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    permissions:
+      contents: read
+    outputs:
+      sha: ${{ steps.resolve.outputs.sha }}
+      current: ${{ steps.resolve.outputs.current }}
+    steps:
+      - id: resolve
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+        run: |
+          echo "sha=${DEPLOY_SHA}" >> "$GITHUB_OUTPUT"
+          # A manual dispatch is a deliberate act; deploy the ref it was run from.
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          head_sha=$(gh api "repos/${GITHUB_REPOSITORY}/commits/master" --jq .sha)
+          if [ "$DEPLOY_SHA" = "$head_sha" ]; then
+            echo "current=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "current=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Skipping deploy of ${DEPLOY_SHA}; master is now ${head_sha}."
+          fi
+
   build-and-deploy:
-    runs-on: ubuntu-latest
-    # Condition to ensure the CI workflow was successful
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push') || (github.event.workflow_run.conclusion == 'success')
+    needs: resolve-commit
+    if: needs.resolve-commit.outputs.current == 'true'
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       pages: write
       id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ needs.resolve-commit.outputs.sha }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: '3.13'
+          cache: 'pipenv'
 
       - name: Install Pipenv
         run: python -m pip install --upgrade pip pipenv
 
       - name: Install dependencies
         run: |
-          pipenv install --dev
+          pipenv install --dev --deploy
 
       - name: Generate documentation
         run: |
@@ -50,13 +93,13 @@ jobs:
           pipenv run mkdocs build
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: site
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

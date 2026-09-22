@@ -8,16 +8,20 @@ on:
 
 jobs:
   validate_schemas:
-    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v7
 
     - name: Set up Python 3.13
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7
       with:
-        python-version: 3.13
+        python-version: '3.13'
+        # For pipenv this must run BEFORE pipenv is installed (poetry is the
+        # opposite). See actions/setup-python docs/advanced-usage.md.
+        cache: 'pipenv'
 
     - name: Install pipenv
       run: |
@@ -25,7 +29,8 @@ jobs:
         pip install pipenv
 
     - name: Install dependencies
-      run: pipenv install --dev
+      # --deploy fails on a stale lock instead of silently re-resolving.
+      run: pipenv install --dev --deploy
 
     - name: Run pre-commit checks
       uses: pre-commit/action@v3.0.1
