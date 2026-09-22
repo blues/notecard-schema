@@ -7,6 +7,7 @@ jobs:
   # The job MUST be called `copilot-setup-steps` or it will not be picked up
   # by Copilot.
   copilot-setup-steps:
+    timeout-minutes: 10
     runs-on: ubuntu-24.04
 
     steps:

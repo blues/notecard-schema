@@ -6,6 +6,7 @@ on:
 
 jobs:
   create-release-schema:
+    timeout-minutes: 5
     runs-on: ubuntu-24.04
     permissions:
       contents: write
