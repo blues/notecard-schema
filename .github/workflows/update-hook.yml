@@ -11,7 +11,7 @@ on:
 
 jobs:
   trigger-downstream:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         downstream_repo:
@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Generate App Token                                                                                                                                    
         id: app-token                                                                                                                                               
-        uses: actions/create-github-app-token@v1                                                                                                                    
+        uses: actions/create-github-app-token@v3                                                                                                                    
         with:                                                                                                                                                       
           app-id: ${{ secrets.SCHEMA_SYNC_APP_ID }}                                                                                                                 
           private-key: ${{ secrets.SCHEMA_SYNC_PRIVATE_KEY }}                                                                                                       
