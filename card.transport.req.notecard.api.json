@@ -197,6 +197,11 @@
             "title": "WiFi-Cell-NTN Priority",
             "description": "Configure triple fallback: WiFi \u2192 cellular \u2192 NTN with custom timeout.",
             "json": "{\"req\": \"card.transport\", \"method\": \"wifi-cell-ntn\", \"seconds\": 1800}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Including `set` ensures `allow` is also reset.",
+            "json": "{\"req\": \"card.transport\", \"allow\": false, \"method\": \"-\", \"seconds\": -1, \"set\": true}"
         }
     ],
     "links": [

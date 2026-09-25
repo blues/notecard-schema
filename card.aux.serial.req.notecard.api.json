@@ -149,6 +149,11 @@
             "title": "Multiple Mode",
             "description": "Subscribe to multiple notifications at once.",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel,env\", \"duration\": 500}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.aux.serial\", \"max\": -1, \"mode\": \"req\", \"ms\": -1, \"rate\": -1}"
         }
     ],
     "links": [

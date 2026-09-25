@@ -100,6 +100,11 @@
             "title": "Configure Multiple Access Points",
             "description": "Set up multiple WiFi access points for fallback connectivity.",
             "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.wifi\", \"name\": \"-\", \"org\": \"-\", \"password\": \"-\", \"ssid\": \"-\"}"
         }
     ],
     "links": [

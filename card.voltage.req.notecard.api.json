@@ -43,7 +43,8 @@
                         "alkaline",
                         "tad",
                         "lic",
-                        "?"
+                        "?",
+                        "-"
                     ]
                 },
                 {
@@ -79,6 +80,10 @@
                 {
                     "const": "?",
                     "description": "Query the Notecard for its currently-set thresholds."
+                },
+                {
+                    "const": "-",
+                    "description": "Resets the mode to the default value (`default`)."
                 }
             ]
         },
@@ -192,6 +197,11 @@
             "title": "Enable Historic Voltage Trends",
             "description": "Enable historic voltage trends tracking.",
             "json": "{\"req\": \"card.voltage\", \"on\": true}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.voltage\", \"mode\": \"-\"}"
         }
     ],
     "links": [

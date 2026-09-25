@@ -327,6 +327,11 @@
             "title": "Web Transaction Control",
             "description": "Temporarily switch to continuous mode for web transactions.",
             "json": "{\"req\": \"hub.set\", \"on\": true, \"seconds\": 300}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. On Notecard LoRa, reset `details` separately.",
+            "json": "{\"req\": \"hub.set\", \"duration\": -1, \"host\": \"-\", \"inbound\": -1, \"mode\": \"-\", \"outbound\": -1, \"product\": \"-\", \"seconds\": -1, \"sn\": \"-\", \"vinbound\": \"-\", \"voutbound\": \"-\"}"
         }
     ],
     "links": [

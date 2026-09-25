@@ -164,12 +164,31 @@ def test_valid_mode(schema):
     jsonschema.validate(instance=instance, schema=schema)
 
 
+def test_valid_mode_reset(schema):
+    """Tests that mode accepts the reset value '-'."""
+    instance = {"req": "card.dfu", "mode": "-"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+
 def test_mode_invalid_enum(schema):
     """Tests invalid mode enum value."""
     instance = {"req": "card.dfu", "mode": "invalid"}
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
-    assert "'invalid' is not one of ['altdfu', 'aux']" in str(excinfo.value)
+    assert "'invalid' is not one of ['altdfu', 'aux', '-']" in str(excinfo.value)
+
+
+def test_valid_reset_all_arguments(schema):
+    """Tests a request that resets all documented arguments at once."""
+    instance = {
+        "req": "card.dfu",
+        "mode": "-",
+        "name": "-",
+        "on": True,
+        "seconds": -1,
+        "start": True,
+    }
+    jsonschema.validate(instance=instance, schema=schema)
 
 
 def test_mode_invalid_type(schema):

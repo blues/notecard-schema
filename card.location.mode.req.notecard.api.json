@@ -149,6 +149,11 @@
             "title": "Fixed Mode",
             "description": "Set a fixed location for the device.",
             "json": "{\"req\": \"card.location.mode\", \"mode\": \"fixed\", \"lat\": 42.5776, \"lon\": -70.87134}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.location.mode\", \"max\": -1, \"minutes\": -1, \"mode\": \"-\", \"seconds\": -1, \"threshold\": -1, \"vseconds\": \"-\"}"
         }
     ],
     "links": [

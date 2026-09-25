@@ -551,6 +551,11 @@
             "title": "Track Mode",
             "description": "Enhance Notes with temperature, pressure, and humidity readings from a connected BME280 sensor.",
             "json": "{\"req\": \"card.aux\", \"mode\": \"track\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.aux\", \"mode\": \"-\", \"rate\": -1}"
         }
     ],
     "links": [

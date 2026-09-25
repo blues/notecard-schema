@@ -91,6 +91,11 @@
             "title": "Heartbeat",
             "description": "Start tracking with heartbeat mode and immediate sync.",
             "json": "{\"req\": \"card.location.track\", \"start\": true, \"sync\": true, \"heartbeat\": true, \"hours\": 2}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.location.track\", \"hours\": -1}"
         }
     ],
     "links": [

@@ -133,6 +133,11 @@
             "title": "Force Fallback Mode For Starnote.",
             "description": "Force the Notecard to enter fallback mode (cellular/WiFi automatically failed over to NTN).",
             "json": "{\"req\": \"card.io\", \"mode\": \"+fallback\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Only one `mode` value is accepted per request, so send `\"mode\": \"-fallback\"` in a separate request to reset fallback mode.",
+            "json": "{\"req\": \"card.io\", \"i2c\": -1, \"mode\": \"-busy\"}"
         }
     ],
     "links": [

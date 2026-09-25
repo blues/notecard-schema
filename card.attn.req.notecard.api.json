@@ -386,6 +386,11 @@
             "title": "Disarm all Modes",
             "description": "Disarm all interrupts.",
             "json": "{\"req\":\"card.attn\",\"mode\":\"disarm,-all\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.attn\", \"mode\": \"disarm,-all\", \"on\": true}"
         }
     ],
     "links": [
