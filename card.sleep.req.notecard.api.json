@@ -110,7 +110,7 @@
         {
             "title": "Reset All Arguments",
             "description": "Reset all arguments to their default values.",
-            "json": "{\"req\": \"card.sleep\", \"mode\": \"-accel\", \"seconds\": -1}"
+            "json": "{\"req\": \"card.sleep\", \"mode\": \"-accel\", \"off\": true, \"seconds\": -1}"
         }
     ],
     "links": [

@@ -554,7 +554,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values.",
+            "description": "Reset all arguments to their default values. Settings used only in `gpio` mode (`max`, `ms`, `connected`, and on Notecard LoRa, `usage`) or `neo-monitor` mode (`count`, `offset`, `sensitivity`) are kept until that mode is next configured. If AUX GPS was enabled with the deprecated `gps` argument, also reset `card.aux.serial` as shown in its Reset All Arguments example.",
             "json": "{\"req\": \"card.aux\", \"mode\": \"-\", \"rate\": -1}"
         }
     ],

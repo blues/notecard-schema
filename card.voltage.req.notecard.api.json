@@ -109,6 +109,11 @@
             "description": "Enable historic voltage trend calculations.",
             "type": "boolean"
         },
+        "reset": {
+            "description": "Set to `true` to clear a calibration value previously set with `set` and `calibration`, restoring the default calibration.",
+            "type": "boolean",
+            "default": false
+        },
         "set": {
             "description": "Used along with `calibration`, set to `true` to specify a new calibration value.",
             "type": "boolean",
@@ -200,8 +205,8 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values.",
-            "json": "{\"req\": \"card.voltage\", \"mode\": \"-\"}"
+            "description": "Reset all arguments to their default values. Passing `usb` without `alert` or `sync` resets both to `false`.",
+            "json": "{\"req\": \"card.voltage\", \"mode\": \"-\", \"off\": true, \"reset\": true, \"usb\": true}"
         }
     ],
     "links": [

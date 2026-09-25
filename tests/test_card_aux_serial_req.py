@@ -44,6 +44,20 @@ def test_mode_invalid_pattern(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "does not match" in str(excinfo.value) or "pattern" in str(excinfo.value).lower()
 
+def test_mode_notify_clear_all_valid(schema):
+    """Tests that -all can clear notify options, alone or before new ones."""
+    for mode in ["notify,-all", "notify,-all,env", "notify,accel,-all", "notify,accel,dfu,-all"]:
+        instance = {"req": "card.aux.serial", "mode": mode}
+        jsonschema.validate(instance=instance, schema=schema)
+
+def test_mode_clear_all_invalid(schema):
+    """Tests that -all is only accepted as a notify option."""
+    for mode in ["-all", "req,-all", "gps,-all", "notify,all", "notify,-env"]:
+        instance = {"req": "card.aux.serial", "mode": mode}
+        with pytest.raises(jsonschema.ValidationError) as excinfo:
+            jsonschema.validate(instance=instance, schema=schema)
+        assert "does not match" in str(excinfo.value)
+
 def test_mode_invalid_combinations(schema):
     """Tests invalid mode combinations that should not be allowed."""
     invalid_modes = [

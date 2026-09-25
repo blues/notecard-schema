@@ -242,6 +242,20 @@ def test_off_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'false' is not of type 'boolean'" in str(excinfo.value)
 
+def test_valid_reset_field(schema):
+    """Tests valid reset field."""
+    instance = {"req": "card.voltage", "reset": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "reset": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_reset_invalid_type(schema):
+    """Tests invalid type for reset field."""
+    instance = {"req": "card.voltage", "reset": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
+
 def test_hours_maximum_constraint(schema):
     """Tests hours maximum constraint."""
     instance = {"req": "card.voltage", "hours": 720}

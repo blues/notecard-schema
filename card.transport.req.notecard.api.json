@@ -135,6 +135,12 @@
             "default": false,
             "minApiVersion": "9.1.1"
         },
+        "uoff": {
+            "description": "Set to `true` to turn off the longer network transport timeout set with `umin`.",
+            "type": "boolean",
+            "default": false,
+            "minApiVersion": "9.1.1"
+        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "card.transport"
@@ -201,7 +207,7 @@
         {
             "title": "Reset All Arguments",
             "description": "Reset all arguments to their default values. Including `set` ensures `allow` is also reset.",
-            "json": "{\"req\": \"card.transport\", \"allow\": false, \"method\": \"-\", \"seconds\": -1, \"set\": true}"
+            "json": "{\"req\": \"card.transport\", \"allow\": false, \"method\": \"-\", \"seconds\": -1, \"set\": true, \"uoff\": true}"
         }
     ],
     "links": [

@@ -106,6 +106,21 @@ def test_umin_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "1 is not of type 'boolean'" in str(excinfo.value)
 
+def test_valid_uoff_field(schema):
+    """Tests valid uoff field."""
+    instance = {"req": "card.transport", "uoff": True}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance = {"req": "card.transport", "uoff": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_uoff_invalid_type(schema):
+    """Tests invalid type for uoff."""
+    instance = {"req": "card.transport", "uoff": 1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "1 is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_set_field(schema):
     """Tests valid set field."""
     instance = {"req": "card.transport", "set": True, "allow": True}

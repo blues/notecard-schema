@@ -136,7 +136,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values. Only one `mode` value is accepted per request, so send `\"mode\": \"-fallback\"` in a separate request to reset fallback mode.",
+            "description": "Reset all arguments to their default values. Only one `mode` value is accepted per request, so also send `{\"req\": \"card.io\", \"mode\": \"-fallback\"}`, `{\"req\": \"card.io\", \"mode\": \"usb\"}`, and `{\"req\": \"card.io\", \"mode\": \"i2c-master-enable\"}` as separate requests.",
             "json": "{\"req\": \"card.io\", \"i2c\": -1, \"mode\": \"-busy\"}"
         }
     ],

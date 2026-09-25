@@ -86,6 +86,11 @@
             "title": "Orientation Change Only",
             "description": "Configure sync to trigger only on orientation changes.",
             "json": "{\"req\": \"card.motion.sync\", \"start\": true, \"threshold\": 0, \"minutes\": 10}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Passing `start` and `stop` together restores the default parameters and leaves motion sync disabled.",
+            "json": "{\"req\": \"card.motion.sync\", \"start\": true, \"stop\": true}"
         }
     ],
     "links": [

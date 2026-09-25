@@ -152,8 +152,8 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values.",
-            "json": "{\"req\": \"card.location.mode\", \"max\": -1, \"minutes\": -1, \"mode\": \"-\", \"seconds\": -1, \"threshold\": -1, \"vseconds\": \"-\"}"
+            "description": "Reset all arguments to their default values. On Notecard LoRa, send `{\"req\": \"card.location.mode\", \"delete\": true}` instead.",
+            "json": "{\"req\": \"card.location.mode\", \"delete\": true, \"max\": -1, \"minutes\": -1, \"mode\": \"-\", \"seconds\": -1, \"threshold\": -1, \"vseconds\": \"-\"}"
         }
     ],
     "links": [

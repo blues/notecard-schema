@@ -330,7 +330,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values. On Notecard LoRa, reset `details` separately.",
+            "description": "Reset all arguments to their default values. First send `{\"req\": \"hub.set\", \"mode\": \"continuous\"}` to reset `sync`, which briefly switches the Notecard to `continuous` mode. To end temporary continuous mode, also send `{\"req\": \"hub.set\", \"off\": true}` as a separate request. On Notecard LoRa, reset `details` separately.",
             "json": "{\"req\": \"hub.set\", \"duration\": -1, \"host\": \"-\", \"inbound\": -1, \"mode\": \"-\", \"outbound\": -1, \"product\": \"-\", \"seconds\": -1, \"sn\": \"-\", \"vinbound\": \"-\", \"voutbound\": \"-\"}"
         }
     ],

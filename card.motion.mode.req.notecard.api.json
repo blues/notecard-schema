@@ -131,7 +131,7 @@
         {
             "title": "Reset All Arguments",
             "description": "Reset all arguments to their default values. Passing `seconds` without `motion` also resets `motion` to `0`.",
-            "json": "{\"req\": \"card.motion.mode\", \"seconds\": -1, \"sensitivity\": -1}"
+            "json": "{\"req\": \"card.motion.mode\", \"seconds\": -1, \"sensitivity\": -1, \"start\": true}"
         }
     ],
     "links": [
