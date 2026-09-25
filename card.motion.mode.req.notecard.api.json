@@ -127,6 +127,11 @@
             "title": "Configure Motion Status Change",
             "description": "Set motion threshold for status change detection.",
             "json": "{\"req\": \"card.motion.mode\", \"motion\": 5, \"seconds\": 60}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Passing `seconds` without `motion` also resets `motion` to `0`.",
+            "json": "{\"req\": \"card.motion.mode\", \"seconds\": -1, \"sensitivity\": -1, \"start\": true}"
         }
     ],
     "links": [

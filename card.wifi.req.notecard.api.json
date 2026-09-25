@@ -100,6 +100,11 @@
             "title": "Configure Multiple Access Points",
             "description": "Set up multiple WiFi access points for fallback connectivity.",
             "json": "{\"req\":\"card.wifi\",\"text\":\"[\\\"FIRST-SSID\\\",\\\"FIRST-PASSWORD\\\"],[\\\"SECOND-SSID\\\",\\\"SECOND-PASSWORD\\\"]\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. To also remove networks added with `text`, send `{\"req\": \"card.wifi\", \"text\": \"[\\\"\\\"]\"}`, which replaces them with a single empty entry. On Notecard Cell+WiFi, that entry makes the Notecard attempt WiFi before falling back to cellular.",
+            "json": "{\"req\": \"card.wifi\", \"name\": \"-\", \"org\": \"-\", \"password\": \"-\", \"ssid\": \"-\"}"
         }
     ],
     "links": [

@@ -106,6 +106,11 @@
             "title": "Disable Sleep Mode",
             "description": "Disable sleep mode functionality.",
             "json": "{\"cmd\": \"card.sleep\", \"off\": true}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.sleep\", \"mode\": \"-accel\", \"off\": true, \"seconds\": -1}"
         }
     ],
     "links": [

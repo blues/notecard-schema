@@ -119,6 +119,11 @@
             "title": "Clear Triangulation Mode",
             "description": "Clear the device-configured triangulation mode and revert to the default for the Notecard type.",
             "json": "{\"req\":\"card.triangulate\",\"mode\":\"-\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Passing `set` without `on` or `usb` resets both to `false`.",
+            "json": "{\"req\": \"card.triangulate\", \"minutes\": -1, \"mode\": \"-\", \"set\": true, \"text\": \"-\"}"
         }
     ],
     "links": [

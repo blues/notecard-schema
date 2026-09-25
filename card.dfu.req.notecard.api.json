@@ -18,7 +18,8 @@
             "type": "string",
             "enum": [
                 "altdfu",
-                "aux"
+                "aux",
+                "-"
             ],
             "sub-descriptions": [
                 {
@@ -28,6 +29,10 @@
                 {
                     "const": "aux",
                     "description": "Return the Notecard's `ALT_DFU` pins to their default state of `AUX`."
+                },
+                {
+                    "const": "-",
+                    "description": "Resets the mode to the default value (`aux`)."
                 }
             ]
         },
@@ -136,6 +141,11 @@
             "title": "Disable DFU Temporarily",
             "description": "Disable DFU for 3600 seconds.",
             "json": "{\"req\": \"card.dfu\", \"off\": true, \"seconds\": 3600}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.dfu\", \"mode\": \"-\", \"name\": \"-\", \"on\": true, \"seconds\": -1, \"start\": true}"
         }
     ],
     "links": [
