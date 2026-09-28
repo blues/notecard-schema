@@ -95,6 +95,11 @@
             "title": "Enable Immediate Orientation Changes",
             "description": "Configure motion tracking with immediate orientation change capture.",
             "json": "{\"req\": \"card.motion.track\", \"start\": true, \"now\": true, \"minutes\": 15}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Passing `start` and `stop` together restores the default parameters and leaves motion tracking disabled.",
+            "json": "{\"req\": \"card.motion.track\", \"start\": true, \"stop\": true}"
         }
     ],
     "links": [

@@ -52,6 +52,25 @@ def test_valid_mode_enums(schema):
         instance = {"req": "card.voltage", "mode": mode}
         jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_mode_reset(schema):
+    """Tests that '-' is accepted to reset mode to its default value."""
+    instance = {"req": "card.voltage", "mode": "-"}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_mode_reset_invalid_type(schema):
+    """Tests that a numeric reset value is still rejected for mode."""
+    instance = {"req": "card.voltage", "mode": -1}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "-1 is not of type 'string'" in str(excinfo.value)
+
+def test_mode_invalid_reset_variant(schema):
+    """Tests that strings merely resembling the reset key are still rejected."""
+    for mode in ["--", "-default", " -"]:
+        instance = {"req": "card.voltage", "mode": mode}
+        with pytest.raises(jsonschema.ValidationError):
+            jsonschema.validate(instance=instance, schema=schema)
+
 def test_mode_invalid_value(schema):
     """Tests an arbitrary mode value that matches neither the enum nor the shorthand pattern."""
     instance = {"req": "card.voltage", "mode": "nimh"}
@@ -222,6 +241,20 @@ def test_off_invalid_type(schema):
     with pytest.raises(jsonschema.ValidationError) as excinfo:
         jsonschema.validate(instance=instance, schema=schema)
     assert "'false' is not of type 'boolean'" in str(excinfo.value)
+
+def test_valid_reset_field(schema):
+    """Tests valid reset field."""
+    instance = {"req": "card.voltage", "reset": True}
+    jsonschema.validate(instance=instance, schema=schema)
+    instance = {"req": "card.voltage", "reset": False}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_reset_invalid_type(schema):
+    """Tests invalid type for reset field."""
+    instance = {"req": "card.voltage", "reset": "true"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'true' is not of type 'boolean'" in str(excinfo.value)
 
 def test_hours_maximum_constraint(schema):
     """Tests hours maximum constraint."""

@@ -145,6 +145,11 @@
             "title": "Failover to External SIM",
             "description": "Configure dual SIM failover with external SIM priority.",
             "json": "{\"req\":\"card.wireless\",\"apn\":\"myapn.nb\",\"method\":\"dual-primary-secondary\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.wireless\", \"apn\": \"-\", \"method\": \"-\", \"mode\": \"-\"}"
         }
     ],
     "links": [

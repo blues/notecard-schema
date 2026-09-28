@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/card.restore.req.notecard.api.json",
     "title": "card.restore Request Application Programming Interface (API) Schema",
-    "description": "Performs a factory reset on the Notecard and restarts.\n\n*Sending this request without either of the optional arguments below will only reset the Notecard's file system, thus forcing a re-sync of all Notefiles from Notehub.*\n\nOn Notecard LoRa there is no option to retain configuration settings, and providing `\"delete\": true` is required. The Notecard LoRa retains LoRaWAN configuration after factory resets.",
+    "description": "Performs a factory reset on the Notecard and restarts.\n\n*Sending this request without either of the optional arguments below will only reset the Notecard's file system, thus forcing a re-sync of all Notefiles from Notehub.*\n\nOn Notecard for LoRa there is no option to retain configuration settings, and providing `\"delete\": true` is required. The Notecard for LoRa retains LoRaWAN configuration after factory resets.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",

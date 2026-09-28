@@ -88,6 +88,11 @@
             "title": "Sync Temperature Notes",
             "description": "Immediately sync pending temperature notes.",
             "json": "{\"cmd\": \"card.temp\", \"sync\": true}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.temp\", \"minutes\": -1, \"status\": \"-\"}"
         }
     ],
     "links": [

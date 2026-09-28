@@ -34,7 +34,7 @@
         "mode": {
             "description": "The AUX mode. Must be one of the following:",
             "type": "string",
-            "pattern": "^(?:req|gps|notify(?:,(?:accel|signals|env|dfu)(?:,(?:accel|signals|env|dfu))*)?)$",
+            "pattern": "^(?:req|gps|notify(?:,(?:-all|accel|signals|env|dfu)(?:,(?:-all|accel|signals|env|dfu))*)?)$",
             "sub-descriptions": [
                 {
                     "const": "req",
@@ -63,6 +63,10 @@
                 {
                     "const": "notify,dfu",
                     "description": "Used to notify the host that the Notecard has downloaded updated host firmware."
+                },
+                {
+                    "const": "notify,-all",
+                    "description": "Clears all existing notification settings. Any `notify` options listed after `-all` are then applied."
                 }
             ]
         },
@@ -149,6 +153,11 @@
             "title": "Multiple Mode",
             "description": "Subscribe to multiple notifications at once.",
             "json": "{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel,env\", \"duration\": 500}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Send this sequence over USB or I2C, because `notify` mode stops the AUX port from accepting requests: first `{\"req\": \"card.aux.serial\", \"mode\": \"gps\"}` to reset `limit`, then `{\"req\": \"card.aux.serial\", \"mode\": \"notify,accel,dfu,-all\"}` to reset `duration`, `minutes`, and any `notify` settings, and finally this request.",
+            "json": "{\"req\": \"card.aux.serial\", \"max\": -1, \"mode\": \"req\", \"ms\": -1, \"rate\": -1}"
         }
     ],
     "links": [

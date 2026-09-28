@@ -74,6 +74,11 @@
             "title": "Reset Counters",
             "description": "Reset power consumption counters back to 0.",
             "json": "{\"cmd\": \"card.power\", \"reset\": true}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.power\", \"hours\": -1, \"minutes\": -1}"
         }
     ],
     "links": [

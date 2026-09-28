@@ -72,6 +72,11 @@
             "title": "Retrieve Contact Information",
             "description": "Retrieve the currently stored contact information by issuing the request with no arguments.",
             "json": "{\"req\": \"card.contact\"}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values.",
+            "json": "{\"req\": \"card.contact\", \"email\": \"-\", \"name\": \"-\", \"org\": \"-\", \"role\": \"-\"}"
         }
     ],
     "links": [

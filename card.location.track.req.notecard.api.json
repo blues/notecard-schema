@@ -91,6 +91,11 @@
             "title": "Heartbeat",
             "description": "Start tracking with heartbeat mode and immediate sync.",
             "json": "{\"req\": \"card.location.track\", \"start\": true, \"sync\": true, \"heartbeat\": true, \"hours\": 2}"
+        },
+        {
+            "title": "Reset All Arguments",
+            "description": "Reset all arguments to their default values. Passing `start` and `stop` together resets `heartbeat` and `sync` to `false` and leaves tracking stopped. If a custom `file` was set, `\"-\"` can't reset it; setting `file` to `\"_track.qo\"` restores the default destination, although the Notecard still treats it as a custom Notefile when creating its template.",
+            "json": "{\"req\": \"card.location.track\", \"hours\": -1, \"start\": true, \"stop\": true}"
         }
     ],
     "links": [

@@ -682,7 +682,7 @@ def test_key_not_supported_on_lora(schema):
         f"Unexpected skus for key: {key_prop['skus']}"
     )
     assert "LORA" not in key_prop["skus"], (
-        "Note body encryption is not supported on the Notecard LoRa"
+        "Note body encryption is not supported on Notecard for LoRa"
     )
 
 
