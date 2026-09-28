@@ -263,7 +263,7 @@ def test_decrypt_not_supported_on_lora(schema):
         f"Unexpected skus for decrypt: {decrypt_prop['skus']}"
     )
     assert "LORA" not in decrypt_prop["skus"], (
-        "Notefile decryption is not supported on the Notecard LoRa"
+        "Notefile decryption is not supported on Notecard for LoRa"
     )
 
 def test_validate_samples_from_schema(schema, schema_samples):

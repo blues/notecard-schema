@@ -19,7 +19,7 @@
             "type": "boolean"
         },
         "details": {
-            "description": "When using Notecard LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. The argument you provide must be a JSON object with three keys, \"deveui\", \"appeui\", and \"appkey\", all of which are hexadecimal strings with no leading 0x. For example:\n\n`{\"deveui\":\"0080E11500088B37\",\"appeui\":\"6E6F746563617264\",\"appkey\":\"00088B37\"}`\n\nThe LoRaWAN details you send to a Notecard become part of its permanent configuration, and survive factory resets. You can reset a Notecard's LoRaWAN details to its default values by providing a `\"-\"` for the details argument.",
+            "description": "When using Notecard for LoRa you can use this argument to provide information about an alternative LoRaWAN server or service you would like the Notecard to use. The argument you provide must be a JSON object with three keys, \"deveui\", \"appeui\", and \"appkey\", all of which are hexadecimal strings with no leading 0x. For example:\n\n`{\"deveui\":\"0080E11500088B37\",\"appeui\":\"6E6F746563617264\",\"appkey\":\"00088B37\"}`\n\nThe LoRaWAN details you send to a Notecard become part of its permanent configuration, and survive factory resets. You can reset a Notecard's LoRaWAN details to its default values by providing a `\"-\"` for the details argument.",
             "skus": [
                 "LORA"
             ],
@@ -310,7 +310,7 @@
         },
         {
             "title": "Configure LoRaWAN Details",
-            "description": "Set alternative LoRaWAN server details for Notecard LoRa.",
+            "description": "Set alternative LoRaWAN server details for Notecard for LoRa.",
             "json": "{\"req\": \"hub.set\", \"details\": {\"deveui\": \"0080E11500088B37\", \"appeui\": \"6E6F746563617264\", \"appkey\": \"00088B3700112233445566778899AABB\"}}"
         },
         {
@@ -330,7 +330,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values. First send `{\"req\": \"hub.set\", \"mode\": \"continuous\"}` to reset `sync`, which briefly switches the Notecard to `continuous` mode. To end temporary continuous mode, also send `{\"req\": \"hub.set\", \"off\": true}` as a separate request. On Notecard LoRa, reset `details` separately.",
+            "description": "Reset all arguments to their default values. First send `{\"req\": \"hub.set\", \"mode\": \"continuous\"}` to reset `sync`, which briefly switches the Notecard to `continuous` mode. To end temporary continuous mode, also send `{\"req\": \"hub.set\", \"off\": true}` as a separate request. On Notecard for LoRa, reset `details` separately.",
             "json": "{\"req\": \"hub.set\", \"duration\": -1, \"host\": \"-\", \"inbound\": -1, \"mode\": \"-\", \"outbound\": -1, \"product\": \"-\", \"seconds\": -1, \"sn\": \"-\", \"vinbound\": \"-\", \"voutbound\": \"-\"}"
         }
     ],

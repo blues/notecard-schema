@@ -24,7 +24,7 @@
             "type": "object"
         },
         "file": {
-            "description": "The name of the Notefile.\n\nOn Notecard LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided.\n\nWhen using this request on the Notecard the Notefile name must end in one of:\n\n`.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport\n\n`.qos` for a queue outgoing with encrypted transport\n\n`.db` for a bidirectionally synchronized database with plaintext transport\n\n`.dbs` for a bidirectionally synchronized database with encrypted transport\n\n`.dbx` for a local-only database",
+            "description": "The name of the Notefile.\n\nOn Notecard for LoRa this argument is required. On all other Notecards this field is optional and defaults to `data.qo` if not provided.\n\nWhen using this request on the Notecard the Notefile name must end in one of:\n\n`.qo` for a queue outgoing (Notecard to Notehub) with plaintext transport\n\n`.qos` for a queue outgoing with encrypted transport\n\n`.db` for a bidirectionally synchronized database with plaintext transport\n\n`.dbs` for a bidirectionally synchronized database with encrypted transport\n\n`.dbx` for a local-only database",
             "type": "string",
             "default": "data.qo",
             "pattern": "\\.(qo|qos|db|dbs|dbx)$",

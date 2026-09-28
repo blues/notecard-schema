@@ -67,7 +67,7 @@
                 },
                 {
                     "const": "fixed",
-                    "description": "Reports the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard LoRa."
+                    "description": "Reports the location as a fixed location using the specified `lat` and `lon` coordinates. This is the only supported mode on Notecard for LoRa."
                 },
                 {
                     "const": "-",
@@ -152,7 +152,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values. On Notecard LoRa, send `{\"req\": \"card.location.mode\", \"delete\": true}` instead.",
+            "description": "Reset all arguments to their default values. On Notecard for LoRa, send `{\"req\": \"card.location.mode\", \"delete\": true}` instead.",
             "json": "{\"req\": \"card.location.mode\", \"delete\": true, \"max\": -1, \"minutes\": -1, \"mode\": \"-\", \"seconds\": -1, \"threshold\": -1, \"vseconds\": \"-\"}"
         }
     ],

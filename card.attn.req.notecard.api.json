@@ -389,7 +389,7 @@
         },
         {
             "title": "Reset All Arguments",
-            "description": "Reset all arguments to their default values. Including `start` also returns and clears any retained `payload`. Notecard LoRa doesn't support `start`, so on LoRa send `{\"req\": \"card.attn\", \"mode\": \"disarm,-all\"}` instead.",
+            "description": "Reset all arguments to their default values. Including `start` also returns and clears any retained `payload`. On Notecard for LoRa, which doesn't support `start`, send `{\"req\": \"card.attn\", \"mode\": \"disarm,-all\"}` instead.",
             "json": "{\"req\": \"card.attn\", \"mode\": \"disarm,-all\", \"on\": true, \"start\": true}"
         }
     ],

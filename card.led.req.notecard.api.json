@@ -16,7 +16,7 @@
     ],
     "properties": {
         "mode": {
-            "description": "Used to specify the color of the LED to turn on or off.\n\n**Note:** Notecard LoRa does not support monochromatic **LED** or **RGB** modes, only **NeoPixels**.",
+            "description": "Used to specify the color of the LED to turn on or off.\n\n**Note:** Notecard for LoRa does not support monochromatic **LED** or **RGB** modes, only **NeoPixels**.",
             "type": "string",
             "sub-descriptions": [
                 {
