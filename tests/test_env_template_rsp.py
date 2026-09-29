@@ -9,12 +9,10 @@ def test_minimal_valid_rsp(schema):
     instance = {"bytes": 22}
     jsonschema.validate(instance=instance, schema=schema)
 
-def test_missing_required_bytes(schema):
-    """Tests that bytes is required."""
+def test_valid_empty_rsp(schema):
+    """Tests that an empty response is valid (returned when the template is cleared)."""
     instance = {}
-    with pytest.raises(jsonschema.ValidationError) as excinfo:
-        jsonschema.validate(instance=instance, schema=schema)
-    assert "'bytes' is a required property" in str(excinfo.value)
+    jsonschema.validate(instance=instance, schema=schema)
 
 def test_valid_bytes_response(schema):
     """Tests valid response with bytes field."""

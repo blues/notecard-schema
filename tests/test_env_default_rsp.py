@@ -9,6 +9,18 @@ def test_minimal_valid_rsp(schema):
     instance = {}
     jsonschema.validate(instance=instance, schema=schema)
 
+def test_valid_time_response(schema):
+    """Tests valid response with the environment modified time."""
+    instance = {"time": 1605814493}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_time_invalid_type(schema):
+    """Tests invalid type for time."""
+    instance = {"time": "not-integer"}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "'not-integer' is not of type 'integer'" in str(excinfo.value)
+
 def test_invalid_additional_property(schema):
     """Tests invalid response with an additional property."""
     instance = {"extra": 123}
