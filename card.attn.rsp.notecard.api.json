@@ -65,7 +65,7 @@
                 },
                 {
                     "const": "journey",
-                    "description": "Indicates that the ATTN pin fired due to the start or end of a journey (a period of sustained motion).",
+                    "description": "Indicates that the ATTN pin fired due to the start or end of a [journey](/api-reference/glossary/#journey) (a discrete trip during which the device's location is changing).",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
