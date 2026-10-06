@@ -29,7 +29,7 @@
             "type": "number"
         },
         "max": {
-            "description": "If a geofence is enabled by `card.location.mode`, meters from the geofence center.",
+            "description": "If a ringfence is enabled by `card.location.mode`, meters from the ringfence center.",
             "type": "integer"
         },
         "mode": {

@@ -19,21 +19,21 @@
             "type": "boolean"
         },
         "lat": {
-            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the latitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the latitude location of the device itself, in degrees.",
+            "description": "When in periodic or continuous mode, providing this value enables [ringfencing](/notecard/notecard-walkthrough/time-and-location-requests#ringfencing-with-the-notecard). The value you provide for this argument should be the latitude of the center of the ringfence, in degrees. When in fixed mode, the value you provide for this argument should be the latitude location of the device itself, in degrees.",
             "type": "number",
             "default": "last known latitude"
         },
         "lon": {
-            "description": "When in periodic or continuous mode, providing this value enables [geofencing](/notecard/notecard-walkthrough/time-and-location-requests#geofencing-with-the-notecard). The value you provide for this argument should be the longitude of the center of the geofence, in degrees. When in fixed mode, the value you provide for this argument should be the longitude location of the device itself, in degrees.",
+            "description": "When in periodic or continuous mode, providing this value enables [ringfencing](/notecard/notecard-walkthrough/time-and-location-requests#ringfencing-with-the-notecard). The value you provide for this argument should be the longitude of the center of the ringfence, in degrees. When in fixed mode, the value you provide for this argument should be the longitude location of the device itself, in degrees.",
             "type": "number",
             "default": "last known longitude"
         },
         "max": {
-            "description": "Meters from a geofence center. Used to enable geofence location tracking.",
+            "description": "Meters from a ringfence center. Used to enable ringfence location tracking. If `lat` and `lon` are omitted, the ringfence is centered on the Notecard's current location.",
             "type": "integer"
         },
         "minutes": {
-            "description": "When geofence is enabled, the debounce period in minutes for transitions across the geofence boundary. The Notecard reports a transition the first time a GPS fix lands on the opposite side of the boundary from the previous one, then ignores further transitions for this many minutes.",
+            "description": "When ringfence is enabled, the debounce period in minutes for transitions across the ringfence boundary. The Notecard reports a transition the first time a GPS fix lands on the opposite side of the boundary from the previous one, then ignores further transitions for this many minutes.",
             "type": "integer",
             "default": 5
         },
@@ -141,8 +141,8 @@
             "json": "{\"req\": \"card.location.mode\", \"mode\": \"periodic\", \"seconds\": 3600}"
         },
         {
-            "title": "Geofence Mode",
-            "description": "Enable geofencing with specific location and radius.",
+            "title": "Ringfence Mode",
+            "description": "Enable ringfencing with specific location and radius.",
             "json": "{\"req\": \"card.location.mode\", \"mode\": \"periodic\", \"lat\": 42.5776, \"lon\": -70.87134, \"max\": 100, \"minutes\": 2}"
         },
         {
@@ -170,8 +170,8 @@
             "url": "https://dev.blues.io/notecard/notecard-walkthrough/low-power-firmware-design/#sampling-at-voltage-variable-intervals"
         },
         {
-            "title": "Geofencing with the Notecard",
-            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#geofencing-with-the-notecard"
+            "title": "Ringfencing with the Notecard",
+            "url": "https://dev.blues.io/notecard/notecard-walkthrough/time-and-location-requests/#ringfencing-with-the-notecard"
         }
     ]
 }

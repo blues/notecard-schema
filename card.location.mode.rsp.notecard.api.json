@@ -17,19 +17,19 @@
             "type": "boolean"
         },
         "lat": {
-            "description": "If geofence is enabled, the geofence center latitude in degrees.",
+            "description": "If ringfence is enabled, the ringfence center latitude in degrees.",
             "type": "number"
         },
         "lon": {
-            "description": "If geofence is enabled, the geofence center longitude in degrees.",
+            "description": "If ringfence is enabled, the ringfence center longitude in degrees.",
             "type": "number"
         },
         "max": {
-            "description": "If geofence is enabled, the meters from geofence center.",
+            "description": "If ringfence is enabled, the meters from ringfence center.",
             "type": "integer"
         },
         "minutes": {
-            "description": "If geofence is enabled, the currently configured debounce period, in minutes, for transitions across the geofence boundary.",
+            "description": "If ringfence is enabled, the currently configured debounce period, in minutes, for transitions across the ringfence boundary.",
             "type": "integer"
         },
         "mode": {
