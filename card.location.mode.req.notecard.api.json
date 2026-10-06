@@ -29,7 +29,7 @@
             "default": "last known longitude"
         },
         "max": {
-            "description": "Meters from a ringfence center. Used to enable ringfence location tracking.",
+            "description": "Meters from a ringfence center. Used to enable ringfence location tracking. If `lat` and `lon` are omitted, the ringfence is centered on the Notecard's current location.",
             "type": "integer"
         },
         "minutes": {
