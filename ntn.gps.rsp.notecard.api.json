@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://raw.githubusercontent.com/blues/notecard-schema/master/ntn.gps.rsp.notecard.api.json",
     "title": "ntn.gps Response Application Programming Interface (API) Schema",
-    "description": "Response indicating current Starnote GPS/GNSS location configuration.",
+    "description": "Response indicating current NTN GPS/GNSS location configuration.",
     "type": "object",
     "version": "1.1.2",
     "apiVersion": "9.1.1",
@@ -10,15 +10,16 @@
     "skus": [
         "CELL",
         "CELL+WIFI",
+        "SKYLO",
         "WIFI"
     ],
     "properties": {
         "off": {
-            "description": "Returned and `true` if the Notecard does not supply its location to a paired Starnote. Starnote relies solely on its own GPS/GNSS module.",
+            "description": "Returned and `true` if the Notecard does not supply its location to the NTN module (a paired Starnote, or Notecard for Skylo's satellite module). The module relies solely on its own GPS/GNSS.",
             "type": "boolean"
         },
         "on": {
-            "description": "Returned and `true` if the Notecard supplies a location it already knows to a paired Starnote.",
+            "description": "Returned and `true` if the Notecard supplies a location it already knows to the NTN module (a paired Starnote, or Notecard for Skylo's satellite module).",
             "type": "boolean"
         }
     },
@@ -26,12 +27,12 @@
     "samples": [
         {
             "title": "Notecard Location Not Supplied",
-            "description": "Response indicating the Notecard does not supply its location, so Starnote relies solely on its own GPS/GNSS module (default).",
+            "description": "Response indicating the Notecard does not supply its location, so the NTN module relies solely on its own GPS/GNSS (default).",
             "json": "{\"off\": true}"
         },
         {
             "title": "Notecard Location Supplied",
-            "description": "Response indicating the Notecard supplies a location it already knows to the paired Starnote.",
+            "description": "Response indicating the Notecard supplies a location it already knows to the NTN module.",
             "json": "{\"on\": true}"
         }
     ]
