@@ -75,7 +75,7 @@
             "type": "string"
         },
         "inbound": {
-            "description": "The max wait time, in minutes, to sync inbound data from Notehub. Explicit syncs (e.g. using `hub.sync`) do not affect this cadence.\n\nWhen in `periodic` or `continuous` mode this argument is required, otherwise the Notecard will function as if it is in `minimum` mode as it pertains to syncing behavior.\n\nUse `-1` to reset the value back to its default of `0`.\n\nA value of `0` means that the Notecard will never sync inbound data unless explicitly told to do so (e.g. using `hub.sync`).",
+            "description": "The maximum wait time, in minutes, before syncing inbound data from Notehub.\n\nThe default value of `0` disables automatic inbound syncing, meaning inbound data is only synced when explicitly requested, such as with `hub.sync`. Because of this, the `inbound` argument is required in `periodic` and `continuous` modes.\n\nSet to `-1` to restore the default value.\n\nThe `_sync_inbound_mins` [reserved environment variable](/guides-and-tutorials/notecard-guides/understanding-environment-variables/#reserved-environment-variables) and its variants override this setting when defined.",
             "type": "integer",
             "minimum": -1
         },
@@ -133,7 +133,7 @@
             "minApiVersion": "3.4.1"
         },
         "outbound": {
-            "description": "The max wait time, in minutes, to sync outbound data from the Notecard. Explicit syncs (e.g. using `hub.sync`) do not affect this cadence.\n\nWhen in `periodic` or `continuous` mode this argument is required, otherwise the Notecard will function as if it is in `minimum` mode as it pertains to syncing behavior.\n\nUse `-1` to reset the value back to its default of `0`.\n\nA value of `0` means that the Notecard will never sync outbound data unless explicitly told to do so (e.g. using `hub.sync`).",
+            "description": "The maximum wait time, in minutes, before syncing outbound data from the Notecard.\n\nThe default value of `0` disables automatic outbound syncing, meaning outbound data is only synced when explicitly requested, such as with `hub.sync`. Because of this, the `outbound` argument is required in `periodic` and `continuous` modes.\n\nSet to `-1` to restore the default value.\n\nThe `_sync_outbound_mins` [reserved environment variable](/guides-and-tutorials/notecard-guides/understanding-environment-variables/#reserved-environment-variables) and its variants override this setting when defined.",
             "type": "integer",
             "minimum": -1
         },
