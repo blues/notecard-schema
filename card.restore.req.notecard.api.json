@@ -15,7 +15,7 @@
     ],
     "properties": {
         "connected": {
-            "description": "Set to `true` to also reset the device's record on Notehub. The next time the Notecard connects to Notehub with the same `ProductUID` it had when this request was sent, Notehub deletes the device's environment variables, Notefiles, Notefile templates, and fleet memberships, and the device continues in the project as if newly added. This does not remove the device from the project, its events are kept, and it can lift a block placed on the device in Notehub. To retire a device, see [Decommissioning a Device](https://dev.blues.io/guides-and-tutorials/fleet-admin-guide/#decommissioning-a-device).\n\nBecause `delete` clears the `ProductUID`, a request that sets both `delete` and `connected` resets the device on Notehub only if the same `ProductUID` is set again.\n\nConversely, if `connected` is `false` (or omitted), the Notecard's settings and data will be restored from Notehub the next time the Notecard connects to the previously used Notehub project.",
+            "description": "Set to `true` to also reset the device's record on Notehub. The next time the Notecard connects to Notehub with the same `ProductUID` it had when this request was sent, Notehub deletes the device's environment variables, Notefiles, Notefile templates, and fleet memberships, and the device continues in the project as if newly added. This does not remove the device from the project, its events are kept, and it can lift a block placed on the device in Notehub.",
             "type": "boolean",
             "skus": [
                 "CELL",
