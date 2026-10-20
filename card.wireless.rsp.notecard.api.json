@@ -44,8 +44,24 @@
                     "description": "Radio Access Technology being used.",
                     "type": "string"
                 },
+                "ratr": {
+                    "description": "The Radio Access Technology the modem reports for its current network connection (for example, LTE, eMTC, or NB-IoT).",
+                    "type": "string"
+                },
+                "ratf": {
+                    "description": "The Radio Access Technology the Notecard targets when it registers with a network: `M1`, `NB1`, `GSM`, or `LTE`.",
+                    "type": "string"
+                },
+                "carrier": {
+                    "description": "The name of the carrier reported by the modem.",
+                    "type": "string"
+                },
+                "internal": {
+                    "description": "`true` if the Notecard is using its internal SIM. Omitted when the Notecard is using an external SIM.",
+                    "type": "boolean"
+                },
                 "rssir": {
-                    "description": "Reference Signal Received Power (RSRP) reported by the modem.",
+                    "description": "An approximate Received Signal Strength Indicator, in dBm, reported by the modem.",
                     "type": "integer"
                 },
                 "rssi": {
@@ -65,7 +81,7 @@
                     "type": "integer"
                 },
                 "bars": {
-                    "description": "Signal strength represented as bars (0-5).",
+                    "description": "Signal strength represented as bars (0\u20134 on cellular, 0\u20135 on WiFi).",
                     "type": "integer"
                 },
                 "mcc": {

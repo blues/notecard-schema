@@ -19,7 +19,7 @@
             "type": "boolean"
         },
         "in": {
-            "description": "Set to `true` to only sync pending inbound Notefiles. **Required** when using NTN mode with Starnote to check for inbound Notefiles.",
+            "description": "Set to `true` to check Notehub for inbound Notefiles and environment variables. **Required** in NTN mode, where a `hub.sync` without this argument only sends outbound data.\n\nOver cellular and WiFi, a `hub.sync` already checks for inbound data, so this argument has no additional effect.",
             "type": "boolean"
         },
         "out": {
@@ -76,8 +76,8 @@
             "json": "{\"req\": \"hub.sync\", \"out\": true}"
         },
         {
-            "title": "Inbound Only Sync",
-            "description": "Sync only pending inbound Notefiles (required for NTN mode).",
+            "title": "Check for Inbound Data",
+            "description": "Check Notehub for inbound Notefiles and environment variables (required for NTN mode).",
             "json": "{\"req\": \"hub.sync\", \"in\": true}"
         }
     ],

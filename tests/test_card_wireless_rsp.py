@@ -55,7 +55,10 @@ def test_net_invalid_type(schema):
         ("imei", "000000000000000", 123),
         ("modem", "EG91NAXGAR07A03M1G", 123),
         ("band", "LTE BAND 2", 123),
-        ("rat", "lte", 123)
+        ("rat", "lte", 123),
+        ("ratr", "\"LTE\"", 123),
+        ("ratf", "M1", 123),
+        ("carrier", "AT&T", 123)
     ]
 )
 def test_net_string_sub_properties(schema, sub_field, valid_value, invalid_value):
@@ -99,6 +102,16 @@ def test_net_integer_sub_properties(schema, sub_field, valid_value, invalid_valu
         jsonschema.validate(instance=instance, schema=schema)
     assert f"is not of type 'integer'" in str(excinfo.value)
 
+def test_net_internal(schema):
+    """Tests valid and invalid types for net.internal."""
+    instance = {"net": {"internal": True}}
+    jsonschema.validate(instance=instance, schema=schema)
+
+    instance = {"net": {"internal": "true"}}
+    with pytest.raises(jsonschema.ValidationError) as excinfo:
+        jsonschema.validate(instance=instance, schema=schema)
+    assert "is not of type 'boolean'" in str(excinfo.value)
+
 def test_valid_net_object_all_fields(schema):
     """Tests valid net object with all sub-properties."""
     instance = {"net": {
@@ -108,6 +121,10 @@ def test_valid_net_object_all_fields(schema):
         "modem": "EG91NAXGAR07A03M1G_BETA0415_01.001.01.001",
         "band": "LTE BAND 2",
         "rat": "lte",
+        "ratr": "\"LTE\"",
+        "ratf": "M1",
+        "carrier": "AT&T",
+        "internal": True,
         "rssir": -69,
         "rssi": -70,
         "rsrp": -105,
