@@ -81,7 +81,7 @@
     "annotations": [
         {
             "title": "note",
-            "description": "Usage data is updated by the Notecard at the end of each session. When operating in `continuous` mode, usage data is updated only after the interval specified by the [hub.set/duration argument](https://dev.blues.io/api-reference/notecard-api/hub-requests/#hub-set) elapses.\n\nPlease note that the `card.usage.get` API only applies to cellular and WiFi data, not LoRa or satellite (NTN)."
+            "description": "Usage data is updated by the Notecard at the end of each session. When operating in `continuous` mode, usage data is updated only after the interval specified by the [hub.set/duration argument](https://dev.blues.io/api-reference/notecard-api/hub-requests/latest/#hub-set) elapses.\n\nPlease note that the `card.usage.get` API only applies to cellular and WiFi data, not LoRa or satellite (NTN)."
         }
     ],
     "samples": [

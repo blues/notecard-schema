@@ -14,7 +14,7 @@
     ],
     "properties": {
         "motion": {
-            "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.\n\nLearn how to configure this feature [in this guide](/guides-and-tutorials/notecard-guides/asset-tracking-with-gps/#wake-host-or-send-note-on-motion-status-change).",
+            "description": "If `motion` is > 0, a [card.motion](/api-reference/notecard-api/card-requests/latest#card-motion) request will return a `\"mode\"` of `\"moving\"` or `\"stopped\"`. The `motion` value is the threshold for how many motion events in a single bucket will trigger a motion status change.\n\nLearn how to configure this feature [in this guide](/guides-and-tutorials/notecard-guides/asset-tracking-with-gps/#wake-host-or-send-note-on-motion-status-change).",
             "type": "integer"
         },
         "seconds": {

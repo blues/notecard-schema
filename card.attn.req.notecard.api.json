@@ -190,7 +190,7 @@
                 },
                 {
                     "const": "wireless",
-                    "description": "Instruct the Notecard to fire the ATTN pin whenever the `card.wireless` [status](https://dev.blues.io/api-reference/notecard-api/card-requests/#card-wireless) changes.",
+                    "description": "Instruct the Notecard to fire the ATTN pin whenever the `card.wireless` [status](https://dev.blues.io/api-reference/notecard-api/card-requests/latest/#card-wireless) changes.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
