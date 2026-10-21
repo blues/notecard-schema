@@ -14,7 +14,7 @@
     ],
     "properties": {
         "binary": {
-            "description": "If `true`, the Notecard places the firmware data in the binary storage area instead of the response `payload` field, and returns `cobs`, `length`, and `status` fields instead. Read it out with [card.binary.get](https://dev.blues.io/api-reference/notecard-api/card-requests/#card-binary-get), then clear the area with a `card.binary` request and `delete` set to `true`.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
+            "description": "If `true`, the Notecard places the firmware data in the binary storage area instead of the response `payload` field, and returns `cobs`, `length`, and `status` fields instead. Read it out with [card.binary.get](https://dev.blues.io/api-reference/notecard-api/card-requests/latest/#card-binary-get), then clear the area with a `card.binary` request and `delete` set to `true`.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).",
             "type": "boolean",
             "minApiVersion": "9.1.1"
         },
@@ -100,7 +100,7 @@
         },
         {
             "title": "card.binary.get",
-            "url": "https://dev.blues.io/api-reference/notecard-api/card-requests/#card-binary-get"
+            "url": "https://dev.blues.io/api-reference/notecard-api/card-requests/latest/#card-binary-get"
         },
         {
             "title": "Sending and Receiving Large Binary Objects",
