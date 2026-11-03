@@ -13,20 +13,28 @@
         "WIFI"
     ],
     "properties": {
+        "align": {
+            "description": "`true` if syncs are aligned on a regular time-periodic cycle, as set with the `align` argument of `hub.set`.",
+            "type": "boolean"
+        },
         "device": {
             "description": "The [DeviceUID](/api-reference/glossary#deviceuid) for the Notecard.",
             "type": "string"
         },
+        "duration": {
+            "description": "When in `continuous` mode, the session length in minutes, as set with the `duration` argument of `hub.set`.",
+            "type": "integer"
+        },
         "host": {
-            "description": "The URL of the Notehub host.",
+            "description": "The hostname of the Notehub service, as set with the `host` argument of `hub.set`.",
             "type": "string"
         },
         "inbound": {
-            "description": "The max wait time, in minutes, to sync inbound data from Notehub.",
+            "description": "The max wait time, in minutes, to sync inbound data from Notehub, as set with the `inbound` argument of `hub.set` (or the default, if not set).",
             "type": "integer"
         },
         "mode": {
-            "description": "The current operating `mode` of the Notecard, as defined in `hub.set`.",
+            "description": "The current operating mode of the Notecard, as set with the `mode` argument of `hub.set`.",
             "type": "string",
             "enum": [
                 "periodic",
@@ -59,27 +67,39 @@
             ]
         },
         "outbound": {
-            "description": "The max wait time, in minutes, to sync outbound data from the Notecard.",
+            "description": "The max wait time, in minutes, to sync outbound data from the Notecard, as set with the `outbound` argument of `hub.set` (or the default, if not set).",
             "type": "integer"
         },
         "product": {
-            "description": "The ProductUID to which the Notecard is registered.",
+            "description": "The ProductUID to which the Notecard is registered, as set with the `product` argument of `hub.set`.",
             "type": "string"
         },
         "sn": {
-            "description": "The serial number of the device, if set.",
+            "description": "The serial number of the device, as set with the `sn` argument of `hub.set`.",
             "type": "string"
         },
         "sync": {
-            "description": "`true` if the device is in `continuous` mode and set to sync every time a change is detected.",
+            "description": "`true` if the device is in `continuous` mode and set to sync every time a change is detected, as set with the `sync` argument of `hub.set`.",
+            "type": "boolean"
+        },
+        "umin": {
+            "description": "`true` if the Notecard is set to stay in `continuous` mode on USB/line power and fall back to `minimum` mode when USB/line power is disconnected, as set with the `umin` argument of `hub.set`.",
+            "type": "boolean"
+        },
+        "uoff": {
+            "description": "`true` if the Notecard is set to stay in `continuous` mode on USB/line power and fall back to `off` mode when USB/line power is disconnected, as set with the `uoff` argument of `hub.set`.",
+            "type": "boolean"
+        },
+        "uperiodic": {
+            "description": "`true` if the Notecard is set to stay in `continuous` mode on USB/line power and fall back to `periodic` mode when USB/line power is disconnected, as set with the `uperiodic` argument of `hub.set`.",
             "type": "boolean"
         },
         "vinbound": {
-            "description": "If `inbound` has been overridden with a voltage-variable value.",
+            "description": "The voltage-variable value that overrides `inbound`, as set with the `vinbound` argument of `hub.set`.",
             "type": "string"
         },
         "voutbound": {
-            "description": "If `outbound` is overridden with a voltage-variable value.",
+            "description": "The voltage-variable value that overrides `outbound`, as set with the `voutbound` argument of `hub.set`.",
             "type": "string"
         }
     },

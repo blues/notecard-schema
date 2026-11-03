@@ -50,7 +50,7 @@
         {
             "title": "Complete Time Response",
             "description": "Example response with full time and location information.",
-            "json": "{\"time\": 1599769214, \"area\": \"Beverly, MA\", \"zone\": \"CDT,America/New York\", \"minutes\": -300, \"lat\": 42.5776, \"lon\": -70.87134, \"country\": \"US\"}"
+            "json": "{\"time\": 1599769214, \"area\": \"Beverly, MA\", \"zone\": \"EDT,America/New_York\", \"minutes\": -240, \"lat\": 42.5776, \"lon\": -70.87134, \"country\": \"US\"}"
         },
         {
             "title": "Time Before Location Sync",

@@ -15,7 +15,7 @@
     ],
     "properties": {
         "sync": {
-            "description": "`true` if this request should auto-initiate a sync pending outbound data.",
+            "description": "`true` to start a sync if the Notecard has pending outbound data and no sync is already in progress.",
             "type": "boolean"
         },
         "req": {

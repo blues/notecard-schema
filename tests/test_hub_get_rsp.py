@@ -241,6 +241,26 @@ def test_response_type_validation(schema):
             jsonschema.validate(instance=invalid_instance, schema=schema)
         # The error message will vary based on type, just ensure validation fails
 
+@pytest.mark.parametrize("field", ["align", "umin", "uoff", "uperiodic"])
+def test_boolean_config_fields_valid(schema, field):
+    """Tests valid boolean configuration fields."""
+    jsonschema.validate(instance={"mode": "continuous", field: True}, schema=schema)
+
+@pytest.mark.parametrize("field", ["align", "umin", "uoff", "uperiodic"])
+def test_boolean_config_fields_invalid_type(schema, field):
+    """Tests invalid types for boolean configuration fields."""
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance={"mode": "continuous", field: "true"}, schema=schema)
+
+def test_duration_valid(schema):
+    """Tests valid duration field."""
+    jsonschema.validate(instance={"mode": "continuous", "duration": 240}, schema=schema)
+
+def test_duration_invalid_type(schema):
+    """Tests invalid type for duration field."""
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance={"mode": "continuous", "duration": "240"}, schema=schema)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

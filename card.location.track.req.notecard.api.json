@@ -19,7 +19,7 @@
             "default": "_track.qo"
         },
         "heartbeat": {
-            "description": "When `start` is `true`, set to `true` to capture a tracking Note on a fixed interval even when no motion has been detected. The interval is configured with the `hours` field below.",
+            "description": "When `start` is `true`, set to `true` to capture a tracking Note on a fixed interval even when no motion has been detected. The interval is configured with the `hours` field below. A heartbeat Note records the Notecard's last-known location without activating GPS to obtain a new fix.",
             "type": "boolean"
         },
         "hours": {

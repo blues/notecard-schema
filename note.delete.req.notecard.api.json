@@ -23,7 +23,7 @@
             "type": "string"
         },
         "verify": {
-            "description": "If set to `true` and using a templated Notefile, the Notefile will be written to flash immediately, rather than being cached in RAM and written to flash later.",
+            "description": "If set to `true`, the Notefile is written to flash immediately, rather than being cached in RAM and written to flash later, so the deletion survives a sudden power loss or restart. Use it only for deletions you can't afford to lose, since frequent flash writes add time, power use, and flash wear.",
             "type": "boolean"
         },
         "req": {
