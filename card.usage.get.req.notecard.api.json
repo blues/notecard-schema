@@ -4,8 +4,6 @@
     "title": "card.usage.get Request Application Programming Interface (API) Schema",
     "description": "Returns the Notecard's network usage statistics for cellular and WiFi transmissions.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

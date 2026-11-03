@@ -4,8 +4,6 @@
     "title": "card.version Request Application Programming Interface (API) Schema",
     "description": "Returns firmware version information for the Notecard.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

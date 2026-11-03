@@ -16,8 +16,6 @@ EXPECTED_HIERARCHY = [
     "title",
     "description",
     "type",
-    "version",
-    "apiVersion",
     "minApiVersion",
     "skus",
     "properties",
@@ -208,3 +206,24 @@ def test_individual_schema_hierarchy(schema_file):
         if properties_keys:
             error_message += f"Current properties order: {' -> '.join(properties_keys)}"
         pytest.fail(error_message)
+
+@pytest.mark.parametrize("schema_file", get_all_schema_files())
+def test_no_per_file_versions(schema_file):
+    """Versions live only in notecard.api.json, not in individual req/rsp schemas."""
+    keys = get_json_keys_order(schema_file)
+    for field in ("version", "apiVersion"):
+        assert field not in keys, (
+            f"{os.path.basename(schema_file)} has a top-level '{field}'. "
+            "Version info lives only in notecard.api.json."
+        )
+
+
+def test_index_has_no_committed_version():
+    """notecard.api.json carries apiVersion only; release adds `version` from the tag."""
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    keys = get_json_keys_order(os.path.join(project_root, "notecard.api.json"))
+    assert "apiVersion" in keys, "notecard.api.json must have a top-level 'apiVersion'."
+    assert "version" not in keys, (
+        "notecard.api.json must not have a committed 'version'; "
+        "release-schema.yml adds it from the release tag."
+    )

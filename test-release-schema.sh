@@ -21,63 +21,9 @@ if [ ! -f "$INPUT_FILE" ]; then
     exit 1
 fi
 
-# Check if Python script exists
-if [ ! -f "scripts/update_schema_version.py" ]; then
-    echo "Error: scripts/update_schema_version.py not found!"
-    exit 1
-fi
-
-# Create test copies of a few schema files to test version updates
-echo "Step 1: Testing schema version updates..."
-echo "========================================="
-
-# Find a few schema files to test
-TEST_SCHEMAS=($(ls *.req.notecard.api.json 2>/dev/null | head -3))
-
-if [ ${#TEST_SCHEMAS[@]} -eq 0 ]; then
-    echo "Warning: No schema files found to test version updates"
-else
-    # Backup original files
-    for schema in "${TEST_SCHEMAS[@]}"; do
-        cp "$schema" "${schema}.backup"
-    done
-
-    # Update versions using the Python script (only test files)
-    echo "Updating version to $VERSION in test schema files..."
-
-    # Create temporary test copies
-    for schema in "${TEST_SCHEMAS[@]}"; do
-        TEST_SCHEMA="${schema%.json}.test.json"
-        cp "$schema" "$TEST_SCHEMA"
-    done
-
-    # Run the version update script on test files
-    python3 scripts/update_schema_version.py --property version --target-version "$VERSION" --pattern "$TEST_SCHEMA_PATTERN"
-
-    # Verify version updates
-    echo ""
-    echo "Verifying version updates:"
-    for schema in "${TEST_SCHEMAS[@]}"; do
-        TEST_SCHEMA="${schema%.json}.test.json"
-        CURRENT_VERSION=$(python3 -c "import json; print(json.load(open('$TEST_SCHEMA')).get('version', 'NOT FOUND'))")
-        if [ "$CURRENT_VERSION" = "$VERSION" ]; then
-            echo "  ✓ $schema: version updated to $VERSION"
-        else
-            echo "  ✗ $schema: version is $CURRENT_VERSION (expected $VERSION)"
-        fi
-    done
-
-    # Clean up test files and restore originals
-    for schema in "${TEST_SCHEMAS[@]}"; do
-        TEST_SCHEMA="${schema%.json}.test.json"
-        rm -f "$TEST_SCHEMA"
-        mv "${schema}.backup" "$schema"
-    done
-fi
-
 echo ""
-echo "Step 2: Testing release-specific schema file generation..."
-echo "==========================================================="
+echo "Testing release-specific schema file generation..."
+echo "=================================================="
 
 # Create a test copy to avoid modifying the original
 cp "$INPUT_FILE" "$TEST_FILE"
@@ -86,6 +32,9 @@ cp "$INPUT_FILE" "$TEST_FILE"
 rm -f "$TEST_FILE.bak"
 
 echo "Creating release-specific schema file..."
+
+# Add the release version to the top-level schema
+python3 scripts/stamp_release_version.py "$VERSION" "$TEST_FILE"
 
 # Update URLs to point to the tagged version
 sed -i '' "s|https://raw.githubusercontent.com/blues/notecard-schema/master/|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/|g" "$TEST_FILE"
@@ -136,9 +85,19 @@ else
     grep "/master/" "$TEST_FILE" | sed 's/^/     /'
 fi
 
+# Check the version was stamped
+echo ""
+echo "4. Checking version field:"
+STAMPED=$(python3 -c "import json; print(json.load(open('$TEST_FILE')).get('version'))")
+if [ "$STAMPED" = "$VERSION" ]; then
+    echo "   ✓ version set to $VERSION"
+else
+    echo "   ✗ version is $STAMPED (expected $VERSION)"
+fi
+
 # Validate JSON syntax
 echo ""
-echo "4. Validating JSON syntax:"
+echo "5. Validating JSON syntax:"
 if python3 -m json.tool "$TEST_FILE" > /dev/null 2>&1; then
     echo "   ✓ Valid JSON syntax"
 else

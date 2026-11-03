@@ -19,9 +19,11 @@ Triggers:
 
 ## `release-schema.yml` — Release asset
 
-On a published release, stamps the release version into the `version` property
-of every schema, rewrites `notecard.api.json` so its `$ref`s and `$id` point at
-the tagged refs instead of `master`, and uploads that file as a release asset.
+On a published release, adds the release version as a top-level `version`
+property of `notecard.api.json` (via `scripts/stamp_release_version.py`; the
+committed file has none), rewrites its `$ref`s and `$id` to
+point at the tagged refs instead of `master`, and uploads that file as a release
+asset.
 
 ## `update-hook.yml` — Downstream notification
 
@@ -59,6 +61,6 @@ so it can trigger workflows that branch, commit, and open PRs.
 ## `copilot-setup-steps.yml` — Copilot environment
 
 Manual dispatch only. Installs Python 3.13 and the dev dependencies, then runs
-`scripts/update_schema_version.py --help` as a smoke test, so GitHub Copilot's
+`scripts/fix_schema_property_order.py --help` as a smoke test, so GitHub Copilot's
 coding agent can pick up a working environment definition. The job name must
 stay `copilot-setup-steps` for Copilot to find it.

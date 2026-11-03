@@ -4,8 +4,6 @@
     "title": "ntn.config Request Application Programming Interface (API) Schema",
     "description": "Returns the configuration and identity of the satellite (NTN) module: the network it is provisioned for, its modem, its SKU and ordering code, and the firmware it is running.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [
         "CELL",

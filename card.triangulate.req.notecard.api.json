@@ -4,8 +4,6 @@
     "title": "card.triangulate Request Application Programming Interface (API) Schema",
     "description": "Enables or disables a behavior by which the Notecard gathers information about surrounding cell towers and/or WiFi access points with each new Notehub session.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

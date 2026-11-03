@@ -16,7 +16,7 @@ This repository contains the JSON schemas for the Notecard API.
       - [`samples`](#samples)
       - [`skus`](#skus)
       - [`sub-descriptions`](#sub-descriptions)
-  - [Updating the schema version](#updating-the-schema-version)
+  - [Versioning](#versioning)
   - [Running the tests](#running-the-tests)
 
 ## Development
@@ -190,8 +190,6 @@ Example shown from `card.transport`:
     "title": "card.transport Request Application Programming Interface (API) Schema",
     "description": "Specifies the connectivity protocol to prioritize on the Notecard Cell+WiFi, or when using NTN mode with Starnote and a compatible Notecard.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": ["CELL","CELL+WIFI","SKYLO","WIFI"],
     "properties": {
         "method": {
@@ -278,16 +276,17 @@ Example shown from `card.attn`:
 },
 ```
 
-## Updating the schema version
+## Versioning
 
-To update the version of Notecard firmware that the schemas are compatible with,
-run the following command:
+The only version field committed to the repo is `apiVersion` at the top of
+`notecard.api.json`: the Notecard firmware version the schemas describe. Update
+it by hand when the schemas are brought up to date with a newer firmware
+release. Individual req/rsp schemas have no version fields.
 
-```bash
-python scripts/update_schema_version.py --property apiVersion --target-version 9.1.2 --pattern "card.attn.*"
-```
-
-This will update the `apiVersion` in all files that match the pattern `card.attn.*`.
+Schema releases are versioned by git tag. When a release is published, the
+`release-schema.yml` workflow adds a top-level `version` (taken from the tag) to
+the `notecard.api.json` it uploads as a release asset. Don't add `version` to
+the committed file.
 
 ## Running the tests
 

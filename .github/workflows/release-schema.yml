@@ -26,8 +26,8 @@ jobs:
           TAG_NAME="${{ github.event.release.tag_name }}"
           VERSION="${TAG_NAME#v}"
 
-          # Update the version in all schema files
-          python scripts/update_schema_version.py --property version --target-version "$VERSION"
+          # Add the release version to the top-level schema
+          python scripts/stamp_release_version.py "$VERSION" notecard.api.json
 
       - name: Create release-specific schema file
         run: |

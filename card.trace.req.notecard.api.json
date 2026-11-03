@@ -4,8 +4,6 @@
     "title": "card.trace Request Application Programming Interface (API) Schema",
     "description": "Enable and disable [trace mode](/support/using-notecard-trace-mode/) on a Notecard for debugging.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

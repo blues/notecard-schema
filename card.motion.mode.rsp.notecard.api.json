@@ -4,8 +4,6 @@
     "title": "card.motion.mode Response Application Programming Interface (API) Schema",
     "description": "Response from configuring accelerometer motion monitoring parameters. The response reflects the Notecard's current accelerometer configuration.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

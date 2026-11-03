@@ -64,8 +64,6 @@ canonical ordering reference. Top-level fields in order:
     "title": "<category.api> Request Application Programming Interface (API) Schema",
     "description": "<verbatim from source>",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": ["CELL", "CELL+WIFI", "LORA", "SKYLO", "WIFI"],
     "properties": { ... },
     "oneOf": [
@@ -81,10 +79,12 @@ canonical ordering reference. Top-level fields in order:
 
 - `title` follows the pattern
   `"<category>.<api> Request/Response Application Programming Interface (API) Schema"`.
-- `version` is the schema's own version; `apiVersion` is the Notecard firmware
-  version the schema describes. Current repo-wide values are `1.1.2` and
-  `9.1.1` — check an existing schema rather than trusting this line if it looks
-  stale.
+- Individual req/rsp schemas have **no** `version` or `apiVersion` field, and
+  the committed `notecard.api.json` has no `version` (tests enforce both). The
+  only committed version is `apiVersion` at the top of `notecard.api.json`: the
+  Notecard firmware version the schemas describe, maintained by hand. Schema
+  releases are versioned by git tag; `release-schema.yml` adds `version` to the
+  uploaded release asset. Don't add or bump versions as part of a schema edit.
 - `links` is optional and always placed last, after `samples`.
 - Use **`"unevaluatedProperties": false`**, not `additionalProperties`. Request
   schemas put `req`/`cmd` inside `oneOf`, and `additionalProperties` does not
@@ -126,6 +126,16 @@ Valid `title` values are `"note"`, `"warning"`, and `"deprecated"`.
     }
 ]
 ```
+
+### `deprecated`
+
+Going forward, record **when** something was deprecated, not just that it is.
+When you mark an API, property, or enum value `"deprecated": true`, also note
+the firmware version it was deprecated in, verified against the
+`blues/notecard` history. There's no dedicated field for this yet, so put the
+version in the deprecation text, as `env.set` does ("deprecated as of v7.2.2").
+Most existing deprecations, such as `card.aux`'s `gps` argument, don't record a
+version. Add one when you're already editing that item and can confirm it.
 
 ### `samples`
 
@@ -205,9 +215,9 @@ belong in the custom fields above rather than being dropped.
    `tests/test_card_example_rsp.py`, and registers the request schema in
    `notecard.api.json`.
 
-   > The scaffold currently emits two stale defaults: `"version": "0.2.1"`
-   > (repo is at `1.1.2`) and `"additionalProperties": false` (repo uses
-   > `"unevaluatedProperties": false`). Correct both in the generated files.
+   > The scaffold currently emits a stale default: `"additionalProperties":
+   > false` (repo uses `"unevaluatedProperties": false`). Correct it in the
+   > generated files.
 3. **Fill in** both schema files with the verbatim API details.
 4. **Verify the index** — `notecard.api.json` gets a `$ref` to the **request
    schema only**. Response schemas are never added to the index.
@@ -221,19 +231,12 @@ belong in the custom fields above rather than being dropped.
 ## Updating an Existing Schema
 
 1. Reconcile the schema against the current `blues/notecard` `/src` definition.
-2. **Bump `version`** according to what changed:
-   - **patch** — `description` changes only
-   - **minor** — `properties` changes
-   - **major** — breaking changes
-3. Reflect any new or changed fields, including custom fields.
-4. Update the test suite to cover new or changed behavior.
-5. Run the tests and commit with a message describing the update.
+2. Reflect any new or changed fields, including custom fields.
+3. Update the test suite to cover new or changed behavior.
+4. Run the tests and commit with a message describing the update.
 
-To bump the firmware version the schemas target:
-
-```bash
-python3 scripts/update_schema_version.py --property apiVersion --target-version 9.1.2 --pattern "card.attn.*"
-```
+When the schemas are brought up to date with a newer Notecard firmware release,
+update `apiVersion` at the top of `notecard.api.json`.
 
 ## Pull Request Scope
 
@@ -327,13 +330,6 @@ python3 scripts/fix_schema_property_order.py --all --dry-run
 python3 scripts/fix_schema_property_order.py --all
 ```
 
-### `update_schema_version.py` — bulk version updates
-
-```bash
-python3 scripts/update_schema_version.py --property apiVersion --target-version 9.2.0
-python3 scripts/update_schema_version.py --property version --target-version 1.1.3 --pattern "card.*"
-```
-
 ## QA Checklist Before Submitting
 
 **Scope**
@@ -358,7 +354,6 @@ python3 scripts/update_schema_version.py --property version --target-version 1.1
 - [ ] `unevaluatedProperties: false` is set (not `additionalProperties`)
 - [ ] The **request** schema is registered in `notecard.api.json`
 - [ ] Properties are alphabetical with `req`/`cmd` last
-- [ ] `version` bumped per the patch/minor/major rule above
 
 **Tests**
 

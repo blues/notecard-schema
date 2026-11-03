@@ -4,8 +4,6 @@
     "title": "card.wifi Request Application Programming Interface (API) Schema",
     "description": "Sets up a Notecard's connection to a WiFi access point.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL+WIFI",
         "SKYLO",

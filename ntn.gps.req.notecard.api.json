@@ -4,8 +4,6 @@
     "title": "ntn.gps Request Application Programming Interface (API) Schema",
     "description": "On a Notecard paired with a Starnote, this controls whether the Notecard supplies a location it already knows to the Starnote for satellite use. It does not, by default.\n\nOn Notecard for Skylo, the satellite radio and the GPS/GNSS are part of the same module, and by default that module gets its own GPS/GNSS fix while it registers. This request controls whether the Notecard instead passes the module a location it already knows (typically a fixed location set with `card.location.mode`), which lets the module skip its own fix and register faster.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [
         "CELL",
