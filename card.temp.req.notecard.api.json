@@ -63,7 +63,7 @@
     "annotations": [
         {
             "title": "warning",
-            "description": "`card.temp` measures the temperature *around the Notecard* \u2014 effectively the temperature inside your electronics enclosure, which can be influenced by heat from the Notecard's own modem and nearby components. If your application needs an accurate ambient-air measurement, use a dedicated external temperature sensor with documented accuracy and response time.\n\nNotecard Cellular and Notecard Cell+WiFi have built-in support for two such sensors. If you connect a BME280 sensor on the I2C bus, the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus, the Notecard will add `temperature` and `humidity` fields to the response."
+            "description": "`card.temp` measures the temperature *around the Notecard* \u2014 effectively the temperature inside your electronics enclosure, which can be influenced by heat from the Notecard's own modem and nearby components. If your application needs an accurate ambient-air measurement, use a dedicated external temperature sensor with documented accuracy and response time.\n\nNotecard Cellular, Notecard Cell+WiFi, and Notecard for LoRa have built-in support for two such sensors. If you connect a BME280 sensor on the I2C bus, the Notecard will add `temperature`, `pressure`, and `humidity` fields to the response. If you connect an ENS210 sensor on the I2C bus, the Notecard will add `temperature` and `humidity` fields to the response."
         }
     ],
     "samples": [

@@ -18,7 +18,7 @@
             "minApiVersion": "7.2.1"
         },
         "method": {
-            "description": "The connectivity method to enable on the Notecard.",
+            "description": "The connectivity method to enable on the Notecard. See [Connection Retry and Fallback Behaviors](/support/connection-retry-and-fallback-behaviors/) for when the Notecard falls back to the next transport and when it retries the preferred one.",
             "type": "string",
             "enum": [
                 "-",
@@ -209,6 +209,10 @@
         }
     ],
     "links": [
+        {
+            "title": "Connection Retry and Fallback Behaviors",
+            "url": "https://dev.blues.io/support/connection-retry-and-fallback-behaviors/"
+        },
         {
             "title": "Understanding NTN Transport Mode",
             "url": "https://dev.blues.io/quickstart/starnote-quickstart/#understanding-ntn-transport-mode"

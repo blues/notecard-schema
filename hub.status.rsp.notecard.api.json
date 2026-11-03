@@ -40,6 +40,10 @@
                 "notecard.codes.json#/$defs/web-payload"
             ]
         },
+        "signals": {
+            "description": "The number of inbound [signals](/api-reference/glossary/#signal) waiting to be read with `hub.signal`.",
+            "type": "integer"
+        },
         "status": {
             "description": "Details about the Notecard's transport (e.g. cellular, WiFi, LoRa) connection status.\n\nUse `connected` to check if the Notecard is connected to Notehub.",
             "type": "string",
@@ -92,7 +96,7 @@
         {
             "title": "Disconnected Status",
             "description": "Response when Notecard is not connected to Notehub.",
-            "json": "{\"status\": \"disconnected\"}"
+            "json": "{\"status\": \"idle {disconnected} {idle}\"}"
         }
     ]
 }

@@ -12,7 +12,7 @@
     ],
     "properties": {
         "alert": {
-            "description": "`true` if an error occurred during the most recent sync.",
+            "description": "`true` if an error occurred during the most recent sync, or if a [penalty box](/support/understanding-notecard-penalty-boxes/) is delaying the next connection.",
             "type": "boolean"
         },
         "completed": {
@@ -93,7 +93,7 @@
             "type": "string"
         },
         "requested": {
-            "description": "Number of seconds since the last explicit sync request.",
+            "description": "If a sync is pending or in progress, the number of seconds since it was requested.",
             "type": "integer"
         },
         "scan": {
@@ -234,7 +234,7 @@
             ]
         },
         "sync": {
-            "description": "`true` if the notecard has unsynchronized notes, or requires a sync to set its internal clock.",
+            "description": "`true` if the Notecard has unsynchronized Notes, or requires a sync to set its internal clock.",
             "type": "boolean"
         },
         "time": {
@@ -255,7 +255,7 @@
         {
             "title": "Sync Status with Penalty Box",
             "description": "Response when Notecard is in penalty box.",
-            "json": "{\"status\": \"waiting {network-down}\", \"mode\": \"{modem-off}\", \"seconds\": 300}"
+            "json": "{\"status\": \"network: can't connect (14.5 min remaining) {registration-failure}{network}{extended-network-failure}\", \"mode\": \"{modem-off}\", \"alert\": true, \"seconds\": 870}"
         },
         {
             "title": "Recent Sync with Triangulation",

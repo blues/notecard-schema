@@ -11,11 +11,6 @@
         "WIFI"
     ],
     "properties": {
-        "seconds": {
-            "description": "The number of seconds to wait before timing out the request.",
-            "type": "integer",
-            "minApiVersion": "5.1.1"
-        },
         "req": {
             "description": "Request for the Notecard (expects response)",
             "const": "hub.signal"
@@ -63,11 +58,6 @@
             "title": "Receive a Signal",
             "description": "Check for an inbound signal from Notehub.",
             "json": "{\"req\": \"hub.signal\"}"
-        },
-        {
-            "title": "Receive Signal with Timeout",
-            "description": "Check for an inbound signal with custom timeout.",
-            "json": "{\"req\": \"hub.signal\", \"seconds\": 30}"
         }
     ],
     "links": [

@@ -46,7 +46,7 @@
             "minApiVersion": "7.5.1"
         },
         "time": {
-            "description": "The UNIX Epoch Time of approximately when the Notecard was first powered up.",
+            "description": "The approximate UNIX epoch time when the Notecard last powered up or restarted.",
             "type": "integer"
         },
         "usb": {

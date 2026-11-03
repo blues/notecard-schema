@@ -224,6 +224,16 @@ def test_strict_validation(schema):
             jsonschema.validate(instance=instance, schema=schema)
         assert "Unevaluated properties are not allowed" in str(excinfo.value)
 
+def test_signals_valid(schema):
+    """Tests valid signals field."""
+    instance = {"status": "connected (session open) {connected}", "connected": True, "signals": 2}
+    jsonschema.validate(instance=instance, schema=schema)
+
+def test_signals_invalid_type(schema):
+    """Tests invalid type for signals field."""
+    with pytest.raises(jsonschema.ValidationError):
+        jsonschema.validate(instance={"status": "connected", "signals": "2"}, schema=schema)
+
 def test_validate_samples_from_schema(schema, schema_samples):
     """Tests that samples in the schema definition are valid."""
     for sample in schema_samples:

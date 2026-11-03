@@ -12,15 +12,15 @@
     ],
     "properties": {
         "alert": {
-            "description": "`true` if the message is urgent. This doesn't change any functionality, but rather `alert` is provided as a convenient flag to use in your program logic.",
+            "description": "`true` if the message is urgent. This doesn't change how the Notecard handles the message. It adds `\"alert\":true` to the logged Note, so you can act on it after the Note reaches Notehub.",
             "type": "boolean"
         },
         "sync": {
-            "description": "`true` if a sync should be initiated immediately. Setting `true` will also remove the Notecard from certain types of penalty boxes.",
+            "description": "`true` to sync the log message to Notehub immediately. Setting `true` also removes the Notecard from certain types of [penalty boxes](/support/understanding-notecard-penalty-boxes/).",
             "type": "boolean"
         },
         "text": {
-            "description": "Text to log.",
+            "description": "Text to log. If omitted, nothing is logged.",
             "type": "string"
         },
         "req": {
