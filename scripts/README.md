@@ -1,7 +1,7 @@
 # Notecard Schema Scripts
 
 This directory contains utility scripts for working with the Notecard JSON schemas.
-These scripts help with schema creation, documentation generation, version management, and publishing workflows.
+These scripts help with schema creation, documentation generation, and publishing workflows.
 
 ## Scripts Overview
 
@@ -56,51 +56,6 @@ This is primarily a utility module imported by other scripts, but can be used di
 
 ---
 
-### 3. `update_schema_version.py` - Version Management
-
-Updates version strings across multiple schema files.
-
-**Usage:**
-
-```bash
-python3 scripts/update_schema_version.py --property PROPERTY --target-version VERSION [options]
-```
-
-**Required Arguments:**
-
-- `--property` - Property to update (`version` or `apiVersion`)
-- `--target-version` - Target version (e.g., `9.1.1`)
-
-**Optional Arguments:**
-
-```bash
---dir DIR                # Directory containing schemas (default: current)
---pattern PATTERN        # File pattern (default: *.json)
-```
-
-**Examples:**
-
-```bash
-# Update API version for all schemas
-python3 scripts/update_schema_version.py --property apiVersion --target-version 9.2.0
-
-# Update schema version for card.* APIs only
-python3 scripts/update_schema_version.py --property version --target-version 0.2.2 --pattern "card.*.json"
-
-# Update in specific directory
-python3 scripts/update_schema_version.py --property apiVersion --target-version 9.1.1 --dir /path/to/schemas
-```
-
-**Features:**
-
-- Bulk updates across multiple files
-- Semantic version validation
-- File pattern matching support
-- Preserves JSON formatting
-- Skips files that already have target version
-
----
-
 ## Common Workflows
 
 ### Creating a New API
@@ -122,19 +77,11 @@ python3 scripts/update_schema_version.py --property apiVersion --target-version 
 The blues.dev API reference picks the new API up on the next release; see
 [Automation](#automation) below.
 
-### Version Management
+### Updating the Firmware Version
 
-1. **Update API version across all schemas:**
-
-   ```bash
-   python3 scripts/update_schema_version.py --property apiVersion --target-version 9.2.0
-   ```
-
-2. **Update specific schema versions:**
-
-   ```bash
-   python3 scripts/update_schema_version.py --property version --target-version 0.3.0 --pattern "card.*.json"
-   ```
+When the schemas are brought up to date with a newer Notecard firmware release,
+update `apiVersion` at the top of `notecard.api.json`. Individual req/rsp
+schemas don't carry version fields.
 
 ## Requirements
 

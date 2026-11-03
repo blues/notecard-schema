@@ -4,8 +4,6 @@
     "title": "ntn.config Response Application Programming Interface (API) Schema",
     "description": "Response describing the configuration and identity of the paired Starnote or integrated satellite modem. Fields the module has not reported are omitted.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "minApiVersion": "6.2.3",
     "skus": [
         "CELL",

@@ -4,8 +4,6 @@
     "title": "hub.sync Response Application Programming Interface (API) Schema",
     "description": "Response from manually initiating a sync with Notehub.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

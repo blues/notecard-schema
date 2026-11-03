@@ -4,8 +4,6 @@
     "title": "card.usage.test Request Application Programming Interface (API) Schema",
     "description": "Calculates a projection of how long the available cellular data quota will last based on the observed usage patterns.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

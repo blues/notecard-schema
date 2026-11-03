@@ -4,8 +4,6 @@
     "title": "card.trace Response Application Programming Interface (API) Schema",
     "description": "Response from trace mode configuration request. Returns an empty object upon successful completion.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

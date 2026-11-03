@@ -4,8 +4,6 @@
     "title": "card.temp Request Application Programming Interface (API) Schema",
     "description": "Get the current temperature from the Notecard's onboard calibrated temperature sensor.",
     "type": "object",
-    "version": "1.1.2",
-    "apiVersion": "9.1.1",
     "skus": [
         "CELL",
         "CELL+WIFI",

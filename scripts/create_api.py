@@ -26,8 +26,6 @@ def create_request_schema_template(api_name: str) -> Dict[str, Any]:
         "title": f"{api_name} Request Application Programming Interface (API) Schema",
         "description": f"Request schema for {api_name} API command.",
         "type": "object",
-        "version": "0.2.1",
-        "apiVersion": "9.1.1",
         "skus": [
             "CELL",
             "CELL+WIFI",
@@ -87,8 +85,6 @@ def create_response_schema_template(api_name: str) -> Dict[str, Any]:
         "$id": f"https://raw.githubusercontent.com/blues/notecard-schema/master/{api_name}.rsp.notecard.api.json",
         "title": f"{api_name} Response Application Programming Interface (API) Schema",
         "type": "object",
-        "version": "0.2.1",
-        "apiVersion": "9.1.1",
         "skus": [
             "CELL",
             "CELL+WIFI",
@@ -290,7 +286,7 @@ def create_files(api_name: str) -> None:
     print(f"\n✅ Successfully created API templates for '{api_name}'!")
     print(f"\nNext steps:")
     print(f"1. Edit {api_name}.req.notecard.api.json to add specific request properties")
-    print(f"   - Follow field order: $schema, $id, title, description, type, version, apiVersion, skus, properties, oneOf, additionalProperties, allOf (if needed), annotations, samples")
+    print(f"   - Follow field order: $schema, $id, title, description, type, skus, properties, oneOf, additionalProperties, allOf (if needed), annotations, samples")
     print(f"   - Add minApiVersion to properties that require specific API versions")
     print(f"   - Add sub-descriptions for enum values")
     print(f"   - Add parameter-level SKUs where applicable")

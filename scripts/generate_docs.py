@@ -329,20 +329,6 @@ def main():
     for base_name in sorted(grouped_schemas.keys()):
         markdown_output.append(f"### `{base_name}`")
 
-        # Add version info if available (from request schema)
-        request_schema = grouped_schemas[base_name]['request']
-        if request_schema:
-            schema_data = request_schema[1]
-            version_info = []
-            if 'version' in schema_data:
-                version_info.append(f"Schema Version: `{schema_data['version']}`")
-            if 'apiVersion' in schema_data:
-                version_info.append(f"API Version: `{schema_data['apiVersion']}`")
-
-            if version_info:
-                markdown_output.append("#### Version Information\n")
-                markdown_output.append(" | ".join(version_info) + "\n\n")
-
         # Add API SKU if available
         if grouped_schemas[base_name]['request'] and 'skus' in grouped_schemas[base_name]['request'][1]:
             sku = grouped_schemas[base_name]['request'][1]['skus']
