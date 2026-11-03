@@ -33,8 +33,8 @@ rm -f "$TEST_FILE.bak"
 
 echo "Creating release-specific schema file..."
 
-# Stamp the release version into the top-level schema
-sed -i '' -E "s|^    \"version\": \"[^\"]*\"|    \"version\": \"${VERSION}\"|" "$TEST_FILE"
+# Add the release version to the top-level schema
+python3 scripts/stamp_release_version.py "$VERSION" "$TEST_FILE"
 
 # Update URLs to point to the tagged version
 sed -i '' "s|https://raw.githubusercontent.com/blues/notecard-schema/master/|https://raw.githubusercontent.com/blues/notecard-schema/refs/tags/${TAG_NAME}/|g" "$TEST_FILE"

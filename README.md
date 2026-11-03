@@ -278,13 +278,15 @@ Example shown from `card.attn`:
 
 ## Versioning
 
-Version info lives only at the top of `notecard.api.json`. Individual req/rsp
-schemas don't have `version` or `apiVersion` fields.
+The only version field committed to the repo is `apiVersion` at the top of
+`notecard.api.json`: the Notecard firmware version the schemas describe. Update
+it by hand when the schemas are brought up to date with a newer firmware
+release. Individual req/rsp schemas have no version fields.
 
-- `apiVersion` is the Notecard firmware version the schemas describe. Update it
-  by hand when the schemas are brought up to date with a newer firmware release.
-- `version` is the schema release. The `release-schema.yml` workflow sets it
-  from the release tag, so don't edit it by hand.
+Schema releases are versioned by git tag. When a release is published, the
+`release-schema.yml` workflow adds a top-level `version` (taken from the tag) to
+the `notecard.api.json` it uploads as a release asset. Don't add `version` to
+the committed file.
 
 ## Running the tests
 

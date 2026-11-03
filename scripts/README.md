@@ -81,7 +81,9 @@ The blues.dev API reference picks the new API up on the next release; see
 
 When the schemas are brought up to date with a newer Notecard firmware release,
 update `apiVersion` at the top of `notecard.api.json`. Individual req/rsp
-schemas don't carry version fields.
+schemas don't carry version fields, and the committed `notecard.api.json` has
+no `version`. Schema releases are versioned by git tag, and the release
+workflow adds `version` to the uploaded asset with `stamp_release_version.py`.
 
 ## Requirements
 

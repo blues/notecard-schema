@@ -216,3 +216,14 @@ def test_no_per_file_versions(schema_file):
             f"{os.path.basename(schema_file)} has a top-level '{field}'. "
             "Version info lives only in notecard.api.json."
         )
+
+
+def test_index_has_no_committed_version():
+    """notecard.api.json carries apiVersion only; release adds `version` from the tag."""
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    keys = get_json_keys_order(os.path.join(project_root, "notecard.api.json"))
+    assert "apiVersion" in keys, "notecard.api.json must have a top-level 'apiVersion'."
+    assert "version" not in keys, (
+        "notecard.api.json must not have a committed 'version'; "
+        "release-schema.yml adds it from the release tag."
+    )

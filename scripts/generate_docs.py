@@ -310,7 +310,6 @@ def main():
     print(f"Generating Markdown for {len(grouped_schemas)} API groups...")
     markdown_output = []
     api_version = main_schema.get("apiVersion", "Unknown")
-    schema_version = main_schema.get("version", "Unknown")
 
     markdown_output.append("---")
     markdown_output.append("layout: default")
@@ -319,7 +318,7 @@ def main():
     markdown_output.append("") # Add a blank line after front matter
 
     # markdown_output.append("# Notecard API Reference\n")
-    markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) version {schema_version} (API Version: {api_version})_\n")
+    markdown_output.append(f"_Generated from [notecard-schema](https://github.com/blues/notecard-schema) (Notecard firmware {api_version})_\n")
     markdown_output.append("## API Reference\n")
     markdown_output.append("The Notecard accepts requests in JSON format. Each request object must contain a `req` or `cmd` field specifying the request type. E.g. `{\"req\": \"card.status\"}` or `{\"cmd\": \"card.status\"}`\n")
     markdown_output.append("!!! warning\n")

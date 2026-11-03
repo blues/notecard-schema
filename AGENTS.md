@@ -79,12 +79,12 @@ canonical ordering reference. Top-level fields in order:
 
 - `title` follows the pattern
   `"<category>.<api> Request/Response Application Programming Interface (API) Schema"`.
-- Individual req/rsp schemas have **no** `version` or `apiVersion` field (a
-  test enforces this). Version info lives only at the top of
-  `notecard.api.json`: `apiVersion` is the Notecard firmware version the
-  schemas describe (maintained by hand), and `version` is the schema release,
-  stamped from the git tag by `release-schema.yml`. Don't bump either as part of
-  a schema edit.
+- Individual req/rsp schemas have **no** `version` or `apiVersion` field, and
+  the committed `notecard.api.json` has no `version` (tests enforce both). The
+  only committed version is `apiVersion` at the top of `notecard.api.json`: the
+  Notecard firmware version the schemas describe, maintained by hand. Schema
+  releases are versioned by git tag; `release-schema.yml` adds `version` to the
+  uploaded release asset. Don't add or bump versions as part of a schema edit.
 - `links` is optional and always placed last, after `samples`.
 - Use **`"unevaluatedProperties": false`**, not `additionalProperties`. Request
   schemas put `req`/`cmd` inside `oneOf`, and `additionalProperties` does not

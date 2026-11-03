@@ -19,8 +19,9 @@ Triggers:
 
 ## `release-schema.yml` — Release asset
 
-On a published release, stamps the release version into the top-level
-`version` property of `notecard.api.json`, rewrites its `$ref`s and `$id` to
+On a published release, adds the release version as a top-level `version`
+property of `notecard.api.json` (via `scripts/stamp_release_version.py`; the
+committed file has none), rewrites its `$ref`s and `$id` to
 point at the tagged refs instead of `master`, and uploads that file as a release
 asset.
 
