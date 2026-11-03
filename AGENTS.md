@@ -127,6 +127,16 @@ Valid `title` values are `"note"`, `"warning"`, and `"deprecated"`.
 ]
 ```
 
+### `deprecated`
+
+Going forward, record **when** something was deprecated, not just that it is.
+When you mark an API, property, or enum value `"deprecated": true`, also note
+the firmware version it was deprecated in, verified against the
+`blues/notecard` history. There's no dedicated field for this yet, so put the
+version in the deprecation text, as `env.set` does ("deprecated as of v7.2.2").
+Most existing deprecations, such as `card.aux`'s `gps` argument, don't record a
+version. Add one when you're already editing that item and can confirm it.
+
 ### `samples`
 
 Every `req` schema must have at least one sample. For `rsp` schemas, samples
