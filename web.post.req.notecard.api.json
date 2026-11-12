@@ -17,7 +17,7 @@
             "minApiVersion": "5.1.1"
         },
         "binary": {
-            "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).\n\nNot available while Notecard is syncing over satellite (NTN). See [Send Binary Data over Cellular or WiFi](https://dev.blues.io/starnote/satellite-best-practices/#send-binary-data-over-cellular-or-wifi).",
+            "description": "If `true`, the Notecard will send all the data in the binary buffer to the specified proxy route in Notehub.\n\nLearn more in this guide on [Sending and Receiving Large Binary Objects](https://dev.blues.io/guides-and-tutorials/notecard-guides/sending-and-receiving-large-binary-objects/).\n\nNot available while NTN is the active transport. See [Send Binary Data over Cellular or WiFi](https://dev.blues.io/starnote/satellite-best-practices/#send-binary-data-over-cellular-or-wifi).",
             "type": "boolean",
             "minApiVersion": "5.3.1"
         },
