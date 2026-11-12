@@ -59,6 +59,12 @@
         }
     ],
     "unevaluatedProperties": false,
+    "annotations": [
+        {
+            "title": "note",
+            "description": "Binary transfers aren't available while Notecard is syncing over satellite (NTN), because NTN uses the binary storage area for its outbound packet queue. While NTN is active, this request returns `{\"err\":\"binary not supported when configured for NTN\"}`, and a switch to NTN discards any binary data already stored. See [Send Binary Data over Cellular or WiFi](https://dev.blues.io/starnote/satellite-best-practices/#send-binary-data-over-cellular-or-wifi)."
+        }
+    ],
     "samples": [
         {
             "title": "Get All Binary Data",
