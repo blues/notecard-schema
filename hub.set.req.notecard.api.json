@@ -104,7 +104,7 @@
                 },
                 {
                     "const": "off",
-                    "description": "Disables automatic and manual syncs. `hub.sync` requests will be ignored in this mode. OTA DFU updates are not available when using this mode."
+                    "description": "Disables automatic and manual syncs and keeps the modem powered off, effectively putting the Notecard in airplane mode. While in this mode, the Notecard ignores `hub.sync` requests and cannot receive OTA DFU updates."
                 },
                 {
                     "const": "dfu",

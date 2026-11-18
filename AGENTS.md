@@ -240,9 +240,14 @@ update `apiVersion` at the top of `notecard.api.json`.
 
 ## Pull Request Scope
 
-**One API per PR.** Each pull request targets a single API (e.g. `card.aux`).
-If changes span multiple APIs, split them into separate PRs — one per API. This
-keeps reviews focused and history bisectable.
+**Default to one API per PR.** A pull request that adds an API or changes its
+structure (properties, types, enums, `required`, tests) targets a single API
+(e.g. `card.aux`). If such changes span multiple APIs, split them into separate
+PRs — one per API. This keeps reviews focused and history bisectable.
+
+**Exception: description-only fixes.** Small wording corrections to existing
+descriptions, annotations, or samples can span multiple APIs in one PR when they
+don't change any schema structure. List each API touched in the PR description.
 
 ## Tests
 
@@ -334,7 +339,8 @@ python3 scripts/fix_schema_property_order.py --all
 
 **Scope**
 
-- [ ] PR targets exactly one API — split multi-API changes into separate PRs
+- [ ] PR targets exactly one API, or contains only description-level fixes
+      across APIs (see [Pull Request Scope](#pull-request-scope))
 - [ ] If this is a new API: the user has explicitly approved adding it
 
 **Accuracy — verified against `blues/notecard` `/src`**

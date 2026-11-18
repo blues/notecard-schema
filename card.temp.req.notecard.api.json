@@ -13,7 +13,7 @@
     ],
     "properties": {
         "minutes": {
-            "description": "If specified, creates a templated `_temp.qo` file that gathers Notecard temperature value at the specified minutes interval. _When using [card.aux track mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-track-mode), the sensor temperature, pressure, and humidity is also included with each Note._",
+            "description": "If specified, creates a templated `_temp.qo` Notefile that records the Notecard's temperature at the specified interval in minutes.\n\nIf the Notecard detects a BME280 or ENS210 sensor on its I2C bus, or a BME280 connected to its AUX pins using [card.aux track mode](/notecard/notecard-walkthrough/working-with-the-notecard-aux-pins#using-aux-track-mode), each Note uses the sensor's temperature instead and includes humidity readings. Notes from BME280 sensors also include pressure readings.",
             "type": "integer"
         },
         "status": {

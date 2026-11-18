@@ -197,7 +197,7 @@
                 },
                 {
                     "const": "track",
-                    "description": "Enhance Notes in the `_track.qo` Notefile with temperature, pressure, and humidity readings from a connected BME280 sensor.",
+                    "description": "Read a BME280 sensor wired to the AUX pins and add its temperature, pressure, and humidity readings to Notes. Readings are added to `_track.qo` when tracking is enabled, and to `_temp.qo` when periodic temperature Notes are enabled.",
                     "skus": [
                         "CELL",
                         "CELL+WIFI",
@@ -547,7 +547,7 @@
         },
         {
             "title": "Track Mode",
-            "description": "Enhance Notes with temperature, pressure, and humidity readings from a connected BME280 sensor.",
+            "description": "Read a BME280 sensor wired to the AUX pins and add its temperature, pressure, and humidity readings to Notes.",
             "json": "{\"req\": \"card.aux\", \"mode\": \"track\"}"
         },
         {
