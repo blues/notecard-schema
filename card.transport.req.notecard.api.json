@@ -18,7 +18,7 @@
             "minApiVersion": "7.2.1"
         },
         "method": {
-            "description": "The connectivity method to enable on the Notecard. See [Connection Retry and Fallback Behaviors](/support/connection-retry-and-fallback-behaviors/) for when the Notecard falls back to the next transport and when it retries the preferred one.",
+            "description": "The connectivity method to enable on the Notecard. See [Connection Retry and Fallback Behaviors](/support/connection-retry-and-fallback-behaviors/) for when the Notecard falls back to the next transport and when it retries the preferred one.\n\nIf the new value changes the transport (for example, from `wifi` to `cell`), the Notecard closes any open Notehub session and uses the new transport on its next connection.",
             "type": "string",
             "enum": [
                 "-",
