@@ -14,9 +14,27 @@
             "description": "Number of bytes received by the Notecard from Notehub.",
             "type": "integer"
         },
+        "bytes_received_secondary": {
+            "description": "The part of `bytes_received` that Notecard received over an external SIM. It's already included in `bytes_received`, so don't add the two. Only returned when `mode` is `\"total\"`.",
+            "type": "integer",
+            "skus": [
+                "CELL",
+                "CELL+WIFI"
+            ],
+            "minApiVersion": "3.4.1"
+        },
         "bytes_sent": {
             "description": "Number of bytes sent by the Notecard to Notehub.",
             "type": "integer"
+        },
+        "bytes_sent_secondary": {
+            "description": "The part of `bytes_sent` that Notecard sent over an external SIM. It's already included in `bytes_sent`, so don't add the two. Only returned when `mode` is `\"total\"`.",
+            "type": "integer",
+            "skus": [
+                "CELL",
+                "CELL+WIFI"
+            ],
+            "minApiVersion": "3.4.1"
         },
         "notes_received": {
             "description": "Approximate number of notes received by the Notecard from Notehub.",
