@@ -26,7 +26,7 @@
             "type": "integer"
         },
         "movements": {
-            "description": "If the `minutes` argument is provided, a string of base-36 characters, where each character represents the number of accelerometer movements in each bucket during the sample duration. Each character will be a digit 0-9, A-Z to indicate a count of 10-35, or `*` to indicate a count greater than 35.",
+            "description": "If the `minutes` argument is provided, a string of characters, where each character represents the number of accelerometer movements in each bucket during the sample duration. Each character will be a digit `0`-`9` for a count of 0-9, a letter `A`-`P` for a count of 10-25, or `Z` for a count of 26 or more.",
             "type": "string"
         },
         "seconds": {

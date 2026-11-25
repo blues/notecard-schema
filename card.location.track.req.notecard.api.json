@@ -25,7 +25,7 @@
             "type": "integer"
         },
         "payload": {
-            "description": "A base64-encoded binary payload to be included in the next `_track.qo` Note. See the guide on [Sampling at Predefined Intervals](/notecard/notecard-walkthrough/time-and-location-requests/#sampling-at-predefined-intervals) for more details.",
+            "description": "A base64-encoded binary payload to attach to the next `_track.qo` Note of the current [journey](/api-reference/glossary/#journey). Notecard ignores it unless tracking is on and a journey is in progress, and discards it if the journey ends before that Note is added. See the guide on [Sampling at Predefined Intervals](/notecard/notecard-walkthrough/time-and-location-requests/#sampling-at-predefined-intervals) for more details.",
             "type": "string",
             "contentEncoding": "base64",
             "minApiVersion": "7.5.2"
