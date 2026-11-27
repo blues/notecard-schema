@@ -15,7 +15,7 @@
             "type": "integer"
         },
         "bytes_received_secondary": {
-            "description": "The part of `bytes_received` that Notecard received over an external SIM. It's already included in `bytes_received`, so don't add the two. Only returned when `mode` is `\"total\"`.",
+            "description": "The part of `bytes_received` that Notecard received over an external SIM. This value is already included in `bytes_received` and should not be added to it when calculating total data usage. Only returned when `mode` is `\"total\"`.",
             "type": "integer",
             "skus": [
                 "CELL",
@@ -28,7 +28,7 @@
             "type": "integer"
         },
         "bytes_sent_secondary": {
-            "description": "The part of `bytes_sent` that Notecard sent over an external SIM. It's already included in `bytes_sent`, so don't add the two. Only returned when `mode` is `\"total\"`.",
+            "description": "The part of `bytes_sent` that Notecard sent over an external SIM. This value is already included in `bytes_sent` and should not be added to it when calculating total data usage. Only returned when `mode` is `\"total\"`.",
             "type": "integer",
             "skus": [
                 "CELL",
