@@ -14,6 +14,7 @@ def test_minimal_valid_rsp(schema):
     "field_name",
     [
         "seconds", "time", "bytes_sent", "bytes_received",
+        "bytes_sent_secondary", "bytes_received_secondary",
         "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
@@ -30,6 +31,7 @@ def test_valid_integer_field(schema, field_name):
     "field_name",
     [
         "seconds", "time", "bytes_sent", "bytes_received",
+        "bytes_sent_secondary", "bytes_received_secondary",
         "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
@@ -44,6 +46,7 @@ def test_invalid_type_for_integer_field(schema, field_name):
     "field_name",
     [
         "seconds", "time", "bytes_sent", "bytes_received", 
+        "bytes_sent_secondary", "bytes_received_secondary",
         "notes_sent", "notes_received", "sessions_standard", "sessions_secure"
     ]
 )
@@ -61,6 +64,8 @@ def test_valid_all_fields(schema):
         "time": 1700000000,
         "bytes_sent": 1024,
         "bytes_received": 2048,
+        "bytes_sent_secondary": 512,
+        "bytes_received_secondary": 1024,
         "notes_sent": 10,
         "notes_received": 5,
         "sessions_standard": 2,
