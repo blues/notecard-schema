@@ -94,11 +94,11 @@ def test_seconds_invalid_type(schema):
         jsonschema.validate(instance=instance, schema=schema)
     assert "'300' is not of type 'integer'" in str(excinfo.value)
 
-def test_valid_movements_base36(schema):
-    """Tests valid movements field with base-36 characters."""
+def test_valid_movements_characters(schema):
+    """Tests valid movements field with each character the firmware emits (0-9, A-P, Z)."""
     instance = {"movements": "520000000000000000000A"}
     jsonschema.validate(instance=instance, schema=schema)
-    instance = {"movements": "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ*"}
+    instance = {"movements": "0123456789ABCDEFGHIJKLMNOPZ"}
     jsonschema.validate(instance=instance, schema=schema)
     instance = {"movements": ""}
     jsonschema.validate(instance=instance, schema=schema)
